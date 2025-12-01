@@ -12,8 +12,8 @@ export default function SpinnerIcon(props: SVGProps<SVGSVGElement>) {
       <path
         d="M46 24C46 11.8497 36.1503 2 24 2C11.8497 2 2 11.8497 2 24C2 36.1503 11.8497 46 24 46"
         stroke="currentColor"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
     </svg>
   );

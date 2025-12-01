@@ -176,24 +176,63 @@ components/badge/index.stories.tsx
 ```
 
 ```tsx
-import Badge from "./index";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import Badge from ".";
+import PlusOne from "../icons/PlusOneIcon";
 
-const meta: Meta<typeof Button> = {
-  title: "Design System/Navigation & Action/Button",
-  component: Button,
+const icons = {
+  None: null,
+  PlusOne: <PlusOne className="w-2.5 h-2.5 font-bold text-black" />,
+};
+
+const meta: Meta<typeof Badge> = {
+  title: "Design System/Display/Badge",
+  component: Badge,
   parameters: {
     layout: "centered",
   },
   args: {
-    children: "Button",
+    children: "Badge",
     variant: "primary",
-    size: "md",
-    shape: "rectangle",
+    size: "lg",
+  },
+  argTypes: {
+    variant: {
+      control: "select",
+      options: [
+        "primary",
+        "secondary",
+        "destructive",
+        "blue",
+        "green",
+        "brown",
+        "red",
+      ],
+    },
+    size: {
+      control: "radio",
+      options: ["lg", "md", "dot"],
+    },
+    leftIcon: {
+      control: "select",
+      options: Object.keys(icons),
+      mapping: icons,
+    },
+    rightIcon: {
+      control: "select",
+      options: Object.keys(icons),
+      mapping: icons,
+    },
+    onClick: { action: "clicked" },
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Variant Stories
 export const Primary: Story = {
-  args: { variant: "primary" },
+  args: { variant: "primary", children: "Badge" },
 };
 ```
 

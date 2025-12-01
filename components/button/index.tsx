@@ -1,5 +1,4 @@
 import { ComponentProps, ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import SpinnerIcon from "../icons/SpinnerIcon";
 
 type Variant = "primary" | "secondary" | "tertiary";
@@ -167,19 +166,5 @@ export default function Button({
         </>
       )}
     </button>
-  );
-}
-
-export function RouterButton(args: React.ComponentProps<typeof Button>) {
-  const router = useRouter();
-
-  return (
-    <Button
-      {...args}
-      onClick={() => {
-        router.push("/dashboard");
-      }}>
-      Go to Dashboard
-    </Button>
   );
 }

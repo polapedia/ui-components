@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { action } from "storybook/actions";
-import Button, { RouterButton } from ".";
+import Button from ".";
 import Link from "next/link";
 import Home from "../icons/HomeIcon";
+import { RouterButton } from "./RouterButton";
 
 const icons = {
   None: null,
