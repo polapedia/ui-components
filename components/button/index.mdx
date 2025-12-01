@@ -1,0 +1,119 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import Button from ".";
+import * as ButtonStories from "./index.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Buttons trigger actions such as submitting a form or showing or hiding an interface component.  
+They come in three emphasis levels — Primary, Secondary, and Tertiary — and support multiple sizes and shapes for different interaction patterns.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `variant`, `size`, `shape`, icons, and behavioral states like `loading` or `disabled`.
+
+---
+
+## Variants
+
+### Primary
+
+Used for the most prominent action on a screen.
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary
+
+Ideal for alternative or less prominent actions.
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Tertiary
+
+Low-emphasis option suitable for subtle or inline actions.
+
+<Canvas of={ButtonStories.Tertiary} />
+
+---
+
+## Sizes
+
+- **sm** – compact button for dense or constrained UIs.
+- **md** – default size for standard actions.
+- **lg** – large, attention-drawing actions such as primary CTA.
+
+<Canvas of={ButtonStories.Sizes} />
+
+---
+
+## Shapes
+
+- **rectangle** – default, versatile shape for most use cases.
+- **pill** – friendlier, softer shape suitable for marketing or CTA emphasis.
+- **circle** – dedicated for icon-only actions.
+
+<Canvas of={ButtonStories.Shapes} />
+
+---
+
+## UI States
+
+The Button component supports the following UI states:
+
+- **Default** – initial visual appearance.
+- **Hover** – pointer hovering state.
+- **Active / Pressed** – when the button is pressed.
+- **Disabled** – inactive, non-interactive state.
+- **Loading** – shows a spinner and blocks interaction.
+- **Focus** – visible outline when accessed via keyboard.
+
+<Canvas of={ButtonStories.States} />
+
+---
+
+## Interaction & Behavior
+
+- The Button triggers the `onClick` handler when activated.
+- Storybook logs click events in the **Actions** panel via `onClick: "clicked"`.
+- For forms, pass `type="submit"` when the Button should submit data.
+- Setting `isLoading` automatically disables the Button and shows a spinner.
+
+---
+
+## Props
+
+<ArgTypes of={ButtonStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **only one** primary button per screen to maintain a clear visual hierarchy.
+- Use secondary buttons for less important or alternative actions.
+- Use tertiary buttons for inline or low-emphasis actions.
+- Avoid using circle buttons without icons.
+- Prefer `isLoading` over combining `disabled` and `isLoading` manually; loading should block interaction and show clear feedback.
+
+---
+
+## Accessibility
+
+- The Button uses a semantic `<button>` element for accessibility.
+- Keep focus styles visible for keyboard users.
+- Ensure button labels are descriptive so screen readers can convey their purpose.
