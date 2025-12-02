@@ -1,0 +1,106 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import EmptyState from ".";
+import * as EmptyStateStories from "./index.stories";
+
+<Meta of={EmptyStateStories} />
+
+# Empty State
+
+Appears when there is no data to display and describes what the user can do next.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `title`, `description`, `layout`, and action handlers like `onPrimaryClick`, `onSecondaryClick`, and `onClose`.
+
+---
+
+## Layouts
+
+The `layout` prop controls the overall structure of the Empty State. It supports three values:
+
+- **default** – stacked layout with illustration on top and content below.
+- **horizontal** – side-by-side layout for wider viewports.
+- **card** – contained card with optional close button and actions.
+
+### Default Layout
+
+<Canvas of={EmptyStateStories.PhoneDefault} />
+<Canvas of={EmptyStateStories.TabletDefault} />
+<Canvas of={EmptyStateStories.DesktopDefault} />
+
+### Horizontal Layout
+
+<Canvas of={EmptyStateStories.PhoneHorizontal} />
+<Canvas of={EmptyStateStories.TabletHorizontal} />
+<Canvas of={EmptyStateStories.DesktopHorizontal} />
+
+### Card Layout
+
+<Canvas of={EmptyStateStories.PhoneCard} />
+<Canvas of={EmptyStateStories.TabletCard} />
+<Canvas of={EmptyStateStories.DesktopCard} />
+
+---
+
+## Content
+
+The Empty State supports configurable content:
+
+- `title` – concise, action-oriented title.
+- `description` – supporting text explaining context and next steps.
+
+---
+
+## Actions
+
+In `card` layout, the component renders primary and secondary actions:
+
+- `primaryButtonLabel`
+- `secondaryButtonLabel`
+- `onPrimaryClick`
+- `onSecondaryClick`
+- `onClose` (close icon)
+
+---
+
+## Playground Story
+
+<Canvas of={EmptyStateStories.Playground} />
+
+---
+
+## Props
+
+<ArgTypes of={EmptyStateStories} />
+
+---
+
+## Usage Guidelines
+
+- Explain **why** no content appears and guide users toward their next action.
+- Use only **one** primary action.
+- Prefer `horizontal` only on wider layouts.
+- Use `card` when the empty state is part of a sectional container.
+
+---
+
+## Accessibility
+
+- Ensure meaningful action labels.
+- Illustration alt text should be descriptive or decorative depending on use.
+- Close button must include an accessible label and be keyboard-focusable.

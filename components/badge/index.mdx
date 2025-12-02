@@ -1,0 +1,97 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import Badge from ".";
+import * as BadgeStories from "./index.stories";
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+Offers quick context about the item category, status, or meaning.  
+Badges can represent metadata such as status, category, counts, or small indicators.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props like `variant`, `size`, and icon options.
+
+---
+
+## Variants
+
+Badges support multiple emphasis and semantic variants:
+
+- **Primary** — main highlight; used sparingly for emphasis.
+- **Secondary** — neutral badges for categories or descriptors.
+- **Destructive** — indicates critical or error states.
+- **Semantic colors** (`blue`, `green`, `red`, `brown`) — used for info, success, error, and warning contexts.
+
+<Canvas of={BadgeStories.Variants} />
+
+---
+
+## Sizes
+
+- **lg** — primary label-style badge (text + optional icon).
+- **md** — compact pill, often used for tags or counts.
+- **dot** — minimal status indicator placed beside another element.
+
+<Canvas of={BadgeStories.Sizes} />
+
+---
+
+## Icons
+
+Badges can optionally include icons to reinforce meaning.
+
+Common uses:
+
+- Status or semantic badges with icons.
+- Numeric count badges with contextual icons.
+
+<Canvas of={BadgeStories.WithIcons} />
+
+---
+
+## Interaction
+
+- Badges are typically informational but can be made interactive via `onClick`.
+- For proper accessibility, wrap interactive badges with a button or anchor element.
+- In Storybook, click events appear in the **Actions** panel.
+
+---
+
+## Props
+
+<ArgTypes of={BadgeStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **primary** badges sparingly to avoid visual noise.
+- Use **secondary** badges for neutral tags or descriptors.
+- Use red/destructive variants only for negative or critical states.
+- Avoid long text; keep labels short and scannable.
+- Use **dot** size only alongside another element, not standalone.
+
+---
+
+## Accessibility
+
+- Ensure interactive badges use appropriate semantic elements (`<button>`, `<a>`) with ARIA support.
+- Provide meaningful text so screen readers can understand the badge.
+- Maintain sufficient color contrast between background and text.

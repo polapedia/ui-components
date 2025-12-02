@@ -1,0 +1,148 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import Chip from ".";
+import * as ChipStories from "./index.stories";
+
+<Meta of={ChipStories} />
+
+# Chip
+
+Chips represent compact UI elements used for labels, categories, or lightweight actions.  
+Depending on the variant, they may contain text, icons, or an avatar element.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore properties such as `variant`, `size`, left/right icons, and behavioral states like `disabled`.
+
+---
+
+## Variants
+
+### Default
+
+The standard chip with a text label and optional icons.
+
+<Canvas of={ChipStories.Default} />
+
+### Avatar
+
+A chip that includes an avatar-like element on the left side — ideal for representing users, assignees, or identifiable entities.
+
+<Canvas of={ChipStories.Avatar} />
+
+### Icon Left
+
+A chip with a leading icon, useful for indicating type or category.
+
+<Canvas of={ChipStories.IconLeft} />
+
+### Icon Right
+
+A chip with a trailing icon, often used for dropdown indicators (chevron) or dismiss actions (close icon).
+
+<Canvas of={ChipStories.IconRight} />
+
+---
+
+## Sizes
+
+Chips come in three sizes:
+
+- **xs** – compact chips suitable for secondary or dense UI layouts.
+- **sm** – the default size for most use cases.
+- **md** – a larger size for increased readability or larger touch targets.
+
+<Canvas of={ChipStories.Sizes} />
+
+---
+
+## UI States
+
+The Chip component supports the following states:
+
+- **Default** – neutral appearance.
+- **Hover** – slightly elevated surface and stronger border.
+- **Active / Pressed** – gradient background with white text.
+- **Disabled** – muted colors and non-interactive.
+- **Focus** – visible ring using `focus-visible` for keyboard users.
+
+<Canvas of={ChipStories.States} />
+
+---
+
+## Icon Usage
+
+Chips support icons on both sides:
+
+- Use `leftIcon` for icons on the left (e.g., type indicators).
+- Use `rightIcon` for icons on the right (e.g., dropdown chevron or close icon).
+- Icon sizes automatically adjust based on the chip’s `size` (`xs`, `sm`, `md`) — no manual sizing required.
+
+Examples:
+
+- `WithLeftIcon` – chip with a leading icon.
+- `WithRightIcon` – chip with a trailing icon.
+- `WithCloseIcon` – chip that visually behaves like a “closable” chip (uses `rightIcon` with a close icon).
+
+<Canvas of={ChipStories.WithLeftIcon} />
+
+<Canvas of={ChipStories.WithRightIcon} />
+
+<Canvas of={ChipStories.WithCloseIcon} />
+
+---
+
+## Interaction & Behavior
+
+- The Chip uses a semantic `<button>` element.
+- Click interactions are captured in the **Actions** panel via `onClick: "clicked"`.
+- Chips are **not toggle components** by default:
+  - If toggle behavior is needed, manage the state externally and update styling accordingly.
+- The `disabled` prop prevents interaction and dims the appearance.
+
+---
+
+## Props
+
+<ArgTypes of={ChipStories} />
+
+---
+
+## Usage Guidelines
+
+- Use chips for:
+  - Filter selections
+  - Category labels
+  - Compact, inline actions
+  - Representing entities (avatar variant)
+- Avoid using chips as replacements for primary CTAs — use **Button** instead.
+- Keep labels short; chips are designed for brief, scannable content.
+- Use right icons strategically:
+  - Chevron → opens a dropdown or menu
+  - Close icon → indicates dismissal/removal
+- Do not overload chips with too many elements; keep them simple.
+
+---
+
+## Accessibility
+
+- Chips use semantic `<button>`, ensuring:
+  - Keyboard access via <kbd>Tab</kbd>, <kbd>Enter</kbd>, and <kbd>Space</kbd>
+  - Recognition as a button by screen readers
+- Focus states are visible with `focus-visible` to support accessible navigation.
+- Provide an `aria-label` when using icon-only chips to clarify their purpose.
+- Ensure chip labels are descriptive enough for assistive technology.
