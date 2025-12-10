@@ -151,8 +151,8 @@ export default function DatePicker({
         className={[
           "w-full flex items-center justify-between p-2 rounded-xl border bg-white transition-all text-left group",
           isOpen
-            ? "border-neutral-200 hover:border-netural-300"
-            : "border-neutral-200 hover:border-netural-300",
+            ? "border-neutral-200 hover:border-neutral-300"
+            : "border-neutral-200 hover:border-neutral-300",
         ]
           .filter(Boolean)
           .join(" ")}>

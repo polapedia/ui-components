@@ -9,6 +9,8 @@ import {
   useImperativeHandle,
 } from "react";
 
+type Size = "sm" | "md";
+
 interface VerificationFieldProps {
   length?: number;
   value?: string;
@@ -20,6 +22,7 @@ interface VerificationFieldProps {
   helperText?: string;
   error?: boolean;
   className?: string;
+  size?: Size;
 }
 
 export interface VerificationFieldRef {
@@ -43,6 +46,7 @@ const VerificationField = forwardRef<
       helperText,
       error,
       className,
+      size = "md",
     },
     ref
   ) => {
@@ -51,6 +55,16 @@ const VerificationField = forwardRef<
 
     const isControlled = value !== undefined;
     const currentValue = isControlled ? value! : internalValue;
+
+    const sizeBoxClasses: Record<Size, string> = {
+      sm: "w-[36px] h-[36px]",
+      md: "w-10 h-10",
+    };
+
+    const sizeTextClasses: Record<Size, string> = {
+      sm: "text-[14px]",
+      md: "text-[16px]",
+    };
 
     // helpers
     const updateValue = (next: string) => {
@@ -166,7 +180,7 @@ const VerificationField = forwardRef<
       .join(" ");
 
     const helperClasses = [
-      "text-[12px]",
+      "text-[14px]",
       error ? "text-accents-red" : "text-content-secondary",
     ].join(" ");
 
@@ -181,7 +195,9 @@ const VerificationField = forwardRef<
             <div
               key={index}
               className={`
-                w-14 h-14 rounded-full bg-white flex items-center justify-center
+                ${
+                  sizeBoxClasses[size]
+                } rounded-full bg-white flex items-center justify-center
                 border ${error ? "border-accents-red" : "border-gray-300"}
                 shadow-sm hover:bg-background-hover transition-colors
                 focus-within:ring-1 focus-within:ring-primary-600 focus-within:ring-offset-0
@@ -199,7 +215,12 @@ const VerificationField = forwardRef<
                 onChange={handleInputChange(index)}
                 onKeyDown={handleKeyDown(index)}
                 onPaste={handlePaste(index)}
-                className="w-full h-full bg-transparent text-center text-[20px] text-content-primary outline-none border-none caret-transparent disabled:cursor-not-allowed focus:outline-none"
+                className={[
+                  "w-full h-full bg-transparent text-center text-content-primary outline-none border-none caret-transparent disabled:cursor-not-allowed focus:outline-none",
+                  sizeTextClasses[size],
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
               />
             </div>
           ))}

@@ -25,6 +25,10 @@ const meta: Meta<typeof VerificationField> = {
     disabled: {
       control: "boolean",
     },
+    size: {
+      control: "select",
+      options: ["sm", "md"],
+    },
     autoFocus: {
       control: "boolean",
       description: "Auto focus the first digit on mount",
