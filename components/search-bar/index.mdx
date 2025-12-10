@@ -1,0 +1,116 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import SearchBar from ".";
+import * as SearchBarStories from "./index.stories";
+
+<Meta of={SearchBarStories} />
+
+# SearchBar
+
+The **SearchBar** component is a styled text input designed for search interactions.  
+It supports **decorative icons on the left or right side**, responsive hover/focus states, and multiple size variants.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to experiment with props such as  
+`size`, `placeholder`, `leftIcon`, and `rightIcon`.
+
+---
+
+## Icons
+
+SearchBar supports **optional icons on either or both sides** of the input:
+
+- **Left icon** — typically used for context (e.g., search icon)
+- **Right icon** — can be used for secondary visual cues (e.g., filters, indicators)
+
+Icons are **decorative only** and do not include built-in click functionality.
+
+<Canvas of={SearchBarStories.WithIcon} />
+
+---
+
+## Sizes
+
+SearchBar offers three sizes suited for different UI densities:
+
+- **sm** - compact for tight spaces
+- **md** - balanced, recommended default
+- **lg** - roomier, ideal for hero sections or large search areas
+
+<Canvas of={SearchBarStories.Sizes} />
+
+---
+
+## Controlled Usage
+
+### Controlled via Args
+
+This story demonstrates a **controlled** SearchBar where Storybook manages its state.  
+Useful for observing input behavior when state is handled externally.
+
+<Canvas of={SearchBarStories.InteractiveControlled} />
+
+---
+
+### Local State Example
+
+Shows typical usage in applications where the search query is controlled via internal React state.
+
+<Canvas of={SearchBarStories.InteractiveLocalState} />
+
+---
+
+## Interaction & Behavior
+
+- Standard `<input>` behavior for entering text.
+- Smooth hover and focus styling to improve clarity.
+- Icons gracefully align and do not affect typing behavior.
+- Supports both controlled and uncontrolled scenarios.
+- Placeholder text is clearly distinguished with a muted style.
+
+---
+
+## Props
+
+<ArgTypes of={SearchBarStories} />
+
+Key props include:
+
+- **size**: `"sm" | "md" | "lg"`
+- **leftIcon**: `ReactNode` — optional decorative icon placed on the left
+- **rightIcon**: `ReactNode` — optional decorative icon placed on the right
+- **placeholder**: `string`
+- **value / onChange**: standard controlled input props
+
+---
+
+## Usage Guidelines
+
+- Use a **left icon** to clarify purpose (e.g., search, location).
+- Use a **right icon** when additional decoration is needed (e.g., filter indicator).
+- Icons are optional — use them only when they add clarity.
+- Prefer universal icons like magnifying glass for search patterns.
+
+---
+
+## Accessibility
+
+- Uses a semantic `<input type="text">` for full screen reader support.
+- Ensure parent components provide labels (`<label>` or `aria-label`).
+- Focus outlines remain visible for keyboard accessibility.
+- Icons are decorative and do not require accessible labels unless made interactive externally.

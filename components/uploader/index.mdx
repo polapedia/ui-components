@@ -1,0 +1,181 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as UploaderStories from "./index.stories";
+
+<Meta of={UploaderStories} />
+
+# Uploader
+
+The **Uploader** component provides a styled and accessible wrapper for  
+`<input type="file" />`, offering consistent appearance and behavior across  
+your design system. It supports two display variants, helper text, disabled  
+states, and optional multiple file uploads.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to try different props such as  
+`variant`, `multiple`, `disabled`, `label`, and `helperText`.
+
+---
+
+## Variants
+
+The Uploader supports **two visual variants**, designed for different use cases.
+
+### Compact
+
+Ideal for inline forms, settings pages, and small UI layouts.
+
+<Canvas of={UploaderStories.Variants} />
+
+### Dropzone
+
+Better suited for large upload areas or workflows that encourage  
+drag-and-drop interactions.
+
+<Canvas of={UploaderStories.Variants} />
+
+---
+
+## Multiple Files
+
+Enable `multiple` to allow selecting more than one file at a time.
+
+<Canvas of={UploaderStories.MultipleFiles} />
+
+---
+
+## UI States
+
+The Uploader supports these UI states:
+
+- **Default** - idle, ready for interaction
+- **Hover** - background subtly changes
+- **Active / Pressed** - native file dialog opens
+- **Disabled** - muted styling; no interaction allowed
+- **Focus** - accessible focus ring when tabbing
+
+<Canvas of={UploaderStories.Disabled} />
+
+---
+
+## With Local Preview / Custom Behavior
+
+You can use `onChange` to customize how uploaded files are processed  
+or displayed (e.g., dynamic helper text or preview).
+
+<Canvas of={UploaderStories.WithLocalPreview} />
+
+---
+
+## Interaction & Behavior
+
+- Clicking anywhere inside the uploader triggers a **hidden native `<input>`**.
+- If `multiple` is enabled, `event.target.files` includes all selected files.
+- The displayed filename updates automatically for the compact variant.
+- In dropzone mode, the UI suggests drag-and-drop behavior, although  
+  real drag events must be implemented separately if needed.
+- Disabled uploaders ignore all input and appear visually muted.
+
+Example:
+
+```tsx
+<Uploader
+  label="Upload files"
+  multiple
+  helperText="Up to 5 MB per file"
+  onChange={(e) => {
+    const files = e.target.files;
+    console.log(files);
+  }}
+/>
+```
+
+---
+
+## Props
+
+<ArgTypes of={UploaderStories} />
+
+Key props:
+
+- **variant** — `"compact"` | `"dropzone"`
+- **multiple** — allow selecting more than one file
+- **disabled** — prevents interaction
+- **label** — text displayed above the uploader
+- **helperText** — instructions or validation text
+- **onChange** — fires when files are selected
+
+---
+
+## Usage Guidelines
+
+### Recommended
+
+- Use **compact** variant for:
+
+  - profile settings
+  - form inputs
+  - file pickers inside small containers
+
+- Use **dropzone** variant for:
+
+  - document upload workflows
+  - image or media uploads
+  - onboarding flows where drag-and-drop is expected
+
+- Keep helper text concise: file types, size limits, or quantity allowed.
+- Always validate uploaded files on the client and server side.
+
+### Avoid
+
+- Avoid placing uploaders too close to other interactive elements;
+  input overlays may interfere with nearby UI.
+- Do not rely solely on the filename display for validation;
+  proper upload constraints must be handled in logic.
+- Avoid extremely long file names without truncation (handled in compact mode).
+
+---
+
+## Accessibility
+
+The Uploader component follows accessibility best practices:
+
+- Uses a semantic `<input type="file" />` element for assistive technologies.
+- Clickable wrapper `<label>` expands the hit area while keeping semantics intact.
+- Focus-visible states ensure keyboard accessibility.
+- File selection is announced correctly by screen readers.
+- For drag-and-drop use cases, ensure keyboard alternatives remain available.
+
+Guidelines:
+
+- Provide descriptive `label` text so screen readers convey the uploader’s purpose.
+- Use `helperText` for file requirements (e.g., size, type restrictions).
+- Maintain adequate contrast for disabled states and borders.
+
+---
+
+## Responsive Behavior
+
+Uploader components are fully responsive by default and adapt to any width.
+Given their nature, they do not require horizontal scroll previews (unlike Tabs or Navigation).
+
+However, ensure:
+
+- Dropzone layouts have enough vertical space on small screens.
+- Compact variant remains readable and unobstructed within tight layouts.
+
+---
