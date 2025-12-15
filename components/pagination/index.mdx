@@ -1,0 +1,103 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as PaginationStories from "./index.stories";
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Allows users to navigate to the next or previous pages when content is split into several pages.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to experiment with `page`, `totalPages`, `siblingCount`, and `size`.
+
+---
+
+## Sizes
+
+The Pagination component supports three sizes for the circular page buttons and arrows:
+
+- **sm** - compact control for dense layouts or smaller containers.
+- **md** - default size for most use cases.
+- **lg** - larger control for high-visibility navigation.
+
+### Small
+
+<Canvas of={PaginationStories.Small} />
+
+### Medium (Default)
+
+<Canvas of={PaginationStories.Default} />
+
+### Large
+
+<Canvas of={PaginationStories.Large} />
+
+---
+
+## Controlled Usage
+
+The component is fully controlled. You pass the current `page` and handle changes via the `onChange` callback.
+
+<Canvas of={PaginationStories.Controlled} />
+
+Example:
+
+```tsx
+import { useState } from "react";
+import Pagination from "./index";
+
+function PaginationExample() {
+  const [page, setPage] = useState(1);
+
+  return (
+    <Pagination
+      page={page}
+      totalPages={100}
+      siblingCount={1}
+      size="md"
+      onChange={(next) => setPage(next)}
+    />
+  );
+}
+```
+
+---
+
+## Props
+
+<ArgTypes of={PaginationStories} />
+
+---
+
+## Usage Guidelines
+
+- Use pagination when content is split into multiple pages (e.g. tables, lists, search results).
+- Keep `totalPages` accurate to avoid confusing users with unreachable pages.
+- Prefer keeping `siblingCount` low (0-2) to reduce visual clutter for large page sets.
+- Place Pagination near the content it controls, typically at the bottom of a list or table.
+- Use a single primary pagination control per content area; avoid stacking multiple paginations for the same data.
+
+---
+
+## Accessibility
+
+- The component uses a semantic `<nav>` element with `aria-label="Pagination"` for assistive technologies.
+- The current page is marked with `aria-current="page"` to indicate the active state.
+- Ensure page numbers are reachable via keyboard and that focus styles remain visible.
+- When changing pages, update content without moving focus unexpectedly to keep users oriented.

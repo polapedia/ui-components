@@ -1,0 +1,100 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as StepperStories from "./index.stories";
+
+<Meta of={StepperStories} />
+
+# Stepper
+
+Stepper guides users through a sequence of related tasks or screens.  
+Each step can display:
+
+- an optional **left icon** (system / product / status),
+- an optional **prefix** (e.g. `+1`, `01`),
+- a **label**,
+- a short **description**.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Adjust props such as:
+
+- `steps`
+- `activeIndex`
+- `orientation`
+- `size`
+- `clickable`
+
+---
+
+## Variants
+
+### Completion
+
+Use `activeIndex` and/or per-step `status` to represent progress.
+
+---
+
+## Icons
+
+### Stepper with icons
+
+<Canvas of={StepperStories.WithIcons} />
+
+> `leftIcon` is completely flexible – pass any React node (SVG, image, emoji, etc).
+
+---
+
+## Orientation
+
+<Canvas of={StepperStories.Vertical} />
+
+---
+
+## Interaction & Behavior
+
+<Canvas of={StepperStories.Interactive} />
+
+In this example:
+
+- `activeIndex` is managed by the parent using `useState`.
+- The current step is derived from `steps[activeIndex]`.
+- `onStepChange` is called when:
+  - a step is clicked (when `clickable` is enabled), or
+  - navigation buttons update the index.
+- The Stepper itself is **presentational only** and does not store internal state.
+
+> In Storybook, step changes are logged via `onStepChange` and shown in the Actions panel.
+
+---
+
+## Props
+
+<ArgTypes of={StepperStories} />
+
+---
+
+## Usage guidelines
+
+- **Flow length:** 3-6 steps works best.
+- **Labels:** keep them short and descriptive; use the description only when extra context is needed.
+- **Icons:**
+  - System icons for generic flows (account, location, info).
+  - Product icons for shopping / payment / delivery journeys.
+  - Status icons (check, error, numbered circles) to reinforce state.
+- **Clickability:**  
+  Enable `clickable` only when users are allowed to jump freely between steps.  
+  When enabled, always provide `onStepChange` to update `activeIndex` in the parent.
+- **Status override:** use per-step `status` when you need to flag errors or disabled steps independently of `activeIndex`.
