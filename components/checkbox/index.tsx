@@ -19,8 +19,8 @@ const inputSizeClasses: Record<Size, string> = {
 };
 
 const labelSizeClasses: Record<Size, string> = {
-  sm: "text-xs leading-4",
-  md: "text-sm leading-5",
+  sm: "text-[14px] leading-4",
+  md: "text-[16px] leading-5",
 };
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
@@ -54,15 +54,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       inputStateClasses = `
         bg-white border-red-500 text-white
         checked:bg-red-500 checked:border-red-500
-        hover:bg-red-50
         focus:ring-red-500
       `;
     } else {
       inputStateClasses = `
-        bg-white border-gray-300 text-white
-        checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-gradient-primary
-        hover:border-primary-400 hover:bg-gray-50
-        focus:ring-primary-500
+        bg-white border-black border-[2px] text-white
+        checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-0
       `;
     }
 
@@ -83,10 +80,9 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 aria-describedby={helperId}
                 className={`
                   peer col-start-1 row-start-1 appearance-none border-2 shrink-0 
-                  transition-all duration-200 ease-in-out
+                  transition-all text-black border-black duration-200 ease-in-out
                   ${inputSizeClasses[size]}
                   ${inputStateClasses}
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
                 `}
                 {...props}
               />
@@ -114,8 +110,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 ${labelSizeClasses[size]}
                 ${
                   isDisabled
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "text-gray-900 cursor-pointer"
+                    ? "text-neutral-500 cursor-not-allowed"
+                    : "text-black cursor-pointer"
                 }
                 ${isError ? "text-red-500" : ""}
               `}>

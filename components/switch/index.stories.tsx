@@ -38,8 +38,18 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: "Switch",
-    // checked: false,
+    label: "Switch Label",
+    checked: false,
+  },
+  render: function Render(args) {
+    const [{ checked }, updateArgs] = useArgs();
+
+    function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+      updateArgs({ checked: e.target.checked });
+      args.onChange?.(e);
+    }
+
+    return <Switch {...args} onChange={onChange} checked={checked} />;
   },
 };
 

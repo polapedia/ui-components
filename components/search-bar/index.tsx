@@ -11,12 +11,10 @@ export interface SearchBarProps extends Omit<ComponentProps<"input">, "size"> {
 const baseClasses = [
   "flex items-center gap-3",
   "bg-white",
-  "shadow-[0_4px_24px_-2px_rgba(15,35,52,0.08)]",
+  "shadow-lg",
   "px-3 py-3",
   "transition-all duration-200 ease-in-out",
-  "hover:shadow-[0_12px_32px_-1px_rgba(15,35,52,0.12)]",
   "hover:ring-1 hover:ring-primary-600",
-  "focus-within:shadow-[0_12px_32px_-1px_rgba(15,35,52,0.12)]",
   "focus-within:ring-1 focus-within:ring-primary-600",
 ].join(" ");
 

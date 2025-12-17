@@ -39,7 +39,18 @@ const meta: Meta<typeof InputNumber> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: function Render(args) {
+    const [{ value }, updateArgs] = useArgs();
+
+    const onChange = (newValue: number) => {
+      updateArgs({ value: newValue });
+      args.onChange?.(newValue);
+    };
+
+    return <InputNumber {...args} value={value} onChange={onChange} />;
+  },
+};
 
 export const Variants: Story = {
   render: (args) => (

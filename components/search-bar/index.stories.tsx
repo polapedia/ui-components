@@ -17,8 +17,15 @@ const meta: Meta<typeof SearchBar> = {
   title: "Design System/Form/SearchBar",
   component: SearchBar,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <div className="ml-4 mr-[50%] mt-4 mb-8">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     placeholder: "Search here",
     size: "md",
