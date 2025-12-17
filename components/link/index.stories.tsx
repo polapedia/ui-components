@@ -21,7 +21,7 @@ const meta: Meta<typeof Link> = {
   },
   args: {
     children: "Link goes here",
-    href: "https://example.com",
+    href: "#",
     variant: "no-underline",
     size: "md",
     withIcon: true,
@@ -88,7 +88,7 @@ export const Sizes: Story = {
     </div>
   ),
   args: {
-    href: "https://example.com",
+    href: "#",
     variant: "no-underline",
     withIcon: true,
   },
@@ -111,7 +111,7 @@ export const WithoutIcon: Story = {
 // External Link
 export const External: Story = {
   args: {
-    href: "https://example.com",
+    href: "#",
     target: "_blank",
     rel: "noreferrer",
     variant: "underline",
@@ -123,7 +123,7 @@ export const InlineTextUsage: Story = {
   render: (args) => (
     <p className="max-w-md text-sm text-neutral-800">
       This is an example sentence with an{" "}
-      <Link {...args} href="https://example.com">
+      <Link {...args} href="#">
         inline link
       </Link>{" "}
       that appears within a paragraph of text.
