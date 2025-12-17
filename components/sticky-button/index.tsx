@@ -32,7 +32,6 @@ export default function StickyButton({
 
   const buttonClasses = [
     "w-full max-w-60",
-    variant !== "tertiary" ? "" : "",
     variant === "tertiary" ? "bg-transparent shadow-none px-0" : "",
     className || "",
   ]
