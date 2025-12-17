@@ -1,0 +1,171 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as Stories from "./index.stories";
+
+<Meta of={Stories} />
+
+# Carousel Banner
+
+Carousel Banner is a full-width image-based slider component used to display promotional or hero banners.
+
+This component is designed to work with **pre-designed banner images** (e.g. `banner.png`) where all visual content (text, CTA, decoration) is already embedded in the image.
+
+---
+
+## Features
+
+- Full-width responsive banner images
+- Smooth slide transitions
+- Navigation arrows (previous / next)
+- Pagination using **CarouselIndicator**
+- Optional autoplay support
+- Two layout variants:
+  - **inside** - footer content positioned inside the banner
+  - **outside** - footer content rendered below the banner
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+---
+
+## Variants
+
+### Inside Variant
+
+Footer content (link + indicator) is positioned **inside** the banner using absolute positioning.
+
+Recommended for:
+
+- Marketing hero sections
+- Promotional campaigns
+- High-visibility banners
+
+<Canvas of={Stories.VariantInside} />
+
+---
+
+### Outside Variant
+
+Footer content is rendered **outside** the banner container.
+
+Recommended for:
+
+- Content-driven layouts
+- Pages where banner visuals should remain untouched
+
+<Canvas of={Stories.VariantOutside} />
+
+---
+
+## Autoplay
+
+Carousel Banner supports autoplay for automatic slide transitions.
+
+Autoplay can be enabled using:
+
+- `autoPlay: true`
+- `interval` (milliseconds between slide changes)
+
+<Canvas of={Stories.Autoplay} />
+
+### Autoplay Rules
+
+- Autoplay runs only when:
+  - `autoPlay` is enabled
+  - `slides.length > 1`
+- Autoplay is automatically stopped when the component unmounts
+
+---
+
+## Behavior
+
+- Slides can be navigated via:
+  - Arrow buttons (previous / next)
+  - Clicking pagination indicators
+- Pagination indicators allow direct navigation to a specific slide
+- Arrow buttons appear on hover
+- Slide animation uses CSS transform for smooth performance
+
+---
+
+## Props
+
+<ArgTypes of={Stories} />
+
+---
+
+## Usage Example
+
+```tsx
+import CarouselBanner from "@/components/carousel-banner";
+
+const slides = [
+  {
+    id: 1,
+    imageSrc: "/images/banner.png",
+    linkUrl: "/promo",
+    altText: "50% Discount Promotion",
+  },
+  {
+    id: 2,
+    imageSrc: "/images/banner-2.png",
+    linkUrl: "/campaign",
+    altText: "Independence Day Campaign",
+  },
+];
+
+export default function HomePage() {
+  return (
+    <CarouselBanner slides={slides} variant="inside" autoPlay interval={5000} />
+  );
+}
+```
+
+---
+
+## Usage Guidelines
+
+- Use **high-resolution images** with consistent aspect ratios.
+- Embed all textual content and CTAs directly inside the banner image.
+- Keep the number of slides reasonable (recommended: 3-5).
+- Use the `inside` variant for promotional or marketing-heavy pages.
+- Use the `outside` variant for cleaner, content-first layouts.
+
+---
+
+## Best Practices
+
+- Always provide descriptive `altText` for banner images.
+- Avoid mixing banners with significantly different heights.
+- Disable autoplay for critical or information-dense content.
+- Prefer `object-cover` to ensure the banner fills the container.
+- Keep autoplay intervals long enough for comfortable viewing (≥ 3s).
+
+---
+
+## Accessibility
+
+- Navigation arrows include descriptive `aria-label` attributes.
+- Banner images support `altText` for screen readers.
+- Pagination indicators are keyboard-accessible via `CarouselIndicator`.
+- Focus styles are preserved for all interactive elements.
+
+---
+
+## Notes
+
+- Carousel Banner does **not** render text or buttons on top of images.
+- All visual content should be part of the banner image itself.
+- This component is optimized for promotional and marketing use cases.

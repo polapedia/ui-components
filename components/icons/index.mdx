@@ -1,0 +1,53 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as IconStories from "./index.stories";
+
+<Meta of={IconStories} />
+
+# Icons
+
+This page documents the icon set currently used in the Design System.
+
+Icons are React components that render inline SVG. They are styled using `currentColor`, meaning the icon color follows the parent text color (e.g. Tailwind `text-*`).
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+---
+
+## Usage
+
+### Basic
+
+```tsx
+import StarIcon from "components/icons/StarIcon";
+
+<StarIcon className="w-5 h-5 text-neutral-500" />;
+```
+
+---
+
+## Guidelines
+
+- Prefer sizing with CSS utilities: `className="w-4 h-4"` / `w-5 h-5`
+- Prefer coloring with text utilities: `text-neutral-500`, `text-white`, etc.
+- Keep naming semantic when possible (e.g. `ShareIcon`, `VerifiedIcon`)
+- Avoid using icons alone for critical actions without a visible label or `aria-label`
+
+---
+
+## Props
+
+<ArgTypes of={IconStories} />
