@@ -1,0 +1,86 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+
+import * as BannerStories from "./index.stories";
+
+<Meta of={BannerStories} />
+
+# Banner
+
+The **Banner** component provides contextual feedback messages that appear at the top of sections or layouts.
+Banners are commonly used to communicate information, success confirmation, warnings, or error states.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to interactively modify props such as `variant`, `title`, `description`, and icons.
+
+---
+
+## Variants
+
+Banners support four semantic variants, each with a corresponding background and circular icon container:
+
+- **Info** — informative or neutral messages
+- **Success** — confirmation or successful operation
+- **Warning** — caution or attention needed
+- **Danger** — errors or critical issues
+
+<Canvas of={BannerStories.Variants} />
+
+---
+
+## With Icon
+
+Banners can include a left icon wrapped inside a 16px colored circular background.  
+This visually reinforces the message context.
+
+<Canvas of={BannerStories.WithIcon} />
+
+---
+
+## Props
+
+<ArgTypes of={BannerStories} />
+
+---
+
+## Usage Guidelines
+
+### When to Use
+
+- Use banners to deliver important contextual information to the user.
+- Use **success** for positive confirmations, **warning** for cautionary notes, and **danger** for critical alerts.
+- Use **info** for general messages that do not require strong emphasis.
+
+### Content Recommendations
+
+- Keep `title` concise and direct.
+- Use `description` for additional supporting details.
+- Avoid overusing banners to prevent visual clutter.
+
+### Layout & Behavior
+
+- Icons align visually with the title for balanced hierarchy.
+- The left icon area is optional—when omitted, the text shifts naturally.
+
+---
+
+## Accessibility
+
+- Ensure understandable and concise messaging in `title` and `description`.
+- Provide adequate color contrast between background and text.
+- When banners are interactive (e.g., dismissible or clickable), wrap them in semantic elements such as `<button>` or `<a>` and provide appropriate ARIA attributes.
