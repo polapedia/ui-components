@@ -1,0 +1,126 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+
+import * as ToastStories from "./index.stories";
+
+<Meta of={ToastStories} />
+
+# Toast
+
+The **Toast** component provides short, one-line feedback messages.
+Use it for transient status updates such as success confirmations or error notifications.
+
+---
+
+## Playground
+
+Use the playground below to explore the visual appearance and props of the Toast component.
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+---
+
+### Error Toast (Dismissible)
+
+Click the button to trigger an **error toast**.  
+Clicking the close (✕) icon will immediately dismiss the toast.
+
+<Canvas of={ToastStories.TriggerErrorToast} />
+
+---
+
+### Success Toast (Dismissible)
+
+Click the button to trigger a **success toast**.  
+By default, success toasts show a checkmark icon unless overridden.
+
+<Canvas of={ToastStories.TriggerSuccessToast} />
+
+---
+
+## Variants
+
+Toasts support three semantic variants:
+
+- **Default** — neutral or informational messages
+- **Error** — error or destructive feedback
+- **Success** — confirmation of successful actions
+
+The variant controls background color and default icon behavior.
+
+---
+
+## Dismissible Behavior
+
+To make a toast closeable, provide:
+
+- `dismissible={true}`
+- `onClose={() => ...}`
+
+This ensures:
+
+- Clear user intent
+- Proper accessibility semantics
+- Consistent behavior across the system
+
+> ⚠️ Avoid rendering a close icon without dismiss behavior.
+
+---
+
+## Custom Right Icon
+
+You can override the default right icon using the `rightIcon` prop.
+
+This allows custom affordances such as:
+
+- Retry
+- Navigate
+- Open details
+
+> Note: `rightIcon` controls **visual appearance only**.  
+> To enable dismiss behavior, always use `dismissible` + `onClose`.
+
+---
+
+## Props
+
+<ArgTypes of={ToastStories} />
+
+---
+
+## Guidelines
+
+### When to Use
+
+- Use Toast for brief, transient feedback.
+- Keep messages concise (one line recommended).
+- Prefer:
+  - **Success** for confirmations
+  - **Error** for failures
+  - **Default** for neutral updates
+
+### Icon & Behavior
+
+- `rightIcon` is for visual customization.
+- `dismissible` defines whether the toast can be closed.
+- Do not imply dismiss behavior through visuals alone.
+
+---
+
+## Accessibility
+
+- Dismiss actions use semantic `<button>` elements.
+- Close buttons include an accessible `aria-label`.
+- Consider adding:
+  - `role="status"` for default/success toasts
+  - `role="alert"` for error toasts  
+    at the usage site if needed by your notification system.

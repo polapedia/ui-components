@@ -1,0 +1,74 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as ModalStories from "./index.stories";
+
+<Meta of={ModalStories} />
+
+# Modal
+
+Modal is an overlay dialog used to confirm actions, show important information, or request user input.  
+It supports responsive sizing via `size="sm" | "md" | "lg"`, and includes an optional checkbox and footer actions.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `size`, `title`, `description`, checkbox state, and close behavior.
+
+---
+
+## Variants
+
+### Default (Always Open)
+
+Best for visual review and spacing verification.
+
+<Canvas of={ModalStories.Default} />
+
+---
+
+## Interactive Behavior
+
+### Interactive
+
+Includes an **Open Modal** trigger, good for testing:
+
+- Close button (X)
+- Backdrop click (if enabled)
+- ESC to close
+- Action callbacks (Cancel/Confirm)
+
+<Canvas of={ModalStories.Interactive} />
+
+---
+
+## Content Options
+
+### No Description
+
+<Canvas of={ModalStories.NoDescription} />
+
+---
+
+## Props
+
+<ArgTypes of={ModalStories} />
+
+---
+
+## Accessibility Notes
+
+- Uses `role="dialog"` and `aria-modal="true"`.
+- Close on **ESC** is supported.
+- Ensure `title` is always present for screen readers.

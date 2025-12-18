@@ -1,0 +1,77 @@
+import {
+  Meta,
+  Canvas,
+  Controls,
+  ArgTypes,
+  Story,
+} from "@storybook/addon-docs/blocks";
+import * as SkeletonStories from "./index.stories";
+
+<Meta of={SkeletonStories} />
+
+# Loader Skeleton
+
+The Skeleton component is used to display a placeholder preview of content before the data gets loaded.
+It helps reduce perceived waiting time and provides a better user experience by maintaining the layout structure during data fetching.
+
+---
+
+## Playground
+
+<Canvas>
+  <Story of={SkeletonStories.Default} />
+</Canvas>
+
+<Controls />
+
+You can adjust the `className` in the **Controls** panel to change dimensions (e.g., `w-full`, `h-8`).
+
+---
+
+## Shapes
+
+The Skeleton is flexible and adapts to the shape of the content it mimics. By default, it applies `rounded-md`.
+However, if you provide a specific border-radius class (like `rounded-full`), the component detects it and overrides the default.
+
+### Default (Rounded-MD)
+
+Used for text lines, rectangular images, or general blocks.
+
+<Canvas of={SkeletonStories.Default} />
+
+### Circle
+
+Used for avatars, circular icons, or buttons. Achieved by adding `rounded-full` to the className.
+
+<Canvas of={SkeletonStories.Circle} />
+
+---
+
+## Complex Composition
+
+Skeletons are most effective when combined to mimic the actual layout of a component (like a card, profile header, or list item).
+
+<Canvas of={SkeletonStories.CardExample} />
+
+---
+
+## Props
+
+The Skeleton component accepts all standard `HTMLDivElement` props. The most common prop used is `className` for sizing.
+
+<ArgTypes of={SkeletonStories} />
+
+---
+
+## Usage Guidelines
+
+- **Sizing:** The Skeleton does not have intrinsic size. You **must** provide width and height classes (e.g., `w-12 h-12` or `w-full h-4`) via `className`.
+- **Rounding Logic:** The component automatically applies `rounded-md`. If you need a different radius (e.g., `rounded-xl`, `rounded-full`, or `rounded-none`), simply add that class to `className`, and the default will be removed.
+- **Color:** The pulse animation uses `bg-loader-base`. Ensure this variable is defined in your Tailwind config or CSS variables.
+
+---
+
+## Accessibility
+
+- **ARIA:** Skeletons are visual indicators. It is often good practice to mark them as `aria-hidden="true"` so screen readers ignore them, or ensure the parent container has `aria-busy="true"` until the real content loads.
+- **Contrast:** The skeleton color should be subtle enough not to distract but visible enough to indicate structure.
