@@ -1,0 +1,192 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+
+import * as TooltipStories from "./index.stories";
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+The **Tooltip** component displays short, contextual information when users **hover** or **focus** on an element.
+It is commonly used to clarify icons, actions, or UI controls without taking permanent space in the layout.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+---
+
+## Examples
+
+### Default
+
+Default tooltips are **single-line** and automatically size to their content.
+
+<Canvas of={TooltipStories.Default} />
+
+---
+
+### Multiline
+
+Enable `multiline` when the content is longer and should wrap.
+Use `maxWidthClassName` to define the maximum width (e.g. `max-w-[316px]`).
+
+<Canvas of={TooltipStories.Multiline} />
+
+---
+
+### Placements
+
+Tooltips support four placement options: `top`, `bottom`, `left`, and `right`.
+
+<Canvas of={TooltipStories.Placements} />
+
+---
+
+## Props
+
+<ArgTypes of={TooltipStories} />
+
+---
+
+## Guidelines
+
+### When to Use
+
+- Explaining **icons** or icon-only actions.
+- Providing short hints for a control or action.
+- Clarifying UI elements without disrupting the user flow.
+
+### When Not to Use
+
+- For long or complex content (paragraphs, lists, step-by-step instructions).  
+  Use a **Popover** or **Dialog** instead.
+- For critical information that must always be visible.  
+  Use **Banner**, **Helper Text**, or **Inline Messages**.
+
+### Content Recommendations
+
+- Keep tooltip content short (ideally one sentence).
+- Use clear, straightforward language.
+- Avoid multi-step instructions.
+- If content becomes lengthy, enable `multiline` and define a max width to keep it readable.
+
+### Layout & Behavior
+
+- Tooltips should appear on **hover** and **keyboard focus**.
+- Keep a small gap between the trigger and the tooltip.
+- Use **single-line** tooltips for short content to avoid wrapping.
+- Use **multiline** tooltips for longer content and cap the width using `maxWidthClassName`.
+
+---
+
+## Styling Reference
+
+This Tooltip uses the following base classes:
+
+- `py-[8px] px-[12px]`
+- `bg-neutral-500`
+- `text-white`
+- `text-[14px] font-medium`
+- `rounded-[8px]`
+
+When `multiline` is enabled, the component also applies:
+
+- `whitespace-normal break-words`
+- `min-w-[320px]`
+- `maxWidthClassName` (default: `max-w-[900px]` unless overridden)
+
+---
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import Tooltip from "@/components/tooltip";
+import Button from "@/components/button";
+
+export default function Example() {
+  return (
+    <Tooltip content="Tooltip text" placement="top">
+      <Button>Hover / Focus me</Button>
+    </Tooltip>
+  );
+}
+```
+
+---
+
+### Multiline Tooltip
+
+```tsx
+import Tooltip from "@/components/tooltip";
+import Button from "@/components/button";
+
+export default function Example() {
+  return (
+    <Tooltip
+      content="This is a longer tooltip message that should wrap nicely across multiple lines."
+      placement="top"
+      multiline
+      maxWidthClassName="max-w-[316px]">
+      <Button>Hover / Focus me</Button>
+    </Tooltip>
+  );
+}
+```
+
+---
+
+### Controlled Tooltip
+
+Use a controlled state when tooltip visibility needs to be managed externally.
+
+```tsx
+import { useState } from "react";
+import Tooltip from "@/components/tooltip";
+import Button from "@/components/button";
+
+export default function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Tooltip
+      content="Controlled tooltip"
+      open={open}
+      onOpenChange={setOpen}
+      placement="right">
+      <Button onClick={() => setOpen((v) => !v)}>Toggle</Button>
+    </Tooltip>
+  );
+}
+```
+
+---
+
+## Accessibility
+
+- Tooltips are accessible via **keyboard focus**, not hover only.
+- The tooltip element uses `role="tooltip"`.
+- The trigger element is linked using `aria-describedby` when the tooltip is visible.
+- Ensure sufficient color contrast between tooltip text and background.
+- If the trigger element is not inherently focusable, add `tabIndex={0}` or wrap it in a focusable element.
+
+---
+
+## Notes
+
+- `multiline` defaults to `false`, rendering a single-line tooltip (`w-max` + `whitespace-nowrap`).
+- `maxWidthClassName` is applied only when `multiline` is enabled.
+- If a tooltip is rendered near the edge of the viewport, available space may affect its final layout. For robust edge collision handling (auto shift/flip), consider a positioning utility such as Floating UI.

@@ -1,0 +1,122 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+
+import * as Stories from "./index.stories";
+
+<Meta of={Stories} />
+
+# Onboarding Tooltip
+
+The **Onboarding Tooltip** component is used to guide users through product features or UI elements.
+Unlike a standard tooltip, it uses a **screen mask (overlay)** to focus attention and reduce interaction with the rest of the interface.
+
+---
+
+## Playground
+
+Try changing **Size**, **Placement**, or click the **Overlay** to close.
+This Canvas has extra space so the tooltip doesn't get clipped or repositioned automatically.
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Default} />
+
+---
+
+## Examples
+
+### Small
+
+<Canvas of={Stories.Small} />
+
+---
+
+### Large
+
+<Canvas of={Stories.Large} />
+
+---
+
+### Bottom Placement
+
+<Canvas of={Stories.BottomPlacement} />
+
+---
+
+### Interactive (Controlled)
+
+This example demonstrates a **controlled** onboarding tooltip using the `open` prop.
+The open state is managed externally and can be toggled via buttons.
+
+<Canvas of={Stories.ManualImplementation} />
+
+---
+
+## Props
+
+<ArgTypes of={Stories} />
+
+---
+
+## Styling
+
+### Container
+
+- `p-[12px] bg-white text-black rounded-[16px]`
+
+### Title
+
+- `font-semibold text-[16px]`
+
+### Description
+
+- `text-[14px] font-normal`
+
+---
+
+## Usage Guidelines
+
+### When to Use
+
+- Introducing a new feature or UI flow.
+- Highlighting an important control the user must understand.
+- Step-based onboarding where attention must stay on one element.
+
+### When Not to Use
+
+- For small hints or non-essential info (use a standard **Tooltip**).
+- For complex content or multi-step forms (use a **Dialog**).
+
+### Content Recommendations
+
+- Keep titles short and action-oriented.
+- Keep descriptions concise and scannable.
+- Focus each tooltip on a single concept.
+
+### Behavior
+
+- The overlay should dim the rest of the UI to focus attention.
+- Always provide a clear primary action (e.g., **Got it!**, **Next**).
+- Recommended close options:
+  - Click overlay (optional, configurable)
+  - Press `Esc` (recommended)
+
+---
+
+## Accessibility
+
+- Uses `role="dialog"` with `aria-modal="true"` to indicate a modal-like surface.
+- Ensure the CTA in the footer is keyboard accessible.
+- If you need strict focus containment (focus trap), integrate a focus-trap utility.
+
+---
+
+## Notes
+
+- Positioning is intentionally lightweight (no external positioning library).
+- For advanced collision handling (auto shift/flip, viewport edge cases), consider integrating Floating UI.
