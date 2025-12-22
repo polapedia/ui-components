@@ -22,8 +22,8 @@ const baseWrapperClasses =
   "relative flex items-center w-full transition-all hover:bg-background-hover border rounded-[8px] overflow-hidden focus-within:ring-[1px] focus-within:ring-offset-0";
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-[48px] text-[14px] px-4 [&_svg]:size-4",
-  md: "h-[52px] text-[14px] px-4 [&_svg]:size-5",
+  sm: "h-[48px] text-[14px] px-4",
+  md: "h-[52px] text-[14px] px-4",
 };
 
 const stateClasses: Record<State, string> = {
@@ -74,10 +74,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     let renderedRightIcon = rightIcon;
 
     if (isError) {
-      renderedRightIcon = <AlertIcon className="text-accents-red" />;
+      renderedRightIcon = (
+        <AlertIcon className="text-accents-red w-[18px] h-[18px] my-auto" />
+      );
     } else if (isSuccess) {
       renderedRightIcon = (
-        <CheckIcon className="text-green-500 w-[15px] h-[15px]" />
+        <CheckIcon className="text-green-500 w-5 h-5 my-auto" />
       );
     } else if (isClearable && value && !isDisabled) {
       renderedRightIcon = (
@@ -93,11 +95,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const fakePlaceholderLeft = leftIcon
       ? "left-[48px]"
       : size === "sm"
-      ? "left-[16px]"
+      ? "left-4"
       : "left-4";
 
     return (
-      <div className="w-full flex flex-col gap-1.5">
+      <div className="w-full flex flex-col">
         {label && (
           <label className="text-[14px] text-content-primary">
             {label}
@@ -108,7 +110,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={wrapperClasses}>
           {leftIcon && (
             <span
-              className={`inline-flex mr-3.5 w-4 h-4 my-auto ${
+              className={`inline-flex w-6 h-6 mr-2 my-auto ${
                 isDisabled ? "text-gray-400" : "text-content-secondary"
               }`}>
               {leftIcon}
@@ -121,7 +123,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             required={required}
             value={value}
             placeholder=" "
-            className="peer w-full h-full bg-transparent border-none outline-none p-0 placeholder:text-current disabled:cursor-not-allowed text-[14px]"
+            className="peer w-full h-full bg-transparent border-none outline-none p-0 placeholder:text-[14px] placeholder:text-content-secondary disabled:cursor-not-allowed text-[14px] text-black"
             {...props}
           />
 
@@ -134,7 +136,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
 
           {renderedRightIcon && (
-            <span className="inline-flex ml-3.5 shrink-0 w-4 h-4 my-auto">
+            <span className="inline-flex shrink-0 w-6 h-6 ml-2 my-auto">
               {renderedRightIcon}
             </span>
           )}

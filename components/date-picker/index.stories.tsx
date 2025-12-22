@@ -5,6 +5,13 @@ const meta: Meta<typeof DatePicker> = {
   title: "Design System/Form/Date Picker",
   component: DatePicker,
   parameters: { layout: "padded" },
+  decorators: [
+    (Story) => (
+      <div className="h-[450px] bg-neutral-100 p-5">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     value: { control: "date" },
     onChange: { action: "changed" },

@@ -52,9 +52,9 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         "bg-neutral-200 border-gray-300 cursor-not-allowed checked:bg-neutral-400 checked:border-neutral-400";
     } else if (isError) {
       inputStateClasses = `
-        bg-white border-red-500 text-white
-        checked:bg-red-500 checked:border-red-500
-        focus:ring-red-500
+        bg-white border-accents-red text-white
+        checked:bg-accents-red checked:border-accents-red
+        focus:ring-accents-red
       `;
     } else {
       inputStateClasses = `
@@ -106,17 +106,17 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             <label
               htmlFor={inputId}
               className={`
-                font-medium transition-colors
+                transition-colors
                 ${labelSizeClasses[size]}
                 ${
                   isDisabled
                     ? "text-neutral-500 cursor-not-allowed"
                     : "text-black cursor-pointer"
                 }
-                ${isError ? "text-red-500" : ""}
+                ${isError ? "text-accents-red" : ""}
               `}>
               {label}
-              {required && <span className="text-red-500 ml-0.5">*</span>}
+              {required && <span className="text-accents-red ml-0.5">*</span>}
             </label>
           )}
 
@@ -125,7 +125,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               id={helperId}
               className={`mt-1 text-[11px] leading-tight ${
                 isError
-                  ? "text-red-500"
+                  ? "text-accents-red"
                   : isDisabled
                   ? "text-gray-400"
                   : "text-gray-500"

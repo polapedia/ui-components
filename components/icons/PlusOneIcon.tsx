@@ -4,15 +4,22 @@ export default function PlusOneIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
-      width="8"
-      height="7"
-      viewBox="0 0 8 7"
-      fill="currentColor"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M3 1.5H2V3.5H0V4.5H2V6.5H3V4.5H5V3.5H3V1.5ZM5.25 0.54V1.45L6.5 1.2V6.5H7.5V0L5.25 0.54Z"
-        fill="currentColor"
-      />
+      <g clipPath="url(#clip0_348_1436)">
+        <path
+          d="M10 8H8V12H4V14H8V18H10V14H14V12H10V8ZM14.5 6.08V7.9L17 7.4V18H19V5L14.5 6.08Z"
+          fill="currentColor"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_348_1436">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

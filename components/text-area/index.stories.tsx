@@ -8,7 +8,7 @@ const icons = {
   None: null,
   Alert: <AlertIcon className="w-5 h-5 text-gray-400" />,
   Check: <CheckIcon className="w-5 h-5 text-green-500" />,
-  PlusOne: <PlusOneIcon className="w-3 h-3" />,
+  PlusOne: <PlusOneIcon className="w-5 h-5" />,
 };
 
 const meta: Meta<typeof TextArea> = {
@@ -17,14 +17,22 @@ const meta: Meta<typeof TextArea> = {
   parameters: {
     layout: "padded",
   },
+  decorators: [
+    (Story) => (
+      <div className="bg-neutral-100 p-10">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
-    placeholder: "Type something...",
+    placeholder: "",
     size: "md",
     state: "default",
     disabled: false,
     required: false,
-    label: "Label",
-    helperText: "Helper text goes here",
+    label: "Text area label",
+    helperText: "",
+    rightIcon: icons.PlusOne,
   },
   argTypes: {
     size: {

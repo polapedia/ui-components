@@ -7,8 +7,8 @@ import { action } from "storybook/actions";
 
 const icons = {
   None: null,
-  Home: <HomeIcon />,
-  Plus: <PlusOneIcon className="w-1 h-1" />,
+  Home: <HomeIcon className="w-6 h-6" />,
+  PlusOne: <PlusOneIcon className="w-6 h-6" />,
 };
 
 const meta: Meta<typeof Input> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof Input> = {
     layout: "centered",
   },
   args: {
-    placeholder: "Type something...",
+    placeholder: "Label text",
     size: "md",
     state: "default",
     disabled: false,
@@ -148,14 +148,14 @@ export const Showcase: Story = {
         </h3>
 
         {/* Default with Icon */}
-        <Input {...args} leftIcon={icons.Plus} placeholder="Label text" />
+        <Input {...args} leftIcon={icons.PlusOne} placeholder="Label text" />
 
         {/* Clearable */}
         <Input
           {...args}
           isClearable
           value="Input text"
-          leftIcon={icons.Plus}
+          leftIcon={icons.PlusOne}
           onClear={() => {}}
         />
 

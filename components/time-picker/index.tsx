@@ -31,7 +31,7 @@ export interface TimePickerProps {
 }
 
 export default function TimePicker({
-  label = "Select Time",
+  label = "",
   value,
   onChange,
   interval = 30,

@@ -199,7 +199,7 @@ const VerificationField = forwardRef<
                   sizeBoxClasses[size]
                 } rounded-full bg-white flex items-center justify-center
                 border ${error ? "border-accents-red" : "border-gray-300"}
-                shadow-sm hover:bg-background-hover transition-colors
+                hover:bg-background-hover transition-colors
                 focus-within:ring-1 focus-within:ring-primary-600 focus-within:ring-offset-0
               `}>
               <input

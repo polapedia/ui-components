@@ -6,6 +6,13 @@ const meta: Meta<typeof TimePicker> = {
   title: "Design System/Form/Time Picker",
   component: TimePicker,
   parameters: { layout: "padded" },
+  decorators: [
+    (Story) => (
+      <div className="min-h-[200px]">
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     onChange: { action: "time-selected" },
   },

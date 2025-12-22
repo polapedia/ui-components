@@ -9,10 +9,10 @@ export interface SearchBarProps extends Omit<ComponentProps<"input">, "size"> {
 }
 
 const baseClasses = [
-  "flex items-center gap-3",
+  "flex items-center gap-2",
   "bg-white",
   "shadow-lg",
-  "px-3 py-3",
+  "p-3",
   "transition-all duration-200 ease-in-out",
   "hover:ring-1 hover:ring-primary-600",
   "focus-within:ring-1 focus-within:ring-primary-600",
@@ -24,8 +24,7 @@ const sizeClasses: Record<Size, string> = {
   lg: "h-[56px] rounded-[16px]",
 };
 
-const iconClasses =
-  "flex items-center justify-center text-content-secondary [&_svg]:size-4";
+const iconClasses = "flex items-center justify-center text-content-secondary";
 
 const inputClasses = [
   "w-full bg-transparent border-none outline-none",

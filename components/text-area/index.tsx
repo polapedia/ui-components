@@ -26,13 +26,13 @@ const focusRingClasses =
   "focus-within:ring-[1px] focus-within:ring-offset-0 focus-within:ring-primary-600";
 
 const stateClasses: Record<State, string> = {
-  default: `border-gray-300 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-primary-600 focus-within:border-0`,
-  error: `border-red-500 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-red-500`,
-  success: `border-green-500 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-green-500`,
+  default: `border-0 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-primary-600 focus-within:border-0`,
+  error: `border-0 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-red-500`,
+  success: `border-0 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-green-500`,
 };
 
 const disabledClasses =
-  "bg-gray-200 border-gray-200 cursor-not-allowed select-none";
+  "bg-neutral-300 border-0 cursor-not-allowed select-none";
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
@@ -82,16 +82,16 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     }
 
     const labelColor = isDisabled
-      ? "text-gray-400"
+      ? "text-content-secondary"
       : isError
-      ? "text-red-500"
-      : "text-gray-600";
+      ? "text-accents-red"
+      : "text-content-secondary";
 
     const counterColor = isDisabled
-      ? "text-gray-400"
+      ? "text-content-secondary"
       : isOverLimit
-      ? "text-red-500 font-bold"
-      : "text-gray-400";
+      ? "text-accents-red font-bold"
+      : "text-content-secondary";
 
     const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
       if (typeof value !== "string") {
@@ -136,14 +136,14 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               flex-1 w-full bg-transparent border-none outline-none 
               px-4 py-2 resize-none text-[14px] placeholder:text-gray-400/70
               disabled:cursor-not-allowed
-              ${isDisabled ? "text-gray-500" : "text-gray-900"}
+              ${isDisabled ? "text-content-secondary" : "text-black"}
               ${sizeClasses[size]}
             `}
             {...props}
           />
 
           <div className="flex justify-end px-4 pb-2 shrink-0">
-            <span className={`text-[12px] transition-colors ${counterColor}`}>
+            <span className={` text-[14px] transition-colors ${counterColor}`}>
               {charCount}/500
             </span>
           </div>

@@ -7,8 +7,15 @@ const meta: Meta<typeof Uploader> = {
   title: "Design System/Form/Uploader",
   component: Uploader,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <div className="py-6 px-[240px] bg-white flex items-start justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     variant: "compact",
     disabled: false,
@@ -41,12 +48,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    label: "Upload file",
-    helperText: "Maximum 5MB",
-  },
-};
+export const Default: Story = {};
 
 export const Variants: Story = {
   render: (args) => (

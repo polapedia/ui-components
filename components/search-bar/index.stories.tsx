@@ -8,9 +8,9 @@ import PlusOneIcon from "../icons/PlusOneIcon";
 
 const icons = {
   None: null,
-  Search: <SearchIcon />,
-  Close: <CloseIcon />,
-  PlusOne: <PlusOneIcon />,
+  Search: <SearchIcon className="w-6 h-6" />,
+  Close: <CloseIcon className="w-3 h-3" />,
+  PlusOne: <PlusOneIcon className="w-6 h-6" />,
 };
 
 const meta: Meta<typeof SearchBar> = {
@@ -21,7 +21,7 @@ const meta: Meta<typeof SearchBar> = {
   },
   decorators: [
     (Story) => (
-      <div className="ml-4 mr-[50%] mt-4 mb-8">
+      <div className="h-[100px] ml-4 mr-[50%] mt-4 mb-8">
         <Story />
       </div>
     ),

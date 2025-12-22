@@ -149,7 +149,7 @@ export default function DatePicker({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={[
-          "w-full flex items-center justify-between p-2 rounded-xl border bg-white transition-all text-left group",
+          "w-full flex items-center justify-between p-2 h-14 rounded-xl border bg-white transition-all text-left group",
           isOpen
             ? "border-neutral-200 hover:border-neutral-300"
             : "border-neutral-200 hover:border-neutral-300",
@@ -198,7 +198,7 @@ export default function DatePicker({
                 <select
                   value={viewDate.getMonth()}
                   onChange={handleMonthSelect}
-                  className="appearance-none bg-white border border-neutral-200 rounded-lg py-1.5 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
+                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
                   {MONTHS.map((month, i) => (
                     <option key={month} value={i}>
                       {month}
@@ -215,7 +215,7 @@ export default function DatePicker({
                 <select
                   value={viewDate.getFullYear()}
                   onChange={handleYearSelect}
-                  className="appearance-none bg-white border border-neutral-200 rounded-lg py-1.5 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
+                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
                   {YEARS.map((year) => (
                     <option key={year} value={year}>
                       {year}

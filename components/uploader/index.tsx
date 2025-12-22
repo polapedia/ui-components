@@ -10,12 +10,12 @@ interface UploaderProps extends Omit<ComponentProps<"input">, "type"> {
 }
 
 const baseWrapperClasses =
-  "relative w-full border border-content-secondary rounded-[12px] transition-all overflow-hidden bg-white hover:bg-background-hover";
+  "relative w-full border border-content-secondary transition-all overflow-hidden bg-white hover:bg-background-hover";
 
 const variantClasses: Record<Variant, string> = {
-  compact: "h-[50px] flex items-center px-4",
+  compact: "h-[50px] flex items-center px-4 rounded-[12px]",
   dropzone:
-    "h-[160px] px-6 flex flex-col items-center justify-center text-center gap-3",
+    "h-[160px] px-6 flex flex-col items-center justify-center text-center gap-3 rounded-[16px]",
 };
 
 const disabledClasses =
@@ -38,9 +38,9 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
     const [fileLabel, setFileLabel] = useState("Choose file");
 
     const wrapperClasses = [
+      disabled ? disabledClasses : "cursor-pointer",
       baseWrapperClasses,
       variantClasses[variant],
-      disabled ? disabledClasses : "cursor-pointer",
       className || "",
     ]
       .filter(Boolean)
@@ -69,16 +69,17 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
           <label className="text-[14px] text-content-primary">{label}</label>
         )}
 
-        {/* pakai <label> supaya klik area luar langsung trigger input */}
         <label className={wrapperClasses}>
-          {/* input menutupi seluruh area, transparan */}
           <input
             ref={ref}
             type="file"
             disabled={disabled}
             multiple={multiple}
             onChange={handleChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            className={[
+              "absolute inset-0 w-full h-full opacity-0",
+              disabled ? "cursor-not-allowed" : "cursor-pointer",
+            ].join(" ")}
             {...props}
           />
 
