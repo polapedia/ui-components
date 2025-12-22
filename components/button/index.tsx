@@ -38,9 +38,9 @@ const variantClasses: Record<Variant, string> = {
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-8 text-[14px] px-3 py-1.5 [&_svg]:size-4",
-  md: "h-10 text-[14px] px-4 py-2.5 [&_svg]:size-4",
-  lg: "h-[58px] text-[20px] px-5 py-3 [&_svg]:size-6",
+  sm: "h-8 text-[14px] px-3 py-1.5",
+  md: "h-10 text-[14px] px-4 py-2.5",
+  lg: "h-[58px] text-[20px] px-5 py-3",
 
   "icon-sm": "w-8 h-8 p-0 [&_svg]:size-4",
   "icon-md": "w-10 h-10 p-0 [&_svg]:size-5",
