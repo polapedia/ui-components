@@ -13,8 +13,15 @@ const meta: Meta<typeof Chip> = {
   title: "Design System/Form/Chip",
   component: Chip,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <div className="p-6 bg-background-hover flex items-start justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: "Chips label",
     size: "sm",

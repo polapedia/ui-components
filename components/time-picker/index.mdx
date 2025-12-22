@@ -1,0 +1,83 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as TimePickerStories from "./index.stories";
+
+<Meta of={TimePickerStories} />
+
+# Time Picker
+
+Time Picker allows users to select a specific time from a scrollable dropdown list.  
+It features a **two-step selection process** (choose time → confirm with "Select") to prevent accidental changes.
+
+Key features:
+
+- **Custom Format:** Uses `HH.mm` format (e.g., `14.30`).
+- **Dynamic Intervals:** Supports custom minute intervals (15m, 30m, 60m, etc).
+- **Safe Selection:** Requires explicit confirmation via the "Select" button.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Adjust props such as:
+
+- `label`
+- `value`
+- `interval`
+- `placeholder`
+
+---
+
+## Variants
+
+### Pre-selected Value
+
+You can control the component state by passing a value in `HH.mm` format.
+
+<Canvas of={TimePickerStories.WithPreselectedValue} />
+
+---
+
+## Intervals
+
+By default, the Time Picker generates slots every **30 minutes**. You can customize this using the `interval` prop.
+
+### Hourly (60 min)
+
+Useful for scheduling broad blocks of time.
+
+<Canvas of={TimePickerStories.HourlyInterval} />
+
+### 15 Minutes
+
+Useful for more precise scheduling.
+
+<Canvas of={TimePickerStories.CustomInterval15Min} />
+
+---
+
+## Props
+
+<ArgTypes of={TimePickerStories} />
+
+---
+
+## Usage guidelines
+
+- **Format:** The component strictly uses dot separators (`12.30`) instead of colons (`12:30`) to match the design system.
+- **Intervals:** - Use `30` (default) for general appointments.
+  - Use `60` for hourly bookings.
+  - Use `15` for precise meetings.
+- **Behavior:** The dropdown includes a "Select" button. Clicking a time in the list _stages_ the value; clicking "Select" _commits_ the change to the parent component.
+- **Label:** Use the `label` prop to provide context (e.g., "Start Time", "End Time").

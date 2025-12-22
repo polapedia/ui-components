@@ -1,0 +1,141 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import TextArea from ".";
+import * as TextAreaStories from "./index.stories";
+
+<Meta of={TextAreaStories} />
+
+# Text Area
+
+The **Text Area** component indicates a section in a UI where information may or may not be required to be entered.  
+It supports multiple sizes, validation states, helper messages, icons, and an automatic character counter with built-in validation.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`size`, `state`, `rightIcon`, `disabled`, `required`, `label`, and `helperText`.
+
+---
+
+## Variants & Features
+
+### Required
+
+Displays a red asterisk beside the label and can be used with native form validation.
+
+<Canvas of={TextAreaStories.Required} />
+
+---
+
+### Disabled
+
+Disabled text areas appear muted and non-interactive.
+
+<Canvas of={TextAreaStories.Disabled} />
+
+---
+
+### Auto Validation (Max 500 chars)
+
+By default, the TextArea includes a character counter and soft validation:
+
+- Shows a live counter: `currentLength/500`
+- When the content exceeds **500 characters**, the component:
+  - Switches to `error` styling
+  - Turns the counter red and bold
+  - Replaces helper text with `"Character limit exceeded"`
+
+<Canvas of={TextAreaStories.AutoValidationDemo} />
+
+---
+
+## Sizes
+
+TextArea supports three vertical sizes:
+
+- **sm** - 120px height
+- **md** - 150px height (default)
+- **lg** - 200px height
+
+<Canvas of={TextAreaStories.Sizes} />
+
+---
+
+## Validation States
+
+TextArea supports semantic feedback for form validation:
+
+- **default** - standard appearance
+- **error** - red border, label, and (optionally) an alert icon
+- **success** - green border and success icon
+
+<Canvas of={TextAreaStories.Error} />
+<Canvas of={TextAreaStories.Success} />
+
+---
+
+## Showcase
+
+A full preview of TextArea variations including focus states, sizes, icons, and validation styling.
+
+<Canvas of={TextAreaStories.Showcase} />
+
+---
+
+## Interaction & Behavior
+
+- The TextArea updates its value using the standard `onChange` event.
+- Storybook logs value changes in the **Actions** panel.
+- The component can be used as:
+  - **Controlled** - pass a `value` prop and handle `onChange`.
+  - **Uncontrolled** - omit `value`; the component manages its own internal state.
+- A live character counter is always shown in the bottom-right corner.
+- When content length exceeds **500 characters**:
+  - The component automatically switches to `state="error"` (visual only).
+  - `helperText` is replaced by `"Character limit exceeded"`.
+- `rightIcon` accepts any `ReactNode`.  
+  When `state="error"` or `state="success"` is set (or triggered by the limit),  
+  the right icon is automatically overridden with an alert or success icon.
+- `disabled` prevents editing and softens the colors for label, text, and icons.
+
+---
+
+## Props
+
+<ArgTypes of={TextAreaStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **TextArea** for multi-line inputs such as descriptions, comments, or notes.
+- Use the `label` prop to clearly describe the expected content.
+- Use `helperText` for validation messages or additional instructions below the field.
+- Use `state="error"` or `state="success"` to reflect validation results from forms.
+- Avoid extremely long free-text responses when practical; consider leveraging the 500-character soft limit as guidance.
+- Reserve icons for meaningful cues (e.g., status, contextual indicators) rather than decoration.
+- Use the `required` prop to clearly communicate mandatory fields.
+
+---
+
+## Accessibility
+
+- Uses a semantic `<textarea>` element for proper screen reader support.
+- Labels should always be provided for clarity and accessibility.
+- Keep focus outlines and focus rings visible for keyboard navigation.
+- Ensure error messages in `helperText` clearly describe the problem when using `state="error"`.
+- Prefer concise, descriptive labels and helper text over relying solely on placeholders.
