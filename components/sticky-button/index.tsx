@@ -31,7 +31,7 @@ export default function StickyButton({
     shape ?? (variant === "tertiary" ? "rectangle" : "pill");
 
   const buttonClasses = [
-    "w-full max-w-60",
+    "w-full",
     variant === "tertiary" ? "bg-transparent shadow-none px-0" : "",
     className || "",
   ]

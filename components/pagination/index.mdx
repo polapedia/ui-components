@@ -16,13 +16,11 @@ Allows users to navigate to the next or previous pages when content is split int
 
 ---
 
-## Playground
+## Playground (Interactive)
 
-<Canvas>
-  <Primary />
-</Canvas>
+<Canvas of={PaginationStories.Interactive} />
 
-<Controls />
+<Controls of={PaginationStories.Interactive} />
 
 Use the **Controls** panel to experiment with `page`, `totalPages`, `siblingCount`, and `size`.
 
@@ -50,11 +48,11 @@ The Pagination component supports three sizes for the circular page buttons and 
 
 ---
 
-## Controlled Usage
+## Interactive Usage
 
-The component is fully controlled. You pass the current `page` and handle changes via the `onChange` callback.
+The component is fully interactive. You pass the current `page` and handle changes via the `onChange` callback.
 
-<Canvas of={PaginationStories.Controlled} />
+<Canvas of={PaginationStories.Interactive} />
 
 Example:
 

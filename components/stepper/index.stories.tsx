@@ -39,7 +39,7 @@ const meta: Meta<typeof Stepper> = {
     docs: {
       story: {
         inline: false,
-        iframeHeight: 200,
+        iframeHeight: 300,
       },
     },
   },

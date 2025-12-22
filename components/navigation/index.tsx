@@ -82,9 +82,7 @@ export default function Navigation({
         onClick={() => isMobile && setIsMobileOpen(false)}
         className={[
           "relative font-medium transition-colors duration-200",
-          isMobile
-            ? "text-[16px] py-0"
-            : "text-sm tab:text-[16px] desktop:text-[20px]",
+          isMobile ? "py-0" : "text-[16px] tab:text-[16px] desktop:text-[20px]",
           isActive
             ? "bg-clip-text text-transparent bg-linear-to-b from-gradient-primary to-gradient-secondary"
             : "text-content-primary hover:text-primary-600",
@@ -115,7 +113,7 @@ export default function Navigation({
               <Button
                 variant="primary"
                 size="md"
-                shape="pill"
+                shape="rectangle"
                 onClick={onContactClick}>
                 {contactLabel}
               </Button>
@@ -160,10 +158,9 @@ export default function Navigation({
             ? "max-h-[500px] opacity-100 mt-4 py-2.5"
             : "max-h-0 opacity-0 mt-0",
         ].join(" ")}>
-        <div className="flex flex-col items-center gap-2.5 bg-white font-medium">
+        <div className="flex flex-col items-center gap-2.5 bg-white font-medium py-6 rounded-2xl">
           {items.map((item) => renderNavItem(item, true))}
 
-          {/* 2. Mobile Button (Menggunakan Component Button Kamu) */}
           {!hideContactButton && (
             <>
               {renderNavItem({ label: contactLabel, href: "/contact" }, true)}

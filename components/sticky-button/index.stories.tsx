@@ -5,12 +5,19 @@ const meta: Meta<typeof StickyButton> = {
   title: "Design System/Navigation & Action/Sticky Button",
   component: StickyButton,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <div className="flex justify-center items-center">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: "Button",
     variant: "primary",
-    sticky: false,
+    sticky: true,
   },
   argTypes: {
     variant: {

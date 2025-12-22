@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import Navigation, { NavItem } from ".";
 import { action } from "storybook/actions";
+import { MINIMAL_VIEWPORTS } from "storybook/viewport";
 
 const defaultItems: NavItem[] = [
   { label: "Home", href: "/" },
@@ -15,7 +16,17 @@ const meta: Meta<typeof Navigation> = {
   component: Navigation,
   parameters: {
     layout: "fullscreen",
+    viewport: {
+      options: MINIMAL_VIEWPORTS,
+    },
   },
+  decorators: [
+    (Story) => (
+      <div className="min-h-screen bg-neutral-200 flex justify-center pt-4 px-4">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     items: defaultItems,
     activeHref: "/",
@@ -88,11 +99,11 @@ export const WithActiveItem: Story = {
 };
 
 export const Mobile: Story = {
-  globals: { viewport: { value: "phone", isRotated: false } },
+  globals: { viewport: { value: "mobile1", isRotated: false } },
 };
 
 export const Tab: Story = {
-  globals: { viewport: { value: "tab", isRotated: false } },
+  globals: { viewport: { value: "desktop", isRotated: false } },
 };
 
 export const Desktop: Story = {

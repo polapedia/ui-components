@@ -63,23 +63,23 @@ const statusStyles: Record<
 > = {
   completed: {
     text: "text-black",
-    description: "text-slate-500",
-    line: "bg-emerald-500",
+    description: "text-black",
+    line: "bg-primary-700",
   },
   current: {
-    text: "text-slate-900",
-    description: "text-slate-500",
-    line: "bg-slate-900",
+    text: "text-neutral-900",
+    description: "text-neutral-900",
+    line: "bg-neutral-900",
   },
   upcoming: {
-    text: "text-slate-400",
-    description: "text-slate-400",
-    line: "bg-slate-300",
+    text: "text-neutral-500",
+    description: "text-neutral-500",
+    line: "bg-neutral-300",
   },
   disabled: {
-    text: "text-slate-300",
-    description: "text-slate-300",
-    line: "bg-slate-200",
+    text: "text-neutral-300",
+    description: "text-neutral-300",
+    line: "bg-neutral-200",
   },
   error: {
     text: "text-red-600",

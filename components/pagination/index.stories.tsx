@@ -60,7 +60,7 @@ export const Large: Story = {
   },
 };
 
-export const Controlled: StoryFn<PaginationProps> = (args) => {
+export const Interactive: StoryFn<PaginationProps> = (args) => {
   const [page, setPage] = useState(args.page ?? 1);
 
   return (
@@ -78,7 +78,7 @@ export const Controlled: StoryFn<PaginationProps> = (args) => {
   );
 };
 
-Controlled.args = {
+Interactive.args = {
   page: 1,
   totalPages: 100,
   siblingCount: 1,

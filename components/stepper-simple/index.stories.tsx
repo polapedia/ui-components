@@ -21,7 +21,14 @@ const baseSteps: SimpleStepItem[] = [
 const meta: Meta<typeof SimpleStepper> = {
   title: "Design System/Navigation & Action/Simple Stepper",
   component: SimpleStepper,
-  parameters: { layout: "padded" },
+  parameters: { layout: "fullscreen" },
+  decorators: [
+    (Story) => (
+      <div className="mx-auto w-full max-w-md p-6">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     steps: baseSteps,
     activeIndex: 0,

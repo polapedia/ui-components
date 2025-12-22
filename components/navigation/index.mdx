@@ -31,24 +31,6 @@ Use the **Controls** panel to adjust `items`, `activeHref`, `variant`, `sticky`,
 
 ---
 
-## Variants
-
-### Elevated (Default)
-
-A white background with soft shadow. Recommended for gray or colored backgrounds.
-
-<Canvas of={NavigationStories.Playground} />
-
-### Flat
-
-No shadow—only a subtle border. Suitable for minimalist page layouts.
-
-<Canvas>
-  <Story of={NavigationStories.Playground} args={{ variant: "flat" }} />
-</Canvas>
-
----
-
 ## Responsive Behavior
 
 The Navigation component is fully **responsive**:
@@ -57,6 +39,11 @@ The Navigation component is fully **responsive**:
 
 - Links are displayed horizontally.
 - The **Contact** button appears on the right.
+
+### Mobile
+
+- Links are hidden behind a hamburger menu.
+- Tapping the hamburger toggles a vertical drawer with links.
 
 ---
 
