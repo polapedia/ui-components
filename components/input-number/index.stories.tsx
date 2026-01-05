@@ -52,26 +52,61 @@ export const Default: Story = {
   },
 };
 
+// Variants - Interactive (sync with Controls)
 export const Variants: Story = {
-  render: (args) => (
-    <div className="flex flex-col gap-4">
-      <InputNumber {...args} variant="default" />
-      <InputNumber {...args} variant="fill" />
-      <InputNumber {...args} variant="stroke" />
-    </div>
-  ),
+  render: function Render(args) {
+    const [{ value }, updateArgs] = useArgs();
+
+    const onChange = (newValue: number) => {
+      updateArgs({ value: newValue });
+      args.onChange?.(newValue);
+    };
+
+    return (
+      <div className="flex flex-col gap-4">
+        <InputNumber
+          {...args}
+          variant="default"
+          value={value}
+          onChange={onChange}
+        />
+        <InputNumber
+          {...args}
+          variant="fill"
+          value={value}
+          onChange={onChange}
+        />
+        <InputNumber
+          {...args}
+          variant="stroke"
+          value={value}
+          onChange={onChange}
+        />
+      </div>
+    );
+  },
 };
 
+// Sizes - Interactive (sync with Controls)
 export const Sizes: Story = {
-  render: (args) => (
-    <div className="flex flex-col gap-3">
-      <InputNumber {...args} size="sm" />
-      <InputNumber {...args} size="md" />
-      <InputNumber {...args} size="lg" />
-      <InputNumber {...args} size="xl" />
-      <InputNumber {...args} size="2xl" />
-    </div>
-  ),
+  render: function Render(args) {
+    const [{ value }, updateArgs] = useArgs();
+
+    const onChange = (newValue: number) => {
+      updateArgs({ value: newValue });
+      args.onChange?.(newValue);
+    };
+
+    return (
+      <div className="flex flex-col gap-3">
+        <InputNumber {...args} size="sm" value={value} onChange={onChange} />
+        <InputNumber {...args} size="md" value={value} onChange={onChange} />
+        <InputNumber {...args} size="lg" value={value} onChange={onChange} />
+        <InputNumber {...args} size="xl" value={value} onChange={onChange} />
+        <InputNumber {...args} size="2xl" value={value} onChange={onChange} />
+      </div>
+    );
+  },
 };
 
 // Interactive - sync with control panel (value)

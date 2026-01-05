@@ -1,4 +1,11 @@
-import { ComponentProps, forwardRef, useId } from "react";
+import React, {
+  ComponentProps,
+  forwardRef,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import PlusIcon from "../icons/PlusIcon";
 import MinusIcon from "../icons/MinusIcon";
 
@@ -27,7 +34,6 @@ const heightClasses: Record<Size, string> = {
   "2xl": "h-[48px] text-[20px] rounded-[12px]",
 };
 
-// Circle button size for default variant
 const circleButtonSize: Record<Size, string> = {
   sm: "w-[18px] h-[18px]",
   md: "w-[18px] h-[18px]",
@@ -36,7 +42,6 @@ const circleButtonSize: Record<Size, string> = {
   "2xl": "w-[24px] h-[24px]",
 };
 
-// Icon size for fill/stroke variants
 const iconScaleClasses: Record<Size, string> = {
   sm: "w-2.5 h-2.5",
   md: "w-3 h-3",
@@ -74,12 +79,54 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
     const generatedId = useId();
     const inputId = id || generatedId;
 
+    // Edit mode state
+    const [isEditing, setIsEditing] = useState(false);
+    const [draft, setDraft] = useState<string>(String(value));
+    const localInputRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+      if (isEditing) {
+        // focus + select all text
+        const el = localInputRef.current;
+        if (el) {
+          el.focus();
+          el.select();
+        }
+      }
+    }, [isEditing]);
+
     // logic
     const clamp = (val: number) => {
       let next = val;
       if (typeof min === "number") next = Math.max(next, min);
       if (typeof max === "number") next = Math.min(next, max);
       return next;
+    };
+
+    const commitDraft = () => {
+      if (disabled) return;
+
+      const trimmedValue = draft.trim();
+      if (trimmedValue === "") {
+        setDraft(String(value));
+        setIsEditing(false);
+        return;
+      }
+
+      const raw = Number(trimmedValue);
+      if (Number.isNaN(raw)) {
+        setDraft(String(value));
+        setIsEditing(false);
+        return;
+      }
+
+      onChange?.(clamp(raw));
+      setIsEditing(false);
+    };
+
+    const cancelDraft = () => {
+      setDraft(String(value));
+      setIsEditing(false);
     };
 
     const handleChange = (next: number) => {
@@ -89,14 +136,6 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
 
     const handleDecrease = () => handleChange(value - (Number(step) || 1));
     const handleIncrease = () => handleChange(value + (Number(step) || 1));
-
-    const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
-      e
-    ) => {
-      if (disabled) return;
-      const raw = Number(e.target.value);
-      if (!Number.isNaN(raw)) handleChange(raw);
-    };
 
     const minusIsDisabled =
       disabled || (typeof min === "number" && value <= min);
@@ -127,17 +166,13 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
       const stateClass = isDisabled ? disabledClass : activeClass;
 
       if (variant === "default") {
-        // default style: circle button
         const sizeClass = circleButtonSize[size];
         if (type === "minus") {
-          // solid gray circle, white icon
           return `${baseButton} ${sizeClass} rounded-full bg-neutral-500 text-white ${stateClass}`;
         } else {
-          // red border circle, red icon
           return `${baseButton} ${sizeClass} rounded-full border border-primary-600 text-primary-600 bg-white ${stateClass}`;
         }
       } else {
-        // style fill & stroke: Icon only (no button background)
         return `${baseButton} text-primary-600 ${stateClass} px-1`;
       }
     };
@@ -149,9 +184,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
     };
 
     const getIconClass = () => {
-      if (variant === "default") {
-        return defaultIconSize[size];
-      }
+      if (variant === "default") return defaultIconSize[size];
       return iconScaleClasses[size];
     };
 
@@ -166,26 +199,55 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
           <MinusIcon className={getIconClass()} />
         </button>
 
-        {/* Display Value & Hidden Input */}
+        {/* Value / Edit Mode */}
         <div className="relative flex-1 text-center min-w-5">
-          <span className={`block font-semibold ${getValueColor()}`}>
-            {value}
-          </span>
-
-          <input
-            ref={ref}
-            id={inputId}
-            name={name}
-            type="number"
-            value={value}
-            min={min}
-            max={max}
-            step={step}
-            disabled={disabled}
-            onChange={handleInputChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
-            {...rest}
-          />
+          {!isEditing ? (
+            <span
+              className={`block font-semibold ${getValueColor()} ${
+                disabled ? "cursor-not-allowed" : "cursor-text"
+              }`}
+              onClick={() => {
+                if (disabled) return;
+                setDraft(String(value));
+                setIsEditing(true);
+              }}
+              title={disabled ? undefined : "Klik untuk edit"}>
+              {value}
+            </span>
+          ) : (
+            <input
+              ref={(node) => {
+                localInputRef.current = node;
+                if (typeof ref === "function") ref(node);
+                else if (ref)
+                  (ref as React.RefObject<HTMLInputElement | null>).current =
+                    node;
+              }}
+              id={inputId}
+              name={name}
+              type="number"
+              inputMode="numeric"
+              value={draft}
+              min={min}
+              max={max}
+              step={step}
+              disabled={disabled}
+              onChange={(e) => setDraft(e.target.value)}
+              onBlur={commitDraft}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  commitDraft();
+                }
+                if (e.key === "Escape") {
+                  e.preventDefault();
+                  cancelDraft();
+                }
+              }}
+              className={`w-full bg-transparent text-center font-semibold outline-none ${getValueColor()}`}
+              {...rest}
+            />
+          )}
         </div>
 
         {/* Plus Button */}
@@ -194,7 +256,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
           disabled={plusIsDisabled}
           onClick={handleIncrease}
           className={getButtonStyles("plus")}>
-          <PlusIcon className={`${getIconClass()}`} />
+          <PlusIcon className={getIconClass()} />
         </button>
       </div>
     );
@@ -202,5 +264,4 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
 );
 
 InputNumber.displayName = "InputNumber";
-
 export default InputNumber;

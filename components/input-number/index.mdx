@@ -13,13 +13,18 @@ import * as InputNumberStories from "./index.stories";
 
 # InputNumber
 
-The **InputNumber** component is a numeric stepper that lets users increase or decrease a numeric value using plus/minus controls, while still supporting direct keyboard input.
+The **InputNumber** component is a numeric stepper that lets users increase or decrease a numeric value using plus/minus controls, **and edit the value directly by clicking on it and typing with the keyboard**.
 
 It supports multiple sizes, visual variants, min/max clamping, custom step values, and both controlled and locally managed state patterns.
 
 ---
 
 ## Playground
+
+Use the **Controls** panel to explore props such as  
+`size`, `variant`, `value`, `min`, `max`, `step`, and `disabled`.
+
+Tip: Click on the number itself to edit the value directly.
 
 <Canvas>
   <Primary />
@@ -48,10 +53,26 @@ InputNumber supports three visual variants:
 
 ### Interactive (Controlled via Args)
 
-Syncs Storybook controls (`value`) with the component.  
+Syncs Storybook controls (`value`) with the component.
 Useful to see how **controlled components** behave in a parent-managed state.
 
 <Canvas of={InputNumberStories.InteractiveControlled} />
+
+---
+
+## Manual Input (Inline Editing)
+
+In addition to using the plus/minus buttons, users can **edit the value directly**:
+
+- Click on the displayed number to enter **edit mode**
+- Type a numeric value using the keyboard
+- Press **Enter** or click outside the input to apply the change
+- Press **Escape** to cancel and restore the previous value
+
+The same validation rules apply:
+
+- Invalid or non-numeric input is ignored
+- Values are clamped to `min` / `max` when committed
 
 ---
 
@@ -82,6 +103,7 @@ InputNumber supports multiple sizes for different layouts:
 
 - The component is **fully controlled** via the `value` prop.
 - Changes are emitted through `onChange(value: number)`.
+- Clicking on the displayed value switches the component into an **inline edit mode**, allowing direct keyboard input.
 - Clicking **minus**/ **plus** will:
   - Adjust the value by `step` (default: `1`).
   - Respect `min` and `max` via internal clamping.
