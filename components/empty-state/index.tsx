@@ -54,8 +54,9 @@ export default function EmptyState({
         <button
           onClick={onClose}
           className="absolute top-7 right-5 md:top-6 md:right-6 text-neutral-400 hover:text-neutral-600 transition-colors p-1 z-10"
-          aria-label="Close">
-          <CloseIcon className="w-5 h-5" />
+          aria-label="Close"
+        >
+          <CloseIcon className="w-5 h-5 text-[#323232] hover:text-[#323232]/70 transition-colors" />
         </button>
       )}
 
@@ -67,10 +68,13 @@ export default function EmptyState({
           isCard && "mt-4 md:mt-2",
         ]
           .filter(Boolean)
-          .join(" ")}>
+          .join(" ")}
+      >
         <Image
           src="/images/notfound.png"
           alt="Illustration"
+          quality={100}
+          unoptimized
           width={400}
           height={300}
           className={[
@@ -90,7 +94,8 @@ export default function EmptyState({
           isHorizontal
             ? "text-center md:text-left items-center md:items-start flex-1"
             : "text-center items-center",
-        ].join(" ")}>
+        ].join(" ")}
+      >
         <h3 className="font-bold text-neutral-900 leading-tight text-lg md:text-2xl lg:text-[28px] max-w-[90%]">
           {title}
         </h3>
@@ -106,7 +111,8 @@ export default function EmptyState({
                 variant="tertiary"
                 size="md"
                 onClick={onSecondaryClick}
-                className="justify-center">
+                className="justify-center"
+              >
                 {secondaryButtonLabel}
               </Button>
             </div>
@@ -115,7 +121,8 @@ export default function EmptyState({
                 variant="primary"
                 size="md"
                 onClick={onPrimaryClick}
-                className="justify-center">
+                className="justify-center"
+              >
                 {primaryButtonLabel}
               </Button>
             </div>

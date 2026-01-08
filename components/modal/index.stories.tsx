@@ -13,7 +13,7 @@ const meta: Meta<typeof Modal> = {
   },
   decorators: [
     (Story) => (
-      <div className="py-80 flex items center justify-center">
+      <div className="py-80 flex items-center justify-center">
         <Story />
       </div>
     ),
@@ -21,7 +21,7 @@ const meta: Meta<typeof Modal> = {
   args: {
     open: true,
     size: "md",
-    title: "Tittle Goes Here",
+    title: "Title Goes Here",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     checkboxLabel: "Checkbox label",
@@ -105,7 +105,8 @@ export const Interactive: StoryFn<typeof Modal> = (args) => {
         onClick={() => {
           setOpen(true);
           action("trigger.open")("open");
-        }}>
+        }}
+      >
         Open Modal
       </Button>
 

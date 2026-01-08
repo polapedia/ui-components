@@ -99,13 +99,13 @@ This Tooltip uses the following base classes:
 - `bg-neutral-500`
 - `text-white`
 - `text-[14px] font-medium`
-- `rounded-[8px]`
+- `rounded-lg`
 
 When `multiline` is enabled, the component also applies:
 
-- `whitespace-normal break-words`
+- `whitespace-normal wrap-break-word`
 - `min-w-[320px]`
-- `maxWidthClassName` (default: `max-w-[900px]` unless overridden)
+- `maxWidthClassName` (default: `max-w-[316px]` unless overridden)
 
 ---
 
@@ -140,7 +140,8 @@ export default function Example() {
       content="This is a longer tooltip message that should wrap nicely across multiple lines."
       placement="top"
       multiline
-      maxWidthClassName="max-w-[316px]">
+      maxWidthClassName="max-w-[316px]"
+    >
       <Button>Hover / Focus me</Button>
     </Tooltip>
   );
@@ -166,7 +167,8 @@ export default function Example() {
       content="Controlled tooltip"
       open={open}
       onOpenChange={setOpen}
-      placement="right">
+      placement="right"
+    >
       <Button onClick={() => setOpen((v) => !v)}>Toggle</Button>
     </Tooltip>
   );

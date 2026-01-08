@@ -11,10 +11,8 @@ export default function LoaderCustom() {
   const { View } = useLottie(defaultOptions);
 
   return (
-    <>
-      <div className="">
-        <div className="w-full">{View}</div>
-      </div>
-    </>
+    <div>
+      <div className="w-full">{View}</div>
+    </div>
   );
 }

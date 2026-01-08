@@ -8,8 +8,9 @@ export default function CheckIcon(props: SVGProps<SVGSVGElement>) {
       height="18"
       viewBox="0 0 18 18"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_354_1469)">
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_354_1469)">
         <path
           d="M6.75 12.1275L3.62249 9L2.5575 10.0575L6.75 14.25L15.75 5.25L14.6925 4.1925L6.75 12.1275Z"
           fill="currentColor"

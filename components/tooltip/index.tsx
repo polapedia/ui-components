@@ -67,7 +67,7 @@ export default function Tooltip({
       ? [
           "min-w-[320px]",
           maxWidthClassName,
-          "whitespace-normal break-words",
+          "whitespace-normal wrap-break-word",
         ].join(" ")
       : "w-max whitespace-nowrap",
     placementClasses(placement),
@@ -82,7 +82,8 @@ export default function Tooltip({
       onMouseLeave={() => setOpen(false)}
       onFocus={() => setOpen(true)}
       onBlur={() => setOpen(false)}
-      {...props}>
+      {...props}
+    >
       {/* Trigger */}
       <span aria-describedby={isOpen ? tooltipId : undefined}>{children}</span>
 

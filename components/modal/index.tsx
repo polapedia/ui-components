@@ -100,7 +100,8 @@ export default function Modal({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
-      aria-hidden={!open}>
+      aria-hidden={!open}
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40"
@@ -118,7 +119,8 @@ export default function Modal({
           "bg-white rounded-xl shadow-lg",
           "mx-4",
           sizeClasses.container,
-        ].join(" ")}>
+        ].join(" ")}
+      >
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <h2 id={titleId} className={sizeClasses.title}>
@@ -129,7 +131,8 @@ export default function Modal({
             type="button"
             onClick={() => onOpenChange(false)}
             className="shrink-0 inline-flex items-center justify-center rounded-lg p-1 hover:bg-black/5 active:bg-black/10"
-            aria-label="Close modal">
+            aria-label="Close modal"
+          >
             <XIcon className="size-5 text-black" />
           </button>
         </div>
@@ -141,44 +144,45 @@ export default function Modal({
           </p>
         ) : null}
 
-        <div className="group flex items-start gap-1 w-full relative my-6 select-none">
-          <div className="flex items-center justify-center shrink-0">
-            <div className="relative flex items-center">
-              <div className="group grid place-items-center">
-                {/* Input Checkbox */}
-                <input
-                  type="checkbox"
-                  id={checkboxId}
-                  className={`
-                    peer col-start-1 row-start-1 appearance-none border-2 shrink-0 
-                    transition-all text-black border-black duration-200 ease-in-out
-                    h-5 w-5 rounded-md bg-white checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-0
-                  `}
-                  checked={!!checked}
-                  onChange={(e) => onCheckedChange?.(e.target.checked)}
-                />
-
-                {/* SVG Icon (Checkmark) - Overlay */}
-                <CheckmarkIcon
-                  className={`
-                    pointer-events-none col-start-1 row-start-1 
-                    w-3.5 h-3.5
-                    self-center justify-self-center stroke-white 
-                  `}
-                />
+        {(checkboxLabel !== undefined || onCheckedChange !== undefined) && (
+          <div className="group flex items-start gap-1 w-full relative my-6 select-none">
+            <div className="flex items-center justify-center shrink-0">
+              <div className="relative flex items-center">
+                <div className="group grid place-items-center">
+                  {/* Input Checkbox */}
+                  <input
+                    type="checkbox"
+                    id={checkboxId}
+                    className={`
+                      peer col-start-1 row-start-1 appearance-none border-2 shrink-0 
+                      transition-all text-black border-black duration-200 ease-in-out
+                      h-5 w-5 rounded-md bg-white checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-0
+                    `}
+                    checked={!!checked}
+                    onChange={(e) => onCheckedChange?.(e.target.checked)}
+                  />
+                  {/* SVG Icon (Checkmark) - Overlay */}
+                  <CheckmarkIcon
+                    className={`
+                      pointer-events-none col-start-1 row-start-1 
+                      w-3.5 h-3.5
+                      self-center justify-self-center stroke-white 
+                    `}
+                  />
+                </div>
               </div>
             </div>
+            {/* Label Section */}
+            <div className="flex flex-col select-none pt-0">
+              <label
+                htmlFor={checkboxId}
+                className="text-[16px] leading-5 font-medium text-black cursor-pointer transition-colors"
+              >
+                {checkboxLabel}
+              </label>
+            </div>
           </div>
-
-          {/* Label Section */}
-          <div className="flex flex-col select-none pt-0">
-            <label
-              htmlFor={checkboxId}
-              className="text-[16px] leading-5 font-medium text-black cursor-pointer transition-colors">
-              {checkboxLabel}
-            </label>
-          </div>
-        </div>
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3">
@@ -189,7 +193,8 @@ export default function Modal({
               onCancel?.();
               onOpenChange(false);
             }}
-            className="text-accents-red">
+            className="text-accents-red"
+          >
             {cancelText}
           </Button>
 
@@ -199,7 +204,8 @@ export default function Modal({
             onClick={() => {
               onConfirm?.();
               onOpenChange(false);
-            }}>
+            }}
+          >
             {confirmText}
           </Button>
         </div>

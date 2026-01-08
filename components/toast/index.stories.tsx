@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/nextjs-vite";
 import Toast from ".";
-import Button from "../button"; // sesuaikan path button lo
+import Button from "../button";
 import CloseIcon from "../icons/CloseIcon";
 import CheckmarkIcon from "../icons/CheckmarkIcon";
 

@@ -71,7 +71,7 @@ export const Placements: Story = {
       </div>
 
       <Tooltip {...args} placement="bottom" content="Bottom tooltip">
-        <Button>Buttom</Button>
+        <Button>Bottom</Button>
       </Tooltip>
     </div>
   ),
