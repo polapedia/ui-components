@@ -187,7 +187,7 @@ export const Sizes: StoryFn<typeof Tabs> = (args) => {
         />
       </div>
       <div>
-        <h3 className="mb-2 text-sm text-gray-500">Medium (m)</h3>
+        <h3 className="mb-2 text-sm text-gray-500">Medium (md)</h3>
         <Tabs
           {...args}
           size="md"

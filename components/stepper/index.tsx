@@ -144,7 +144,8 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
       className={`w-full flex ${
         isHorizontal ? "flex-row items-start" : "flex-col"
       } ${className || ""}`}
-      {...rest}>
+      {...rest}
+    >
       {derivedSteps.map((step) => {
         if (renderStep) return renderStep(step, step.index);
 
@@ -165,17 +166,20 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
             key={step.index}
             className={`flex items-center ${isHorizontal ? "" : "mb-4"} ${
               isHorizontal && !step.isLast ? "flex-1" : ""
-            }`}>
+            }`}
+          >
             {/* Item Content: Prefix + Texts */}
             <StepWrapper
               className={`flex items-start text-left ${sizeCfg.gap} ${interactiveClass} group focus-visible:outline-none`}
               onClick={clickable ? () => handleClick(step) : undefined}
               type={clickable ? "button" : undefined}
-              disabled={clickable ? isDisabled : undefined}>
+              disabled={clickable ? isDisabled : undefined}
+            >
               {/* Left Side: Prefix (+1) or Icon */}
               {(step.prefix || step.leftIcon) && (
                 <span
-                  className={`font-medium leading-none mt-1 ${sizeCfg.prefix} ${statusCfg.text}`}>
+                  className={`font-medium leading-none mt-1 ${sizeCfg.prefix} ${statusCfg.text}`}
+                >
                   {step.prefix || step.leftIcon}
                 </span>
               )}
@@ -183,12 +187,14 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
               {/* Text Block */}
               <div className="flex flex-col">
                 <span
-                  className={`font-semibold leading-tight ${sizeCfg.label} ${statusCfg.text}`}>
+                  className={`font-semibold leading-tight ${sizeCfg.label} ${statusCfg.text}`}
+                >
                   {step.label}
                 </span>
                 {step.description && (
                   <span
-                    className={`mt-1 font-normal leading-tight ${sizeCfg.description} ${statusCfg.description}`}>
+                    className={`mt-1 font-normal leading-tight ${sizeCfg.description} ${statusCfg.description}`}
+                  >
                     {step.description}
                   </span>
                 )}
@@ -196,7 +202,7 @@ const Stepper = forwardRef<HTMLDivElement, StepperProps>(function Stepper(
             </StepWrapper>
 
             {/* CONNECTOR LINE */}
-            {/* Render line only if it's not the last step */}
+            {/* Render connector line for all steps except the last. */}
             {!step.isLast && (
               <div className={`flex-1 mx-4 flex items-center`}>
                 <div

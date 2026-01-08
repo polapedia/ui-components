@@ -22,7 +22,7 @@ const meta: Meta<typeof Navigation> = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-neutral-200 flex justify-center pt-4 px-4">
+      <div className="min-h-screen bg-neutral-200 flex justify-center items-center pt-4 px-4">
         <Story />
       </div>
     ),
@@ -99,11 +99,11 @@ export const WithActiveItem: Story = {
 };
 
 export const Mobile: Story = {
-  globals: { viewport: { value: "mobile1", isRotated: false } },
+  globals: { viewport: { value: "mobile2", isRotated: false } },
 };
 
 export const Tab: Story = {
-  globals: { viewport: { value: "desktop", isRotated: false } },
+  globals: { viewport: { value: "tablet", isRotated: false } },
 };
 
 export const Desktop: Story = {

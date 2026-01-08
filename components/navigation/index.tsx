@@ -4,6 +4,7 @@ import Button from "../button";
 import Image from "next/image";
 import HamburgerIcon from "../icons/HamburgerIcon";
 import CloseIcon from "../icons/CloseIcon";
+import { usePathname } from "next/navigation";
 
 export type NavItem = {
   label: string;
@@ -28,6 +29,8 @@ const DefaultLogo = () => (
   <Image
     src="/logo/polapedia.png"
     alt="Logo Polapedia"
+    quality={100}
+    unoptimized
     width={500}
     height={500}
   />
@@ -47,6 +50,8 @@ export default function Navigation({
 }: NavigationProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const currentHref = activeHref ?? pathname;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -55,7 +60,7 @@ export default function Navigation({
   }, []);
 
   const containerClasses = [
-    "w-full flex flex-col items-center px-0 transition-all duration-300",
+    "w-full flex flex-col items-center px-0 transition-all duration-300 max-w-7xl justify-center mx-auto",
     sticky ? "sticky top-4 z-50" : "relative top-4",
     className,
   ].join(" ");
@@ -73,21 +78,25 @@ export default function Navigation({
   ].join(" ");
 
   const renderNavItem = (item: NavItem, isMobile = false) => {
-    const isActive = item.href === activeHref;
+    const isActive = item.href === currentHref;
 
     return (
       <Link
         key={item.label}
         href={item.disabled ? "#" : item.href}
         onClick={() => isMobile && setIsMobileOpen(false)}
+        aria-current={isActive ? "page" : undefined}
         className={[
           "relative font-medium transition-colors duration-200",
-          isMobile ? "py-0" : "text-[16px] tab:text-[16px] desktop:text-[20px]",
+          isMobile
+            ? "text-[16px] py-0"
+            : "text-[16px] tab:text-[16px] desktop:text-[20px]",
           isActive
             ? "bg-clip-text text-transparent bg-linear-to-b from-gradient-primary to-gradient-secondary"
             : "text-content-primary hover:text-primary-600",
           item.disabled && "opacity-50 cursor-not-allowed",
-        ].join(" ")}>
+        ].join(" ")}
+      >
         {item.label}
       </Link>
     );
@@ -98,35 +107,42 @@ export default function Navigation({
       <nav className={navClasses} {...rest}>
         {/* LEFT: Logo */}
         <div className="shrink-0 cursor-pointer w-[150px] desktop:w-[250px]">
-          <Link href="/">{logo ?? <DefaultLogo />}</Link>
+          <Link
+            href="/"
+            className="focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0"
+          >
+            {logo ?? <DefaultLogo />}
+          </Link>
         </div>
 
         {/* CENTER: Desktop Menu */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden desktop:flex items-center gap-10">
           {items.map((item) => renderNavItem(item))}
         </div>
 
         {/* RIGHT: Actions */}
         <div className="flex items-center gap-3">
           {!hideContactButton && (
-            <div className="hidden md:block">
+            <div className="hidden desktop:block">
               <Button
                 variant="primary"
                 size="md"
                 shape="rectangle"
-                onClick={onContactClick}>
+                onClick={onContactClick}
+              >
                 {contactLabel}
               </Button>
             </div>
           )}
 
-          {/* Hamburger Button (Mobile Only) */}
+          {/* Hamburger Button */}
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center p-2 text-slate-700 focus:outline-none"
+            className="desktop:hidden inline-flex items-center justify-center p-2 text-slate-700 focus:outline-none"
             onClick={() => setIsMobileOpen((prev) => !prev)}
             aria-label={isMobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileOpen}>
+            aria-expanded={isMobileOpen}
+          >
             <span className="relative flex w-8 h-8 items-center justify-center">
               {/* Hamburger icon */}
               <HamburgerIcon
@@ -153,11 +169,12 @@ export default function Navigation({
       {/* MOBILE DRAWER */}
       <div
         className={[
-          "md:hidden w-full max-w-6xl overflow-hidden transition-all duration-500 ease-in-out",
+          "desktop:hidden w-full max-w-6xl overflow-hidden transition-all duration-500 ease-in-out",
           isMobileOpen
             ? "max-h-[500px] opacity-100 mt-4 py-2.5"
             : "max-h-0 opacity-0 mt-0",
-        ].join(" ")}>
+        ].join(" ")}
+      >
         <div className="flex flex-col items-center gap-2.5 bg-white font-medium py-6 rounded-2xl">
           {items.map((item) => renderNavItem(item, true))}
 

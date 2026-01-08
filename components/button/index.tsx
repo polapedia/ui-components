@@ -38,13 +38,13 @@ const variantClasses: Record<Variant, string> = {
 };
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-8 text-[14px] px-3 py-1.5",
-  md: "h-10 text-[14px] px-4 py-2.5",
+  sm: "h-8 text-[14px] py-1 px-5",
+  md: "h-10 text-[14px] px-3 py-2.5",
   lg: "h-[58px] text-[20px] px-5 py-3",
 
-  "icon-sm": "w-8 h-8 p-0 [&_svg]:size-4",
-  "icon-md": "w-10 h-10 p-0 [&_svg]:size-5",
-  "icon-lg": "w-14 h-14 p-0 [&_svg]:size-7",
+  "icon-sm": "w-8 h-8 p-0",
+  "icon-md": "w-10 h-10 p-0",
+  "icon-lg": "w-14 h-14 p-0",
 };
 
 const shapeClasses: Record<Shape, string> = {
@@ -57,10 +57,6 @@ const compoundClasses: Record<string, string> = {
   "rectangle-sm": "rounded-sm",
   "rectangle-md": "rounded-[8px]",
   "rectangle-lg": "rounded-[12px]",
-
-  "pill-sm": "px-5",
-  "pill-md": "px-6",
-  "pill-lg": "px-8",
 
   "circle-sm": "w-[32px] h-[32px] px-0",
   "circle-md": "w-[40px] h-[40px] px-0",
@@ -97,27 +93,32 @@ export default function Button({
 
   const isTertiary = variant === "tertiary";
 
+  const iconColorClass = isTertiary
+    ? "text-accents-red hover:text-primary-700 active:text-primary-900"
+    : variant === "secondary"
+    ? "text-content-primary"
+    : "text-white";
+
+  const spinnerColorClass = isTertiary
+    ? "text-accents-red"
+    : variant === "secondary"
+    ? "text-content-secondary"
+    : "text-white";
+
+  const spinnerSizeClass =
+    size === "sm"
+      ? "size-4"
+      : size === "md"
+      ? "size-5"
+      : size === "lg"
+      ? "size-6"
+      : "size-5";
+
   return (
     <button disabled={isDisabled} className={classes} {...props}>
       {isLoading && (
         <SpinnerIcon
-          className={[
-            "animate-spin",
-            size === "sm"
-              ? "size-4"
-              : size === "md"
-              ? "size-5"
-              : size === "lg"
-              ? "size-6"
-              : "size-5",
-            variant === "tertiary"
-              ? "text-accents-red "
-              : variant === "secondary"
-              ? "text-content-secondary"
-              : variant === "primary"
-              ? "text-white"
-              : "text-white",
-          ]
+          className={["animate-spin", spinnerSizeClass, spinnerColorClass]
             .filter(Boolean)
             .join(" ")}
         />
@@ -130,14 +131,7 @@ export default function Button({
           ) : (
             <>
               {leftIcon && (
-                <span
-                  className={`inline-flex mr-[18px] ${
-                    isTertiary
-                      ? "text-accents-red hover:text-primary-700 active:text-primary-900"
-                      : variant === "secondary"
-                      ? "text-content-primary"
-                      : "text-white"
-                  }`}>
+                <span className={`inline-flex mr-[18px] ${iconColorClass}`}>
                   {leftIcon}
                 </span>
               )}
@@ -146,18 +140,12 @@ export default function Button({
                   isTertiary
                     ? "bg-linear-to-b from-gradient-primary to-gradient-secondary bg-clip-text text-transparent"
                     : ""
-                }>
+                }
+              >
                 {children}
               </span>
               {rightIcon && (
-                <span
-                  className={`inline-flex ml-[18px] ${
-                    isTertiary
-                      ? "text-accents-red hover:text-primary-700 active:text-primary-900"
-                      : variant === "secondary"
-                      ? "text-content-primary"
-                      : "text-white"
-                  }`}>
+                <span className={`inline-flex ml-[18px] ${iconColorClass}`}>
                   {rightIcon}
                 </span>
               )}

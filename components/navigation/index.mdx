@@ -101,8 +101,7 @@ return (
 
 <Source
   language="tsx"
-  code={`
-"use client";
+  code={`"use client";
 
 import { useRouter } from "next/navigation";
 import Navigation, { NavItem } from "@/components/navigation";
@@ -119,16 +118,15 @@ export default function Page() {
   const router = useRouter();
 
 return (
-
 <Navigation
-  items={items}
-  activeHref="/"
-  contactLabel="Contact"
-  onContactClick={() => router.push("/contact")}
+items={items}
+activeHref="/"
+contactLabel="Contact"
+onContactClick={() => console.log("Contact clicked")}
 />
-); }`}
-
-> </Source>
+);
+}`}
+/>
 
 ---
 
