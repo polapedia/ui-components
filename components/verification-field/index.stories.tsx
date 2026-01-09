@@ -10,10 +10,10 @@ const meta: Meta<typeof VerificationField> = {
     layout: "centered",
   },
   args: {
-    length: 4,
+    length: 6,
     disabled: false,
     autoFocus: false,
-    label: "Verification code",
+    label: "",
     helperText: "",
     error: false,
   },
@@ -27,7 +27,7 @@ const meta: Meta<typeof VerificationField> = {
     },
     size: {
       control: "select",
-      options: ["sm", "md"],
+      options: ["sm", "md", "lg"],
     },
     autoFocus: {
       control: "boolean",
@@ -57,7 +57,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    helperText: "Enter the 4-digit code sent to your phone",
+    helperText: "Enter the 6-digit code sent to your phone",
   },
 };
 

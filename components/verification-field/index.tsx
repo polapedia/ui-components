@@ -9,7 +9,7 @@ import {
   useImperativeHandle,
 } from "react";
 
-type Size = "sm" | "md";
+type Size = "sm" | "md" | "lg";
 
 interface VerificationFieldProps {
   length?: number;
@@ -36,7 +36,7 @@ const VerificationField = forwardRef<
 >(
   (
     {
-      length = 4,
+      length = 6,
       value,
       onChange,
       onComplete,
@@ -57,13 +57,21 @@ const VerificationField = forwardRef<
     const currentValue = isControlled ? value! : internalValue;
 
     const sizeBoxClasses: Record<Size, string> = {
-      sm: "w-[36px] h-[36px]",
-      md: "w-10 h-10",
+      sm: "w-8 h-8 rounded-lg",
+      md: "w-14 h-14 rounded-xl",
+      lg: "w-[100px] h-[100px] rounded-2xl",
     };
 
     const sizeTextClasses: Record<Size, string> = {
-      sm: "text-[14px]",
-      md: "text-[16px]",
+      sm: "text-lg font-semibold",
+      md: "text-2xl font-medium",
+      lg: "text-[32px] font-medium",
+    };
+
+    const helperTextClasses: Record<Size, string> = {
+      sm: "text-base text-content-secondary mt-3",
+      md: "text-base text-content-secondary mt-6",
+      lg: "text-lg text-content-secondary mt-8",
     };
 
     // helpers
@@ -175,19 +183,20 @@ const VerificationField = forwardRef<
       };
 
     // styling
-    const wrapperClasses = ["flex flex-col gap-1.5", className || ""]
+    const wrapperClasses = ["flex flex-col", className || ""]
       .filter(Boolean)
       .join(" ");
 
     const helperClasses = [
-      "text-[14px]",
       error ? "text-accents-red" : "text-content-secondary",
     ].join(" ");
 
     return (
       <div className={wrapperClasses}>
         {label && (
-          <label className="text-[14px] text-content-primary">{label}</label>
+          <label className="text-[14px] text-content-primary mb-1.5">
+            {label}
+          </label>
         )}
 
         <div className="flex gap-4">
@@ -197,11 +206,12 @@ const VerificationField = forwardRef<
               className={`
                 ${
                   sizeBoxClasses[size]
-                } rounded-full bg-white flex items-center justify-center
-                border ${error ? "border-accents-red" : "border-gray-300"}
+                } bg-white flex items-center justify-center
+                border ${error ? "border-accents-red" : "border-secondary-800"}
                 hover:bg-background-hover transition-colors
-                focus-within:ring-1 focus-within:ring-primary-600 focus-within:ring-offset-0
-              `}>
+                focus-within:ring-1 focus-within:ring-secondary-900 focus-within:ring-offset-0
+              `}
+            >
               <input
                 ref={(el) => {
                   inputsRef.current[index] = el;
@@ -226,7 +236,11 @@ const VerificationField = forwardRef<
           ))}
         </div>
 
-        {helperText && <p className={helperClasses}>{helperText}</p>}
+        {helperText && (
+          <p className={`${helperTextClasses[size]} ${helperClasses}`}>
+            {helperText}
+          </p>
+        )}
       </div>
     );
   }
