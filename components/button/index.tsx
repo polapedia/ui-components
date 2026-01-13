@@ -40,7 +40,7 @@ const variantClasses: Record<Variant, string> = {
 const sizeClasses: Record<Size, string> = {
   sm: "h-8 text-[14px] py-1 px-5",
   md: "h-10 text-[14px] px-3 py-2.5",
-  lg: "h-[58px] text-[20px] px-5 py-3",
+  lg: "h-[58px] text-[24px] px-5 py-3",
 
   "icon-sm": "w-8 h-8 p-0",
   "icon-md": "w-10 h-10 p-0",
@@ -59,8 +59,8 @@ const compoundClasses: Record<string, string> = {
   "rectangle-lg": "rounded-[12px]",
 
   "circle-sm": "w-[32px] h-[32px] px-0",
-  "circle-md": "w-[40px] h-[40px] px-0",
-  "circle-lg": "w-[58px] h-[58px] px-0",
+  "circle-md": "w-[48px] h-[48px] px-0",
+  "circle-lg": "w-[56px] h-[56px] px-0",
 };
 
 export default function Button({
