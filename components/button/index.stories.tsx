@@ -34,7 +34,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["primary", "secondary", "tertiary"],
+      options: ["primary", "secondary", "tertiary", "outline-primary"],
     },
     size: {
       control: "select",
@@ -74,6 +74,10 @@ export const Secondary: Story = {
 
 export const Tertiary: Story = {
   args: { variant: "tertiary" },
+};
+
+export const OutlinePrimary: Story = {
+  args: { variant: "outline-primary" },
 };
 
 // Size Showcase
@@ -168,7 +172,8 @@ export const AsLink: Story = {
       onClick={(e) => {
         e.preventDefault();
         action("next/link click")("/coming-soon");
-      }}>
+      }}
+    >
       <Button {...args}>Button as Link</Button>
     </Link>
   ),

@@ -14,7 +14,7 @@ import * as ButtonStories from "./index.stories";
 # Button
 
 Buttons trigger actions such as submitting a form or showing or hiding an interface component.  
-They come in three emphasis levels — Primary, Secondary, and Tertiary — and support multiple sizes and shapes for different interaction patterns.
+They come in four emphasis levels — **Primary, Secondary, Tertiary, and Outline Primary** — and support multiple sizes and shapes for different interaction patterns.
 
 ---
 
@@ -26,7 +26,7 @@ They come in three emphasis levels — Primary, Secondary, and Tertiary — and 
 
 <Controls />
 
-Use the **Controls** panel to explore props such as `variant`, `size`, `shape`, icons, and behavioral states like `loading` or `disabled`.
+Use the **Controls** panel to explore props such as `variant`, `size`, `shape`, icons, and behavioral states like `isLoading` or `disabled`.
 
 ---
 
@@ -38,11 +38,15 @@ Used for the most prominent action on a screen.
 
 <Canvas of={ButtonStories.Primary} />
 
+---
+
 ### Secondary
 
 Ideal for alternative or less prominent actions.
 
 <Canvas of={ButtonStories.Secondary} />
+
+---
 
 ### Tertiary
 
@@ -52,11 +56,21 @@ Low-emphasis option suitable for subtle or inline actions.
 
 ---
 
+### Outline Primary
+
+A bordered, low-visual-weight variant that still conveys a primary action.  
+Useful when you want to emphasize an action **without using a solid background**, such as in dense layouts or alongside filled buttons.
+
+<Canvas of={ButtonStories.OutlinePrimary} />
+
+---
+
 ## Sizes
 
-- **sm** – compact button for dense or constrained UIs.
-- **md** – default size for standard actions.
-- **lg** – large, attention-drawing actions such as primary CTA.
+- **sm** - compact button for dense or constrained UIs.
+- **md** - default size for standard actions.
+- **lg** - large, attention-drawing actions such as primary CTA.
+- **icon-sm / icon-md / icon-lg** - icon-only buttons with fixed width and height.
 
 <Canvas of={ButtonStories.Sizes} />
 
@@ -64,9 +78,9 @@ Low-emphasis option suitable for subtle or inline actions.
 
 ## Shapes
 
-- **rectangle** – default, versatile shape for most use cases.
-- **pill** – friendlier, softer shape suitable for marketing or CTA emphasis.
-- **circle** – dedicated for icon-only actions.
+- **rectangle** - default, versatile shape for most use cases.
+- **pill** - friendlier, softer shape suitable for marketing or CTA emphasis.
+- **circle** - dedicated for icon-only actions.
 
 <Canvas of={ButtonStories.Shapes} />
 
@@ -76,12 +90,12 @@ Low-emphasis option suitable for subtle or inline actions.
 
 The Button component supports the following UI states:
 
-- **Default** – initial visual appearance.
-- **Hover** – pointer hovering state.
-- **Active / Pressed** – when the button is pressed.
-- **Disabled** – inactive, non-interactive state.
-- **Loading** – shows a spinner and blocks interaction.
-- **Focus** – visible outline when accessed via keyboard.
+- **Default** - initial visual appearance.
+- **Hover** - pointer hovering state.
+- **Active / Pressed** - when the button is pressed.
+- **Disabled** - inactive, non-interactive state.
+- **Loading** - shows a spinner and blocks interaction.
+- **Focus** - visible outline when accessed via keyboard.
 
 <Canvas of={ButtonStories.States} />
 
@@ -90,9 +104,10 @@ The Button component supports the following UI states:
 ## Interaction & Behavior
 
 - The Button triggers the `onClick` handler when activated.
-- Storybook logs click events in the **Actions** panel via `onClick: "clicked"`.
+- Storybook logs click events in the **Actions** panel.
 - For forms, pass `type="submit"` when the Button should submit data.
 - Setting `isLoading` automatically disables the Button and shows a spinner.
+- When `variant="outline-primary"`, text and icons use the secondary content color by default.
 
 ---
 
@@ -105,15 +120,17 @@ The Button component supports the following UI states:
 ## Usage Guidelines
 
 - Use **only one** primary button per screen to maintain a clear visual hierarchy.
-- Use secondary buttons for less important or alternative actions.
+- Use **outline primary** when you need a primary action with less visual dominance.
+- Use secondary buttons for alternative or supporting actions.
 - Use tertiary buttons for inline or low-emphasis actions.
 - Avoid using circle buttons without icons.
-- Prefer `isLoading` over combining `disabled` and `isLoading` manually; loading should block interaction and show clear feedback.
+- Prefer `isLoading` over manually combining `disabled` and loading states.
 
 ---
 
 ## Accessibility
 
-- The Button uses a semantic `<button>` element for accessibility.
-- Keep focus styles visible for keyboard users.
-- Ensure button labels are descriptive so screen readers can convey their purpose.
+- Uses a semantic `<button>` element for accessibility.
+- Focus styles are preserved for keyboard navigation.
+- Ensure button labels or icons have clear meaning.
+- Icon-only buttons should always have an accessible label (e.g. `aria-label`).

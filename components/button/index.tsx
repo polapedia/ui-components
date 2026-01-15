@@ -1,7 +1,7 @@
 import { ComponentProps, ReactNode } from "react";
 import SpinnerIcon from "../icons/SpinnerIcon";
 
-type Variant = "primary" | "secondary" | "tertiary";
+type Variant = "primary" | "secondary" | "tertiary" | "outline-primary";
 
 type Size = "sm" | "md" | "lg" | "icon-sm" | "icon-md" | "icon-lg";
 
@@ -28,6 +28,14 @@ const variantClasses: Record<Variant, string> = {
   secondary: [
     "bg-white border border-content-secondary text-content-secondary",
     "hover:bg-background-hover hover:text-content-primary",
+    "active:bg-background-pressed active:text-content-primary",
+  ].join(" "),
+  "outline-primary": [
+    "border-2 border-transparent",
+    "bg-[linear-gradient(theme(colors.white),theme(colors.white)),linear-gradient(to_bottom,theme(colors.gradient-primary),theme(colors.gradient-secondary))]",
+    "bg-origin-border [background-clip:padding-box,border-box]",
+    "text-content-secondary",
+    "hover:bg-background-hover hover:text-content-primary hover:border-primary-700",
     "active:bg-background-pressed active:text-content-primary",
   ].join(" "),
   tertiary: [
@@ -92,16 +100,17 @@ export default function Button({
     .join(" ");
 
   const isTertiary = variant === "tertiary";
+  const isOutline = variant === "outline-primary";
 
   const iconColorClass = isTertiary
     ? "text-accents-red hover:text-primary-700 active:text-primary-900"
-    : variant === "secondary"
-    ? "text-content-primary"
+    : variant === "secondary" || isOutline
+    ? "text-content-secondary"
     : "text-white";
 
   const spinnerColorClass = isTertiary
     ? "text-accents-red"
-    : variant === "secondary"
+    : variant === "secondary" || isOutline
     ? "text-content-secondary"
     : "text-white";
 
