@@ -25,6 +25,9 @@ const meta: Meta<typeof Link> = {
     variant: "no-underline",
     size: "md",
     withIcon: true,
+    onClick: (e) => {
+      e.preventDefault();
+    },
   },
   argTypes: {
     variant: {

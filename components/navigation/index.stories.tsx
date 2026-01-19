@@ -5,7 +5,7 @@ import { MINIMAL_VIEWPORTS } from "storybook/viewport";
 
 const defaultItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
+  { label: "About Us", href: "/about-us" },
   { label: "Polo AI", href: "/polo-ai" },
   { label: "Marketplace", href: "/marketplace" },
   { label: "Terms Of Service", href: "/tos" },
@@ -30,6 +30,10 @@ const meta: Meta<typeof Navigation> = {
   args: {
     items: defaultItems,
     activeHref: "/",
+    onClick: (e) => {
+      e.preventDefault();
+      action("item click");
+    },
     sticky: false,
     variant: "elevated",
     contactLabel: "Contact",

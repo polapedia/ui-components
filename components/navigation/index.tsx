@@ -84,13 +84,13 @@ export default function Navigation({
       <Link
         key={item.label}
         href={item.disabled ? "#" : item.href}
-        onClick={() => isMobile && setIsMobileOpen(false)}
+        onClick={
+          rest.onClick ? rest.onClick : () => isMobile && setIsMobileOpen(false)
+        }
         aria-current={isActive ? "page" : undefined}
         className={[
           "relative font-medium transition-colors duration-200",
-          isMobile
-            ? "text-[16px] py-0"
-            : "text-[16px] tab:text-[16px] desktop:text-[20px]",
+          "text-[16px] tab:text-[18px]",
           isActive
             ? "bg-clip-text text-transparent bg-linear-to-b from-gradient-primary to-gradient-secondary"
             : "text-content-primary hover:text-primary-600",

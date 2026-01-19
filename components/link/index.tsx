@@ -6,7 +6,8 @@ type Variant = "underline" | "no-underline";
 type Size = "sm" | "md" | "lg";
 
 interface TextLinkProps
-  extends NextLinkProps,
+  extends
+    NextLinkProps,
     Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof NextLinkProps> {
   variant?: Variant;
   size?: Size;
