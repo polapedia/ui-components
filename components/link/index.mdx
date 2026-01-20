@@ -1,0 +1,133 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import Link from ".";
+import * as LinkStories from "./index.stories";
+
+<Meta of={LinkStories} />
+
+# Link
+
+`Link` is used for text-based navigation, both for internal routing (Next.js) and external URLs.  
+This component supports visual variants, sizes, and right-side icons to indicate specific link behavior (e.g., external link indicator).
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `variant`, `size`, `withIcon`, and custom `rightIcon`.
+
+---
+
+## Variants
+
+### Underline
+
+Use this variant when you want the link to be visually obvious, especially inside body text.
+
+<Canvas of={LinkStories.Underline} />
+
+### No underline
+
+A subtle option, ideal when the surrounding UI already communicates interactivity (e.g., link lists, navigation items).
+
+<Canvas of={LinkStories.NoUnderline} />
+
+---
+
+## Sizes
+
+Link supports three sizes that adjust both text and icon scale:
+
+- **sm** - compact link for dense UI or small captions.
+- **md** - the default size, suitable for general content.
+- **lg** - large link size for visually emphasized CTAs or key actions.
+
+<Canvas of={LinkStories.Sizes} />
+
+---
+
+## Icons
+
+`Link` can display an icon on the right:
+
+- The default icon visually indicates an external link.
+- Use `rightIcon` to replace the icon with any custom element.
+- Use `withIcon={false}` to hide the icon entirely.
+
+### Custom Icon Example
+
+<Canvas of={LinkStories.WithCustomIcon} />
+
+### Without Icon
+
+<Canvas of={LinkStories.WithoutIcon} />
+
+---
+
+## External Links
+
+When linking externally, you should set:
+
+- `target="_blank"`
+- `rel="noreferrer"` or `rel="noopener noreferrer"`
+
+This improves security and prevents window object access.
+
+<Canvas of={LinkStories.External} />
+
+---
+
+## Inline Usage
+
+`Link` is safe and visually balanced when embedded directly in paragraphs, replacing a standard `<a>` element while maintaining design consistency.
+
+<Canvas of={LinkStories.InlineTextUsage} />
+
+---
+
+## Interaction & Behavior
+
+- Built on top of `next/link`, enabling seamless Next.js routing.
+- Supports standard anchor tag attributes (`href`, `target`, `rel`, `aria-*`, etc.).
+- `onClick` events are logged through Storybook's **Actions** panel.
+- Icon behavior is fully customizable through `withIcon` and `rightIcon`.
+
+---
+
+## Props
+
+<ArgTypes of={LinkStories} />
+
+---
+
+## Usage Guidelines
+
+- **Use underline** for inline text links to maximize clarity.
+- **Use no-underline** for navigational contexts where interactivity is already obvious.
+- Icons are helpful when:
+  - indicating external navigation,
+  - showing special status (e.g., "new"),
+  - differentiating link behavior (e.g., opens modal or file).
+- Avoid overusing icons—too many icons reduce scannability.
+- Ensure the meaning of the link remains clear even without surrounding context.
+
+---
+
+## Accessibility
+
+- Link text should be descriptive; avoid vague labels like “click here.”
+- Ensure color contrast meets accessibility standards.
+- Consider informing users when a link opens a new tab (via text or tooltip).
+- The component preserves native anchor semantics for screen reader support.

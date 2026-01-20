@@ -1,0 +1,200 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as TabsStories from "./index.stories";
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+Tabs organize content into multiple sections and allow users to switch between views without leaving the page.
+
+They support two visual variants (**Underline** and **Solid**), two sizes, and flexible icon placement (left or top).
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `variant`, `size`, `iconPosition`, `items`, and different interaction states like disabled tabs.
+
+---
+
+## Variants
+
+### Underline
+
+Default variant where the active tab is highlighted with a primary underline.
+
+- For **multiple tabs**, the underline is a continuous gray line with the active tab overriding it with a primary 2px line.
+- For a **single tab**, the underline is only as wide as the tab content.
+
+#### Single Underline
+
+<Canvas of={TabsStories.SingleUnderline} />
+
+#### Multiple Underline
+
+<Canvas of={TabsStories.Default} />
+
+---
+
+### Solid
+
+Solid variant uses a filled background to emphasize the active tab.
+
+#### Single Solid
+
+<Canvas of={TabsStories.SingleSolid} />
+
+#### Multiple Solid
+
+<Canvas of={TabsStories.SolidBackground} />
+
+---
+
+## Icon Placement
+
+Tabs can display optional icons, positioned either on the **left** of the label or on **top**.
+
+### Icons - Left
+
+Best for horizontal navigation with limited vertical space.
+
+<Canvas of={TabsStories.WithIconsLeft} />
+
+<Canvas of={TabsStories.SolidWithIconsLeft} />
+
+### Icons - Top
+
+Useful when tabs need stronger visual hierarchy or when used in more “card-like” layouts.
+
+<Canvas of={TabsStories.WithIconsTop} />
+
+<Canvas of={TabsStories.SolidWithIconsTop} />
+
+---
+
+## Sizes
+
+- **sm** - compact tabs for dense or constrained layouts.
+- **md** - default size for most navigation patterns.
+
+<Canvas of={TabsStories.Sizes} />
+
+---
+
+## Single vs Multiple Tabs
+
+The component behaves slightly differently depending on the number of items:
+
+- **Single tab**
+  - Underline is only as wide as the tab's content.
+  - Ideal for small headers where the entire content is a single view.
+- **Multiple tabs**
+  - Underline variant shows a continuous gray line across all tabs, with the active tab's primary underline overriding it.
+  - Solid variant keeps all tabs on the same baseline, with only the active tab filled.
+
+Use these stories to compare behavior:
+
+- Single: `<Canvas of={TabsStories.SingleUnderline} />`, `<Canvas of={TabsStories.SingleSolid} />`
+- Multiple: `<Canvas of={TabsStories.Default} />`, `<Canvas of={TabsStories.SolidBackground} />`
+
+---
+
+## UI States
+
+The Tabs component supports the following UI states for each tab item:
+
+- **Default** - unselected tab with standard text and underline (if applicable).
+- **Hover** - subtle background and/or color change to indicate interactivity.
+- **Active / Selected** - highlighted tab:
+  - Underline: primary-colored 2px underline.
+  - Solid: filled primary background with white text.
+- **Disabled** - non-interactive, muted text; click is ignored.
+- **Focus** - accessible focus outline when navigated via keyboard.
+
+These states can be explored on:
+
+- Underline variant: <Canvas of={TabsStories.Default} />
+- Solid variant: <Canvas of={TabsStories.SolidBackground} />
+
+(Use the **Interactions** / **Actions** panel and keyboard navigation to inspect focus and pressed behavior.)
+
+---
+
+## Interaction & Behavior
+
+- Tabs are **controlled** via the `value` prop.
+- When a tab is clicked:
+  - The component calls `onChange(newValue)`.
+  - Parent stories in Storybook update the `value` via `useArgs`, so you can observe the change.
+- Disabled tabs ignore click events and do not fire `onChange`.
+- Only one tab is considered active at a time (based on `value`).
+- In the **Underline** variant with multiple tabs, the active tab visually “sits” on a continuous baseline.
+
+---
+
+## Responsive Preview
+
+Tabs can be horizontally scrollable when their container is constrained.
+
+<Canvas of={TabsStories.ResponsiveScroll} />
+
+Guidelines:
+
+- Use horizontal scroll for navigation bars with many tabs, especially on mobile.
+- Ensure labels remain readable and avoid truncating important information.
+
+---
+
+## Props
+
+<ArgTypes of={TabsStories} />
+
+Key props:
+
+- `items: TabItem[]` - list of tab definitions `{ label, value, icon?, disabled? }`.
+- `value: string` - currently active tab value.
+- `onChange: (value: string) => void` - callback when a tab is selected.
+- `variant: "underline" | "solid"` - visual style.
+- `size: "sm" | "md"` - tab size.
+- `iconPosition: "left" | "top"` - relative position of the optional icon.
+- `className?: string` - optional container styling.
+
+---
+
+## Usage Guidelines
+
+- Use **Underline** tabs for standard page-level navigation, especially in content-heavy interfaces.
+- Use **Solid** tabs when:
+  - You need stronger emphasis on the active view.
+  - Tabs behave more like segmented buttons or filters.
+- Prefer short, clear labels; avoid wrapping text across multiple lines.
+- Use icons to:
+  - Aid quick recognition.
+  - Differentiate primary areas (e.g., Dashboard, Settings).
+- Place icons:
+  - On the **left** for traditional nav bars.
+  - On the **top** when tabs are part of a card or when vertical space is available.
+- Avoid too many tabs on a single row; use scroll or group content when necessary.
+- Disable tabs only when a destination is temporarily unavailable or gated; otherwise, consider hiding them.
+
+---
+
+## Accessibility
+
+- Tabs are rendered as `<button role="tab">` within a container `role="tablist"`.
+- `aria-selected` is applied to the active tab for screen readers.
+- Ensure tab labels clearly describe the content of their respective panels.
+- Keep focus outlines visible so keyboard users can easily navigate between tabs.
+- When integrating with tab panels, link them with `aria-controls` and `id` on the respective content containers for full WAI-ARIA tab semantics.

@@ -1,0 +1,217 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as StickyButtonStories from "./index.stories";
+
+<Meta of={StickyButtonStories} />
+
+# Sticky Button
+
+**Sticky Button** is a high-visibility call-to-action that stays anchored near the bottom of the viewport.
+It wraps the base `Button` component and adds layout and positioning behavior commonly used in:
+
+- checkout flows
+- long forms
+- multi-step journeys
+- mobile-first screens
+
+The goal is to keep the primary action **always accessible** without interrupting content flow.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to experiment with:
+
+- `variant`
+- `sticky`
+- `size`
+- `shape`
+- `children`
+
+> Note: In Storybook, `sticky` may be disabled by default to make previewing easier.
+
+---
+
+## Variants
+
+Sticky Button supports the same emphasis levels as the base `Button`.
+
+### Primary
+
+The main call-to-action.
+Use this for the most important action on the screen.
+
+### Secondary
+
+An alternative or supporting action.
+Useful when there are two valid paths forward.
+
+### Tertiary
+
+A low-emphasis, text-only action.
+Use for optional or dismissive actions.
+
+<Canvas of={StickyButtonStories.VariantsShowcase} />
+
+---
+
+## Sticky Behavior
+
+The `sticky` prop controls whether the button is anchored to the bottom of the viewport.
+
+- `sticky={true}`  
+  The wrapper uses `position: sticky` and stays at the bottom edge.
+- `sticky={false}`  
+  The button behaves like a normal inline element.
+
+Example:
+
+```tsx
+<StickyButton variant="primary" sticky>
+  Continue
+</StickyButton>
+```
+
+### Implementation notes
+
+- The wrapper adds padding and a subtle gradient background to separate the CTA from content.
+- Always add bottom padding to the page content (e.g. `pb-24`) so the button does not overlap the last elements.
+- This pattern works especially well on mobile and small screens.
+
+---
+
+## Wrapper vs Button Styling
+
+Sticky Button consists of **two layers**:
+
+1. **Wrapper (`div`)** - controls layout and positioning
+2. **Button** - controls visual style and interaction
+
+Because of this:
+
+- `className` → applies to the **button**
+- `containerClassName` → applies to the **wrapper**
+
+### Example: override positioning
+
+```tsx
+<StickyButton
+  sticky={false}
+  containerClassName="fixed bottom-6 left-1/2 -translate-x-1/2 w-full px-4">
+  Continue to Checkout
+</StickyButton>
+```
+
+### Example: custom sticky offset
+
+```tsx
+<StickyButton sticky containerClassName="bottom-10">
+  Continue
+</StickyButton>
+```
+
+### Why `className` does not control positioning
+
+```tsx
+<div class="sticky bottom-0 ...">
+  <- wrapper controls positioning
+  <button class="...">...</button>
+</div>
+```
+
+This means:
+
+```tsx
+<StickyButton className="sticky top-0" />
+```
+
+❌ will **not** affect layout or positioning.
+
+---
+
+## Layout & Sizing
+
+- Default `size` is `md`, suitable for both desktop and mobile.
+- Default shapes:
+
+  - `pill` for `primary` and `secondary`
+  - `rectangle` for `tertiary`
+
+- The button expands to full width but is constrained by a max-width for balance.
+
+You can customize both layers:
+
+```tsx
+<StickyButton
+  variant="secondary"
+  className="max-w-sm"
+  containerClassName="px-6">
+  Schedule a Visit
+</StickyButton>
+```
+
+If `shape` is explicitly provided, it always takes precedence over variant defaults.
+
+---
+
+## Interaction & UI States
+
+Sticky Button inherits all states from the base `Button` component:
+
+- Default
+- Hover
+- Active / Pressed
+- Disabled
+- Loading
+- Focus (keyboard-visible outline)
+
+---
+
+## Usage Guidelines
+
+**Do**
+
+- Use only **one primary Sticky Button per screen**
+- Use clear, action-oriented labels (e.g. “Pay Now”, “Submit Order”)
+- Enable sticky behavior on long or scroll-heavy screens
+
+**Don't**
+
+- Stack multiple sticky CTAs
+- Use sticky for destructive actions
+- Control positioning via `className`
+
+---
+
+## Accessibility
+
+- Renders a semantic `<button>` element
+- Supports keyboard navigation and focus styles
+- Ensure sufficient color contrast for all variants
+- Provide descriptive text or `aria-label` for icon-only usage
+
+---
+
+## Props
+
+<ArgTypes of={StickyButtonStories} />
+
+### Additional Props
+
+- `sticky?: boolean`
+  Enables or disables internal sticky positioning.
+
+- `containerClassName?: string`
+  Extra class names for the wrapper.
+  Use this to control spacing, background, and—most importantly—**placement**.

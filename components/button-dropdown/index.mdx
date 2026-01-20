@@ -1,0 +1,107 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as ButtonDropdownStories from "./index.stories";
+
+<Meta of={ButtonDropdownStories} />
+
+# Button Dropdown
+
+Button Dropdown displays a list of additional related options or actions when triggered.
+It combines a standard button style with a toggleable overlay, useful for grouping secondary actions or displaying contextual information.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `variant`, `size`, and `disabled`.
+
+---
+
+## Variants
+
+### Primary
+
+The default style, using the brand gradient. Used for main actions that require sub-options.
+
+<Canvas of={ButtonDropdownStories.Primary} />
+
+### Inverted
+
+A dark theme variant, suitable for light backgrounds where a strong contrast is needed or for specific UI themes.
+
+<Canvas of={ButtonDropdownStories.Inverted} />
+
+### Error
+
+Indicates a destructive action or an error state that requires user attention.
+
+<Canvas of={ButtonDropdownStories.Error} />
+
+### Disabled
+
+<Canvas of={ButtonDropdownStories.Disabled} />
+
+---
+
+## Sizes
+
+Button Dropdown comes in three sizes with specific height requirements to ensure touch targets are accessible:
+
+- **sm** - height 40px
+- **md** - height 56px
+- **lg** - height 70px
+
+<Canvas of={ButtonDropdownStories.Sizes} />
+
+---
+
+## Content Customization
+
+The dropdown content (`children`) is flexible. While it defaults to a tooltip-like text, you can pass custom JSX such as a list of links or a small form.
+
+<Canvas of={ButtonDropdownStories.CustomContent} />
+
+---
+
+## UI States
+
+The component supports standard states:
+
+- **Default** - Initial appearance.
+- **Active / Open** - When clicked, the chevron rotates and the dropdown appears.
+- **Disabled** - Opacity is reduced, and interaction is blocked.
+
+<Canvas of={ButtonDropdownStories.States} />
+
+---
+
+## Interaction & Behavior
+
+- **Trigger:** The dropdown is triggered by a **click** event on the entire button area.
+- **Dismissal:** Clicking outside the component (`useOnClickOutside`) triggers the dropdown to close.
+- **Positioning:** The dropdown appears absolutely positioned below the button.
+
+---
+
+## Props
+
+<ArgTypes of={ButtonDropdownStories} />
+
+---
+
+## Usage Guidelines
+
+- **Grouping:** Use Button Dropdown to declutter the UI by hiding secondary actions behind a single trigger.
+- **Labeling:** Ensure the `label` clearly indicates the category of actions inside (e.g., "Export", "Settings").

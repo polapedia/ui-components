@@ -14,18 +14,27 @@ const meta: Meta<typeof Button> = {
   title: "Design System/Navigation & Action/Button",
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
+  decorators: [
+    (Story) => (
+      <div className="bg-background-hover flex justify-center items-center p-4">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: "Button",
     variant: "primary",
     size: "md",
     shape: "rectangle",
+    leftIcon: icons.Home,
+    rightIcon: icons.Home,
   },
   argTypes: {
     variant: {
       control: "radio",
-      options: ["primary", "secondary", "tertiary"],
+      options: ["primary", "secondary", "tertiary", "outline-primary"],
     },
     size: {
       control: "select",
@@ -65,6 +74,10 @@ export const Secondary: Story = {
 
 export const Tertiary: Story = {
   args: { variant: "tertiary" },
+};
+
+export const OutlinePrimary: Story = {
+  args: { variant: "outline-primary" },
 };
 
 // Size Showcase
@@ -159,7 +172,8 @@ export const AsLink: Story = {
       onClick={(e) => {
         e.preventDefault();
         action("next/link click")("/coming-soon");
-      }}>
+      }}
+    >
       <Button {...args}>Button as Link</Button>
     </Link>
   ),
