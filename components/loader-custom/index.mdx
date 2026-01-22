@@ -1,0 +1,44 @@
+import { Meta, Canvas, Story, Primary } from "@storybook/addon-docs/blocks";
+import * as LoaderStories from "./index.stories";
+
+<Meta of={LoaderStories} />
+
+# LoaderCustom
+
+LoaderCustom is a dedicated component for displaying animated loading states using Lottie animations.
+It is primarily used to provide visual feedback during asynchronous actions, data fetching, or processing steps.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+Since this component currently does not accept props, it relies on its parent container for sizing.
+It uses `w-full` internally, meaning it will expand to fill the width of the element wrapping it.
+
+---
+
+## Sizing Behavior
+
+The `LoaderCustom` adapts to the width of its parent. Below are examples of how the loader scales when placed inside containers of different widths.
+
+<Canvas of={LoaderStories.ContainerSizes} />
+
+---
+
+## Usage Example
+
+An example of the loader used within a card component context to indicate a processing state.
+
+<Canvas of={LoaderStories.ContextExample} />
+
+---
+
+## Usage Guidelines
+
+- **Container Sizing:** Always wrap `<LoaderCustom />` in a `div` with a specific width (e.g., `w-12`, `w-24`) to control its size, otherwise it might take up the full screen width depending on the layout.
+- **Context:** Use this for block-level loading (e.g., loading a section of a page). For button loading states, use the `isLoading` prop on the Button component instead.
+- **Consistency:** Ensure the wrapper size is consistent across similar pages to prevent layout shifts.

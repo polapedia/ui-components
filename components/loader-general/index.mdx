@@ -1,0 +1,60 @@
+import {
+  Meta,
+  Canvas,
+  Controls,
+  Story,
+  ArgTypes,
+} from "@storybook/addon-docs/blocks";
+import * as LoaderStories from "./index.stories";
+
+<Meta of={LoaderStories} />
+
+# Loader
+
+The Loader component provides a visual cue that an action is being processed or data is being retrieved.
+It uses a spinning icon to indicate activity and supports multiple sizes to fit different contexts.
+
+---
+
+## Playground
+
+<Canvas>
+  <Story of={LoaderStories.Default} />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to test different sizes (`sm`, `md`, `lg`).
+
+---
+
+## Sizes
+
+The loader is available in three fixed sizes to match the hierarchy of the surrounding content.
+
+- **sm** - Used for inline loading, such as inside small buttons or tight data tables (`size-6`).
+- **md** - The default size, suitable for standard buttons or card content (`size-8`).
+- **lg** - Larger size for prominence, useful for section-level loading (`size-10`).
+
+<Canvas of={LoaderStories.Sizes} />
+
+---
+
+## Props
+
+<ArgTypes of={LoaderStories} />
+
+---
+
+## Usage Guidelines
+
+- **Context:** Use this loader for inline feedback (e.g., inside a button, next to a label). For full-page or container-filling loading states, consider using the `LoaderCustom` (Lottie) component instead.
+- **Positioning:** Ensure the loader is vertically centered relative to adjacent text or elements.
+- **Visual Feedback:** The loader currently uses the `text-accents-red` color to indicate activity. Ensure it is placed on a background that provides sufficient contrast.
+
+---
+
+## Accessibility
+
+- **ARIA Roles:** The component automatically includes `role="status"` and `aria-live="polite"`.
+- **Screen Readers:** This configuration ensures that screen readers notify users when a loading state appears or updates without interrupting their current task.
