@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Banner from ".";
-import PlusOne from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Banner from '.';
+import PlusOne from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -8,27 +8,27 @@ const icons = {
 };
 
 const meta: Meta<typeof Banner> = {
-  title: "Design System/Display/Banner",
+  title: 'Design System/Display/Banner',
   component: Banner,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    variant: "info",
-    title: "Banner Title",
-    description: "Your text type here",
+    variant: 'info',
+    title: 'Banner Title',
+    description: 'Your text type here',
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: ["info", "success", "warning", "danger"],
+      control: 'select',
+      options: ['info', 'success', 'warning', 'danger'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    onClick: { action: "clicked" },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -37,31 +37,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
-    variant: "info",
+    variant: 'info',
   },
 };
 
 export const Success: Story = {
   args: {
-    variant: "success",
+    variant: 'success',
   },
 };
 
 export const Warning: Story = {
   args: {
-    variant: "warning",
+    variant: 'warning',
   },
 };
 
 export const Danger: Story = {
   args: {
-    variant: "danger",
+    variant: 'danger',
   },
 };
 
 export const WithIcon: Story = {
   args: {
-    variant: "info",
+    variant: 'info',
     leftIcon: icons.PlusOne,
   },
 };

@@ -1,11 +1,11 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import { useState } from "react";
-import StarRating from ".";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import StarRating from '.';
 
 const meta: Meta<typeof StarRating> = {
-  title: "Design System/Display/Rating",
+  title: 'Design System/Display/Rating',
   component: StarRating,
-  parameters: { layout: "padded" },
+  parameters: { layout: 'padded' },
   args: {
     value: 3,
     max: 5,
@@ -13,12 +13,12 @@ const meta: Meta<typeof StarRating> = {
     starSize: 24,
   },
   argTypes: {
-    value: { control: { type: "number", min: 0, max: 5 } },
-    max: { control: { type: "number", min: 1, max: 10 } },
-    interactive: { control: "boolean" },
+    value: { control: { type: 'number', min: 0, max: 5 } },
+    max: { control: { type: 'number', min: 1, max: 10 } },
+    interactive: { control: 'boolean' },
     starSize: {
-      control: { type: "number", min: 12, max: 48, step: 2 },
-      description: "Size of each star in pixels",
+      control: { type: 'number', min: 12, max: 48, step: 2 },
+      description: 'Size of each star in pixels',
     },
   },
 };

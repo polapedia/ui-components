@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function ArrowUpIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function ArrowUpIcon(props: SVGProps<SVGSVGElement>) {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g clipPath="url(#clip0_891_522)">
         <path
           d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z"

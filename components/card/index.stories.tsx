@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Card from ".";
-import HomeIcon from "../icons/HomeIcon";
-import PlusOneIcon from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Card from '.';
+import HomeIcon from '../icons/HomeIcon';
+import PlusOneIcon from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -10,37 +10,37 @@ const icons = {
 };
 
 const meta: Meta<typeof Card> = {
-  title: "Design System/Display/Card",
+  title: 'Design System/Display/Card',
   component: Card,
   args: {
-    title: "Tittle",
-    subtitle: "Secondary Text",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+    title: 'Tittle',
+    subtitle: 'Secondary Text',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
     rating: 4,
   },
   argTypes: {
     variant: {
-      control: { type: "select" },
-      options: ["product", "simple"],
-      description: "Card display variations",
+      control: { type: 'select' },
+      options: ['product', 'simple'],
+      description: 'Card display variations',
     },
     topIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rating: {
-      control: { type: "number", min: 0, max: 5, step: 0.5 },
+      control: { type: 'number', min: 0, max: 5, step: 0.5 },
     },
-    onButtonClick: { action: "clicked" },
+    onButtonClick: { action: 'clicked' },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 
@@ -49,20 +49,20 @@ type Story = StoryObj<typeof Card>;
 
 export const ProductDefault: Story = {
   args: {
-    variant: "product",
+    variant: 'product',
     topIcon: icons.Home,
-    buttonText: "View Product",
+    buttonText: 'View Product',
     rightIcon: icons.PlusOne,
-    imageSrc: "/images/house.jpeg",
+    imageSrc: '/images/house.jpeg',
   },
   decorators: [(Story) => <Story />],
 };
 
 export const SimpleDefault: Story = {
   args: {
-    variant: "simple",
+    variant: 'simple',
     topIcon: icons.Home,
-    description: "Lorem ipsum dolor sit amet consectetur.",
+    description: 'Lorem ipsum dolor sit amet consectetur.',
     subtitle: undefined,
     rating: undefined,
     buttonText: undefined,

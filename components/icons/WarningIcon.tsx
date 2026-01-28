@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function WarningIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function WarningIcon(props: SVGProps<SVGSVGElement>) {
       height="12"
       viewBox="0 0 12 12"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g clipPath="url(#clip0_875_926)">
         <g clipPath="url(#clip1_875_926)">
           <path

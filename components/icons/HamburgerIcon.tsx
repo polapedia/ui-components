@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function HamburgerIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function HamburgerIcon(props: SVGProps<SVGSVGElement>) {
       height="32"
       viewBox="0 0 32 32"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g clipPath="url(#clip0_101_1313)">
         <path
           d="M7 11H33"

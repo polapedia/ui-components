@@ -4,8 +4,8 @@ import {
   Primary,
   Controls,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as SimpleStepperStories from "./index.stories";
+} from '@storybook/addon-docs/blocks';
+import * as SimpleStepperStories from './index.stories';
 
 <Meta of={SimpleStepperStories} />
 
@@ -66,9 +66,9 @@ The stepper is controlled via the `activeIndex` prop, so it works well with “N
 ```tsx
 export const Interactive: StoryFn<typeof SimpleStepper> = (args) => {
   const steps: SimpleStepItem[] = [
-    { label: "User Info", leftIcon: "👤", prefix: "+1" },
-    { label: "Preferences", leftIcon: "⚙️", prefix: "+1" },
-    { label: "Confirm", leftIcon: "👍", prefix: "+1" },
+    { label: 'User Info', leftIcon: '👤', prefix: '+1' },
+    { label: 'Preferences', leftIcon: '⚙️', prefix: '+1' },
+    { label: 'Confirm', leftIcon: '👍', prefix: '+1' },
   ];
 
   const [activeIndex, setActiveIndex] = useState(args.activeIndex ?? 0);
@@ -77,7 +77,7 @@ export const Interactive: StoryFn<typeof SimpleStepper> = (args) => {
   const handleNext = () => {
     const nextIndex = Math.min(activeIndex + 1, steps.length - 1);
 
-    action("Next clicked")({
+    action('Next clicked')({
       index: nextIndex,
       step: steps[nextIndex],
       previous: { index: activeIndex, step: currentStep },
@@ -87,7 +87,7 @@ export const Interactive: StoryFn<typeof SimpleStepper> = (args) => {
   };
 
   const handleReset = () => {
-    action("Reset clicked")({ index: 0, step: steps[0] });
+    action('Reset clicked')({ index: 0, step: steps[0] });
     setActiveIndex(0);
   };
 
@@ -99,7 +99,8 @@ export const Interactive: StoryFn<typeof SimpleStepper> = (args) => {
         <Button
           onClick={handleNext}
           disabled={activeIndex === steps.length - 1}
-          shape="pill">
+          shape="pill"
+        >
           Next
         </Button>
         <Button onClick={handleReset} variant="tertiary" shape="pill">
@@ -149,23 +150,19 @@ Key props:
 ## Usage guidelines
 
 - **Flow length**
-
   - Ideal for short flows (3-5 steps).
   - For long or complex flows, consider a full Stepper with labels per step instead of just bars.
 
 - **Labels & prefixes**
-
   - Keep `label` concise and action-oriented (e.g. “Shipping Details”, “Review Order”).
   - Use `prefix` for secondary context: “Step 1”, “+1”, “01”, etc.
   - Avoid repeating the same information in both prefix and label.
 
 - **Icons**
-
   - Use `leftIcon` to reinforce meaning: cart, payment, confirmation, profile, etc.
   - Emojis work well for quick prototyping; swap to product/system icons for production.
 
 - **Active index & progress**
-
   - Ensure `activeIndex` always reflects the current wizard state.
   - You can choose whether segments represent:
     - **Completed + current** steps (current pattern: `index <= activeIndex` is active), or
@@ -173,7 +170,6 @@ Key props:
   - Derive business logic (validation, analytics, button labels) from `steps[activeIndex]`, not from the stepper component itself.
 
 - **Styling**
-
   - Use `activeColorClass` to align with brand gradients or solid colors.
   - Keep inactive segments sufficiently muted (`bg-neutral-500` by default) for clear contrast.
 

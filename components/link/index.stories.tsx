@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Link from ".";
-import { ReactElement } from "react";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Link from '.';
+import { ReactElement } from 'react';
 
 const CustomBadge = () => (
   <span className="inline-flex items-center justify-center rounded-full border px-1 text-[10px] leading-none">
@@ -10,20 +10,20 @@ const CustomBadge = () => (
 
 const icons: Record<string, ReactElement | null | undefined> = {
   None: null,
-  "Custom badge": <CustomBadge />,
+  'Custom badge': <CustomBadge />,
 };
 
 const meta: Meta<typeof Link> = {
-  title: "Design System/Navigation & Action/Link",
+  title: 'Design System/Navigation & Action/Link',
   component: Link,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    children: "Link goes here",
-    href: "#",
-    variant: "no-underline",
-    size: "md",
+    children: 'Link goes here',
+    href: '#',
+    variant: 'no-underline',
+    size: 'md',
     withIcon: true,
     onClick: (e) => {
       e.preventDefault();
@@ -31,32 +31,32 @@ const meta: Meta<typeof Link> = {
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["underline", "no-underline"],
+      control: 'radio',
+      options: ['underline', 'no-underline'],
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
     },
     withIcon: {
-      control: "boolean",
+      control: 'boolean',
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     href: {
-      control: "text",
+      control: 'text',
     },
     target: {
-      control: "radio",
-      options: ["_self", "_blank"],
+      control: 'radio',
+      options: ['_self', '_blank'],
     },
     className: {
-      control: "text",
+      control: 'text',
     },
-    onClick: { action: "clicked" },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -68,11 +68,11 @@ export const Primary: Story = {};
 
 // Variant Stories
 export const Underline: Story = {
-  args: { variant: "underline" },
+  args: { variant: 'underline' },
 };
 
 export const NoUnderline: Story = {
-  args: { variant: "no-underline" },
+  args: { variant: 'no-underline' },
 };
 
 // Size Showcase
@@ -91,8 +91,8 @@ export const Sizes: Story = {
     </div>
   ),
   args: {
-    href: "#",
-    variant: "no-underline",
+    href: '#',
+    variant: 'no-underline',
     withIcon: true,
   },
 };
@@ -114,10 +114,10 @@ export const WithoutIcon: Story = {
 // External Link
 export const External: Story = {
   args: {
-    href: "#",
-    target: "_blank",
-    rel: "noreferrer",
-    variant: "underline",
+    href: '#',
+    target: '_blank',
+    rel: 'noreferrer',
+    variant: 'underline',
   },
 };
 
@@ -125,16 +125,16 @@ export const External: Story = {
 export const InlineTextUsage: Story = {
   render: (args) => (
     <p className="max-w-md text-sm text-neutral-800">
-      This is an example sentence with an{" "}
+      This is an example sentence with an{' '}
       <Link {...args} href="#">
         inline link
-      </Link>{" "}
+      </Link>{' '}
       that appears within a paragraph of text.
     </p>
   ),
   args: {
-    variant: "underline",
-    size: "sm",
+    variant: 'underline',
+    size: 'sm',
     withIcon: false,
   },
 };

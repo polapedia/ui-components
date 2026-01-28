@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function ChevronDownIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function ChevronDownIcon(props: SVGProps<SVGSVGElement>) {
       height="7"
       viewBox="0 0 10 7"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M1.175 0L5 3.81667L8.825 0L10 1.175L5 6.175L0 1.175L1.175 0Z"
         fill="currentColor"
