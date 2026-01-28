@@ -56,20 +56,20 @@ export default function Chip(props: ChipProps) {
 
   const baseClasses = [
     "inline-flex items-center justify-center",
-    "rounded-full border select-none",
+    "rounded-full select-none",
     "transition-all",
     "focus-visible:outline-none",
     "focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2",
   ].join(" ");
 
   const enabledStateClasses = [
-    "bg-white text-gray-800 border-gray-300",
-    "hover:bg-gray-100 hover:border-gray-400",
+    "bg-white text-gray-800",
+    "hover:bg-background-hover",
     "active:bg-linear-to-b active:from-gradient-primary active:to-gradient-secondary active:border-primary-600 active:text-white",
   ].join(" ");
 
   const disabledStateClasses = [
-    "bg-background-disabled text-content-secondary border-gray-200",
+    "bg-background-disabled text-content-secondary",
     "cursor-not-allowed",
   ].join(" ");
 
