@@ -1,6 +1,6 @@
 import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
 import { useArgs } from "storybook/preview-api";
-import React, { useState } from "react";
+import { useState } from "react";
 import InputNumber from ".";
 
 const meta: Meta<typeof InputNumber> = {
@@ -12,9 +12,9 @@ const meta: Meta<typeof InputNumber> = {
   args: {
     size: "md",
     variant: "default",
-    value: 1,
-    min: 0,
-    max: 10,
+    value: 3,
+    min: 1,
+    max: 5,
     step: 1,
     disabled: false,
   },
