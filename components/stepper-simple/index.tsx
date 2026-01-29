@@ -1,6 +1,6 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from 'react';
 
-type Size = "sm" | "md";
+type Size = 'sm' | 'md';
 
 export interface SimpleStepItem {
   prefix?: string;
@@ -28,28 +28,28 @@ const sizeClasses: Record<
   }
 > = {
   sm: {
-    textContainer: "mb-3",
-    prefix: "text-sm",
-    label: "text-[14px]",
-    barHeight: "h-[6px]",
-    gap: "gap-2",
-    iconSize: "w-5 h-5 text-sm",
+    textContainer: 'mb-3',
+    prefix: 'text-sm',
+    label: 'text-[14px]',
+    barHeight: 'h-[6px]',
+    gap: 'gap-2',
+    iconSize: 'w-5 h-5 text-sm',
   },
   md: {
-    textContainer: "mb-3",
-    prefix: "text-sm",
-    label: "text-[14px]",
-    barHeight: "h-[10px]",
-    gap: "gap-2",
-    iconSize: "w-5 h-5 text-sm",
+    textContainer: 'mb-3',
+    prefix: 'text-sm',
+    label: 'text-[14px]',
+    barHeight: 'h-[10px]',
+    gap: 'gap-2',
+    iconSize: 'w-5 h-5 text-sm',
   },
 };
 
 export default function SimpleStepper({
   steps,
   activeIndex,
-  size = "md",
-  activeColorClass = "bg-linear-to-b from-gradient-primary to-gradient-secondary",
+  size = 'md',
+  activeColorClass = 'bg-linear-to-b from-gradient-primary to-gradient-secondary',
   className,
   ...rest
 }: SimpleStepperProps) {
@@ -59,13 +59,14 @@ export default function SimpleStepper({
   const sizeCfg = sizeClasses[size];
 
   return (
-    <div className={`w-full flex flex-col ${className || ""}`} {...rest}>
+    <div className={`w-full flex flex-col ${className || ''}`} {...rest}>
       {/* Header: Active Step Icon + Text */}
       <div className={`flex items-center gap-2 ${sizeCfg.textContainer}`}>
         {/* Left Icon if exists */}
         {currentStep?.leftIcon && (
           <span
-            className={`inline-flex items-center justify-center shrink-0 ${sizeCfg.iconSize}`}>
+            className={`inline-flex items-center justify-center shrink-0 ${sizeCfg.iconSize}`}
+          >
             {currentStep.leftIcon}
           </span>
         )}
@@ -94,7 +95,7 @@ export default function SimpleStepper({
               className={`
                 flex-1 rounded-full transition-colors duration-300
                 ${sizeCfg.barHeight}
-                ${isActive ? activeColorClass : "bg-neutral-500"}
+                ${isActive ? activeColorClass : 'bg-neutral-500'}
               `}
             />
           );

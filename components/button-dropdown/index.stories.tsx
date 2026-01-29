@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import ButtonDropdown from ".";
-import PlusOne from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import ButtonDropdown from '.';
+import PlusOne from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -8,10 +8,10 @@ const icons = {
 };
 
 const meta: Meta<typeof ButtonDropdown> = {
-  title: "Design System/Navigation & Action/Button Dropdown",
+  title: 'Design System/Navigation & Action/Button Dropdown',
   component: ButtonDropdown,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       story: {
         inline: false,
@@ -20,33 +20,33 @@ const meta: Meta<typeof ButtonDropdown> = {
     },
   },
   args: {
-    label: "Button",
-    variant: "primary",
-    size: "md",
+    label: 'Button',
+    variant: 'primary',
+    size: 'md',
     disabled: false,
-    children: "This is the example of trigger action that button dropdown has.",
+    children: 'This is the example of trigger action that button dropdown has.',
     leftIcon: undefined,
     rightIcon: undefined,
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["primary", "error", "inverted", "disabled"],
+      control: 'radio',
+      options: ['primary', 'error', 'inverted', 'disabled'],
     },
     size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
     },
-    disabled: { control: "boolean" },
-    label: { control: "text" },
-    children: { control: "text" },
+    disabled: { control: 'boolean' },
+    label: { control: 'text' },
+    children: { control: 'text' },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
@@ -58,22 +58,22 @@ type Story = StoryObj<typeof meta>;
 
 // Variant Stories
 export const Primary: Story = {
-  args: { variant: "primary" },
+  args: { variant: 'primary' },
 };
 
 export const Inverted: Story = {
-  args: { variant: "inverted" },
+  args: { variant: 'inverted' },
   parameters: {
-    backgrounds: { default: "dark" },
+    backgrounds: { default: 'dark' },
   },
 };
 
 export const Error: Story = {
-  args: { variant: "error" },
+  args: { variant: 'error' },
 };
 
 export const Disabled: Story = {
-  args: { variant: "disabled" },
+  args: { variant: 'disabled' },
 };
 
 // Size Showcase
@@ -86,7 +86,7 @@ export const Sizes: Story = {
     </div>
   ),
   args: {
-    variant: "primary",
+    variant: 'primary',
   },
 };
 
@@ -108,14 +108,14 @@ export const States: Story = {
     </div>
   ),
   args: {
-    variant: "primary",
-    size: "md",
+    variant: 'primary',
+    size: 'md',
   },
 };
 
 export const CustomContent: Story = {
   args: {
-    label: "Menu",
+    label: 'Menu',
     children: (
       <ul className="flex flex-col gap-2 min-w-[150px]">
         <li className="cursor-pointer hover:underline">Profile</li>
@@ -129,7 +129,7 @@ export const CustomContent: Story = {
 
 export const WithIcons: Story = {
   args: {
-    label: "With Icons",
+    label: 'With Icons',
     leftIcon: icons.PlusOne,
     rightIcon: icons.PlusOne,
   },

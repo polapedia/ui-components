@@ -12,7 +12,6 @@ Storybook provides a dedicated environment where developers and designers can vi
 - [🚀 Introduction](#-introduction)
 - [⚙️ System Requirements](#️-system-requirements)
 - [💡 Getting Started](#-getting-started)
-
   - [1️⃣ Clone Repository](#1️⃣-clone-repository)
   - [2️⃣ Install Dependencies](#2️⃣-install-dependencies)
   - [3️⃣ Run Storybook](#3️⃣-run-storybook)
@@ -20,7 +19,6 @@ Storybook provides a dedicated environment where developers and designers can vi
 
 - [📁 Project Structure](#-project-structure)
 - [📘 Storybook Guide](#-storybook-guide)
-
   - [📄 Writing Stories](#-writing-stories)
   - [🧩 Component Structure](#-component-structure)
   - [🎨 Icon Components](#-icon-components)
@@ -176,9 +174,9 @@ components/badge/index.stories.tsx
 ```
 
 ```tsx
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Badge from ".";
-import PlusOne from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Badge from '.';
+import PlusOne from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -186,44 +184,44 @@ const icons = {
 };
 
 const meta: Meta<typeof Badge> = {
-  title: "Design System/Display/Badge",
+  title: 'Design System/Display/Badge',
   component: Badge,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    children: "Badge",
-    variant: "primary",
-    size: "lg",
+    children: 'Badge',
+    variant: 'primary',
+    size: 'lg',
   },
   argTypes: {
     variant: {
-      control: "select",
+      control: 'select',
       options: [
-        "primary",
-        "secondary",
-        "destructive",
-        "blue",
-        "green",
-        "brown",
-        "red",
+        'primary',
+        'secondary',
+        'destructive',
+        'blue',
+        'green',
+        'brown',
+        'red',
       ],
     },
     size: {
-      control: "radio",
-      options: ["lg", "md", "dot"],
+      control: 'radio',
+      options: ['lg', 'md', 'dot'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    onClick: { action: "clicked" },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -232,7 +230,7 @@ type Story = StoryObj<typeof meta>;
 
 // Variant Stories
 export const Primary: Story = {
-  args: { variant: "primary", children: "Badge" },
+  args: { variant: 'primary', children: 'Badge' },
 };
 ```
 
@@ -263,7 +261,7 @@ Icons are standalone SVG components.
 Example (`/components/icons/PlusOneIcon.tsx`):
 
 ```tsx
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function PlusOneIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -273,7 +271,8 @@ export default function PlusOneIcon(props: SVGProps<SVGSVGElement>) {
       height="7"
       viewBox="0 0 8 7"
       fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M3 1.5H2V3.5H0V4.5H2V6.5H3V4.5H5V3.5H3V1.5ZM5.25 0.54V1.45L6.5 1.2V6.5H7.5V0L5.25 0.54Z"
         fill="currentColor"

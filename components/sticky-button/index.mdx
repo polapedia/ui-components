@@ -4,8 +4,8 @@ import {
   Controls,
   Canvas,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as StickyButtonStories from "./index.stories";
+} from '@storybook/addon-docs/blocks';
+import * as StickyButtonStories from './index.stories';
 
 <Meta of={StickyButtonStories} />
 
@@ -108,7 +108,8 @@ Because of this:
 ```tsx
 <StickyButton
   sticky={false}
-  containerClassName="fixed bottom-6 left-1/2 -translate-x-1/2 w-full px-4">
+  containerClassName="fixed bottom-6 left-1/2 -translate-x-1/2 w-full px-4"
+>
   Continue to Checkout
 </StickyButton>
 ```
@@ -144,7 +145,6 @@ This means:
 
 - Default `size` is `md`, suitable for both desktop and mobile.
 - Default shapes:
-
   - `pill` for `primary` and `secondary`
   - `rectangle` for `tertiary`
 
@@ -156,7 +156,8 @@ You can customize both layers:
 <StickyButton
   variant="secondary"
   className="max-w-sm"
-  containerClassName="px-6">
+  containerClassName="px-6"
+>
   Schedule a Visit
 </StickyButton>
 ```

@@ -1,61 +1,61 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import { useArgs } from "storybook/preview-api";
-import Tabs, { TabItem } from ".";
-import HomeIcon from "../icons/HomeIcon";
-import PlusOneIcon from "../icons/PlusOneIcon";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import { useArgs } from 'storybook/preview-api';
+import Tabs, { TabItem } from '.';
+import HomeIcon from '../icons/HomeIcon';
+import PlusOneIcon from '../icons/PlusOneIcon';
 
 // Mock Data
 const defaultItems: TabItem[] = [
-  { label: "Dashboard", value: "dashboard" },
-  { label: "Profile", value: "profile" },
-  { label: "Settings", value: "settings" },
+  { label: 'Dashboard', value: 'dashboard' },
+  { label: 'Profile', value: 'profile' },
+  { label: 'Settings', value: 'settings' },
 ];
 
 const itemsWithIcons: TabItem[] = [
-  { label: "Home", value: "home", icon: <HomeIcon /> },
-  { label: "Profile", value: "profile", icon: <PlusOneIcon /> },
+  { label: 'Home', value: 'home', icon: <HomeIcon /> },
+  { label: 'Profile', value: 'profile', icon: <PlusOneIcon /> },
 ];
 
 const itemsComplete: TabItem[] = [
-  { label: "Overview", value: "overview", icon: <HomeIcon /> },
-  { label: "Details", value: "details" },
-  { label: "Disabled", value: "disabled", disabled: true },
+  { label: 'Overview', value: 'overview', icon: <HomeIcon /> },
+  { label: 'Details', value: 'details' },
+  { label: 'Disabled', value: 'disabled', disabled: true },
 ];
 
 const meta: Meta<typeof Tabs> = {
-  title: "Design System/Navigation & Action/Tabs",
+  title: 'Design System/Navigation & Action/Tabs',
   component: Tabs,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
   args: {
     items: defaultItems,
-    value: "dashboard",
-    variant: "underline",
-    size: "md",
-    iconPosition: "left",
+    value: 'dashboard',
+    variant: 'underline',
+    size: 'md',
+    iconPosition: 'left',
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["underline", "solid"],
-      description: "Visual style of the tabs",
+      control: 'radio',
+      options: ['underline', 'solid'],
+      description: 'Visual style of the tabs',
     },
     size: {
-      control: "radio",
-      options: ["sm", "md"],
-      description: "Size of the tab items",
+      control: 'radio',
+      options: ['sm', 'md'],
+      description: 'Size of the tab items',
     },
     iconPosition: {
-      control: "radio",
-      options: ["left", "top"],
-      description: "Icon position",
+      control: 'radio',
+      options: ['left', 'top'],
+      description: 'Icon position',
     },
     value: {
-      control: "text",
-      description: "Current active tab value",
+      control: 'text',
+      description: 'Current active tab value',
     },
-    onChange: { action: "changed" },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -82,18 +82,18 @@ export const RenderTabs: StoryFn<typeof Tabs> = (args) => {
 export const SingleUnderline: Story = {
   render: RenderTabs,
   args: {
-    items: [{ label: "Tab label", value: "single" }],
-    value: "single",
-    variant: "underline",
+    items: [{ label: 'Tab label', value: 'single' }],
+    value: 'single',
+    variant: 'underline',
   },
 };
 
 export const SingleSolid: Story = {
   render: RenderTabs,
   args: {
-    items: [{ label: "Tab label", value: "single" }],
-    value: "single",
-    variant: "solid",
+    items: [{ label: 'Tab label', value: 'single' }],
+    value: 'single',
+    variant: 'solid',
   },
 };
 
@@ -102,8 +102,8 @@ export const Default: Story = {
   render: RenderTabs,
   args: {
     items: defaultItems,
-    value: "dashboard",
-    variant: "underline",
+    value: 'dashboard',
+    variant: 'underline',
   },
 };
 
@@ -111,9 +111,9 @@ export const WithIconsLeft: Story = {
   render: RenderTabs,
   args: {
     items: itemsWithIcons,
-    value: "home",
-    variant: "underline",
-    iconPosition: "left",
+    value: 'home',
+    variant: 'underline',
+    iconPosition: 'left',
   },
 };
 
@@ -121,47 +121,47 @@ export const WithIconsTop: Story = {
   render: RenderTabs,
   args: {
     items: itemsWithIcons,
-    value: "home",
-    variant: "underline",
-    iconPosition: "top",
+    value: 'home',
+    variant: 'underline',
+    iconPosition: 'top',
   },
 };
 
 export const SolidBackground: Story = {
   render: RenderTabs,
   args: {
-    variant: "solid",
+    variant: 'solid',
     items: itemsComplete,
-    value: "overview",
-    iconPosition: "left",
+    value: 'overview',
+    iconPosition: 'left',
   },
 };
 
 export const SolidWithIconsLeft: Story = {
   render: RenderTabs,
   args: {
-    variant: "solid",
+    variant: 'solid',
     items: [
-      { label: "Home", value: "1", icon: <HomeIcon /> },
-      { label: "User", value: "2", icon: <PlusOneIcon /> },
-      { label: "Settings", value: "3" },
+      { label: 'Home', value: '1', icon: <HomeIcon /> },
+      { label: 'User', value: '2', icon: <PlusOneIcon /> },
+      { label: 'Settings', value: '3' },
     ],
-    value: "1",
-    iconPosition: "left",
+    value: '1',
+    iconPosition: 'left',
   },
 };
 
 export const SolidWithIconsTop: Story = {
   render: RenderTabs,
   args: {
-    variant: "solid",
+    variant: 'solid',
     items: [
-      { label: "Home", value: "1", icon: <HomeIcon /> },
-      { label: "User", value: "2", icon: <PlusOneIcon /> },
-      { label: "Settings", value: "3" },
+      { label: 'Home', value: '1', icon: <HomeIcon /> },
+      { label: 'User', value: '2', icon: <PlusOneIcon /> },
+      { label: 'Settings', value: '3' },
     ],
-    value: "1",
-    iconPosition: "top",
+    value: '1',
+    iconPosition: 'top',
   },
 };
 
@@ -200,7 +200,7 @@ export const Sizes: StoryFn<typeof Tabs> = (args) => {
   );
 };
 Sizes.args = {
-  value: "overview",
+  value: 'overview',
 };
 
 // Responsive with horizontal scroll
@@ -223,11 +223,11 @@ export const ResponsiveScroll: StoryFn<typeof Tabs> = (args) => {
 ResponsiveScroll.args = {
   items: [
     ...defaultItems,
-    { label: "Analytics", value: "analytics" },
-    { label: "Reports", value: "reports" },
-    { label: "History", value: "history" },
+    { label: 'Analytics', value: 'analytics' },
+    { label: 'Reports', value: 'reports' },
+    { label: 'History', value: 'history' },
   ],
-  value: "dashboard",
-  variant: "underline",
-  iconPosition: "left",
+  value: 'dashboard',
+  variant: 'underline',
+  iconPosition: 'left',
 };

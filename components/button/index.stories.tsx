@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { action } from "storybook/actions";
-import Button from ".";
-import Link from "next/link";
-import Home from "../icons/HomeIcon";
-import { RouterButton } from "./RouterButton";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { action } from 'storybook/actions';
+import Button from '.';
+import Link from 'next/link';
+import Home from '../icons/HomeIcon';
+import { RouterButton } from './RouterButton';
 
 const icons = {
   None: null,
@@ -11,10 +11,10 @@ const icons = {
 };
 
 const meta: Meta<typeof Button> = {
-  title: "Design System/Navigation & Action/Button",
+  title: 'Design System/Navigation & Action/Button',
   component: Button,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -24,39 +24,39 @@ const meta: Meta<typeof Button> = {
     ),
   ],
   args: {
-    children: "Button",
-    variant: "primary",
-    size: "md",
-    shape: "rectangle",
+    children: 'Button',
+    variant: 'primary',
+    size: 'md',
+    shape: 'rectangle',
     leftIcon: icons.Home,
     rightIcon: icons.Home,
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["primary", "secondary", "tertiary", "outline-primary"],
+      control: 'radio',
+      options: ['primary', 'secondary', 'tertiary', 'outline-primary'],
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "icon-sm", "icon-md", "icon-lg"],
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'icon-sm', 'icon-md', 'icon-lg'],
     },
     shape: {
-      control: "radio",
-      options: ["rectangle", "pill", "circle"],
+      control: 'radio',
+      options: ['rectangle', 'pill', 'circle'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    isLoading: { control: "boolean" },
-    disabled: { control: "boolean" },
-    onClick: { action: "clicked" },
+    isLoading: { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -65,19 +65,19 @@ type Story = StoryObj<typeof meta>;
 
 // Variant Stories
 export const Primary: Story = {
-  args: { variant: "primary" },
+  args: { variant: 'primary' },
 };
 
 export const Secondary: Story = {
-  args: { variant: "secondary" },
+  args: { variant: 'secondary' },
 };
 
 export const Tertiary: Story = {
-  args: { variant: "tertiary" },
+  args: { variant: 'tertiary' },
 };
 
 export const OutlinePrimary: Story = {
-  args: { variant: "outline-primary" },
+  args: { variant: 'outline-primary' },
 };
 
 // Size Showcase
@@ -93,15 +93,15 @@ export const Sizes: Story = {
 
 // Shape Showcase
 export const Rectangle: Story = {
-  args: { shape: "rectangle" },
+  args: { shape: 'rectangle' },
 };
 
 export const Pill: Story = {
-  args: { shape: "pill" },
+  args: { shape: 'pill' },
 };
 
 export const Circle: Story = {
-  args: { shape: "circle", children: <Home /> },
+  args: { shape: 'circle', children: <Home /> },
 };
 
 export const Shapes: Story = {
@@ -146,9 +146,9 @@ export const States: Story = {
     </div>
   ),
   args: {
-    variant: "primary",
-    size: "md",
-    shape: "rectangle",
+    variant: 'primary',
+    size: 'md',
+    shape: 'rectangle',
   },
 };
 
@@ -158,7 +158,7 @@ export const Loading: Story = {
 };
 
 export const CircleWithIcon: Story = {
-  args: { shape: "circle", leftIcon: <Home /> },
+  args: { shape: 'circle', leftIcon: <Home /> },
 };
 
 export const Disabled: Story = {
@@ -171,24 +171,24 @@ export const AsLink: Story = {
       href="/coming-soon"
       onClick={(e) => {
         e.preventDefault();
-        action("next/link click")("/coming-soon");
+        action('next/link click')('/coming-soon');
       }}
     >
       <Button {...args}>Button as Link</Button>
     </Link>
   ),
   args: {
-    variant: "primary",
-    size: "md",
-    shape: "rectangle",
+    variant: 'primary',
+    size: 'md',
+    shape: 'rectangle',
   },
 };
 
 export const WithRouterNavigation: Story = {
   render: (args) => <RouterButton {...args} />,
   args: {
-    variant: "primary",
-    size: "md",
-    shape: "rectangle",
+    variant: 'primary',
+    size: 'md',
+    shape: 'rectangle',
   },
 };

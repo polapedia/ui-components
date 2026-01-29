@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import FloatingActionButton from "./index";
-import HomeIcon from "../icons/HomeIcon";
-import PlusIcon from "../icons/PlusIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import FloatingActionButton from './index';
+import HomeIcon from '../icons/HomeIcon';
+import PlusIcon from '../icons/PlusIcon';
 
 const icons = {
   None: null,
@@ -10,26 +10,26 @@ const icons = {
 };
 
 const meta: Meta<typeof FloatingActionButton> = {
-  title: "Design System/Navigation & Action/Floating Action Button",
+  title: 'Design System/Navigation & Action/Floating Action Button',
   component: FloatingActionButton,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["primary", "danger"],
+      control: 'radio',
+      options: ['primary', 'danger'],
     },
     icon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
     },
-    onClick: { action: "clicked" },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -38,15 +38,15 @@ type Story = StoryObj<typeof FloatingActionButton>;
 
 export const Primary: Story = {
   args: {
-    variant: "primary",
-    size: "lg",
+    variant: 'primary',
+    size: 'lg',
   },
 };
 
 export const Danger: Story = {
   args: {
-    variant: "danger",
-    size: "lg",
+    variant: 'danger',
+    size: 'lg',
   },
 };
 
@@ -68,18 +68,18 @@ const EditIcon = () => (
 
 export const WithCustomIcon: Story = {
   args: {
-    variant: "primary",
+    variant: 'primary',
     icon: <EditIcon />,
   },
 };
 
 export const StickyBottomRight: Story = {
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   args: {
-    variant: "primary",
-    size: "lg",
+    variant: 'primary',
+    size: 'lg',
   },
   render: (args) => (
     <div className="relative min-h-screen bg-gray-50 p-6">
@@ -93,7 +93,7 @@ export const StickyBottomRight: Story = {
 
       <FloatingActionButton
         {...args}
-        className={`fixed bottom-6 right-6 ${args.className ?? ""}`}
+        className={`fixed bottom-6 right-6 ${args.className ?? ''}`}
         aria-label="Create new item"
       />
     </div>

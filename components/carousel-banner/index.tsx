@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
-import CarouselIndicator from "../carousel-indicator";
-import ArrowLeftIcon from "../icons/ArrowLeftIcon";
-import ArrowRightIcon from "../icons/ArrowRightIcon";
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useEffect, useCallback } from 'react';
+import CarouselIndicator from '../carousel-indicator';
+import ArrowLeftIcon from '../icons/ArrowLeftIcon';
+import ArrowRightIcon from '../icons/ArrowRightIcon';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export type BannerVariant = "inside" | "outside";
+export type BannerVariant = 'inside' | 'outside';
 
 export interface BannerSlide {
   id: string | number;
@@ -26,7 +26,7 @@ type FooterContentProps = {
   variant: BannerVariant;
   slides: BannerSlide[];
   current: number;
-  onDotClick: (index: number) => void;
+  onDotClick: (_index: number) => void;
 };
 
 function FooterContent({
@@ -35,7 +35,7 @@ function FooterContent({
   current,
   onDotClick,
 }: FooterContentProps) {
-  const isInside = variant === "inside";
+  const isInside = variant === 'inside';
 
   return (
     <div className="flex w-full items-center justify-between">
@@ -43,24 +43,26 @@ function FooterContent({
         href={slides[current]?.linkUrl}
         className={`md:text-[12px] text-[6px] font-medium transition-all ${
           isInside
-            ? "rounded-full bg-white px-2 py-0.5 sm:px-3 sm:py-1 text-accents-blue shadow-md hover:bg-gray-50"
-            : "text-accents-blue hover:text-accents-blue/80 hover:underline"
-        }`}>
+            ? 'rounded-full bg-white px-2 py-0.5 sm:px-3 sm:py-1 text-accents-blue shadow-md hover:bg-gray-50'
+            : 'text-accents-blue hover:text-accents-blue/80 hover:underline'
+        }`}
+      >
         Lihat Semua
       </Link>
 
       <div
         className={`${
           isInside
-            ? "flex items-center rounded-full bg-white px-1 md:px-3 py-1 md:py-2.5 shadow-md"
-            : ""
-        }`}>
+            ? 'flex items-center rounded-full bg-white px-1 md:px-3 py-1 md:py-2.5 shadow-md'
+            : ''
+        }`}
+      >
         <CarouselIndicator
           total={slides.length}
           activeIndex={current}
           onActiveChange={onDotClick}
           size="md"
-          className={isInside ? "[&_span]:bg-gray-200" : "[&_span]:bg-gray-300"}
+          className={isInside ? '[&_span]:bg-gray-200' : '[&_span]:bg-gray-300'}
         />
       </div>
     </div>
@@ -69,10 +71,10 @@ function FooterContent({
 
 export default function CarouselBanner({
   slides,
-  variant = "outside",
+  variant = 'outside',
   autoPlay = false,
   interval = 5000,
-  className = "",
+  className = '',
 }: CarouselBannerProps) {
   const [current, setCurrent] = useState(0);
 
@@ -100,12 +102,13 @@ export default function CarouselBanner({
         {/* Slider Track */}
         <div
           className="flex h-full w-full transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${current * 100}%)` }}>
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
           {slides.map((slide) => (
             <div key={slide.id} className="relative h-full min-w-full">
               <Image
                 src={slide.imageSrc}
-                alt={slide.altText || "Banner image"}
+                alt={slide.altText || 'Banner image'}
                 className="object-fill lg:object-cover"
                 fill
                 priority={current === 0}
@@ -119,19 +122,21 @@ export default function CarouselBanner({
         <button
           onClick={prevSlide}
           className="block absolute left-2 md:left-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral-500 hover:bg-neutral-600 p-1 md:p-2 text-white opacity-0 transition-all group-hover:opacity-100"
-          aria-label="Previous Slide">
+          aria-label="Previous Slide"
+        >
           <ArrowLeftIcon className="h-3 w-3 md:h-6 md:w-6" />
         </button>
 
         <button
           onClick={nextSlide}
           className="sm:block absolute right-2 md:right-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral-500 hover:bg-neutral-600 p-1 md:p-2 text-white opacity-0 transition-all group-hover:opacity-100"
-          aria-label="Next Slide">
+          aria-label="Next Slide"
+        >
           <ArrowRightIcon className="h-3 w-3 md:h-6 md:w-6" />
         </button>
 
         {/* Footer Content (Inside Variant) */}
-        {variant === "inside" && (
+        {variant === 'inside' && (
           <div className="absolute bottom-2 md:bottom-6 left-0 w-full px-1.5 md:px-5 lg:px-6 z-10">
             <FooterContent
               variant={variant}
@@ -144,7 +149,7 @@ export default function CarouselBanner({
       </div>
 
       {/* Footer Content (Outside Variant) */}
-      {variant === "outside" && (
+      {variant === 'outside' && (
         <div className="mt-4 px-1">
           <FooterContent
             variant={variant}

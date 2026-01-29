@@ -4,8 +4,8 @@ import {
   Primary,
   Controls,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as CardStories from "./index.stories";
+} from '@storybook/addon-docs/blocks';
+import * as CardStories from './index.stories';
 
 <Meta of={CardStories} />
 
@@ -127,8 +127,8 @@ Use this variant for:
 ### Product Card Setup
 
 ```tsx
-import Card from "@/components/card";
-import { HomeIcon, PlusOneIcon } from "@/icons";
+import Card from '@/components/card';
+import { HomeIcon, PlusOneIcon } from '@/icons';
 
 <Card
   variant="product"
@@ -140,15 +140,15 @@ import { HomeIcon, PlusOneIcon } from "@/icons";
   topIcon={<HomeIcon />}
   rightIcon={<PlusOneIcon />}
   buttonText="View Details"
-  onButtonClick={() => router.push("/villa/123")}
+  onButtonClick={() => router.push('/villa/123')}
 />;
 ```
 
 ### Simple Feature Card
 
 ```tsx
-import Card from "@/components/card";
-import { StarIcon } from "@/icons";
+import Card from '@/components/card';
+import { StarIcon } from '@/icons';
 
 <Card
   variant="simple"

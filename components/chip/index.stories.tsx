@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Chip from ".";
-import ChevronDown from "../icons/ChevronDownIcon";
-import CloseIcon from "../icons/CloseIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Chip from '.';
+import ChevronDown from '../icons/ChevronDownIcon';
+import CloseIcon from '../icons/CloseIcon';
 
 const icons = {
   None: null,
@@ -10,38 +10,38 @@ const icons = {
 };
 
 const meta: Meta<typeof Chip> = {
-  title: "Design System/Form/Chip",
+  title: 'Design System/Form/Chip',
   component: Chip,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    children: "Chips label",
-    size: "sm",
-    variant: "default",
+    children: 'Chips label',
+    size: 'sm',
+    variant: 'default',
     disabled: false,
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["default", "avatar", "icon-left", "icon-right"],
+      control: 'radio',
+      options: ['default', 'avatar', 'icon-left', 'icon-right'],
     },
     size: {
-      control: "radio",
-      options: ["xs", "sm", "md"],
+      control: 'radio',
+      options: ['xs', 'sm', 'md'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    disabled: { control: "boolean" },
-    onClick: { action: "clicked" },
+    disabled: { control: 'boolean' },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -49,19 +49,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { variant: "default" },
+  args: { variant: 'default' },
 };
 
 export const Avatar: Story = {
-  args: { variant: "avatar", leftIcon: "AB" },
+  args: { variant: 'avatar', leftIcon: 'AB' },
 };
 
 export const IconLeft: Story = {
-  args: { variant: "icon-left", leftIcon: <ChevronDown /> },
+  args: { variant: 'icon-left', leftIcon: <ChevronDown /> },
 };
 
 export const IconRight: Story = {
-  args: { variant: "icon-right", rightIcon: <ChevronDown /> },
+  args: { variant: 'icon-right', rightIcon: <ChevronDown /> },
 };
 
 export const Sizes: Story = {
@@ -100,8 +100,8 @@ export const States: Story = {
     </div>
   ),
   args: {
-    size: "sm",
-    variant: "default",
+    size: 'sm',
+    variant: 'default',
   },
 };
 
@@ -110,11 +110,11 @@ export const WithLeftIcon: Story = {
 };
 
 export const WithRightIcon: Story = {
-  args: { variant: "icon-right", rightIcon: <ChevronDown /> },
+  args: { variant: 'icon-right', rightIcon: <ChevronDown /> },
 };
 
 export const WithCloseIcon: Story = {
-  args: { variant: "icon-right", rightIcon: <CloseIcon /> },
+  args: { variant: 'icon-right', rightIcon: <CloseIcon /> },
 };
 
 export const Disabled: Story = {
