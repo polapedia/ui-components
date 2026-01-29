@@ -18,7 +18,6 @@ Storybook provides a dedicated environment where developers and designers can vi
   - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
 
 - [🤖 Automated Linting (CI)](#-automated-linting-ci)
-
   - [🔍 How It Works](#-how-it-works)
   - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
   - [📌 Local Commands](#-local-commands)
@@ -179,12 +178,12 @@ npm run lint
 
 ### 📌 Local Commands
 
-| Command                | Description                                      |
-| ---------------------- | ------------------------------------------------ |
-| `npm run lint`         | Run lint check with strict rules (CI equivalent) |
-| `npm run lint:fix`     | Automatically fix lint issues                    |
-| `npm run format`       | Format codebase using Prettier                   |
-| `npm run format:check` | Validate formatting without modifying            |
+| Command              | Description                           |
+| -------------------- | ------------------------------------- |
+| `npm run lint`       | Run lint check                        |
+| `npm run lint:fix`   | Automatically fix lint issues         |
+| `npm run format`     | Validate formatting without modifying |
+| `npm run format:fix` | Format codebase using Prettier        |
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
