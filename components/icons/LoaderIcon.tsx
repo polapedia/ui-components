@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function LoaderIcon({
   width = 165,
@@ -12,23 +12,26 @@ export default function LoaderIcon({
       height={height}
       viewBox="0 0 165 165"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g
         clipPath="url(#paint0_angular_943_1022_clip_path)"
-        data-figma-skip-parse="true">
+        data-figma-skip-parse="true"
+      >
         <g transform="matrix(0 0.0825 -0.0825 0 82.5 82.5)">
           <foreignObject
             x="-1000"
             y="-1000"
             width="2000"
             height="2000"
-            xmlns="http://www.w3.org/1999/xhtml">
+            xmlns="http://www.w3.org/1999/xhtml"
+          >
             <div
               style={{
                 background:
-                  "conic-gradient(from 90deg, rgba(223, 65, 65, 1) 0deg, rgba(255, 228, 228, 0) 360deg)",
-                height: "100%",
-                width: "100%",
+                  'conic-gradient(from 90deg, rgba(223, 65, 65, 1) 0deg, rgba(255, 228, 228, 0) 360deg)',
+                height: '100%',
+                width: '100%',
                 opacity: 1,
               }}
             />

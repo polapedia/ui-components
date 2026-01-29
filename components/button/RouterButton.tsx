@@ -1,6 +1,6 @@
-import { ComponentProps } from "react";
-import Button from ".";
-import { useRouter } from "next/navigation";
+import { ComponentProps } from 'react';
+import Button from '.';
+import { useRouter } from 'next/navigation';
 
 export function RouterButton(args: ComponentProps<typeof Button>) {
   const router = useRouter();
@@ -9,8 +9,9 @@ export function RouterButton(args: ComponentProps<typeof Button>) {
     <Button
       {...args}
       onClick={() => {
-        router.push("/dashboard");
-      }}>
+        router.push('/dashboard');
+      }}
+    >
       Go to Dashboard
     </Button>
   );

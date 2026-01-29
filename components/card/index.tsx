@@ -1,9 +1,9 @@
-import { HTMLAttributes, ReactNode } from "react";
-import Image from "next/image";
-import StarRating from "../rating";
-import Button from "../button";
+import { HTMLAttributes, ReactNode } from 'react';
+import Image from 'next/image';
+import StarRating from '../rating';
+import Button from '../button';
 
-export type CardVariant = "product" | "simple";
+export type CardVariant = 'product' | 'simple';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
@@ -21,13 +21,13 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
   // Interactive Props
   ratingInteractive?: boolean;
-  onRatingChange?: (value: number) => void;
+  onRatingChange?: (_value: number) => void;
   onButtonClick?: () => void;
   buttonText?: string;
 }
 
 export default function Card({
-  variant = "product",
+  variant = 'product',
   title,
   subtitle,
   description,
@@ -35,24 +35,25 @@ export default function Card({
   topIcon,
   rating = 0,
   imageSrc,
-  imageAlt = "Product Image",
-  imageHeightClassName = "h-[250px]",
+  imageAlt = 'Product Image',
+  imageHeightClassName = 'h-[250px]',
   ratingInteractive = false,
   onRatingChange,
   onButtonClick,
-  buttonText = "View Product",
+  buttonText = 'View Product',
   className,
   ...rest
 }: CardProps) {
-  const isProduct = variant === "product";
+  const isProduct = variant === 'product';
 
   if (!isProduct) {
     return (
       <div
         className={`relative flex flex-col justify-between px-4 tab:px-6 rounded-2xl tab:rounded-[50px] bg-linear-to-b from-gradient-primary to-gradient-secondary text-white ${
-          className || ""
+          className || ''
         }`}
-        {...rest}>
+        {...rest}
+      >
         <div className="mt-12 tab:mt-[130px] desktop:mt-[164px]">
           {topIcon && (
             <div className="flex items-center justify-center w-8 h-8 tab:w-14 tab:h-14 bg-white rounded-full text-[#323232] font-bold text-sm shadow-md">
@@ -78,11 +79,13 @@ export default function Card({
   return (
     <div
       className={`p-4 rounded-2xl bg-white shadow-md border border-neutral-100 flex flex-col ${
-        className || ""
+        className || ''
       }`}
-      {...rest}>
+      {...rest}
+    >
       <div
-        className={`relative w-full ${imageHeightClassName} rounded-2xl overflow-hidden mb-6 bg-neutral-200`}>
+        className={`relative w-full ${imageHeightClassName} rounded-2xl overflow-hidden mb-6 bg-neutral-200`}
+      >
         {imageSrc ? (
           <Image
             src={imageSrc}
@@ -141,7 +144,8 @@ export default function Card({
           variant="primary"
           size="md"
           onClick={onButtonClick}
-          className="tab:text-[20px]! tab:px-5! tab:h-[58px]: tab:py-3! tab:rounded-xl!">
+          className="tab:text-[20px]! tab:px-5! tab:h-[58px]: tab:py-3! tab:rounded-xl!"
+        >
           {buttonText}
         </Button>
 

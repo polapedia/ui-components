@@ -1,33 +1,33 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import CarouselBanner, { BannerSlide } from ".";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import CarouselBanner, { BannerSlide } from '.';
 
 const meta: Meta<typeof CarouselBanner> = {
-  title: "Design System/Display/Carousel Banner",
+  title: 'Design System/Display/Carousel Banner',
   component: CarouselBanner,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
   argTypes: {
     autoPlay: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
     },
     className: {
-      control: { type: "text" },
+      control: { type: 'text' },
     },
     interval: {
-      control: { type: "number" },
+      control: { type: 'number' },
     },
     variant: {
       control: {
-        type: "radio",
-        options: ["inside", "outside"],
+        type: 'radio',
+        options: ['inside', 'outside'],
       },
     },
   },
   args: {
     autoPlay: false,
     interval: 3000,
-    variant: "inside",
+    variant: 'inside',
   },
 };
 
@@ -38,42 +38,42 @@ type Story = StoryObj<typeof CarouselBanner>;
 const mockSlides: BannerSlide[] = [
   {
     id: 1,
-    imageSrc: "/images/banner.png",
-    linkUrl: "#",
-    altText: "Promo Diskon 50%",
+    imageSrc: '/images/banner.png',
+    linkUrl: '#',
+    altText: 'Promo Diskon 50%',
   },
   {
     id: 2,
-    imageSrc: "/images/banner.png",
-    linkUrl: "#",
-    altText: "Promo Merdeka",
+    imageSrc: '/images/banner.png',
+    linkUrl: '#',
+    altText: 'Promo Merdeka',
   },
   {
     id: 3,
-    imageSrc: "/images/banner.png",
-    linkUrl: "#",
-    altText: "Cluster Baru",
+    imageSrc: '/images/banner.png',
+    linkUrl: '#',
+    altText: 'Cluster Baru',
   },
 ];
 
 export const VariantOutside: Story = {
   args: {
     slides: mockSlides,
-    variant: "outside",
+    variant: 'outside',
   },
 };
 
 export const VariantInside: Story = {
   args: {
     slides: mockSlides,
-    variant: "inside",
+    variant: 'inside',
   },
 };
 
 export const Autoplay: Story = {
   args: {
     slides: mockSlides,
-    variant: "inside",
+    variant: 'inside',
     autoPlay: true,
     interval: 3000,
   },
