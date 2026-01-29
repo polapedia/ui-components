@@ -18,6 +18,12 @@ Storybook provides a dedicated environment where developers and designers can vi
   - [3️⃣ Run Storybook](#3️⃣-run-storybook)
   - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
 
+- [🤖 Automated Linting (CI)](#-automated-linting-ci)
+
+  - [🔍 How It Works](#-how-it-works)
+  - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
+  - [📌 Local Commands](#-local-commands)
+
 - [📁 Project Structure](#-project-structure)
 - [📘 Storybook Guide](#-storybook-guide)
 
@@ -113,6 +119,74 @@ Output:
 ```
 storybook-static/
 ```
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## 🤖 Automated Linting (CI)
+
+This repository includes a **GitHub Actions CI workflow** that automatically runs ESLint on every:
+
+- `push` event to `main`
+- `pull_request` targeting `main`
+
+This ensures the codebase remains consistent, clean, and aligned with project linting rules.
+
+### 🔍 How It Works
+
+1. Developer pushes commit or opens a Pull Request.
+2. GitHub Actions workflow (`.github/workflows/lint.yml`) runs automatically.
+3. ESLint checks the entire project using:
+
+```bash
+npm run lint
+```
+
+4. If linting issues are found, the pipeline will **fail** and block merging to `main`.
+
+---
+
+### 🛠 Fixing Linting Issues
+
+If CI reports lint errors:
+
+1. Run the auto-fix script:
+
+```bash
+npm run lint:fix
+```
+
+2. Format code:
+
+   ```bash
+   npm run format
+   ```
+
+3. Commit your changes and push again:
+
+   ```bash
+   git add .
+   git commit -m "style: apply lint and formatter fixes [POPE-69]"
+   git push
+   ```
+
+If errors still persist, check the exact rule message in the GitHub Actions logs or run:
+
+```bash
+npm run lint
+```
+
+---
+
+### 📌 Local Commands
+
+| Command                | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `npm run lint`         | Run lint check with strict rules (CI equivalent) |
+| `npm run lint:fix`     | Automatically fix lint issues                    |
+| `npm run format`       | Format codebase using Prettier                   |
+| `npm run format:check` | Validate formatting without modifying            |
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
