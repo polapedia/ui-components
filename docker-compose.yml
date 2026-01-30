@@ -1,0 +1,7 @@
+services:
+  storybook:
+    build: .
+    container_name: polapedia-ui-components
+    ports:
+      - '6006:6006'
+    restart: unless-stopped
