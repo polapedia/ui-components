@@ -1,4 +1,4 @@
-import { SVGProps, useId } from "react";
+import { SVGProps, useId } from 'react';
 
 export default function MinusIcon(props: SVGProps<SVGSVGElement>) {
   const id = useId();
@@ -11,7 +11,8 @@ export default function MinusIcon(props: SVGProps<SVGSVGElement>) {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M3.33337 8H12.6667"
         stroke={`url(#${gradientId})`}
@@ -26,7 +27,8 @@ export default function MinusIcon(props: SVGProps<SVGSVGElement>) {
           y1="8"
           x2="8.00004"
           y2="9"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="currentColor" />
           <stop offset="1" stopColor="currentColor" />
         </linearGradient>

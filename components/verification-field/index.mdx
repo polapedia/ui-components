@@ -4,8 +4,8 @@ import {
   Controls,
   Canvas,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as VerificationFieldStories from "./index.stories";
+} from '@storybook/addon-docs/blocks';
+import * as VerificationFieldStories from './index.stories';
 
 <Meta of={VerificationFieldStories} />
 
@@ -99,23 +99,23 @@ handling `onChange`. This is useful when integrating with form libraries.
 Example usage:
 
 ```tsx
-import { useState } from "react";
-import VerificationField from "./index";
+import { useState } from 'react';
+import VerificationField from './index';
 
 function VerificationExample() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
 
   return (
     <VerificationField
       length={4}
       label="Verification code"
-      helperText={code ? "Current value: " + code : "Enter the 4-digit code"}
+      helperText={code ? 'Current value: ' + code : 'Enter the 4-digit code'}
       value={code}
       onChange={(next) => {
         setCode(next);
       }}
       onComplete={(fullCode) => {
-        console.log("Completed with code:", fullCode);
+        console.log('Completed with code:', fullCode);
       }}
     />
   );
@@ -137,7 +137,6 @@ function VerificationExample() {
   “Enter the code sent to your phone”).
 - Use the `error` state and helper text to indicate invalid / expired codes.
 - Prefer controlled mode when integrating with form state libraries so you can:
-
   - Reset the field
   - Trigger side effects when the code is complete
 

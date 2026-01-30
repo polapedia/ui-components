@@ -1,0 +1,165 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as StarRatingStories from './index.stories';
+
+<Meta of={StarRatingStories} />
+
+# Star Rating
+
+A compact star-based rating component for displaying or collecting user feedback.
+
+Each star represents one rating point and can be rendered in:
+
+- **read-only mode** (display rating),
+- **interactive mode** (user can select a rating).
+
+The component is fully controlled via props and integrates cleanly with forms, reviews, and feedback flows.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+You can directly experiment with props such as:
+
+- `value` - current rating value.
+- `max` - total number of stars.
+- `interactive` - enable click interaction.
+- `starSize` – size of each star in pixels.
+- `onValueChange` - callback when rating changes.
+
+---
+
+## Variants
+
+### Default (Read Only)
+
+Displays the rating without allowing user interaction.
+
+<Canvas of={StarRatingStories.ReadOnly} />
+
+Use this variant for:
+
+- product reviews,
+- rating summaries,
+- historical or aggregated scores.
+
+---
+
+### Interactive
+
+Allows users to click on stars to select a rating.
+
+<Canvas of={StarRatingStories.Interactive} />
+
+In this example:
+
+- rating state is managed with `useState`,
+- clicking a star updates the rating,
+- the component remains fully controlled.
+
+---
+
+## Props
+
+<ArgTypes of={StarRatingStories} />
+
+### Key props
+
+- `value: number` **(required)**  
+  Current rating value.
+
+- `max?: number`  
+  Total number of stars.  
+  Default: `5`.
+
+- `starSize?: number`  
+  Size of each star in pixels.  
+  Default: `24`.
+
+- `interactive?: boolean`  
+  Enables click interaction.  
+  Default: `false`.
+
+- `onValueChange?: (value: number) => void`  
+  Callback fired when the rating changes in interactive mode.
+
+- `className?: string`  
+  Extends the root container with custom Tailwind classes.
+
+- Plus all standard `HTMLAttributes<HTMLDivElement>`.
+
+---
+
+## Usage guidelines
+
+### When to use
+
+- Use **Star Rating** when users need to:
+  - rate products, services, or content,
+  - view an existing score or feedback summary.
+- Works best for **small, discrete scales** (typically 1-5).
+
+### When not to use
+
+- Avoid for:
+  - binary feedback (use thumbs up/down),
+  - continuous scales (use sliders instead).
+
+### Interaction
+
+- **Read-only mode**
+  - Set `interactive={false}` (default).
+  - Do not pass `onValueChange`.
+
+- **Interactive mode**
+  - Set `interactive`.
+  - Always control the value via state.
+  - Use `onValueChange` to sync with form state.
+
+### Visual & layout
+
+- Default star size is **24x24px**.
+- Star size can be customized via the `starSize` prop.
+- Gap between stars is **4px**.
+- The component is horizontal and non-wrapping.
+- Works well inside:
+  - cards,
+  - review rows,
+  - form sections.
+
+### Accessibility notes
+
+- Each star is a `<button>` element.
+- Supports keyboard focus by default.
+- Consider adding:
+  - `aria-label` on the container,
+  - or per-star labels (e.g. “Rate 3 stars”) if used in forms.
+
+---
+
+## Usage examples
+
+### Read only
+
+```tsx
+<StarRating value={4} />
+```
+
+### Interactive
+
+```tsx
+const [rating, setRating] = useState(0);
+
+<StarRating value={rating} interactive onValueChange={setRating} />;
+```

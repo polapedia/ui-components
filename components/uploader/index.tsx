@@ -1,30 +1,30 @@
-import { ComponentProps, forwardRef, useState } from "react";
-import UploadIcon from "../icons/UploadIcon";
+import { ComponentProps, forwardRef, useState } from 'react';
+import UploadIcon from '../icons/UploadIcon';
 
-type Variant = "compact" | "dropzone";
+type Variant = 'compact' | 'dropzone';
 
-interface UploaderProps extends Omit<ComponentProps<"input">, "type"> {
+interface UploaderProps extends Omit<ComponentProps<'input'>, 'type'> {
   variant?: Variant;
   label?: string;
   helperText?: string;
 }
 
 const baseWrapperClasses =
-  "relative w-full border border-content-secondary transition-all overflow-hidden bg-white hover:bg-background-hover";
+  'relative w-full border border-content-secondary transition-all overflow-hidden bg-white hover:bg-background-hover';
 
 const variantClasses: Record<Variant, string> = {
-  compact: "h-[50px] flex items-center px-4 rounded-[12px]",
+  compact: 'h-[50px] flex items-center px-4 rounded-[12px]',
   dropzone:
-    "h-[160px] px-6 flex flex-col items-center justify-center text-center gap-3 rounded-[16px]",
+    'h-[160px] px-6 flex flex-col items-center justify-center text-center gap-3 rounded-[16px]',
 };
 
 const disabledClasses =
-  "bg-neutral-300 text-content-secondary cursor-not-allowed select-none border-gray-200";
+  'bg-neutral-300 text-content-secondary cursor-not-allowed select-none border-gray-200';
 
 const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
   (
     {
-      variant = "compact",
+      variant = 'compact',
       className,
       label,
       helperText,
@@ -35,18 +35,18 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
     },
     ref
   ) => {
-    const [fileLabel, setFileLabel] = useState("Choose file");
+    const [fileLabel, setFileLabel] = useState('Choose file');
 
     const wrapperClasses = [
-      disabled ? disabledClasses : "cursor-pointer",
+      disabled ? disabledClasses : 'cursor-pointer',
       baseWrapperClasses,
       variantClasses[variant],
-      className || "",
+      className || '',
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
-    const isCompact = variant === "compact";
+    const isCompact = variant === 'compact';
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       const files = e.target.files;
@@ -57,7 +57,7 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
           setFileLabel(files[0].name);
         }
       } else {
-        setFileLabel("Choose file");
+        setFileLabel('Choose file');
       }
 
       onChange?.(e);
@@ -77,9 +77,9 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
             multiple={multiple}
             onChange={handleChange}
             className={[
-              "absolute inset-0 w-full h-full opacity-0",
-              disabled ? "cursor-not-allowed" : "cursor-pointer",
-            ].join(" ")}
+              'absolute inset-0 w-full h-full opacity-0',
+              disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+            ].join(' ')}
             {...props}
           />
 
@@ -110,6 +110,6 @@ const Uploader = forwardRef<HTMLInputElement, UploaderProps>(
   }
 );
 
-Uploader.displayName = "Uploader";
+Uploader.displayName = 'Uploader';
 
 export default Uploader;

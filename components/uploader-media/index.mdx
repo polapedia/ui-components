@@ -4,8 +4,8 @@ import {
   Controls,
   Canvas,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as UploaderMediaStories from "./index.stories";
+} from '@storybook/addon-docs/blocks';
+import * as UploaderMediaStories from './index.stories';
 
 <Meta of={UploaderMediaStories} />
 
@@ -129,12 +129,12 @@ Key props:
 ## Usage Example
 
 ```tsx
-import { useState } from "react";
-import UploaderMedia from "./index";
+import { useState } from 'react';
+import UploaderMedia from './index';
 
 function MediaUploaderExample() {
   const [helper, setHelper] = useState<string | undefined>(
-    "Upload document (max 5MB)."
+    'Upload document (max 5MB).'
   );
 
   return (
@@ -148,7 +148,7 @@ function MediaUploaderExample() {
         onChange={(e) => {
           const files = e.target.files;
           if (!files || files.length === 0) {
-            setHelper("No file selected.");
+            setHelper('No file selected.');
             return;
           }
 
@@ -173,7 +173,6 @@ export default MediaUploaderExample;
 ### Recommended
 
 - Use **Uploader Media** when:
-
   - You need a compact, square tile for uploading avatars, thumbnails, or
     other media/document assets.
   - You want a visually distinct “upload tile” that can coexist with other tiles.
@@ -181,7 +180,6 @@ export default MediaUploaderExample;
 - Use the `label` prop to clearly describe the expected file type (e.g.
   `"Upload photo"` or `"Upload document"`).
 - Use `helperText` to communicate:
-
   - allowed file types (`"JPG or PNG only"`),
   - size limits (`"Max 5MB"`),
   - or count limits (`"Up to 5 files"`).

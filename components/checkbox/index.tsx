@@ -1,33 +1,33 @@
-import { ComponentProps, forwardRef, useId } from "react";
-import CheckmarkIcon from "../icons/CheckmarkIcon";
+import { ComponentProps, forwardRef, useId } from 'react';
+import CheckmarkIcon from '../icons/CheckmarkIcon';
 
-type Size = "sm" | "md";
-type State = "default" | "error";
+type Size = 'sm' | 'md';
+type State = 'default' | 'error';
 
-interface CheckboxProps extends Omit<ComponentProps<"input">, "size"> {
+interface CheckboxProps extends Omit<ComponentProps<'input'>, 'size'> {
   size?: Size;
   state?: State;
   label?: string;
   helperText?: string;
 }
 
-const wrapperClasses = "group flex items-start gap-[4px] w-full relative";
+const wrapperClasses = 'group flex items-start gap-[4px] w-full relative';
 
 const inputSizeClasses: Record<Size, string> = {
-  sm: "h-4 w-4 rounded",
-  md: "h-5 w-5 rounded-md",
+  sm: 'h-4 w-4 rounded',
+  md: 'h-5 w-5 rounded-md',
 };
 
 const labelSizeClasses: Record<Size, string> = {
-  sm: "text-[14px] leading-4",
-  md: "text-[16px] leading-5",
+  sm: 'text-[14px] leading-4',
+  md: 'text-[16px] leading-5',
 };
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
-      size = "md",
-      state = "default",
+      size = 'md',
+      state = 'default',
       className,
       disabled,
       required,
@@ -42,14 +42,14 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const inputId = id || generatedId;
     const helperId = helperText ? `${inputId}-helper` : undefined;
 
-    const isError = state === "error";
+    const isError = state === 'error';
     const isDisabled = disabled;
 
-    let inputStateClasses = "";
+    let inputStateClasses = '';
 
     if (isDisabled) {
       inputStateClasses =
-        "bg-neutral-200 border-gray-300 cursor-not-allowed checked:bg-neutral-400 checked:border-neutral-400";
+        'bg-neutral-200 border-gray-300 cursor-not-allowed checked:bg-neutral-400 checked:border-neutral-400';
     } else if (isError) {
       inputStateClasses = `
         bg-white border-accents-red text-white
@@ -64,7 +64,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     }
 
     return (
-      <div className={`${wrapperClasses} ${className || ""}`}>
+      <div className={`${wrapperClasses} ${className || ''}`}>
         {/* Wrapper Checkbox */}
         <div className={`flex items-center justify-center shrink-0`}>
           <div className="relative flex items-center">
@@ -91,7 +91,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               <CheckmarkIcon
                 className={`
                     pointer-events-none col-start-1 row-start-1 
-                    ${size === "sm" ? "w-2.5 h-2.5" : "w-3.5 h-3.5"} 
+                    ${size === 'sm' ? 'w-2.5 h-2.5' : 'w-3.5 h-3.5'} 
                     self-center justify-self-center stroke-white 
                     group-has-disabled:stroke-gray-500
                 `}
@@ -110,11 +110,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
                 ${labelSizeClasses[size]}
                 ${
                   isDisabled
-                    ? "text-neutral-500 cursor-not-allowed"
-                    : "text-black cursor-pointer"
+                    ? 'text-neutral-500 cursor-not-allowed'
+                    : 'text-black cursor-pointer'
                 }
-                ${isError ? "text-accents-red" : ""}
-              `}>
+                ${isError ? 'text-accents-red' : ''}
+              `}
+            >
               {label}
               {required && <span className="text-accents-red ml-0.5">*</span>}
             </label>
@@ -125,11 +126,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               id={helperId}
               className={`mt-1 text-[11px] leading-tight ${
                 isError
-                  ? "text-accents-red"
+                  ? 'text-accents-red'
                   : isDisabled
-                  ? "text-gray-400"
-                  : "text-gray-500"
-              }`}>
+                    ? 'text-gray-400'
+                    : 'text-gray-500'
+              }`}
+            >
               {helperText}
             </p>
           )}
@@ -139,6 +141,6 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   }
 );
 
-Checkbox.displayName = "Checkbox";
+Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;

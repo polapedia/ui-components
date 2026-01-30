@@ -1,13 +1,13 @@
-import { ComponentProps, ReactNode, forwardRef } from "react";
-import AlertIcon from "../icons/AlertIcon";
-import CheckIcon from "../icons/CheckIcon";
-import CloseIcon from "../icons/CloseIcon";
+import { ComponentProps, ReactNode, forwardRef } from 'react';
+import AlertIcon from '../icons/AlertIcon';
+import CheckIcon from '../icons/CheckIcon';
+import CloseIcon from '../icons/CloseIcon';
 
-type Size = "sm" | "md";
+type Size = 'sm' | 'md';
 
-type State = "default" | "error" | "success";
+type State = 'default' | 'error' | 'success';
 
-interface InputProps extends Omit<ComponentProps<"input">, "size"> {
+interface InputProps extends Omit<ComponentProps<'input'>, 'size'> {
   size?: Size;
   state?: State;
   label?: string;
@@ -19,30 +19,30 @@ interface InputProps extends Omit<ComponentProps<"input">, "size"> {
 }
 
 const baseWrapperClasses =
-  "relative flex items-center w-full transition-all hover:bg-background-hover border rounded-[8px] overflow-hidden focus-within:ring-[1px] focus-within:ring-offset-0";
+  'relative flex items-center w-full transition-all hover:bg-background-hover border rounded-[8px] overflow-hidden focus-within:ring-[1px] focus-within:ring-offset-0';
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-[48px] text-[14px] px-4",
-  md: "h-[52px] text-[14px] px-4",
+  sm: 'h-[48px] text-[14px] px-4',
+  md: 'h-[52px] text-[14px] px-4',
 };
 
 const stateClasses: Record<State, string> = {
   default:
-    "border-content-secondary text-content-primary bg-white focus-within:border-primary-500 focus-within:ring-primary-600 focus-within:border-0 placeholder:text-content-secondary",
+    'border-content-secondary text-content-primary bg-white focus-within:border-primary-500 focus-within:ring-primary-600 focus-within:border-0 placeholder:text-content-secondary',
   error:
-    "border-accents-red text-accents-red bg-white focus-within:ring-red-100 placeholder:text-accents-red/50",
+    'border-accents-red text-accents-red bg-white focus-within:ring-red-100 placeholder:text-accents-red/50',
   success:
-    "border-success-icon-color text-success-dark bg-white focus-within:ring-green-100 placeholder:text-green-700/50",
+    'border-success-icon-color text-success-dark bg-white focus-within:ring-green-100 placeholder:text-green-700/50',
 };
 
 const disabledClasses =
-  "text-content-secondary bg-neutral-300 border-gray-200 cursor-not-allowed select-none";
+  'text-content-secondary bg-neutral-300 border-gray-200 cursor-not-allowed select-none';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      size = "md",
-      state = "default",
+      size = 'md',
+      state = 'default',
       className,
       leftIcon,
       rightIcon,
@@ -58,18 +58,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const isError = state === "error";
-    const isSuccess = state === "success";
+    const isError = state === 'error';
+    const isSuccess = state === 'success';
     const isDisabled = disabled;
 
     const wrapperClasses = [
       baseWrapperClasses,
       sizeClasses[size],
       isDisabled ? disabledClasses : stateClasses[state],
-      className || "",
+      className || '',
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     let renderedRightIcon = rightIcon;
 
@@ -86,17 +86,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <button
           type="button"
           onClick={onClear}
-          className="text-content-secondary hover:text-content-primary focus:outline-none">
+          className="text-content-secondary hover:text-content-primary focus:outline-none"
+        >
           <CloseIcon className="bg-neutral-200 w-5 h-5 rounded-full p-1" />
         </button>
       );
     }
 
     const fakePlaceholderLeft = leftIcon
-      ? "left-[48px]"
-      : size === "sm"
-      ? "left-4"
-      : "left-4";
+      ? 'left-[48px]'
+      : size === 'sm'
+        ? 'left-4'
+        : 'left-4';
 
     return (
       <div className="w-full flex flex-col">
@@ -111,8 +112,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {leftIcon && (
             <span
               className={`inline-flex w-6 h-6 mr-2 my-auto ${
-                isDisabled ? "text-gray-400" : "text-content-secondary"
-              }`}>
+                isDisabled ? 'text-gray-400' : 'text-content-secondary'
+              }`}
+            >
               {leftIcon}
             </span>
           )}
@@ -129,7 +131,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
           {placeholder && (
             <span
-              className={`pointer-events-none absolute ${fakePlaceholderLeft} top-1/2 -translate-y-1/2 text-[14px] text-content-secondary peer-focus:hidden peer-not-placeholder-shown:hidden`}>
+              className={`pointer-events-none absolute ${fakePlaceholderLeft} top-1/2 -translate-y-1/2 text-[14px] text-content-secondary peer-focus:hidden peer-not-placeholder-shown:hidden`}
+            >
               {placeholder}
               {required && <span className="text-accents-red ml-px">*</span>}
             </span>
@@ -146,11 +149,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <p
             className={`text-[12px] ${
               isError
-                ? "text-error-icon-color"
+                ? 'text-error-icon-color'
                 : isSuccess
-                ? "text-green-600"
-                : "text-content-secondary"
-            }`}>
+                  ? 'text-green-600'
+                  : 'text-content-secondary'
+            }`}
+          >
             {helperText}
           </p>
         )}
@@ -159,6 +163,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export default Input;

@@ -1,21 +1,21 @@
 import {
-  useState,
-  useRef,
-  useEffect,
-  KeyboardEvent,
-  ClipboardEvent,
   ChangeEvent,
+  ClipboardEvent,
   forwardRef,
+  KeyboardEvent,
+  useEffect,
   useImperativeHandle,
-} from "react";
+  useRef,
+  useState,
+} from 'react';
 
-type Size = "sm" | "md" | "lg";
+type Size = 'sm' | 'md' | 'lg';
 
 interface VerificationFieldProps {
   length?: number;
   value?: string;
-  onChange?: (value: string) => void;
-  onComplete?: (value: string) => void;
+  onChange?: (_value: string) => void;
+  onComplete?: (_value: string) => void;
   disabled?: boolean;
   autoFocus?: boolean;
   label?: string;
@@ -46,32 +46,32 @@ const VerificationField = forwardRef<
       helperText,
       error,
       className,
-      size = "md",
+      size = 'md',
     },
     ref
   ) => {
-    const [internalValue, setInternalValue] = useState<string>("");
+    const [internalValue, setInternalValue] = useState<string>('');
     const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
 
     const isControlled = value !== undefined;
     const currentValue = isControlled ? value! : internalValue;
 
     const sizeBoxClasses: Record<Size, string> = {
-      sm: "w-8 h-8 rounded-lg",
-      md: "w-14 h-14 rounded-xl",
-      lg: "w-[100px] h-[100px] rounded-2xl",
+      sm: 'w-8 h-8 rounded-lg',
+      md: 'w-14 h-14 rounded-xl',
+      lg: 'w-[100px] h-[100px] rounded-2xl',
     };
 
     const sizeTextClasses: Record<Size, string> = {
-      sm: "text-lg font-semibold",
-      md: "text-2xl font-medium",
-      lg: "text-[32px] font-medium",
+      sm: 'text-lg font-semibold',
+      md: 'text-2xl font-medium',
+      lg: 'text-[32px] font-medium',
     };
 
     const helperTextClasses: Record<Size, string> = {
-      sm: "text-base text-content-secondary mt-3",
-      md: "text-base text-content-secondary mt-6",
-      lg: "text-lg text-content-secondary mt-8",
+      sm: 'text-base text-content-secondary mt-3',
+      md: 'text-base text-content-secondary mt-6',
+      lg: 'text-lg text-content-secondary mt-8',
     };
 
     // helpers
@@ -81,12 +81,12 @@ const VerificationField = forwardRef<
         setInternalValue(trimmed);
       }
       onChange?.(trimmed);
-      if (trimmed.length === length && !trimmed.includes("_")) {
+      if (trimmed.length === length && !trimmed.includes('_')) {
         onComplete?.(trimmed);
       }
     };
 
-    const getCharAt = (idx: number) => currentValue[idx] ?? "";
+    const getCharAt = (idx: number) => currentValue[idx] ?? '';
 
     // expose methods
     useImperativeHandle(ref, () => ({
@@ -94,7 +94,7 @@ const VerificationField = forwardRef<
         inputsRef.current[0]?.focus();
       },
       clear() {
-        updateValue("");
+        updateValue('');
         inputsRef.current[0]?.focus();
       },
     }));
@@ -113,15 +113,15 @@ const VerificationField = forwardRef<
 
         // only digits
         if (char && !/^[0-9]$/.test(char)) {
-          e.target.value = "";
+          e.target.value = '';
           return;
         }
 
-        const chars = currentValue.split("");
-        while (chars.length < length) chars.push("");
+        const chars = currentValue.split('');
+        while (chars.length < length) chars.push('');
 
         chars[index] = char;
-        const joined = chars.join("").slice(0, length);
+        const joined = chars.join('').slice(0, length);
         updateValue(joined);
 
         if (char && index < length - 1) {
@@ -134,28 +134,28 @@ const VerificationField = forwardRef<
         if (disabled) return;
         const key = e.key;
 
-        if (key === "Backspace" || key === "Delete") {
-          const chars = currentValue.split("");
-          while (chars.length < length) chars.push("");
+        if (key === 'Backspace' || key === 'Delete') {
+          const chars = currentValue.split('');
+          while (chars.length < length) chars.push('');
 
           if (chars[index]) {
-            chars[index] = "";
-            const joined = chars.join("");
+            chars[index] = '';
+            const joined = chars.join('');
             updateValue(joined);
           } else if (index > 0) {
             inputsRef.current[index - 1]?.focus();
-            const prevChars = currentValue.split("");
-            while (prevChars.length < length) prevChars.push("");
-            prevChars[index - 1] = "";
-            updateValue(prevChars.join(""));
+            const prevChars = currentValue.split('');
+            while (prevChars.length < length) prevChars.push('');
+            prevChars[index - 1] = '';
+            updateValue(prevChars.join(''));
           }
           e.preventDefault();
         }
 
-        if (key === "ArrowLeft" && index > 0) {
+        if (key === 'ArrowLeft' && index > 0) {
           inputsRef.current[index - 1]?.focus();
           e.preventDefault();
-        } else if (key === "ArrowRight" && index < length - 1) {
+        } else if (key === 'ArrowRight' && index < length - 1) {
           inputsRef.current[index + 1]?.focus();
           e.preventDefault();
         }
@@ -165,17 +165,17 @@ const VerificationField = forwardRef<
       (index: number) => (e: ClipboardEvent<HTMLInputElement>) => {
         if (disabled) return;
         e.preventDefault();
-        const text = e.clipboardData.getData("text").replace(/\D/g, "");
+        const text = e.clipboardData.getData('text').replace(/\D/g, '');
         if (!text) return;
 
-        const chars = currentValue.split("");
-        while (chars.length < length) chars.push("");
+        const chars = currentValue.split('');
+        while (chars.length < length) chars.push('');
 
         for (let i = 0; i < text.length && index + i < length; i++) {
           chars[index + i] = text[i];
         }
 
-        const joined = chars.join("");
+        const joined = chars.join('');
         updateValue(joined);
 
         const nextIndex = Math.min(index + text.length, length - 1);
@@ -183,13 +183,13 @@ const VerificationField = forwardRef<
       };
 
     // styling
-    const wrapperClasses = ["flex flex-col", className || ""]
+    const wrapperClasses = ['flex flex-col', className || '']
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     const helperClasses = [
-      error ? "text-accents-red" : "text-content-secondary",
-    ].join(" ");
+      error ? 'text-accents-red' : 'text-content-secondary',
+    ].join(' ');
 
     return (
       <div className={wrapperClasses}>
@@ -207,7 +207,7 @@ const VerificationField = forwardRef<
                 ${
                   sizeBoxClasses[size]
                 } bg-white flex items-center justify-center
-                border ${error ? "border-accents-red" : "border-secondary-800"}
+                border ${error ? 'border-accents-red' : 'border-secondary-800'}
                 hover:bg-background-hover transition-colors
                 focus-within:ring-1 focus-within:ring-secondary-900 focus-within:ring-offset-0
               `}
@@ -226,11 +226,11 @@ const VerificationField = forwardRef<
                 onKeyDown={handleKeyDown(index)}
                 onPaste={handlePaste(index)}
                 className={[
-                  "w-full h-full bg-transparent text-center text-content-primary outline-none border-none caret-transparent disabled:cursor-not-allowed focus:outline-none",
+                  'w-full h-full bg-transparent text-center text-content-primary outline-none border-none caret-transparent disabled:cursor-not-allowed focus:outline-none',
                   sizeTextClasses[size],
                 ]
                   .filter(Boolean)
-                  .join(" ")}
+                  .join(' ')}
               />
             </div>
           ))}
@@ -246,7 +246,7 @@ const VerificationField = forwardRef<
   }
 );
 
-VerificationField.displayName = "VerificationField";
+VerificationField.displayName = 'VerificationField';
 
 export default VerificationField;
 export type { VerificationFieldProps };

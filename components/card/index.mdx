@@ -1,0 +1,161 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as CardStories from './index.stories';
+
+<Meta of={CardStories} />
+
+# Card
+
+A flexible container component used to group related content and actions.
+
+The Card component supports two distinct visual styles:
+
+- **Product Variant**: Ideal for displaying items with images, ratings, and rich details (e.g., e-commerce grid, property listings).
+- **Simple Variant**: Designed for highlighting text-heavy content, features, or categories with a gradient background.
+
+It is fully responsive, adjusting layout and typography across mobile, tablet, and desktop breakpoints.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+You can directly experiment with props such as:
+
+- `variant` - switch between "product" and "simple".
+- `title` & `subtitle` - primary text content.
+- `imageSrc` - main image for the product variant.
+- `rating` - star rating value.
+- `topIcon` & `rightIcon` - decorative or functional icons.
+
+---
+
+## Variants
+
+### Product Card
+
+The default variant designed for rich media content. It features a white background, drop shadow, and dedicated slots for images and ratings.
+
+<Canvas of={CardStories.ProductDefault} />
+
+Use this variant for:
+
+- E-commerce product listings.
+- Real estate properties.
+- Blog post previews with thumbnails.
+
+---
+
+### Simple Card
+
+A sleek variant featuring a gradient background (`from-gradient-primary` to `to-gradient-secondary`) with white text. It focuses on the title and description, omitting the main image and rating slots.
+
+<Canvas of={CardStories.SimpleDefault} />
+
+Use this variant for:
+
+- Key features or unique selling points (USPs).
+- Categories or navigation cards.
+- Testimonials (without user avatars).
+
+---
+
+## Props
+
+<ArgTypes of={CardStories} />
+
+### Key props
+
+- `variant?: "product" | "simple"`  
+  Determines the visual style and layout of the card.  
+  Default: `"product"`.
+
+- `title: string` **(required)** The main heading text of the card.
+
+- `imageSrc?: string`  
+  URL for the main image (Product variant only).
+
+- `rating?: number`  
+  Displays a star rating (0-5) (Product variant only).
+
+- `onButtonClick?: () => void`  
+  Callback fired when the call-to-action button is clicked.
+
+- `imageHeightClassName?: string`  
+  Custom Tailwind class to control image height.  
+  Default: `"h-[250px]"`.
+
+- `className?: string`  
+  Extends the root container with custom Tailwind classes.
+
+---
+
+## Usage guidelines
+
+### When to use
+
+- Use **Card** to group information that belongs to a single subject.
+- Use **Product Variant** when the visual (image) is as important as the text.
+- Use **Simple Variant** to create visual breaks or highlight specific information blocks in a landing page.
+
+### Visual & layout
+
+- **Responsiveness**: The component handles padding and font-size scaling automatically (Mobile -> Tablet -> Desktop).
+- **Images**: Ensure `imageSrc` images have a consistent aspect ratio for the best grid alignment, although `object-cover` is applied by default.
+- **Icons**: `topIcon` is positioned differently depending on the variant (top-left for Product, absolute top overlay for Simple).
+
+### Accessibility notes
+
+- Images rendered via `next/image` should always have a meaningful `imageAlt` prop.
+- Ensure `buttonText` is descriptive (e.g., "View Property" instead of just "View").
+- The card root is a `div`. If the entire card should be clickable, wrap it in a `Link` or use an `onClick` handler on the root carefully.
+
+---
+
+## Usage examples
+
+### Product Card Setup
+
+```tsx
+import Card from '@/components/card';
+import { HomeIcon, PlusOneIcon } from '@/icons';
+
+<Card
+  variant="product"
+  title="Luxury Villa"
+  subtitle="South Jakarta"
+  description="A beautiful villa with a private pool and garden."
+  imageSrc="/images/villa.jpg"
+  rating={4.8}
+  topIcon={<HomeIcon />}
+  rightIcon={<PlusOneIcon />}
+  buttonText="View Details"
+  onButtonClick={() => router.push('/villa/123')}
+/>;
+```
+
+### Simple Feature Card
+
+```tsx
+import Card from '@/components/card';
+import { StarIcon } from '@/icons';
+
+<Card
+  variant="simple"
+  title="Top Quality"
+  description="We ensure the best quality materials for all our products."
+  topIcon={<StarIcon />}
+  buttonText="Learn More"
+  className="h-full"
+/>;
+```

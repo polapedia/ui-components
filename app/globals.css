@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-gradient-primary: #df4141;
@@ -96,9 +96,8 @@
   --color-error-darker: #591415;
 
   --breakpoint-phone: 440px;
-  --breakpoint-phone-horizontal: 768px;
-  --breakpoint-tab: 1024px;
-  --breakpoint-desktop: 1920px;
+  --breakpoint-tab: 744px;
+  --breakpoint-desktop: 1024px;
 }
 
 @theme inline {

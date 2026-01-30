@@ -1,10 +1,10 @@
-import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
-import { useArgs } from "storybook/preview-api";
-import { useState } from "react";
-import SearchBar from ".";
-import CloseIcon from "../icons/CloseIcon";
-import SearchIcon from "../icons/SearchIcon";
-import PlusOneIcon from "../icons/PlusOneIcon";
+import type { Meta, StoryObj, StoryFn } from '@storybook/nextjs-vite';
+import { useArgs } from 'storybook/preview-api';
+import { useState } from 'react';
+import SearchBar from '.';
+import CloseIcon from '../icons/CloseIcon';
+import SearchIcon from '../icons/SearchIcon';
+import PlusOneIcon from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -14,10 +14,10 @@ const icons = {
 };
 
 const meta: Meta<typeof SearchBar> = {
-  title: "Design System/Form/SearchBar",
+  title: 'Design System/Form/SearchBar',
   component: SearchBar,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -27,21 +27,21 @@ const meta: Meta<typeof SearchBar> = {
     ),
   ],
   args: {
-    placeholder: "Search here",
-    size: "md",
+    placeholder: 'Search here',
+    size: 'md',
   },
   argTypes: {
     size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
@@ -104,14 +104,14 @@ export const InteractiveControlled: StoryFn<typeof SearchBar> = (args) => {
   );
 };
 InteractiveControlled.args = {
-  value: "",
+  value: '',
   leftIcon: <SearchIcon />,
   rightIcon: <CloseIcon />,
 };
 
 // Interactive - local state (example usage in app)
 export const InteractiveLocalState: StoryFn<typeof SearchBar> = (args) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   return (
     <div className="w-[400px]">
@@ -124,8 +124,8 @@ export const InteractiveLocalState: StoryFn<typeof SearchBar> = (args) => {
   );
 };
 InteractiveLocalState.args = {
-  size: "md",
-  placeholder: "Search here",
+  size: 'md',
+  placeholder: 'Search here',
   leftIcon: <SearchIcon />,
   rightIcon: <CloseIcon />,
 };

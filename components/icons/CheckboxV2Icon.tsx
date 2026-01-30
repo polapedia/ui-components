@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function CheckboxV2Icon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function CheckboxV2Icon(props: SVGProps<SVGSVGElement>) {
       height="18"
       viewBox="0 0 18 18"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M0 4C0 1.79086 1.79086 0 4 0H14C16.2091 0 18 1.79086 18 4V14C18 16.2091 16.2091 18 14 18H4C1.79086 18 0 16.2091 0 14V4Z"
         fill="url(#paint0_linear_48_495)"
@@ -26,7 +27,8 @@ export default function CheckboxV2Icon(props: SVGProps<SVGSVGElement>) {
           y1="0"
           x2="9"
           y2="18"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#DF4141" />
           <stop offset="1" stopColor="#912A2A" />
         </linearGradient>

@@ -5,16 +5,16 @@ import React, {
   useId,
   useRef,
   useState,
-} from "react";
-import PlusIcon from "../icons/PlusIcon";
-import MinusIcon from "../icons/MinusIcon";
+} from 'react';
+import MinusIcon from '../icons/MinusIcon';
+import PlusIcon from '../icons/PlusIcon';
 
-type Size = "sm" | "md" | "lg" | "xl" | "2xl";
-type Variant = "default" | "fill" | "stroke";
+type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+type Variant = 'default' | 'fill' | 'stroke';
 
 export interface InputNumberProps extends Omit<
-  ComponentProps<"input">,
-  "size" | "type" | "value" | "onChange"
+  ComponentProps<'input'>,
+  'size' | 'type' | 'value' | 'onChange'
 > {
   size?: Size;
   variant?: Variant;
@@ -22,62 +22,62 @@ export interface InputNumberProps extends Omit<
   min?: number;
   max?: number;
   step?: number;
-  onChange?: (value: number) => void;
+  onChange?: (_value: number) => void;
 }
 
 const containerHeight: Record<Size, string> = {
-  sm: "h-[20px] rounded-[4px]",
-  md: "h-[24px] rounded-[4px]",
-  lg: "h-[32px] rounded-[8px]",
-  xl: "h-[40px] rounded-[12px]",
-  "2xl": "h-[48px] rounded-[12px]",
+  sm: 'h-[20px] rounded-[4px]',
+  md: 'h-[24px] rounded-[4px]',
+  lg: 'h-[32px] rounded-[8px]',
+  xl: 'h-[40px] rounded-[12px]',
+  '2xl': 'h-[48px] rounded-[12px]',
 };
 
 const fontSize: Record<Size, string> = {
-  sm: "text-[14px] font-bold",
-  md: "text-[16px] font-semibold",
-  lg: "text-[18px] font-semibold",
-  xl: "text-[20px] font-semibold",
-  "2xl": "text-[24px] font-semibold",
+  sm: 'text-[14px] font-bold',
+  md: 'text-[16px] font-semibold',
+  lg: 'text-[18px] font-semibold',
+  xl: 'text-[20px] font-semibold',
+  '2xl': 'text-[24px] font-semibold',
 };
 
 const circleButtonSize: Record<Size, string> = {
-  sm: "w-[16px] h-[16px]",
-  md: "w-[20px] h-[20px]",
-  lg: "w-[24px] h-[24px]",
-  xl: "w-[28px] h-[28px]",
-  "2xl": "w-[32px] h-[32px]",
+  sm: 'w-[16px] h-[16px]',
+  md: 'w-[20px] h-[20px]',
+  lg: 'w-[24px] h-[24px]',
+  xl: 'w-[28px] h-[28px]',
+  '2xl': 'w-[32px] h-[32px]',
 };
 
 const iconSize: Record<Size, string> = {
-  sm: "w-[14px] h-[14px]",
-  md: "w-[18px] h-[18px]",
-  lg: "w-[20px] h-[20px]",
-  xl: "w-[24px] h-[24px]",
-  "2xl": "w-[24px] h-[24px]",
+  sm: 'w-[14px] h-[14px]',
+  md: 'w-[18px] h-[18px]',
+  lg: 'w-[20px] h-[20px]',
+  xl: 'w-[24px] h-[24px]',
+  '2xl': 'w-[24px] h-[24px]',
 };
 
 const gapSize: Record<Size, string> = {
-  sm: "gap-[8px]",
-  md: "gap-[8px]",
-  lg: "gap-[8px]",
-  xl: "gap-[12px]",
-  "2xl": "gap-[12px]",
+  sm: 'gap-[8px]',
+  md: 'gap-[8px]',
+  lg: 'gap-[8px]',
+  xl: 'gap-[12px]',
+  '2xl': 'gap-[12px]',
 };
 
 const defaultIconSize: Record<Size, string> = {
-  sm: "w-[10px] h-[10px]",
-  md: "w-[12px] h-[12px]",
-  lg: "w-[14px] h-[14px]",
-  xl: "w-[16px] h-[16px]",
-  "2xl": "w-[18px] h-[18px]",
+  sm: 'w-[10px] h-[10px]',
+  md: 'w-[12px] h-[12px]',
+  lg: 'w-[14px] h-[14px]',
+  xl: 'w-[16px] h-[16px]',
+  '2xl': 'w-[18px] h-[18px]',
 };
 
 const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
   (
     {
-      size = "md",
-      variant = "default",
+      size = 'md',
+      variant = 'default',
       value,
       min,
       max,
@@ -89,7 +89,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
       onChange,
       ...rest
     },
-    ref,
+    ref
   ) => {
     const generatedId = useId();
     const inputId = id || generatedId;
@@ -107,15 +107,15 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
 
     const clamp = (val: number) => {
       let next = val;
-      if (typeof min === "number") next = Math.max(next, min);
-      if (typeof max === "number") next = Math.min(next, max);
+      if (typeof min === 'number') next = Math.max(next, min);
+      if (typeof max === 'number') next = Math.min(next, max);
       return next;
     };
 
     const commitDraft = () => {
       if (disabled) return;
       const raw = Number(draft.trim());
-      if (draft.trim() === "" || Number.isNaN(raw)) {
+      if (draft.trim() === '' || Number.isNaN(raw)) {
         setDraft(String(value));
       } else {
         onChange?.(clamp(raw));
@@ -129,20 +129,20 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
       !disabled && onChange?.(clamp(value + (Number(step) || 1)));
 
     const minusIsDisabled =
-      disabled || (typeof min === "number" && value <= min);
+      disabled || (typeof min === 'number' && value <= min);
     const plusIsDisabled =
-      disabled || (typeof max === "number" && value >= max);
+      disabled || (typeof max === 'number' && value >= max);
 
     const getContainerStyles = () => {
       const base =
-        "inline-flex items-center justify-between select-none transition-all";
+        'inline-flex items-center justify-between select-none transition-all';
       const height = containerHeight[size];
       const gap = gapSize[size];
 
       switch (variant) {
-        case "fill":
+        case 'fill':
           return `${base} bg-neutral-500 px-2 ${height} ${gap}`;
-        case "stroke":
+        case 'stroke':
           return `${base} border border-neutral-500 px-2 ${height} ${gap}`;
         default:
           return `${base} gap-3`;
@@ -150,21 +150,21 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
     };
 
     const getButtonStyles = (isDisabled: boolean) => {
-      const base = "flex items-center justify-center transition-all shrink-0";
+      const base = 'flex items-center justify-center transition-all shrink-0';
 
-      if (variant === "default") {
+      if (variant === 'default') {
         const circle = circleButtonSize[size];
         const state = isDisabled
-          ? "bg-neutral-500 text-neutral-700 cursor-not-allowed border-transparent"
-          : "bg-white text-primary-600 border border-primary-600 cursor-pointer active:scale-90";
+          ? 'bg-neutral-500 text-neutral-700 cursor-not-allowed border-transparent'
+          : 'bg-white text-primary-600 border border-primary-600 cursor-pointer active:scale-90';
         return `${base} ${circle} rounded-full ${state}`;
       }
 
-      if (variant === "stroke") {
+      if (variant === 'stroke') {
         const circle = circleButtonSize[size];
         const state = isDisabled
-          ? "bg-tranparent text-neutral-500 cursor-not-allowed "
-          : "bg-white text-content-primary cursor-pointer active:scale-90";
+          ? 'bg-tranparent text-neutral-500 cursor-not-allowed '
+          : 'bg-white text-content-primary cursor-pointer active:scale-90';
         return `${base} ${circle} rounded-full ${state}`;
       }
 
@@ -172,14 +172,14 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
     };
 
     const getValueColor = () => {
-      if (disabled) return "text-neutral-500";
-      if (variant === "fill") return "text-white";
-      if (variant === "stroke") return "text-content-primary";
-      return "text-black";
+      if (disabled) return 'text-neutral-500';
+      if (variant === 'fill') return 'text-white';
+      if (variant === 'stroke') return 'text-content-primary';
+      return 'text-black';
     };
 
     return (
-      <div className={`${getContainerStyles()} ${className || ""}`}>
+      <div className={`${getContainerStyles()} ${className || ''}`}>
         {/* Minus Button */}
         <button
           type="button"
@@ -189,7 +189,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
         >
           <MinusIcon
             className={
-              variant === "default" ? defaultIconSize[size] : iconSize[size]
+              variant === 'default' ? defaultIconSize[size] : iconSize[size]
             }
             strokeWidth={1.5}
           />
@@ -201,7 +201,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
         >
           {!isEditing ? (
             <span
-              className={`block ${getValueColor()} ${disabled ? "cursor-not-allowed" : "cursor-text"}`}
+              className={`block ${getValueColor()} ${disabled ? 'cursor-not-allowed' : 'cursor-text'}`}
               onClick={() => !disabled && setIsEditing(true)}
             >
               {value}
@@ -210,7 +210,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
             <input
               ref={(node) => {
                 localInputRef.current = node;
-                if (typeof ref === "function") ref(node);
+                if (typeof ref === 'function') ref(node);
                 else if (ref)
                   (ref as React.RefObject<HTMLInputElement | null>).current =
                     node;
@@ -223,8 +223,8 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
               onChange={(e) => setDraft(e.target.value)}
               onBlur={commitDraft}
               onKeyDown={(e) => {
-                if (e.key === "Enter") commitDraft();
-                if (e.key === "Escape") {
+                if (e.key === 'Enter') commitDraft();
+                if (e.key === 'Escape') {
                   setDraft(String(value));
                   setIsEditing(false);
                 }
@@ -244,15 +244,15 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
         >
           <PlusIcon
             className={
-              variant === "default" ? defaultIconSize[size] : iconSize[size]
+              variant === 'default' ? defaultIconSize[size] : iconSize[size]
             }
             strokeWidth={1.5}
           />
         </button>
       </div>
     );
-  },
+  }
 );
 
-InputNumber.displayName = "InputNumber";
+InputNumber.displayName = 'InputNumber';
 export default InputNumber;

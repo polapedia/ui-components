@@ -1,13 +1,13 @@
-import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
-import Uploader from ".";
-import { useState } from "react";
-import { action } from "storybook/actions";
+import type { Meta, StoryObj, StoryFn } from '@storybook/nextjs-vite';
+import Uploader from '.';
+import { useState } from 'react';
+import { action } from 'storybook/actions';
 
 const meta: Meta<typeof Uploader> = {
-  title: "Design System/Form/Uploader",
+  title: 'Design System/Form/Uploader',
   component: Uploader,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -17,30 +17,30 @@ const meta: Meta<typeof Uploader> = {
     ),
   ],
   args: {
-    variant: "compact",
+    variant: 'compact',
     disabled: false,
     multiple: false,
-    helperText: "",
+    helperText: '',
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["compact", "dropzone"],
+      control: 'radio',
+      options: ['compact', 'dropzone'],
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
     },
     multiple: {
-      control: "boolean",
-      description: "Allow multiple file selection",
+      control: 'boolean',
+      description: 'Allow multiple file selection',
     },
     label: {
-      control: "text",
+      control: 'text',
     },
     helperText: {
-      control: "text",
+      control: 'text',
     },
-    onChange: { action: "fileChanged" },
+    onChange: { action: 'fileChanged' },
   },
 };
 
@@ -62,21 +62,21 @@ export const Variants: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    label: "Disabled uploader",
-    helperText: "Cannot select file",
+    label: 'Disabled uploader',
+    helperText: 'Cannot select file',
   },
 };
 
 export const MultipleFiles: Story = {
   args: {
     multiple: true,
-    label: "Upload multiple files",
-    helperText: "You can select multiple files",
+    label: 'Upload multiple files',
+    helperText: 'You can select multiple files',
   },
 };
 
 export const WithLocalPreview: StoryFn<typeof Uploader> = (args) => {
-  const [filesInfo, setFilesInfo] = useState<string>("No file yet");
+  const [filesInfo, setFilesInfo] = useState<string>('No file yet');
 
   return (
     <div className="flex flex-col gap-3 w-[360px]">
@@ -88,7 +88,7 @@ export const WithLocalPreview: StoryFn<typeof Uploader> = (args) => {
         onChange={(e) => {
           const files = e.target.files;
           if (!files || files.length === 0) {
-            setFilesInfo("No file yet");
+            setFilesInfo('No file yet');
             return;
           }
           if (files.length === 1) {
@@ -96,7 +96,7 @@ export const WithLocalPreview: StoryFn<typeof Uploader> = (args) => {
           } else {
             setFilesInfo(`${files.length} selected files`);
           }
-          action("onChange")(e);
+          action('onChange')(e);
         }}
       />
 
@@ -107,5 +107,5 @@ export const WithLocalPreview: StoryFn<typeof Uploader> = (args) => {
   );
 };
 WithLocalPreview.args = {
-  variant: "dropzone",
+  variant: 'dropzone',
 };

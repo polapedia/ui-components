@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import TimeIcon from "../icons/TimeIcon";
-import Button from "../button";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import Button from '../button';
+import TimeIcon from '../icons/TimeIcon';
 
 // Helper: Generate Time Slots
 const generateTimeSlots = (intervalMinutes: number = 30): string[] => {
@@ -12,9 +12,9 @@ const generateTimeSlots = (intervalMinutes: number = 30): string[] => {
     const minutes = start % 60;
 
     // Format HH.mm
-    const formatted = `${hours.toString().padStart(2, "0")}.${minutes
+    const formatted = `${hours.toString().padStart(2, '0')}.${minutes
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, '0')}`;
     times.push(formatted);
     start += intervalMinutes;
   }
@@ -24,19 +24,19 @@ const generateTimeSlots = (intervalMinutes: number = 30): string[] => {
 export interface TimePickerProps {
   label?: string;
   value?: string; // Format "HH.mm"
-  onChange?: (time: string) => void;
+  onChange?: (_time: string) => void;
   interval?: number;
   className?: string;
   placeholder?: string;
 }
 
 export default function TimePicker({
-  label = "",
+  label = '',
   value,
   onChange,
   interval = 30,
   className,
-  placeholder = "Select Time",
+  placeholder = 'Select Time',
 }: TimePickerProps) {
   const [tempValue, setTempValue] = useState<string | undefined>(value);
 
@@ -56,8 +56,8 @@ export default function TimePicker({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [value]);
 
   const handleItemClick = (time: string) => {
@@ -76,7 +76,8 @@ export default function TimePicker({
   return (
     <div
       ref={containerRef}
-      className={["relative w-full", className].filter(Boolean).join(" ")}>
+      className={['relative w-full', className].filter(Boolean).join(' ')}
+    >
       {label && (
         <label className="block mb-1 text-[14px] font-medium text-black">
           {label}
@@ -93,7 +94,8 @@ export default function TimePicker({
             setTempValue(value);
           }
         }}
-        className="w-full flex items-center justify-between p-2 rounded-xl border bg-white transition-all text-left border-neutral-200 hover:border-neutral-300">
+        className="w-full flex items-center justify-between p-2 rounded-xl border bg-white transition-all text-left border-neutral-200 hover:border-neutral-300"
+      >
         <span className="text-sm font-medium text-slate-900">
           {confirmedValue || placeholder}
         </span>
@@ -113,13 +115,14 @@ export default function TimePicker({
                   type="button"
                   onClick={() => handleItemClick(time)}
                   className={[
-                    "w-full text-left px-4 py-3 text-[14px] font-medium rounded-lg transition-colors border-b border-neutral-200 last:border-0",
+                    'w-full text-left px-4 py-3 text-[14px] font-medium rounded-lg transition-colors border-b border-neutral-200 last:border-0',
                     isSelected
-                      ? "bg-slate-100 text-black"
-                      : "text-black hover:bg-white",
+                      ? 'bg-slate-100 text-black'
+                      : 'text-black hover:bg-white',
                   ]
                     .filter(Boolean)
-                    .join(" ")}>
+                    .join(' ')}
+                >
                   {time}
                 </button>
               );
@@ -132,7 +135,8 @@ export default function TimePicker({
               variant="primary"
               shape="pill"
               onClick={handleConfirm}
-              disabled={!tempValue}>
+              disabled={!tempValue}
+            >
               Select
             </Button>
           </div>

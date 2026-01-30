@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import DatePicker from "./index";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import DatePicker from './index';
 
 const meta: Meta<typeof DatePicker> = {
-  title: "Design System/Form/Date Picker",
+  title: 'Design System/Form/Date Picker',
   component: DatePicker,
-  parameters: { layout: "padded" },
+  parameters: { layout: 'padded' },
   decorators: [
     (Story) => (
       <div className="h-[450px] bg-neutral-100 p-5">
@@ -13,8 +13,8 @@ const meta: Meta<typeof DatePicker> = {
     ),
   ],
   argTypes: {
-    value: { control: "date" },
-    onChange: { action: "changed" },
+    value: { control: 'date' },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -23,13 +23,13 @@ type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {
   args: {
-    label: "Date Picker",
+    label: 'Date Picker',
   },
 };
 
 export const WithValue: Story = {
   args: {
-    label: "Date Picker",
+    label: 'Date Picker',
     value: new Date(2025, 11, 9),
   },
 };

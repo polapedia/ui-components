@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import CalendarIcon from "../icons/CalendarIcon";
-import ChevronLeftIcon from "../icons/ChevronLeftIcon";
-import ChevronDownIcon from "../icons/ChevronDownIcon";
-import ChevronRightIcon from "../icons/ChevronRightIcon";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import CalendarIcon from '../icons/CalendarIcon';
+import ChevronDownIcon from '../icons/ChevronDownIcon';
+import ChevronLeftIcon from '../icons/ChevronLeftIcon';
+import ChevronRightIcon from '../icons/ChevronRightIcon';
 
 // Helpers
 // Check the similarity of dates (day, month, year)
@@ -16,10 +16,10 @@ const isSameDay = (date1: Date, date2: Date) => {
 
 // Format: "1 Desember 2025"
 const formatDateDisplay = (date: Date) => {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
   }).format(date);
 };
 
@@ -27,34 +27,34 @@ const formatDateDisplay = (date: Date) => {
 const formatDay = (date: Date) => date.getDate();
 
 const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 const YEARS = Array.from(
   { length: 20 },
   (_, i) => new Date().getFullYear() - 10 + i
 );
-const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 export interface DatePickerProps {
   label?: string;
   value?: Date;
-  onChange?: (date: Date) => void;
+  onChange?: (_date: Date) => void;
   className?: string;
 }
 
 export default function DatePicker({
-  label = "Date Picker",
+  label = 'Date Picker',
   value,
   onChange,
   className,
@@ -83,8 +83,8 @@ export default function DatePicker({
         setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   // Navigation Logic
@@ -141,42 +141,46 @@ export default function DatePicker({
   return (
     <div
       ref={containerRef}
-      className={["relative w-full max-w-[300px]", className]
+      className={['relative w-full max-w-[300px]', className]
         .filter(Boolean)
-        .join(" ")}>
+        .join(' ')}
+    >
       {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={[
-          "w-full flex items-center justify-between p-2 h-14 rounded-xl border bg-white transition-all text-left group",
+          'w-full flex items-center justify-between p-2 h-14 rounded-xl border bg-white transition-all text-left group',
           isOpen
-            ? "border-neutral-200 hover:border-neutral-300"
-            : "border-neutral-200 hover:border-neutral-300",
+            ? 'border-neutral-200 hover:border-neutral-300'
+            : 'border-neutral-200 hover:border-neutral-300',
         ]
           .filter(Boolean)
-          .join(" ")}>
+          .join(' ')}
+      >
         <div className="flex flex-col gap-0.5">
           <span className="text-[14px] font-medium capitalize tracking-wide text-content-primary">
             {label}
           </span>
           <span
             className={[
-              "text-[14px] font-medium",
-              selectedDate ? "text-content-primary" : "text-neutral-400",
+              'text-[14px] font-medium',
+              selectedDate ? 'text-content-primary' : 'text-neutral-400',
             ]
               .filter(Boolean)
-              .join(" ")}>
-            {selectedDate ? formatDateDisplay(selectedDate) : "Select date"}
+              .join(' ')}
+          >
+            {selectedDate ? formatDateDisplay(selectedDate) : 'Select date'}
           </span>
         </div>
         <div
           className={[
-            "transition-colors",
-            isOpen ? "text-slate-900" : "text-slate-900",
+            'transition-colors',
+            isOpen ? 'text-slate-900' : 'text-slate-900',
           ]
             .filter(Boolean)
-            .join(" ")}>
+            .join(' ')}
+        >
           <CalendarIcon />
         </div>
       </button>
@@ -188,7 +192,8 @@ export default function DatePicker({
           <div className="flex items-center justify-between mb-5">
             <button
               onClick={handlePrevMonth}
-              className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition-colors">
+              className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition-colors"
+            >
               <ChevronLeftIcon className="text-[#1e1e1e]" />
             </button>
 
@@ -198,7 +203,8 @@ export default function DatePicker({
                 <select
                   value={viewDate.getMonth()}
                   onChange={handleMonthSelect}
-                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
+                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors"
+                >
                   {MONTHS.map((month, i) => (
                     <option key={month} value={i}>
                       {month}
@@ -215,7 +221,8 @@ export default function DatePicker({
                 <select
                   value={viewDate.getFullYear()}
                   onChange={handleYearSelect}
-                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors">
+                  className="appearance-none bg-white border border-neutral-200 w-[87px] rounded-lg py-1 pl-1.5 pr-[30px] text-[16px] font-normal text-[#1e1e1e] hover:bg-neutral-100 cursor-pointer focus:outline-none transition-colors"
+                >
                   {YEARS.map((year) => (
                     <option key={year} value={year}>
                       {year}
@@ -230,7 +237,8 @@ export default function DatePicker({
 
             <button
               onClick={handleNextMonth}
-              className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition-colors">
+              className="p-1.5 rounded-full hover:bg-slate-100 text-slate-600 transition-colors"
+            >
               <ChevronRightIcon className="text-[#1e1e1e]" />
             </button>
           </div>
@@ -241,7 +249,8 @@ export default function DatePicker({
             {WEEKDAYS.map((day) => (
               <div
                 key={day}
-                className="text-[11px] text-[#757575] font-medium py-2 capitalize tracking-wider">
+                className="text-[11px] text-[#757575] font-medium py-2 capitalize tracking-wider"
+              >
                 {day}
               </div>
             ))}
@@ -263,13 +272,14 @@ export default function DatePicker({
                     type="button"
                     onClick={() => handleDateClick(dateItem)}
                     className={[
-                      "w-9 h-9 text-[16px] rounded-lg flex items-center justify-center transition-all",
-                      isSelected && "bg-[#2c2c2c] text-white",
+                      'w-9 h-9 text-[16px] rounded-lg flex items-center justify-center transition-all',
+                      isSelected && 'bg-[#2c2c2c] text-white',
                       !isSelected &&
-                        "hover:bg-background-hover text-[#1e1e1e] font-medium",
+                        'hover:bg-background-hover text-[#1e1e1e] font-medium',
                     ]
                       .filter(Boolean)
-                      .join(" ")}>
+                      .join(' ')}
+                  >
                     {formatDay(dateItem)}
                   </button>
                 </div>

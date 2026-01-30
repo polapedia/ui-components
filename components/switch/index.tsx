@@ -1,11 +1,13 @@
-import { ComponentProps, forwardRef, useId } from "react";
+import { ComponentProps, forwardRef, useId } from 'react';
 
-type Size = "sm" | "md";
-type State = "default" | "error";
-type LabelPosition = "left" | "right";
+type Size = 'sm' | 'md';
+type State = 'default' | 'error';
+type LabelPosition = 'left' | 'right';
 
-export interface SwitchProps
-  extends Omit<ComponentProps<"input">, "size" | "type"> {
+export interface SwitchProps extends Omit<
+  ComponentProps<'input'>,
+  'size' | 'type'
+> {
   size?: Size;
   label?: string;
   labelPosition?: LabelPosition;
@@ -13,27 +15,27 @@ export interface SwitchProps
 }
 
 const containerSizeClasses: Record<Size, string> = {
-  md: "h-6 w-11 p-0.5",
-  sm: "h-5 w-9 p-0.5",
+  md: 'h-6 w-11 p-0.5',
+  sm: 'h-5 w-9 p-0.5',
 };
 
 const thumbSizeClasses: Record<Size, string> = {
-  md: "size-5",
-  sm: "size-4",
+  md: 'size-5',
+  sm: 'size-4',
 };
 
 const thumbTranslateClasses: Record<Size, string> = {
-  md: "group-has-checked:translate-x-5",
-  sm: "group-has-checked:translate-x-4",
+  md: 'group-has-checked:translate-x-5',
+  sm: 'group-has-checked:translate-x-4',
 };
 
 const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
     {
-      size = "md",
+      size = 'md',
       label,
-      labelPosition = "left",
-      state = "default",
+      labelPosition = 'left',
+      state = 'default',
       id,
       disabled,
       className,
@@ -45,9 +47,9 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     const inputId = id || generatedId;
 
     const isDisabled = !!disabled;
-    const isError = state === "error";
+    const isError = state === 'error';
 
-    let containerColorClasses = "";
+    let containerColorClasses = '';
     if (isDisabled) {
       containerColorClasses = `
         bg-neutral-200
@@ -70,8 +72,8 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
 
     const labelClasses = `
       text-sm font-medium select-none
-      ${isDisabled ? "text-gray-400" : "text-gray-900"}
-      ${isError ? "text-accents-red" : ""}
+      ${isDisabled ? 'text-gray-400' : 'text-gray-900'}
+      ${isError ? 'text-accents-red' : ''}
     `;
 
     return (
@@ -79,11 +81,12 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         htmlFor={inputId}
         className={`
           inline-flex items-center gap-2
-          ${isDisabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}
-          ${className || ""}
-        `}>
+          ${isDisabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}
+          ${className || ''}
+        `}
+      >
         {/* Left Label */}
-        {label && labelPosition === "left" && (
+        {label && labelPosition === 'left' && (
           <span className={labelClasses}>{label}</span>
         )}
 
@@ -96,7 +99,8 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             cursor-inherit
             ${containerSizeClasses[size]}
             ${containerColorClasses}
-          `}>
+          `}
+        >
           {/* Thumb */}
           <span
             className={`
@@ -114,17 +118,17 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             ref={ref}
             id={inputId}
             type="checkbox"
-            aria-label={label || "Switch"}
+            aria-label={label || 'Switch'}
             disabled={isDisabled}
             className={`absolute inset-0 appearance-none focus:outline-hidden ${
-              isDisabled ? "cursor-not-allowed" : ""
+              isDisabled ? 'cursor-not-allowed' : ''
             }`}
             {...props}
           />
         </div>
 
         {/* Right Label */}
-        {label && labelPosition === "right" && (
+        {label && labelPosition === 'right' && (
           <span className={labelClasses}>{label}</span>
         )}
       </label>
@@ -132,6 +136,6 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   }
 );
 
-Switch.displayName = "Switch";
+Switch.displayName = 'Switch';
 
 export default Switch;

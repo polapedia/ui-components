@@ -1,0 +1,73 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as Stories from './index.stories';
+
+<Meta of={Stories} />
+
+# Carousel Indicator
+
+Carousel Indicator is a compact pagination control for carousels/sliders.
+It displays a row of dots where the active item becomes an “open” pill shape.
+
+- **Inactive:** circular dot
+- **Active:** pill (“open”) indicator
+- **Sizes:** `sm`, `md`, `lg`
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Provide `onActiveChange` to enable interactivity (click to jump to a slide).
+
+---
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />
+
+---
+
+## Interactive Example
+
+<Canvas of={Stories.Interactive} />
+
+---
+
+## Behavior
+
+- When `onActiveChange` is provided (and not disabled), indicators render as `<button>` elements.
+- Without `onActiveChange`, indicators render as non-interactive `<span>` elements.
+- Active indicator is determined by `activeIndex`.
+
+---
+
+## Props
+
+<ArgTypes of={Stories} />
+
+---
+
+## Usage Guidelines
+
+- Keep `total` aligned with the number of slides/items.
+- Use a controlled state for `activeIndex` for predictable behavior.
+- Use `sm` for dense UI, `md` as default, and `lg` for more emphasis.
+
+---
+
+## Accessibility
+
+- Interactive mode uses `role="tablist"` and `role="tab"`.
+- Each indicator includes `aria-label="Go to slide X"` and `aria-selected`.
+- Focus styles are visible via `focus-visible` ring.

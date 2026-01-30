@@ -1,8 +1,8 @@
-import { useId } from "react";
-import Radio from ".";
+import { useId } from 'react';
+import Radio from '.';
 
-type Size = "sm" | "md";
-type State = "default" | "error";
+type Size = 'sm' | 'md';
+type State = 'default' | 'error';
 
 export interface RadioOption {
   value: string;
@@ -23,14 +23,14 @@ interface RadioGroupProps {
   options: RadioOption[];
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (_value: string) => void;
   className?: string;
 }
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({
   name,
-  size = "md",
-  state = "default",
+  size = 'md',
+  state = 'default',
   label,
   helperText,
   errorText,
@@ -47,25 +47,27 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   const groupLabelId = `${groupName}-label`;
   const helperId = helperText ? `${groupName}-helper` : undefined;
   const errorId =
-    state === "error" && errorText ? `${groupName}-error` : undefined;
+    state === 'error' && errorText ? `${groupName}-error` : undefined;
 
   const describedBy =
-    [helperId, errorId].filter(Boolean).join(" ") || undefined;
+    [helperId, errorId].filter(Boolean).join(' ') || undefined;
 
-  const isError = state === "error";
+  const isError = state === 'error';
 
   // if controlled, use value from props. if uncontrolled, use defaultValue
   const isControlled = value !== undefined;
 
   return (
     <fieldset
-      className={`flex flex-col gap-2 border-0 p-0 m-0 ${className || ""}`}
+      className={`flex flex-col gap-2 border-0 p-0 m-0 ${className || ''}`}
       aria-invalid={isError ? true : undefined}
-      aria-describedby={describedBy}>
+      aria-describedby={describedBy}
+    >
       {label && (
         <legend
           id={groupLabelId}
-          className="mb-1 text-sm font-medium text-gray-900">
+          className="mb-1 text-sm font-medium text-gray-900"
+        >
           {label}
           {required && <span className="text-accents-red ml-0.5">*</span>}
         </legend>
@@ -103,14 +105,16 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       {helperText && !isError && (
         <p
           id={helperId}
-          className="mt-1 text-[11px] leading-tight text-gray-500">
+          className="mt-1 text-[11px] leading-tight text-gray-500"
+        >
           {helperText}
         </p>
       )}
       {isError && errorText && (
         <p
           id={errorId}
-          className="mt-1 text-[11px] leading-tight text-accents-red">
+          className="mt-1 text-[11px] leading-tight text-accents-red"
+        >
           {errorText}
         </p>
       )}

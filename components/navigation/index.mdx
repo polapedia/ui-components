@@ -1,0 +1,160 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  Primary,
+  Controls,
+  ArgTypes,
+  Source,
+} from '@storybook/addon-docs/blocks';
+import * as NavigationStories from './index.stories';
+import Navigation from '.';
+
+<Meta of={NavigationStories} />
+
+# Navigation
+
+The **Navigation** component is used as the global header of Polapedia.  
+It includes the logo, the main navigation links, and a primary **Contact** action button.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to adjust `items`, `activeHref`, `variant`, `sticky`, and other properties interactively.
+
+---
+
+## Responsive Behavior
+
+The Navigation component is fully **responsive**:
+
+### Desktop / Tablet
+
+- Links are displayed horizontally.
+- The **Contact** button appears on the right.
+
+### Mobile
+
+- Links are hidden behind a hamburger menu.
+- Tapping the hamburger toggles a vertical drawer with links.
+
+---
+
+## UI States
+
+Navigation supports the following UI states:
+
+- **Default** - standard appearance.
+- **Hover** - link text color intensifies on hover.
+- **Active Route** - link matching `activeHref` appears highlighted.
+- **Active / Pressed** - clickable feedback.
+- **Disabled** - link appears dimmed and cannot be interacted with.
+- **Focus** - visible focus outline for keyboard users.
+
+<Canvas of={NavigationStories.StatesShowcase} />
+
+> Use the mouse to test hover and pressed states.  
+> Press `Tab` to explore focus states.
+
+---
+
+## Interaction & Behavior
+
+- Clicking a navigation link routes to its corresponding `href`.
+- `activeHref` is used to visually indicate the current active page.
+- The active link includes `aria-current="page"` for accessibility.
+- **`onContactClick` is fired when the Contact button is pressed.**  
+  In Storybook this event appears in the **Actions** panel.
+- On mobile, the hamburger button toggles the drawer and updates `aria-expanded`.
+
+---
+
+## Example: Handling `onContactClick`
+
+Below is an example illustrating how to navigate to `/contact` using `router.push()` inside a Next.js environment.
+
+### Rendered Example
+
+export const NavWithContactRouting = () => {
+  const router = require("next/navigation").useRouter();
+
+return (
+
+<Navigation
+  {...NavigationStories.Playground.args}
+  onContactClick={() => router.push("/contact")}
+/>
+); };
+
+<Canvas>
+  <NavWithContactRouting />
+</Canvas>
+
+### Source Code
+
+<Source
+  language="tsx"
+  code={`"use client";
+
+import { useRouter } from 'next/navigation';
+import Navigation, { NavItem } from '@/components/navigation';
+
+const items: NavItem[] = [
+{ label: "Home", href: "/" },
+{ label: "About Us", href: "/about" },
+{ label: "Polo AI", href: "/polo-ai" },
+{ label: "Marketplace", href: "/marketplace" },
+{ label: "Terms Of Service", href: "/tos" },
+];
+
+export default function Page() {
+  const router = useRouter();
+
+return (
+
+<Navigation
+items={items}
+activeHref="/"
+contactLabel="Contact"
+onContactClick={() => console.log("Contact clicked")}
+/>
+);
+}`}
+/>
+
+---
+
+## Props
+
+<ArgTypes of={NavigationStories} />
+
+---
+
+## Usage Guidelines
+
+- Use this component as the **global header** across main Polapedia pages.
+- Ensure that only one link is marked as active using `activeHref`.
+- Use `disabled: true` for links pointing to unreleased pages.
+- Hide the Contact button using `hideContactButton` on pages where CTA is unnecessary (e.g., Contact page itself).
+- Pick a variant based on context:
+  - **Elevated** for backgrounds with color or texture.
+  - **Flat** for clean, content-heavy white backgrounds.
+
+---
+
+## Accessibility
+
+- Uses semantic `<nav>` and `<a>` elements.
+- Active link includes `aria-current="page"`.
+- Hamburger uses `<button>` with proper `aria-label` and `aria-expanded`.
+- Focus styles are visible for keyboard navigation.
+- Text labels are required to ensure compatibility with screen readers.
+
+---

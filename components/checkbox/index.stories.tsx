@@ -1,36 +1,36 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import Checkbox from ".";
-import { useState } from "react";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import Checkbox from '.';
+import { useState } from 'react';
 
 const meta: Meta<typeof Checkbox> = {
-  title: "Design System/Form/Checkbox",
+  title: 'Design System/Form/Checkbox',
   component: Checkbox,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    size: "md",
-    state: "default",
+    size: 'md',
+    state: 'default',
     disabled: false,
     required: false,
-    label: "Checkbox label",
+    label: 'Checkbox label',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md"],
-      description: "Checkbox and label size",
+      control: 'select',
+      options: ['sm', 'md'],
+      description: 'Checkbox and label size',
     },
     state: {
-      control: "radio",
-      options: ["default", "error"],
-      description: "Visual state for validation",
+      control: 'radio',
+      options: ['default', 'error'],
+      description: 'Visual state for validation',
     },
-    disabled: { control: "boolean" },
-    required: { control: "boolean" },
-    helperText: { control: "text" },
-    checked: { control: "boolean" },
-    onChange: { action: "changed" },
+    disabled: { control: 'boolean' },
+    required: { control: 'boolean' },
+    helperText: { control: 'text' },
+    checked: { control: 'boolean' },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -60,9 +60,9 @@ export const Sizes: Story = {
 // Validation States
 export const Error: Story = {
   args: {
-    state: "error",
-    helperText: "You must agree to the terms",
-    label: "Agree to Terms (Error)",
+    state: 'error',
+    helperText: 'You must agree to the terms',
+    label: 'Agree to Terms (Error)',
   },
 };
 
@@ -77,7 +77,7 @@ export const Disabled: Story = {
 
 export const WithHelperText: Story = {
   args: {
-    helperText: "This helps user understand the context.",
+    helperText: 'This helps user understand the context.',
   },
 };
 

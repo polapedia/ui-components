@@ -1,11 +1,11 @@
-import type { Meta, StoryFn } from "@storybook/nextjs-vite";
-import { useArgs } from "storybook/preview-api";
-import TimePicker from "./index";
+import type { Meta, StoryFn } from '@storybook/nextjs-vite';
+import { useArgs } from 'storybook/preview-api';
+import TimePicker from './index';
 
 const meta: Meta<typeof TimePicker> = {
-  title: "Design System/Form/Time Picker",
+  title: 'Design System/Form/Time Picker',
   component: TimePicker,
-  parameters: { layout: "padded" },
+  parameters: { layout: 'padded' },
   decorators: [
     (Story) => (
       <div className="min-h-[200px]">
@@ -14,7 +14,7 @@ const meta: Meta<typeof TimePicker> = {
     ),
   ],
   argTypes: {
-    onChange: { action: "time-selected" },
+    onChange: { action: 'time-selected' },
   },
 };
 
@@ -37,26 +37,26 @@ const Template: StoryFn<typeof TimePicker> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  placeholder: "Select Time",
+  placeholder: 'Select Time',
   value: undefined,
 };
 
 export const WithPreselectedValue = Template.bind({});
 WithPreselectedValue.args = {
-  value: "14.30",
-  placeholder: "Select Time",
+  value: '14.30',
+  placeholder: 'Select Time',
 };
 
 export const HourlyInterval = Template.bind({});
 HourlyInterval.args = {
   interval: 60,
-  placeholder: "Select Hour",
+  placeholder: 'Select Hour',
   value: undefined,
 };
 
 export const CustomInterval15Min = Template.bind({});
 CustomInterval15Min.args = {
   interval: 15,
-  placeholder: "00.00",
+  placeholder: '00.00',
   value: undefined,
 };

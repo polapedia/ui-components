@@ -1,11 +1,11 @@
-import React, { forwardRef, ComponentProps, ReactNode, useState } from "react";
-import AlertIcon from "../icons/AlertIcon";
-import CheckIcon from "../icons/CheckIcon";
+import React, { forwardRef, ComponentProps, ReactNode, useState } from 'react';
+import AlertIcon from '../icons/AlertIcon';
+import CheckIcon from '../icons/CheckIcon';
 
-type Size = "sm" | "md" | "lg";
-type State = "default" | "error" | "success";
+type Size = 'sm' | 'md' | 'lg';
+type State = 'default' | 'error' | 'success';
 
-interface TextAreaProps extends Omit<ComponentProps<"textarea">, "size"> {
+interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'size'> {
   size?: Size;
   state?: State;
   label?: string;
@@ -14,16 +14,16 @@ interface TextAreaProps extends Omit<ComponentProps<"textarea">, "size"> {
 }
 
 const baseWrapperClasses =
-  "relative flex flex-col w-full transition-all border rounded-[8px] overflow-hidden";
+  'relative flex flex-col w-full transition-all border rounded-[8px] overflow-hidden';
 
 const sizeClasses: Record<Size, string> = {
-  sm: "h-[120px]",
-  md: "h-[150px]",
-  lg: "h-[200px]",
+  sm: 'h-[120px]',
+  md: 'h-[150px]',
+  lg: 'h-[200px]',
 };
 
 const focusRingClasses =
-  "focus-within:ring-[1px] focus-within:ring-offset-0 focus-within:ring-primary-600";
+  'focus-within:ring-[1px] focus-within:ring-offset-0 focus-within:ring-primary-600';
 
 const stateClasses: Record<State, string> = {
   default: `border-0 bg-white hover:bg-background-hover ${focusRingClasses} focus-within:border-primary-600 focus-within:border-0`,
@@ -32,13 +32,13 @@ const stateClasses: Record<State, string> = {
 };
 
 const disabledClasses =
-  "bg-neutral-300 border-0 cursor-not-allowed select-none";
+  'bg-neutral-300 border-0 cursor-not-allowed select-none';
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
     {
-      size = "md",
-      state = "default",
+      size = 'md',
+      state = 'default',
       className,
       disabled,
       required,
@@ -52,27 +52,27 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref
   ) => {
-    const [internalValue, setInternalValue] = useState("");
+    const [internalValue, setInternalValue] = useState('');
 
-    const effectiveValue = typeof value === "string" ? value : internalValue;
+    const effectiveValue = typeof value === 'string' ? value : internalValue;
 
     const charCount = effectiveValue.length;
     const isOverLimit = charCount > 500;
 
-    const currentState: State = isOverLimit ? "error" : state;
+    const currentState: State = isOverLimit ? 'error' : state;
 
-    const isError = currentState === "error";
-    const isSuccess = currentState === "success";
+    const isError = currentState === 'error';
+    const isSuccess = currentState === 'success';
     const isDisabled = disabled;
 
     const wrapperClasses = [
       baseWrapperClasses,
       sizeClasses[size],
       isDisabled ? disabledClasses : stateClasses[currentState],
-      className || "",
+      className || '',
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     let renderedRightIcon = rightIcon;
     if (isError) {
@@ -82,19 +82,19 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     }
 
     const labelColor = isDisabled
-      ? "text-content-secondary"
+      ? 'text-content-secondary'
       : isError
-      ? "text-accents-red"
-      : "text-content-secondary";
+        ? 'text-accents-red'
+        : 'text-content-secondary';
 
     const counterColor = isDisabled
-      ? "text-content-secondary"
+      ? 'text-content-secondary'
       : isOverLimit
-      ? "text-accents-red font-bold"
-      : "text-content-secondary";
+        ? 'text-accents-red font-bold'
+        : 'text-content-secondary';
 
     const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-      if (typeof value !== "string") {
+      if (typeof value !== 'string') {
         setInternalValue(e.target.value);
       }
       onChange?.(e);
@@ -102,15 +102,18 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
     return (
       <div
-        className={`w-full flex flex-col gap-1.5 font-sans ${sizeClasses[size]}`}>
+        className={`w-full flex flex-col gap-1.5 font-sans ${sizeClasses[size]}`}
+      >
         <div className={wrapperClasses}>
           <div
             className={`flex items-center px-4 pt-2 shrink-0 ${
-              renderedRightIcon ? "justify-between" : "justify-center"
-            }`}>
+              renderedRightIcon ? 'justify-between' : 'justify-center'
+            }`}
+          >
             {label ? (
               <label
-                className={`text-[14px] font-medium transition-colors ${labelColor}`}>
+                className={`text-[14px] font-medium transition-colors ${labelColor}`}
+              >
                 {label}
                 {required && <span className="text-red-500 ml-0.5">*</span>}
               </label>
@@ -119,7 +122,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             )}
             {renderedRightIcon && (
               <div
-                className={`shrink-0 ml-2 ${isDisabled ? "opacity-50" : ""}`}>
+                className={`shrink-0 ml-2 ${isDisabled ? 'opacity-50' : ''}`}
+              >
                 {renderedRightIcon}
               </div>
             )}
@@ -136,7 +140,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               flex-1 w-full bg-transparent border-none outline-none 
               px-4 py-2 resize-none text-[14px] placeholder:text-gray-400/70
               disabled:cursor-not-allowed
-              ${isDisabled ? "text-content-secondary" : "text-black"}
+              ${isDisabled ? 'text-content-secondary' : 'text-black'}
               ${sizeClasses[size]}
             `}
             {...props}
@@ -153,12 +157,13 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           <p
             className={`text-[12px] ${
               isError
-                ? "text-red-500"
+                ? 'text-red-500'
                 : isSuccess
-                ? "text-green-600"
-                : "text-gray-500"
-            }`}>
-            {isOverLimit ? "Character limit exceeded" : helperText}
+                  ? 'text-green-600'
+                  : 'text-gray-500'
+            }`}
+          >
+            {isOverLimit ? 'Character limit exceeded' : helperText}
           </p>
         )}
       </div>
@@ -166,6 +171,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   }
 );
 
-TextArea.displayName = "TextArea";
+TextArea.displayName = 'TextArea';
 
 export default TextArea;

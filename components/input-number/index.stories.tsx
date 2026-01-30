@@ -1,17 +1,17 @@
-import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
-import { useArgs } from "storybook/preview-api";
-import { useState } from "react";
-import InputNumber from ".";
+import type { Meta, StoryObj, StoryFn } from '@storybook/nextjs-vite';
+import { useArgs } from 'storybook/preview-api';
+import { useState } from 'react';
+import InputNumber from '.';
 
 const meta: Meta<typeof InputNumber> = {
-  title: "Design System/Form/Input Number",
+  title: 'Design System/Form/Input Number',
   component: InputNumber,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    size: "md",
-    variant: "default",
+    size: 'md',
+    variant: 'default',
     value: 3,
     min: 1,
     max: 5,
@@ -20,19 +20,19 @@ const meta: Meta<typeof InputNumber> = {
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl", "2xl"],
-      description: "Height size",
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'Height size',
     },
     variant: {
-      control: "radio",
-      options: ["default", "fill", "stroke"],
-      description: "Visual style: default / fill / stroke",
+      control: 'radio',
+      options: ['default', 'fill', 'stroke'],
+      description: 'Visual style: default / fill / stroke',
     },
     value: {
-      control: { type: "number" },
+      control: { type: 'number' },
     },
-    onChange: { action: "changed" },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -143,6 +143,6 @@ export const InteractiveLocalState: StoryFn<typeof InputNumber> = (args) => {
   );
 };
 InteractiveLocalState.args = {
-  variant: "fill",
-  size: "lg",
+  variant: 'fill',
+  size: 'lg',
 };

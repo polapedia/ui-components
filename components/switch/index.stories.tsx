@@ -1,35 +1,35 @@
-import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
-import { useArgs } from "storybook/preview-api";
-import Switch from ".";
+import type { Meta, StoryObj, StoryFn } from '@storybook/nextjs-vite';
+import { useArgs } from 'storybook/preview-api';
+import Switch from '.';
 
 const meta: Meta<typeof Switch> = {
-  title: "Design System/Form/Switch",
+  title: 'Design System/Form/Switch',
   component: Switch,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    size: "md",
-    state: "default",
+    size: 'md',
+    state: 'default',
     disabled: false,
     checked: false,
-    label: "Label",
+    label: 'Label',
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md"],
-      description: "Switch size",
+      control: 'select',
+      options: ['sm', 'md'],
+      description: 'Switch size',
     },
     state: {
-      control: "radio",
-      options: ["default", "error"],
-      description: "Visual state for validation",
+      control: 'radio',
+      options: ['default', 'error'],
+      description: 'Visual state for validation',
     },
-    disabled: { control: "boolean" },
-    checked: { control: "boolean" },
-    label: { control: "text" },
-    onChange: { action: "changed" },
+    disabled: { control: 'boolean' },
+    checked: { control: 'boolean' },
+    label: { control: 'text' },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: "Switch Label",
+    label: 'Switch Label',
     checked: false,
   },
   render: function Render(args) {
@@ -55,7 +55,7 @@ export const Default: Story = {
 
 export const Checked: Story = {
   args: {
-    label: "Switch",
+    label: 'Switch',
     checked: true,
   },
 };
@@ -72,8 +72,8 @@ export const Sizes: Story = {
 // States
 export const Error: Story = {
   args: {
-    label: "Error state",
-    state: "error",
+    label: 'Error state',
+    state: 'error',
     checked: true,
   },
 };
@@ -104,6 +104,6 @@ export const InteractiveControlled: StoryFn<typeof Switch> = (args) => {
 };
 
 InteractiveControlled.args = {
-  label: "Click to toggle (controlled)",
+  label: 'Click to toggle (controlled)',
   checked: false,
 };

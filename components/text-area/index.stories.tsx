@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import TextArea from ".";
-import AlertIcon from "../icons/AlertIcon";
-import CheckIcon from "../icons/CheckIcon";
-import PlusOneIcon from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import TextArea from '.';
+import AlertIcon from '../icons/AlertIcon';
+import CheckIcon from '../icons/CheckIcon';
+import PlusOneIcon from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -12,10 +12,10 @@ const icons = {
 };
 
 const meta: Meta<typeof TextArea> = {
-  title: "Design System/Form/TextArea",
+  title: 'Design System/Form/TextArea',
   component: TextArea,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
   decorators: [
     (Story) => (
@@ -25,38 +25,38 @@ const meta: Meta<typeof TextArea> = {
     ),
   ],
   args: {
-    placeholder: "",
-    size: "md",
-    state: "default",
+    placeholder: '',
+    size: 'md',
+    state: 'default',
     disabled: false,
     required: false,
-    label: "Text area label",
-    helperText: "",
+    label: 'Text area label',
+    helperText: '',
     rightIcon: icons.PlusOne,
   },
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "Text area height size",
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Text area height size',
     },
     state: {
-      control: "radio",
-      options: ["default", "error", "success"],
-      description: "Visual state for validation",
+      control: 'radio',
+      options: ['default', 'error', 'success'],
+      description: 'Visual state for validation',
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
-      description: "Icon in the top right corner",
+      description: 'Icon in the top right corner',
     },
-    disabled: { control: "boolean" },
-    required: { control: "boolean" },
-    helperText: { control: "text" },
-    label: { control: "text" },
-    value: { control: "text" },
-    onChange: { action: "changed" },
+    disabled: { control: 'boolean' },
+    required: { control: 'boolean' },
+    helperText: { control: 'text' },
+    label: { control: 'text' },
+    value: { control: 'text' },
+    onChange: { action: 'changed' },
   },
 };
 
@@ -65,7 +65,7 @@ type Story = StoryObj<typeof meta>;
 
 // Default Story
 export const Default: Story = {
-  args: { state: "default" },
+  args: { state: 'default' },
 };
 
 // Size Showcase
@@ -93,26 +93,26 @@ export const Sizes: Story = {
     </div>
   ),
   args: {
-    label: "Description",
+    label: 'Description',
   },
 };
 
 // Validation States
 export const Error: Story = {
   args: {
-    state: "error",
-    value: "This text is too long or invalid...",
-    helperText: "Character limit exceeded or invalid format",
-    label: "Error State",
+    state: 'error',
+    value: 'This text is too long or invalid...',
+    helperText: 'Character limit exceeded or invalid format',
+    label: 'Error State',
   },
 };
 
 export const Success: Story = {
   args: {
-    state: "success",
-    value: "Valid description provided.",
-    helperText: "Description looks good!",
-    label: "Success State",
+    state: 'success',
+    value: 'Valid description provided.',
+    helperText: 'Description looks good!',
+    label: 'Success State',
   },
 };
 
@@ -120,17 +120,17 @@ export const Success: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    value: "This content is read-only and cannot be edited.",
-    label: "Disabled State",
-    helperText: "Background becomes gray",
+    value: 'This content is read-only and cannot be edited.',
+    label: 'Disabled State',
+    helperText: 'Background becomes gray',
   },
 };
 
 export const Required: Story = {
   args: {
     required: true,
-    placeholder: "This field is required",
-    label: "Mandatory Field",
+    placeholder: 'This field is required',
+    label: 'Mandatory Field',
   },
 };
 
@@ -146,7 +146,7 @@ export const AutoValidationDemo: Story = {
     </div>
   ),
   args: {
-    label: "Auto Validation (Max 500 chars)",
+    label: 'Auto Validation (Max 500 chars)',
   },
 };
 
@@ -206,14 +206,14 @@ export const Showcase: Story = {
 
       <div className="p-4 bg-gray-50 border border-dashed border-gray-300 rounded-lg">
         <p className="text-xs text-neutral-600">
-          Interact with the text areas above to test{" "}
-          <strong>focus rings</strong>,<strong> hover states</strong>, and{" "}
+          Interact with the text areas above to test{' '}
+          <strong>focus rings</strong>,<strong> hover states</strong>, and{' '}
           <strong>character limits</strong>.
         </p>
       </div>
     </div>
   ),
   args: {
-    size: "md",
+    size: 'md',
   },
 };

@@ -1,38 +1,40 @@
-import { ComponentProps, forwardRef, useId } from "react";
+import { ComponentProps, forwardRef, useId } from 'react';
 
-type Size = "sm" | "md";
-type State = "default" | "error";
+type Size = 'sm' | 'md';
+type State = 'default' | 'error';
 
-export interface RadioProps
-  extends Omit<ComponentProps<"input">, "size" | "type"> {
+export interface RadioProps extends Omit<
+  ComponentProps<'input'>,
+  'size' | 'type'
+> {
   size?: Size;
   state?: State;
   label?: string;
   helperText?: string;
 }
 
-const wrapperClasses = "group flex items-start gap-[4px] w-full relative";
+const wrapperClasses = 'group flex items-start gap-[4px] w-full relative';
 
 const inputSizeClasses: Record<Size, string> = {
-  sm: "h-4 w-4 rounded-full",
-  md: "h-5 w-5 rounded-full",
+  sm: 'h-4 w-4 rounded-full',
+  md: 'h-5 w-5 rounded-full',
 };
 
 const labelSizeClasses: Record<Size, string> = {
-  sm: "text-xs leading-4",
-  md: "text-sm leading-5",
+  sm: 'text-xs leading-4',
+  md: 'text-sm leading-5',
 };
 
 const innerDotSizeClasses: Record<Size, string> = {
-  sm: "h-1.5 w-1.5",
-  md: "h-2 w-2",
+  sm: 'h-1.5 w-1.5',
+  md: 'h-2 w-2',
 };
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(
   (
     {
-      size = "md",
-      state = "default",
+      size = 'md',
+      state = 'default',
       className,
       disabled,
       required,
@@ -47,11 +49,11 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
     const inputId = id || generatedId;
     const helperId = helperText ? `${inputId}-helper` : undefined;
 
-    const isError = state === "error";
+    const isError = state === 'error';
     const isDisabled = disabled;
 
     // Border
-    let inputStateClasses = "";
+    let inputStateClasses = '';
     if (isDisabled) {
       // default & disabled (including selected)
       inputStateClasses = `
@@ -79,17 +81,17 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
     }
 
     // FILL (dot inside)
-    let innerDotStateClasses = "";
+    let innerDotStateClasses = '';
     if (isDisabled) {
-      innerDotStateClasses = "bg-neutral-400"; // selected & disabled
+      innerDotStateClasses = 'bg-neutral-400'; // selected & disabled
     } else if (isError) {
-      innerDotStateClasses = "bg-accents-red"; // error
+      innerDotStateClasses = 'bg-accents-red'; // error
     } else {
-      innerDotStateClasses = "bg-accents-blue"; // selected normal
+      innerDotStateClasses = 'bg-accents-blue'; // selected normal
     }
 
     return (
-      <div className={`${wrapperClasses} ${className || ""}`}>
+      <div className={`${wrapperClasses} ${className || ''}`}>
         {/* Wrapper Radio */}
         <div className={`flex items-center justify-center shrink-0`}>
           <div className="relative flex items-center">
@@ -135,11 +137,12 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
                 ${labelSizeClasses[size]}
                 ${
                   isDisabled
-                    ? "text-gray-400 cursor-not-allowed"
-                    : "text-gray-900 cursor-pointer"
+                    ? 'text-gray-400 cursor-not-allowed'
+                    : 'text-gray-900 cursor-pointer'
                 }
-                ${isError ? "text-accents-red" : ""}
-              `}>
+                ${isError ? 'text-accents-red' : ''}
+              `}
+            >
               {label}
               {required && <span className="text-accents-red ml-0.5">*</span>}
             </label>
@@ -150,11 +153,12 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
               id={helperId}
               className={`mt-1 text-[11px] leading-tight ${
                 isError
-                  ? "text-accents-red"
+                  ? 'text-accents-red'
                   : isDisabled
-                  ? "text-gray-400"
-                  : "text-gray-500"
-              }`}>
+                    ? 'text-gray-400'
+                    : 'text-gray-500'
+              }`}
+            >
               {helperText}
             </p>
           )}
@@ -164,6 +168,6 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
   }
 );
 
-Radio.displayName = "Radio";
+Radio.displayName = 'Radio';
 
 export default Radio;
