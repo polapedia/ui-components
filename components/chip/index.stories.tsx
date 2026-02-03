@@ -15,6 +15,13 @@ const meta: Meta<typeof Chip> = {
   parameters: {
     layout: 'centered',
   },
+  decorators: [
+    (Story) => (
+      <div className="p-6 bg-background-hover flex items-start justify-center">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     children: 'Chips label',
     size: 'sm',

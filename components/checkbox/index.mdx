@@ -1,0 +1,127 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import Checkbox from '.';
+import * as CheckboxStories from './index.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+The **Checkbox** component lets users make binary choices  
+and is primarily intended for **multiple selection**, while still supporting single-select usage.  
+It supports two sizes, validation states, helper messages, disabled and required states.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`size`, `state`, `disabled`, `required`, `label`, `helperText`, and `checked`.
+
+---
+
+## Variants & Features
+
+### Checked State
+
+A checkbox can be controlled via the `checked` prop.
+
+<Canvas of={CheckboxStories.Checked} />
+
+---
+
+### Disabled
+
+Disabled checkboxes appear muted and non-interactive.
+
+<Canvas of={CheckboxStories.Disabled} />
+
+---
+
+### With Helper Text
+
+Use `helperText` to provide additional guidance or validation messages.
+
+<Canvas of={CheckboxStories.WithHelperText} />
+
+---
+
+## Sizes
+
+Checkbox supports two control sizes that scale both the box and the label:
+
+- **sm** - compact checkbox with smaller label text
+- **md** - default checkbox and label size
+
+<Canvas of={CheckboxStories.Sizes} />
+
+---
+
+## Validation States
+
+Checkbox supports semantic feedback for form validation:
+
+- **default** - standard appearance
+- **error** - red border and label for invalid states
+
+Use the `state` prop to switch between visual styles.
+
+<Canvas of={CheckboxStories.Error} />
+
+---
+
+## Showcase
+
+A full preview of common Checkbox use cases, including a single checkbox  
+and a small checkbox group for multi-select behavior.
+
+<Canvas of={CheckboxStories.Showcase} />
+
+---
+
+## Interaction & Behavior
+
+- The Checkbox toggles its value using the standard `onChange` event.
+- Storybook logs value changes in the **Actions** panel.
+- The component can be used as:
+  - **Controlled** - pass a `checked` prop and handle `onChange`.
+  - **Uncontrolled** - omit `checked`; the browser manages its own state.
+- `required` can be used alongside native form validation.
+- Combine multiple `Checkbox` components to build checkbox groups or preference lists.
+
+---
+
+## Props
+
+<ArgTypes of={CheckboxStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **Checkbox** for binary decisions where users can select **zero, one, or many** options:
+  - e.g., notification preferences, feature toggles, filter selections.
+- Use the `label` prop to clearly describe what the checkbox controls.
+- Use `helperText` for additional context or inline validation messages.
+- Use `state="error"` when validation fails (e.g., “You must accept the terms”).
+- Prefer concise labels and helper text; avoid relying only on surrounding copy.
+
+---
+
+## Accessibility
+
+- Uses a semantic `<input type="checkbox" />` for proper screen reader support.
+- Each Checkbox should have an associated `label` for clarity and a larger click target.
+- Focus outlines and focus rings are preserved for keyboard navigation.
+- When using `state="error"`, ensure `helperText` clearly explains what is wrong.

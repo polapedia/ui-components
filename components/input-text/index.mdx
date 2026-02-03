@@ -1,0 +1,133 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import Input from '.';
+import * as InputStories from './index.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+The **Input** component provides an area where users can type, edit, or clear text.  
+It supports multiple sizes, validation states, icons, helper messages, and clearable interactions.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`size`, `state`, `leftIcon`, `rightIcon`, `isClearable`, and `disabled`.
+
+---
+
+## Variants & Features
+
+### With Icons
+
+Inputs support icons placed on the left or right.  
+Right icons may be overridden by `state` icons (error or success).
+
+<Canvas of={InputStories.WithIcon} />
+
+---
+
+### Required
+
+Displays a red asterisk and enforces required validation in forms.
+
+<Canvas of={InputStories.Required} />
+
+---
+
+### Disabled
+
+Disabled inputs appear muted and non-interactive.
+
+<Canvas of={InputStories.Disabled} />
+
+---
+
+### Clearable
+
+When enabled, a clear button will appear when the user has typed content.
+
+<Canvas of={InputStories.Clearable} />
+
+---
+
+## Sizes
+
+- **sm** - compact input for dense UIs
+- **md** - default input size for standard forms
+
+<Canvas of={InputStories.Sizes} />
+
+---
+
+## Validation States
+
+Inputs support semantic feedback for form validation:
+
+- **Default** - standard appearance
+- **Error** - highlights input with red style and alert icon
+- **Success** - shows green styling and success icon
+
+<Canvas of={InputStories.Error} />
+<Canvas of={InputStories.Success} />
+
+---
+
+## Showcase
+
+A full preview of Input variations including focus, states, and icons.
+
+<Canvas of={InputStories.Showcase} />
+
+---
+
+## Interaction & Behavior
+
+- The Input updates its value using the standard `onChange` event.
+- Storybook logs value changes in the **Actions** panel.
+- When `isClearable` is enabled:
+  - A close button appears if the input has value.
+  - Clicking it triggers the `onClear` handler.
+- `leftIcon` and `rightIcon` accept any ReactNode.
+- Setting `state="error"` or `state="success"` automatically overrides the right icon.
+
+---
+
+## Props
+
+<ArgTypes of={InputStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **icons** to provide context, such as search or email fields.
+- Use **helperText** for validation messages or additional instructions.
+- Prefer `state="error"` or `state="success"` over manual color styling.
+- Avoid using too many decorative icons that do not enhance meaning.
+- Do not rely on placeholder text as the only label—use `label` for clarity.
+- Use the `required` prop to clearly communicate mandatory fields.
+
+---
+
+## Accessibility
+
+- Uses a semantic `<input>` element for proper screen reader support.
+- Labels should always be provided for clarity and accessibility.
+- Keep focus outlines visible for keyboard navigation.
+- Ensure helper text describes errors clearly when using `state="error"`.

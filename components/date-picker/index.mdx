@@ -1,0 +1,99 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import DatePicker from '.';
+import * as DatePickerStories from './index.stories';
+
+<Meta of={DatePickerStories} />
+
+# Date Picker
+
+The **Date Picker** component allows users to select a specific date from a  
+dropdown-style calendar. It supports both controlled and uncontrolled usage,  
+with month/year navigation and a localized formatted display.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to experiment with props such as `label` and `value`.  
+Changes to the selected date will be logged in the **Actions** panel via `onChange`.
+
+---
+
+## Variants & Examples
+
+### Default
+
+The default Date Picker renders with a label and a placeholder text `"Select date"`  
+until the user chooses a date.
+
+<Canvas of={DatePickerStories.Default} />
+
+---
+
+### With Initial Value
+
+You can provide an initial date via the `value` prop (controlled usage).  
+This is useful when editing existing data or pre-filling forms.
+
+<Canvas of={DatePickerStories.WithValue} />
+
+---
+
+## Interaction & Behavior
+
+- Clicking the field opens a **dropdown calendar** aligned to the trigger.
+- Users can navigate between months using the left/right chevrons.
+- Month and year can be changed via the **dropdown selectors**.
+- Selecting a date:
+  - Closes the calendar popover.
+  - Calls `onChange(selectedDate)` with a `Date` object.
+- The displayed value is formatted using `Intl.DateTimeFormat("id-ID", { day, month, year })`.
+- Clicking outside of the component closes the calendar popover.
+
+### Controlled vs Uncontrolled
+
+- **Controlled**:
+  - Pass `value` and listen to `onChange`.
+  - The parent component owns the state and updates `value` accordingly.
+- **Uncontrolled**:
+  - Omit the `value` prop.
+  - DatePicker manages its own internal date state and still calls `onChange` for convenience.
+
+---
+
+## Props
+
+<ArgTypes of={DatePickerStories} />
+
+---
+
+## Usage Guidelines
+
+- Use Date Picker when:
+  - You need to capture a **single calendar date** (e.g., due date).
+  - Manual typing would be error-prone or inconsistent.
+- Keep labels descriptive, such as `"Start Date"` or `"Due Date"`.
+- Prefer using the component in **controlled mode** when integrating with form libraries.
+- Combine with validation to ensure selected dates are within allowed ranges (handled externally).
+
+---
+
+## Accessibility
+
+- The trigger is a semantic `<button>` combined with an accessible label.
+- The popover closes when clicking outside, helping users maintain context.
+- Ensure appropriate labeling in forms (e.g., `label` prop) for better screen reader support.
+- Maintain visible focus styles to support keyboard navigation.

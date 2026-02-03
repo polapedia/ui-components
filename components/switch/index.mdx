@@ -1,0 +1,126 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import Switch from '.';
+import * as SwitchStories from './index.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+Use a **Switch** to represent a binary on/off state, such as enabling a feature or turning a setting on.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`size`, `state`, `checked`, `disabled`, and `label`.
+
+---
+
+## Basic Usage
+
+### Default
+
+A standard switch in the OFF state.
+
+<Canvas of={SwitchStories.Default} />
+
+---
+
+### Checked
+
+The switch in ON state.  
+The track uses **`accents-blue`** for the active background.
+
+<Canvas of={SwitchStories.Checked} />
+
+---
+
+## Sizes
+
+Switch supports two sizes to match different UI densities:
+
+- **sm** - 32 × 18 px, compact for tight layouts
+- **md** - 40 × 24 px, default size for forms and settings
+
+<Canvas of={SwitchStories.Sizes} />
+
+---
+
+## States
+
+### Error
+
+Use the `state="error"` prop to highlight a switch that failed validation or needs attention.  
+The active track uses **`accents-red`**.
+
+<Canvas of={SwitchStories.Error} />
+
+---
+
+### Disabled
+
+Disabled switches appear muted and are non-interactive.
+
+<Canvas of={SwitchStories.Disabled} />
+
+---
+
+## Interactive Behavior
+
+### Controlled Example
+
+This story keeps the `checked` value in sync with Storybook Controls and demonstrates how to manage the switch as a **controlled component**.
+
+<Canvas of={SwitchStories.InteractiveControlled} />
+
+---
+
+## Interaction & Behavior
+
+- The Switch is built on top of a native `<input type="checkbox" />` with `role="switch"`.
+- Use the standard `checked` + `onChange` pattern to control its state.
+- Keyboard support:
+  - **Tab** to move focus to the switch.
+  - **Space** or **Enter** to toggle ON/OFF.
+- When `disabled` is `true`:
+  - The appearance becomes muted.
+  - Pointer and keyboard interaction are blocked.
+
+---
+
+## Props
+
+<ArgTypes of={SwitchStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **Switch** for instant, reversible settings (e.g., notifications, dark mode).
+- Prefer **Checkbox** when the action is part of form submit (e.g., “I agree to terms”).
+- Do not hide critical destructive actions behind a switch—use buttons or confirmation dialogs instead.
+- Pair the switch with a clear, descriptive `label` so the user knows exactly what is being toggled.
+- Use `state="error"` only when the current ON/OFF configuration fails validation or needs immediate attention.
+
+---
+
+## Accessibility
+
+- Uses semantic HTML input with `role="switch"` and `aria-checked`.
+- Label text is clickable and connected through the native `<label htmlFor>` linkage.
+- Keep focus indicators visible (the switch track uses focus ring via `peer-focus-visible`).
+- Ensure surrounding copy explains the effect of toggling the switch, especially for destructive or privacy-related settings.
