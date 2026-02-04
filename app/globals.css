@@ -98,6 +98,9 @@
   --breakpoint-phone: 440px;
   --breakpoint-tab: 744px;
   --breakpoint-desktop: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-2k: 2048px;
 }
 
 @theme inline {

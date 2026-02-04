@@ -37,7 +37,7 @@ Storybook provides a dedicated environment where developers and designers can vi
 **Polapedia UI Components** is a shared UI library designed to offer:
 
 - A unified **design system** across Polapedia products
-- Isolated component previews using **Storybook 10**
+- Isolated component previews using **Storybook 10.2**
 - Auto-generated documentation using **Docs addon**
 - Full support for **Next.js 16**, **React 19**, and **Tailwind CSS v4**
 
@@ -296,14 +296,13 @@ Icons can be styled with:
 
 Your Storybook configuration includes:
 
-| Addon                           | Purpose                                     |
-| ------------------------------- | ------------------------------------------- |
-| **@storybook/addon-docs**       | Auto documentation                          |
-| **@storybook/addon-a11y**       | Accessibility checks                        |
-| **@storybook/addon-vitest**     | Test integration                            |
-| **@storybook/nextjs-vite**      | Official Next.js + Vite Storybook framework |
-| **@storybook/addon-essentials** | Controls, Actions, Viewport, Backgrounds    |
-| **@chromatic-com/storybook**    | Visual regression testing (optional)        |
+| Addon                        | Purpose                                     |
+| ---------------------------- | ------------------------------------------- |
+| **@storybook/addon-docs**    | Auto documentation                          |
+| **@storybook/addon-a11y**    | Accessibility checks                        |
+| **@storybook/addon-vitest**  | Test integration                            |
+| **@storybook/nextjs-vite**   | Official Next.js + Vite Storybook framework |
+| **@chromatic-com/storybook** | Visual regression testing (optional)        |
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
