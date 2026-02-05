@@ -1,12 +1,5 @@
-import {
-  Meta,
-  Primary,
-  Controls,
-  Canvas,
-  Story,
-  ArgTypes,
-} from "@storybook/addon-docs/blocks";
-import * as AccordionStories from "./index.stories";
+import { ArgTypes, Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './index.stories';
 
 <Meta of={AccordionStories} />
 
@@ -19,11 +12,9 @@ It supports two sizes — **sm** and **md** — optional divider lines, single o
 
 ## Playground
 
-<Canvas>
-  <Primary />
-</Canvas>
+<Canvas of={AccordionStories.Default} />
 
-<Controls />
+<Controls of={AccordionStories.Default} />
 
 Use the **Controls** panel to explore props such as `size`, `showLine`, `allowMultipleOpen`, and `iconPosition`.
 
@@ -113,6 +104,6 @@ Visual comparison between `md` and `sm` sizes, with and without divider lines.
 ## Accessibility
 
 - Uses semantic `<button>` for the accordion trigger.
-- Supports keyboard navigation and focus styles.
+- Supports keyboard navigation via the semantic button trigger.
 - Ensure each question text clearly describes the hidden content.
 - Icon rotation is decorative; the text remains the primary accessible label.
