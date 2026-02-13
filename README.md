@@ -18,6 +18,14 @@ Storybook provides a dedicated environment where developers and designers can vi
   - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
 
 - [📁 Project Structure](#-project-structure)
+
+- [🚀 Deployment](#-deployment)
+  - [🐳 Docker Deployment](#-docker-deployment)
+  - [📦 Using Docker Compose](#-using-docker-compose)
+  - [▲ Vercel Deployment (Static Storybook)](#-vercel-deployment-static-storybook)
+  - [🌍 Deployment Targets](#-deployment-targets)
+  - [🐞 Debugging Inside Docker Container](#-debugging-inside-docker-container)
+
 - [📘 Storybook Guide](#-storybook-guide)
   - [📄 Writing Stories](#-writing-stories)
   - [🧩 Component Structure](#-component-structure)
@@ -160,6 +168,223 @@ ui-components/
 - **components/** → Contains all reusable UI components
 - **.storybook/** → Addons, framework config, global decorators
 - **storybook-static/** → Deployment-ready Storybook build
+
+---
+
+## 🚀 Deployment
+
+This project supports **multiple deployment strategies** depending on the target platform.
+
+- **Docker-based deployment** is intended for local development, CI/CD pipelines, and container-based platforms.
+- **Vercel deployment** is supported via Storybook’s **static build output**, without Docker.
+
+---
+
+## 🐳 Docker Deployment
+
+This setup runs Storybook as a **static site inside a Docker container**, ensuring consistency across environments.
+
+### Build the Docker image
+
+```bash
+docker build -t polapedia-ui-components:latest .
+```
+
+### Run the container
+
+```bash
+docker run -d \
+  -p 6006:6006 \
+  --name polapedia-ui-components \
+  polapedia-ui-components:latest
+```
+
+### Stop and remove the container
+
+```bash
+docker stop polapedia-ui-components
+docker rm polapedia-ui-components
+```
+
+Or in one command:
+
+```bash
+docker stop polapedia-ui-components && docker rm polapedia-ui-components
+```
+
+Once running, Storybook will be accessible at:
+
+```
+http://localhost:6006
+```
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## 📦 Using Docker Compose
+
+If you prefer using `docker-compose.yml`:
+
+```bash
+docker compose up --build -d
+```
+
+> `--build` ensures the image is rebuilt
+> `-d` runs the container in detached mode
+
+To stop and remove containers:
+
+```bash
+docker compose down
+```
+
+Storybook will be available at:
+
+```
+http://localhost:6006
+```
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## ▲ Vercel Deployment (Static Storybook)
+
+Vercel does **not** run Docker containers.
+Instead, Storybook is deployed as a **static site**, which is the recommended approach on Vercel.
+
+### Prerequisites
+
+Ensure the following script exists in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build-storybook": "storybook build"
+  }
+}
+```
+
+### Vercel Configuration
+
+In the Vercel project settings:
+
+- **Framework Preset**: `Other`
+- **Build Command**:
+
+  ```bash
+  npm run build-storybook
+  ```
+
+- **Output Directory**:
+
+  ```text
+  storybook-static
+  ```
+
+No additional configuration is required.
+
+Once deployed, Storybook will be served as a static site on Vercel.
+
+> ℹ️ Docker-related files (`Dockerfile`, `docker-compose.yml`) are **not used** by Vercel and can remain in the repository for other environments.
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## 🌍 Deployment Targets
+
+### Docker-based Platforms
+
+The Docker setup can be deployed to any container-based platform, including:
+
+- **AWS ECS / Fargate**
+- **Google Cloud Run**
+- **Azure Container Apps**
+- **DigitalOcean App Platform**
+- **Fly.io**
+- **Railway**
+- **Kubernetes (EKS, GKE, AKS, K3s, Minikube)**
+
+To push the image to a registry:
+
+```bash
+docker tag polapedia-ui-components:latest username/polapedia-ui-components:latest
+docker push username/polapedia-ui-components:latest
+```
+
+### Non-Docker Platforms
+
+- **Vercel**
+- **Netlify**
+
+These platforms should use the **static Storybook output** (`storybook-static`) directly.
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## 🐞 Debugging Inside Docker Container
+
+This section applies **only to Docker-based deployments**.
+
+### 1️⃣ Check running containers
+
+```bash
+docker ps
+```
+
+### 2️⃣ Access the container shell
+
+#### Using `docker run`:
+
+```bash
+docker exec -it polapedia-ui-components sh
+```
+
+#### Using Docker Compose:
+
+```bash
+docker compose exec storybook sh
+```
+
+### 3️⃣ View real-time logs
+
+```bash
+docker logs -f polapedia-ui-components
+```
+
+or with Docker Compose:
+
+```bash
+docker compose logs -f storybook
+```
+
+### 4️⃣ Restart the container
+
+```bash
+docker restart polapedia-ui-components
+```
+
+### 5️⃣ Rebuild the image
+
+```bash
+docker compose up --build
+```
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## ℹ️ Notes
+
+- Docker deployment uses a **static Storybook build**
+- Vercel deployment **does not use Docker**
+- `.dockerignore` ensures local artifacts are excluded from Docker builds
+- Both approaches can coexist in the same repository
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
 ---
 
