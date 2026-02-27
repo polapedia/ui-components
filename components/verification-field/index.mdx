@@ -1,0 +1,152 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as VerificationFieldStories from './index.stories';
+
+<Meta of={VerificationFieldStories} />
+
+# Verification Field
+
+The **VerificationField** component renders a row of single-character inputs,  
+commonly used for OTP / verification codes.  
+Each circle holds one digit and automatically moves focus as the user types.
+
+It supports:
+
+- Custom length (number of digits)
+- Controlled and uncontrolled usage
+- Error state and helper text
+- Disabled state
+- Auto focus and keyboard navigation
+- Paste support (e.g. pasting a full code)
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`length`, `error`, `disabled`, `label`, and `helperText`.
+
+---
+
+## Variants & Features
+
+### Default
+
+The default variant renders six circular inputs with an optional label and optional helper text.
+
+<Canvas of={VerificationFieldStories.Default} />
+
+---
+
+### Different Lengths
+
+You can adjust the number of digits using the `length` prop  
+(e.g. 4-digit or 6-digit codes).
+
+<Canvas of={VerificationFieldStories.SixDigits} />
+
+---
+
+### Disabled
+
+Disable the entire verification field to prevent input.
+
+<Canvas of={VerificationFieldStories.Disabled} />
+
+---
+
+### Error State
+
+Use the `error` prop and helper text to indicate invalid codes.  
+Error state updates the border color and helper text style.
+
+<Canvas of={VerificationFieldStories.ErrorState} />
+
+---
+
+### Controlled Value
+
+The component can be fully controlled by passing a `value` string and  
+handling `onChange`. This is useful when integrating with form libraries.
+
+<Canvas of={VerificationFieldStories.Controlled} />
+
+---
+
+## Interaction & Behavior
+
+- Each circle is a native `<input type="text" />` restricted to numeric input.
+- Typing automatically advances focus to the next input.
+- `Backspace` or `Delete` clears the current digit and can move focus back.
+- Arrow keys (`←` / `→`) move focus between inputs.
+- Pasting a numeric string distributes characters across the inputs.
+- When any input is focused, the surrounding circle shows a **focus ring** with:
+  - `ring-1`
+  - `ring-primary-600`
+- The `onComplete` callback is fired when all digits are filled.
+
+Example usage:
+
+```tsx
+import { useState } from 'react';
+import VerificationField from './index';
+
+function VerificationExample() {
+  const [code, setCode] = useState('');
+
+  return (
+    <VerificationField
+      length={4}
+      label="Verification code"
+      helperText={code ? 'Current value: ' + code : 'Enter the 4-digit code'}
+      value={code}
+      onChange={(next) => {
+        setCode(next);
+      }}
+      onComplete={(fullCode) => {
+        console.log('Completed with code:', fullCode);
+      }}
+    />
+  );
+}
+```
+
+---
+
+## Props
+
+<ArgTypes of={VerificationFieldStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **4-6 digits** for most verification flows; longer codes may reduce usability.
+- Show clear **instructions** in the `label` or `helperText` (e.g.
+  “Enter the code sent to your phone”).
+- Use the `error` state and helper text to indicate invalid / expired codes.
+- Prefer controlled mode when integrating with form state libraries so you can:
+  - Reset the field
+  - Trigger side effects when the code is complete
+
+- Avoid mixing non-numeric characters; this component is optimized for digits only.
+
+---
+
+## Accessibility
+
+- Each digit is a semantic `<input>` element, compatible with screen readers.
+- Labels should clearly describe the purpose of the verification code.
+- Focus ring is visible on the active digit, supporting keyboard navigation.
+- Ensure error helper text explains what went wrong (e.g. “Incorrect code, try again”).

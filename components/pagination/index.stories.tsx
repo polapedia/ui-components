@@ -1,39 +1,39 @@
-import type { Meta, StoryObj, StoryFn } from "@storybook/nextjs-vite";
-import { useState } from "react";
-import Pagination, { PaginationProps } from ".";
-import { action } from "storybook/actions";
+import type { Meta, StoryObj, StoryFn } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import Pagination, { PaginationProps } from '.';
+import { action } from 'storybook/actions';
 
 const meta: Meta<typeof Pagination> = {
-  title: "Design System/Navigation & Action/Pagination",
+  title: 'Design System/Navigation & Action/Pagination',
   component: Pagination,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
     page: 1,
     totalPages: 100,
     siblingCount: 1,
-    size: "md",
+    size: 'md',
   },
   argTypes: {
     page: {
-      control: { type: "number", min: 1 },
-      description: "Current active page (1-based)",
+      control: { type: 'number', min: 1 },
+      description: 'Current active page (1-based)',
     },
     totalPages: {
-      control: { type: "number", min: 1 },
-      description: "Total number of pages",
+      control: { type: 'number', min: 1 },
+      description: 'Total number of pages',
     },
     siblingCount: {
-      control: { type: "number", min: 0, max: 3, step: 1 },
-      description: "Number of pages shown on each side of the current page",
+      control: { type: 'number', min: 0, max: 3, step: 1 },
+      description: 'Number of pages shown on each side of the current page',
     },
     size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
-      description: "Size of the pagination buttons",
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of the pagination buttons',
     },
-    onChange: { action: "pageChanged" },
+    onChange: { action: 'pageChanged' },
   },
 };
 
@@ -48,14 +48,14 @@ export const Default: Story = {
 
 export const Small: Story = {
   args: {
-    size: "sm",
+    size: 'sm',
     page: 1,
   },
 };
 
 export const Large: Story = {
   args: {
-    size: "lg",
+    size: 'lg',
     page: 5,
   },
 };
@@ -70,7 +70,7 @@ export const Interactive: StoryFn<PaginationProps> = (args) => {
         page={page}
         onChange={(next) => {
           setPage(next);
-          action("onChange")(next);
+          action('onChange')(next);
         }}
       />
       <div className="text-sm text-gray-500">Current page: {page}</div>
@@ -82,5 +82,5 @@ Interactive.args = {
   page: 1,
   totalPages: 100,
   siblingCount: 1,
-  size: "md",
+  size: 'md',
 };

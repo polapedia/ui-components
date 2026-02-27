@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react';
 
 export default function HomeIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -8,7 +8,8 @@ export default function HomeIcon(props: SVGProps<SVGSVGElement>) {
       height="17"
       viewBox="0 0 22 17"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M4.36364 15.2019V9.92921C4.36364 9.37692 3.91592 8.92921 3.36364 8.92921H2.75223C1.81807 8.92921 1.39402 7.76212 2.1103 7.16245L9.78963 0.733234C10.1578 0.424977 10.6932 0.421955 11.0648 0.726035L18.9227 7.15525C19.6501 7.75036 19.2293 8.92921 18.2895 8.92921H17.9697C17.4174 8.92921 16.9697 9.37692 16.9697 9.92921V15.2019C16.9697 15.7542 16.522 16.2019 15.9697 16.2019H5.36364C4.81135 16.2019 4.36364 15.7542 4.36364 15.2019Z"
         stroke="currentColor"

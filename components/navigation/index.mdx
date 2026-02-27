@@ -6,9 +6,9 @@ import {
   Controls,
   ArgTypes,
   Source,
-} from "@storybook/addon-docs/blocks";
-import * as NavigationStories from "./index.stories";
-import Navigation from ".";
+} from '@storybook/addon-docs/blocks';
+import * as NavigationStories from './index.stories';
+import Navigation from '.';
 
 <Meta of={NavigationStories} />
 
@@ -103,8 +103,8 @@ return (
   language="tsx"
   code={`"use client";
 
-import { useRouter } from "next/navigation";
-import Navigation, { NavItem } from "@/components/navigation";
+import { useRouter } from 'next/navigation';
+import Navigation, { NavItem } from '@/components/navigation';
 
 const items: NavItem[] = [
 { label: "Home", href: "/" },
@@ -118,6 +118,7 @@ export default function Page() {
   const router = useRouter();
 
 return (
+
 <Navigation
 items={items}
 activeHref="/"

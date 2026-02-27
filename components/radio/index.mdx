@@ -1,0 +1,172 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import Radio from '.';
+import * as RadioStories from './index.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+Use radio buttons when you need user to select only one of the options.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as  
+`size`, `state`, `checked`, `helperText`, and `disabled`.
+
+---
+
+## Single Radio
+
+### Default
+
+A basic standalone radio button.
+
+<Canvas of={RadioStories.Default} />
+
+---
+
+### Checked
+
+Shows a radio button in the selected state.
+
+<Canvas of={RadioStories.Checked} />
+
+---
+
+### With Helper Text
+
+Helper text provides extra context or guidance under the label.
+
+<Canvas of={RadioStories.WithHelperText} />
+
+---
+
+### Sizes
+
+- **sm** - compact radio for dense layouts
+- **md** - default size for standard forms
+
+<Canvas of={RadioStories.Sizes} />
+
+---
+
+### Validation State
+
+Use the `state` prop to convey validation feedback.
+
+- **default** - standard appearance
+- **error** - red border and inner dot when selected, indicating invalid choice
+
+<Canvas of={RadioStories.Error} />
+
+---
+
+### Disabled
+
+Disabled radios appear muted and are not interactive.
+
+<Canvas of={RadioStories.Disabled} />
+
+---
+
+## Interactive Examples
+
+### Controlled by Storybook Controls
+
+This story keeps the `checked` state in sync with the **Controls** panel, useful for understanding controlled usage.
+
+<Canvas of={RadioStories.InteractiveControlled} />
+
+---
+
+### Local State
+
+The radio manages its own state internally using `useState`, useful for simple demos.
+
+<Canvas of={RadioStories.InteractiveLocalState} />
+
+---
+
+## Radio Group
+
+Use `RadioGroup` when you need to present **multiple options** but only allow the user to pick **one**.
+
+### Basic Group
+
+A typical group of payment methods with helper text.
+
+<Canvas of={RadioStories.GroupDefault} />
+
+---
+
+### Disabled Group
+
+All options are disabled and appear non-interactive.
+
+<Canvas of={RadioStories.GroupDisabled} />
+
+---
+
+### Custom Options Example
+
+A group example with "Favorite Pet" options.
+
+<Canvas of={RadioStories.RadioGroupExample} />
+
+---
+
+## Interaction & Behavior
+
+- Only **one radio** in the same `name` group can be selected at a time.
+- `onChange` receives the native change event from the underlying `<input type="radio" />`.
+- In `RadioGroup`, the `onChange` callback is invoked with the selected `value` string.
+- The visual dot fill color:
+  - uses **accents-blue** for selected radios,
+  - uses **neutral** gray when disabled,
+  - uses **accents-red** when in the `error` state.
+
+---
+
+## Props
+
+<ArgTypes of={RadioStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **Radio** when the user must select **exactly one** option from a short list.
+- For longer lists or when multiple selection is allowed, consider **Checkbox** instead.
+- Group related radios with `RadioGroup` to:
+  - provide a clear label (`label`),
+  - keep keyboard navigation logical,
+  - and manage validation (`state="error"` and `errorText`).
+- Use `helperText` to clarify choices or add brief instructions.
+- Avoid disabling a single option without clear reason; instead, explain why it's unavailable if possible.
+
+---
+
+## Accessibility
+
+- `Radio` is built on a semantic `<input type="radio" />` for screen reader support.
+- `RadioGroup` uses `<fieldset>` and `<legend>` to group related options and label the group.
+- Validation is applied at the **group level**; when `state="error"`, the `fieldset` receives `aria-invalid`.
+- Each radio is focusable and keyboard-accessible:
+  - Use **Tab** to move into the group.
+  - Use **Arrow keys** to move between options.
+- Ensure labels are always present and descriptive; avoid relying solely on placeholder or position.

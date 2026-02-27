@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import StickyButton from ".";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import StickyButton from '.';
 
 const meta: Meta<typeof StickyButton> = {
-  title: "Design System/Navigation & Action/Sticky Button",
+  title: 'Design System/Navigation & Action/Sticky Button',
   component: StickyButton,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
   decorators: [
     (Story) => (
@@ -15,25 +15,25 @@ const meta: Meta<typeof StickyButton> = {
     ),
   ],
   args: {
-    children: "Button",
-    variant: "primary",
+    children: 'Button',
+    variant: 'primary',
     sticky: true,
   },
   argTypes: {
     variant: {
-      control: "radio",
-      options: ["primary", "secondary", "tertiary"],
+      control: 'radio',
+      options: ['primary', 'secondary', 'tertiary'],
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
     },
     shape: {
-      control: "radio",
-      options: ["rectangle", "pill"],
+      control: 'radio',
+      options: ['rectangle', 'pill'],
     },
     sticky: {
-      control: "boolean",
+      control: 'boolean',
     },
   },
 };

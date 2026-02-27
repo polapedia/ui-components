@@ -1,5 +1,5 @@
-import { ComponentProps } from "react";
-import Button from "../button";
+import { ComponentProps } from 'react';
+import Button from '../button';
 
 type ButtonProps = ComponentProps<typeof Button>;
 
@@ -12,31 +12,31 @@ export default function StickyButton({
   sticky = true,
   containerClassName,
   className,
-  variant = "primary",
-  size = "md",
-  shape = "rectangle",
+  variant = 'primary',
+  size = 'md',
+  shape = 'rectangle',
   ...props
 }: StickyButtonProps) {
   const outerClasses = [
-    sticky ? "sticky bottom-0 left-0 right-0 z-30" : "",
-    "px-4 pb-6 pt-3",
-    "bg-linear-to-b from-white via-white/80 to-transparent",
-    "flex justify-center",
-    containerClassName || "",
+    sticky ? 'sticky bottom-0 left-0 right-0 z-30' : '',
+    'px-4 pb-6 pt-3',
+    'bg-linear-to-b from-white via-white/80 to-transparent',
+    'flex justify-center',
+    containerClassName || '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   const resolvedShape =
-    shape ?? (variant === "tertiary" ? "rectangle" : "pill");
+    shape ?? (variant === 'tertiary' ? 'rectangle' : 'pill');
 
   const buttonClasses = [
-    "w-full",
-    variant === "tertiary" ? "bg-transparent shadow-none px-0" : "",
-    className || "",
+    'w-full',
+    variant === 'tertiary' ? 'bg-transparent shadow-none px-0' : '',
+    className || '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <div className={outerClasses}>

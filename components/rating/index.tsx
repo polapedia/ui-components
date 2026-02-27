@@ -1,16 +1,16 @@
-import { HTMLAttributes, useState } from "react";
-import StarIcon from "../icons/StarIcon";
+import { HTMLAttributes, useState } from 'react';
+import StarIcon from '../icons/StarIcon';
 
 export interface StarRatingProps extends HTMLAttributes<HTMLDivElement> {
   value: number; // current rating
   max?: number; // total stars
   interactive?: boolean;
-  onValueChange?: (value: number) => void;
+  onValueChange?: (_value: number) => void;
   starSize?: number;
 }
 
-const COLOR_INACTIVE = "#ADB5BD";
-const COLOR_ACTIVE = "#FFCC00";
+const COLOR_INACTIVE = '#ADB5BD';
+const COLOR_ACTIVE = '#FFCC00';
 
 export default function StarRating({
   value,
@@ -27,7 +27,7 @@ export default function StarRating({
   const displayValue = hoverValue ?? safeValue;
 
   return (
-    <div className={`flex gap-x-1 ${className || ""}`} {...rest}>
+    <div className={`flex gap-x-1 ${className || ''}`} {...rest}>
       {Array.from({ length: max }).map((_, index) => {
         const starValue = index + 1;
         const isActive = starValue <= displayValue;
@@ -53,8 +53,9 @@ export default function StarRating({
             className={`
               inline-flex items-center justify-center
               w-6 h-6
-              ${interactive ? "cursor-pointer" : "cursor-default"}
-            `}>
+              ${interactive ? 'cursor-pointer' : 'cursor-default'}
+            `}
+          >
             <StarIcon
               style={{
                 width: starSize,

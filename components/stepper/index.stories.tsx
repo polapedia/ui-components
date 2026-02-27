@@ -1,9 +1,9 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import { useState } from "react";
-import Stepper, { StepItem } from ".";
-import PlusOneIcon from "../icons/PlusOneIcon";
-import Button from "../button";
-import { action } from "storybook/actions";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import Stepper, { StepItem } from '.';
+import PlusOneIcon from '../icons/PlusOneIcon';
+import Button from '../button';
+import { action } from 'storybook/actions';
 
 // Sample Icon
 const ProductIcon = ({ symbol }: { symbol: string }) => (
@@ -15,27 +15,27 @@ const ProductIcon = ({ symbol }: { symbol: string }) => (
 // Base Steps
 const baseSteps: StepItem[] = [
   {
-    prefix: "+1",
-    label: "Account Details",
-    description: "Setup your account",
+    prefix: '+1',
+    label: 'Account Details',
+    description: 'Setup your account',
   },
   {
-    prefix: "+1",
-    label: "Shipping Info",
-    description: "Enter shipping address",
+    prefix: '+1',
+    label: 'Shipping Info',
+    description: 'Enter shipping address',
   },
   {
-    prefix: "+1",
-    label: "Payment",
-    description: "Select payment method",
+    prefix: '+1',
+    label: 'Payment',
+    description: 'Select payment method',
   },
 ];
 
 const meta: Meta<typeof Stepper> = {
-  title: "Design System/Navigation & Action/Stepper",
+  title: 'Design System/Navigation & Action/Stepper',
   component: Stepper,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
     docs: {
       story: {
         inline: false,
@@ -46,25 +46,25 @@ const meta: Meta<typeof Stepper> = {
   args: {
     steps: baseSteps,
     activeIndex: 0,
-    orientation: "horizontal",
-    size: "md",
+    orientation: 'horizontal',
+    size: 'md',
     clickable: false,
   },
   argTypes: {
     orientation: {
-      control: "radio",
-      options: ["horizontal", "vertical"],
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
     },
     size: {
-      control: "radio",
-      options: ["sm", "md"],
+      control: 'radio',
+      options: ['sm', 'md'],
     },
     activeIndex: {
-      control: { type: "number", min: 0, max: baseSteps.length - 1, step: 1 },
+      control: { type: 'number', min: 0, max: baseSteps.length - 1, step: 1 },
     },
-    clickable: { control: "boolean" },
-    steps: { control: "object" },
-    onStepChange: { action: "step-changed", table: { disable: true } },
+    clickable: { control: 'boolean' },
+    steps: { control: 'object' },
+    onStepChange: { action: 'step-changed', table: { disable: true } },
     renderStep: { table: { disable: true } },
   },
 };
@@ -79,8 +79,8 @@ export const Default: Story = {
 
 export const Vertical: Story = {
   args: {
-    orientation: "vertical",
-    className: "max-w-xs",
+    orientation: 'vertical',
+    className: 'max-w-xs',
     clickable: true,
   },
 };
@@ -90,18 +90,18 @@ export const WithIcons: Story = {
   args: {
     steps: [
       {
-        label: "Select Items",
-        description: "Cart summary",
+        label: 'Select Items',
+        description: 'Cart summary',
         leftIcon: <ProductIcon symbol="🛒" />,
       },
       {
-        label: "Payment",
-        description: "Bill amount",
+        label: 'Payment',
+        description: 'Bill amount',
         leftIcon: <PlusOneIcon className="w-4 h-4 text-black" />,
       },
       {
-        label: "Delivery",
-        description: "Track order",
+        label: 'Delivery',
+        description: 'Track order',
         leftIcon: <ProductIcon symbol="🚚" />,
       },
     ],
@@ -116,7 +116,7 @@ export const Interactive: StoryFn<typeof Stepper> = (args) => {
 
   const currentStep = steps[activeIndex];
 
-  const logStepChange = action("step-changed");
+  const logStepChange = action('step-changed');
 
   const setStep = (index: number) => {
     const step = steps[index];

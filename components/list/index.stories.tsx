@@ -1,8 +1,8 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import { useState } from "react";
-import { List, ListItem } from ".";
-import Home from "../icons/HomeIcon";
-import PlusOneIcon from "../icons/PlusOneIcon";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import { List, ListItem } from '.';
+import Home from '../icons/HomeIcon';
+import PlusOneIcon from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -11,28 +11,28 @@ const icons = {
 };
 
 const meta: Meta<typeof ListItem> = {
-  title: "Design System/Display/List",
+  title: 'Design System/Display/List',
   component: ListItem,
-  parameters: { layout: "padded" },
+  parameters: { layout: 'padded' },
   args: {
-    title: "Lorem ipsum dolor, sit amet consectetur",
-    description: "List Item",
+    title: 'Lorem ipsum dolor, sit amet consectetur',
+    description: 'List Item',
   },
   argTypes: {
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    description: { control: "text" },
-    disabled: { control: "boolean" },
-    isSelected: { control: "boolean" },
-    onClick: { action: "clicked" },
+    description: { control: 'text' },
+    disabled: { control: 'boolean' },
+    isSelected: { control: 'boolean' },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -45,9 +45,9 @@ export const Selectable: StoryFn<typeof ListItem> = () => {
   const [selected, setSelected] = useState<number[]>([1]);
 
   const items = [
-    { value: 1, label: "List item - 1" },
-    { value: 2, label: "List item - 2" },
-    { value: 3, label: "List item - 3" },
+    { value: 1, label: 'List item - 1' },
+    { value: 2, label: 'List item - 2' },
+    { value: 3, label: 'List item - 3' },
   ];
 
   return (
@@ -70,8 +70,8 @@ export const Selectable: StoryFn<typeof ListItem> = () => {
         </List>
 
         <div className="mt-4 text-[14px] text-content-secondary">
-          Selected value:{" "}
-          <span className="text-black">[{selected.join(", ")}]</span>
+          Selected value:{' '}
+          <span className="text-black">[{selected.join(', ')}]</span>
         </div>
       </div>
     </div>

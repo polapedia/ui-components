@@ -1,23 +1,23 @@
-import type { Meta, StoryFn, StoryObj } from "@storybook/nextjs-vite";
-import { useState } from "react";
-import CarouselIndicator from ".";
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs-vite';
+import { useState } from 'react';
+import CarouselIndicator from '.';
 
 const meta: Meta<typeof CarouselIndicator> = {
-  title: "Design System/Display/Carousel Indicator",
+  title: 'Design System/Display/Carousel Indicator',
   component: CarouselIndicator,
-  parameters: { layout: "centered" },
+  parameters: { layout: 'centered' },
   args: {
-    size: "md",
+    size: 'md',
     total: 6,
     activeIndex: 2,
     disabled: false,
   },
   argTypes: {
-    size: { control: "radio", options: ["sm", "md", "lg"] },
-    total: { control: { type: "number", min: 0, max: 20, step: 1 } },
-    activeIndex: { control: { type: "number", min: 0, max: 19, step: 1 } },
-    disabled: { control: "boolean" },
-    onActiveChange: { action: "onActiveChange" },
+    size: { control: 'radio', options: ['sm', 'md', 'lg'] },
+    total: { control: { type: 'number', min: 0, max: 20, step: 1 } },
+    activeIndex: { control: { type: 'number', min: 0, max: 19, step: 1 } },
+    disabled: { control: 'boolean' },
+    onActiveChange: { action: 'onActiveChange' },
   },
 };
 
@@ -64,7 +64,7 @@ export const Interactive: StoryFn<typeof CarouselIndicator> = (args) => {
     </div>
   );
 };
-Interactive.args = { size: "md", total: 6 };
+Interactive.args = { size: 'md', total: 6 };
 
 export const Disabled: Story = {
   args: { disabled: true },

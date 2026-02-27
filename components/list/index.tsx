@@ -1,6 +1,6 @@
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps, ReactNode } from 'react';
 
-export interface ListItemProps extends ComponentProps<"button"> {
+export interface ListItemProps extends ComponentProps<'button'> {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   title: string;
@@ -9,11 +9,11 @@ export interface ListItemProps extends ComponentProps<"button"> {
 }
 
 const baseClasses =
-  "w-full flex items-center justify-between p-2 text-left select-none transition-colors rounded-[8px] hover:bg-background-hover active:bg-background-pressed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/40 disabled:cursor-not-allowed disabled:opacity-50";
+  'w-full flex items-center justify-between p-2 text-left select-none transition-colors rounded-[8px] hover:bg-background-hover active:bg-background-pressed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700/40 disabled:cursor-not-allowed disabled:opacity-50';
 
-const selectedClasses = "bg-background-hover";
+const selectedClasses = 'bg-background-hover';
 
-const iconClasses = "inline-flex shrink-0 [&_svg]:size-6";
+const iconClasses = 'inline-flex shrink-0 [&_svg]:size-6';
 
 export function ListItem({
   leftIcon,
@@ -27,18 +27,18 @@ export function ListItem({
 }: ListItemProps) {
   const classes = [
     baseClasses,
-    isSelected ? selectedClasses : "",
-    className || "",
+    isSelected ? selectedClasses : '',
+    className || '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <button className={classes} disabled={disabled} {...props}>
       <div className="flex items-center min-w-0">
         {leftIcon && <span className={iconClasses}>{leftIcon}</span>}
 
-        <div className={`${leftIcon ? "ml-2.5" : "ml-1"} min-w-0`}>
+        <div className={`${leftIcon ? 'ml-2.5' : 'ml-1'} min-w-0`}>
           <div className="text-[16px] font-semibold text-black truncate">
             {title}
           </div>
@@ -56,18 +56,18 @@ export function ListItem({
   );
 }
 
-export interface ListProps extends ComponentProps<"div"> {
+export interface ListProps extends ComponentProps<'div'> {
   divided?: boolean;
 }
 
 export function List({ divided = true, className, ...props }: ListProps) {
   const classes = [
-    "flex flex-col",
-    divided ? "divide-y divide-content-secondary/20" : "",
-    className || "",
+    'flex flex-col',
+    divided ? 'divide-y divide-content-secondary/20' : '',
+    className || '',
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return <div className={classes} {...props} />;
 }

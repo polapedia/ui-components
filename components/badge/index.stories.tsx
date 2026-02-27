@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Badge from ".";
-import PlusOne from "../icons/PlusOneIcon";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import Badge from '.';
+import PlusOne from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
@@ -8,44 +8,44 @@ const icons = {
 };
 
 const meta: Meta<typeof Badge> = {
-  title: "Design System/Display/Badge",
+  title: 'Design System/Display/Badge',
   component: Badge,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   args: {
-    children: "Badge",
-    variant: "primary",
-    size: "lg",
+    children: 'Badge',
+    variant: 'primary',
+    size: 'lg',
   },
   argTypes: {
     variant: {
-      control: "select",
+      control: 'select',
       options: [
-        "primary",
-        "secondary",
-        "destructive",
-        "blue",
-        "green",
-        "brown",
-        "red",
+        'primary',
+        'secondary',
+        'destructive',
+        'blue',
+        'green',
+        'brown',
+        'red',
       ],
     },
     size: {
-      control: "radio",
-      options: ["lg", "md", "dot"],
+      control: 'radio',
+      options: ['lg', 'md', 'dot'],
     },
     leftIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
     rightIcon: {
-      control: "select",
+      control: 'select',
       options: Object.keys(icons),
       mapping: icons,
     },
-    onClick: { action: "clicked" },
+    onClick: { action: 'clicked' },
   },
 };
 
@@ -54,31 +54,31 @@ type Story = StoryObj<typeof meta>;
 
 // Variant Stories
 export const Primary: Story = {
-  args: { variant: "primary", children: "Badge" },
+  args: { variant: 'primary', children: 'Badge' },
 };
 
 export const Secondary: Story = {
-  args: { variant: "secondary", children: "Badge" },
+  args: { variant: 'secondary', children: 'Badge' },
 };
 
 export const Destructive: Story = {
-  args: { variant: "destructive", children: "New", size: "md" },
+  args: { variant: 'destructive', children: 'New', size: 'md' },
 };
 
 export const Blue: Story = {
-  args: { variant: "blue", children: "Info", size: "md" },
+  args: { variant: 'blue', children: 'Info', size: 'md' },
 };
 
 export const Green: Story = {
-  args: { variant: "green", children: "Success", size: "md" },
+  args: { variant: 'green', children: 'Success', size: 'md' },
 };
 
 export const Red: Story = {
-  args: { variant: "red", children: "Error", size: "md" },
+  args: { variant: 'red', children: 'Error', size: 'md' },
 };
 
 export const Brown: Story = {
-  args: { variant: "brown", children: "Warning", size: "md" },
+  args: { variant: 'brown', children: 'Warning', size: 'md' },
 };
 
 // Variants Showcase (grouped)
@@ -154,9 +154,9 @@ export const Sizes: Story = {
 // Badge with Icons
 export const WithIcons: Story = {
   args: {
-    variant: "primary",
-    size: "lg",
-    children: "With Icon",
+    variant: 'primary',
+    size: 'lg',
+    children: 'With Icon',
     leftIcon: icons.PlusOne,
   },
 };
