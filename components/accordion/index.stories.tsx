@@ -74,25 +74,25 @@ export const MultipleOpen: Story = {
 
 export const Comparison: Story = {
   render: (args) => (
-    <div className='flex flex-col gap-12 bg-gray-100 p-8'>
-      <div className='space-y-4'>
-        <h3 className='text-sm font-bold text-gray-500'>MD (WITHOUT LINE)</h3>
-        <Accordion {...args} size='md' showLine={false} />
+    <div className="flex flex-col gap-12 bg-gray-100 p-8">
+      <div className="space-y-4">
+        <h3 className="text-sm font-bold text-gray-500">MD (WITHOUT LINE)</h3>
+        <Accordion {...args} size="md" showLine={false} />
       </div>
 
-      <div className='space-y-4'>
-        <h3 className='text-sm font-bold text-gray-500'>MD (WITH LINE)</h3>
-        <Accordion {...args} size='md' showLine={true} />
+      <div className="space-y-4">
+        <h3 className="text-sm font-bold text-gray-500">MD (WITH LINE)</h3>
+        <Accordion {...args} size="md" showLine={true} />
       </div>
 
-      <div className='flex gap-8'>
-        <div className='flex-1 space-y-4'>
-          <h3 className='text-sm font-bold text-gray-500'>SM (WITHOUT LINE)</h3>
-          <Accordion {...args} size='sm' showLine={false} />
+      <div className="flex gap-8">
+        <div className="flex-1 space-y-4">
+          <h3 className="text-sm font-bold text-gray-500">SM (WITHOUT LINE)</h3>
+          <Accordion {...args} size="sm" showLine={false} />
         </div>
-        <div className='flex-1 space-y-4'>
-          <h3 className='text-sm font-bold text-gray-500'>SM (WITH LINE)</h3>
-          <Accordion {...args} size='sm' showLine={true} />
+        <div className="flex-1 space-y-4">
+          <h3 className="text-sm font-bold text-gray-500">SM (WITH LINE)</h3>
+          <Accordion {...args} size="sm" showLine={true} />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import ChevronDownIcon from "../icons/ChevronDownIcon";
+import { useState } from 'react';
+import ChevronDownIcon from '../icons/ChevronDownIcon';
 
 export type AccordionItemData = {
   id: number | string;
@@ -9,13 +9,13 @@ export type AccordionItemData = {
   answer: string;
 };
 
-type Size = "sm" | "md";
-type IconPosition = "left" | "right";
+type Size = 'sm' | 'md';
+type IconPosition = 'left' | 'right';
 
 interface AccordionProps {
   items: AccordionItemData[];
   className?: string;
-  defaultOpenId?: AccordionItemData["id"] | null;
+  defaultOpenId?: AccordionItemData['id'] | null;
   allowMultipleOpen?: boolean;
   size?: Size;
   showLine?: boolean;
@@ -24,37 +24,25 @@ interface AccordionProps {
 
 export default function Accordion({
   items,
-  className = "",
+  className = '',
   defaultOpenId = null,
   allowMultipleOpen = false,
-  size = "md",
+  size = 'md',
   showLine = false,
-  iconPosition = "right",
+  iconPosition = 'right',
 }: AccordionProps) {
-  const [openIds, setOpenIds] = useState<Set<AccordionItemData["id"]>>(
-    defaultOpenId != null ? new Set([defaultOpenId]) : new Set(),
+  const [openIds, setOpenIds] = useState<Set<AccordionItemData['id']>>(
+    defaultOpenId != null ? new Set([defaultOpenId]) : new Set()
   );
 
-  const toggle = (id: AccordionItemData["id"]) => {
+  const toggle = (id: AccordionItemData['id']) => {
     setOpenIds((prev) => {
-      const next = new Set(prev);
-
-      if (allowMultipleOpen) {
-        if (next.has(id)) {
-          next.delete(id);
-        } else {
-          next.add(id);
-        }
-      } else {
-        // single open mode
-        if (next.has(id)) {
-          next.clear(); // close
-        } else {
-          next.clear();
-          next.add(id); // open new
-        }
+      if (!allowMultipleOpen) {
+        return prev.has(id) ? new Set() : new Set([id]);
       }
 
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
@@ -99,42 +87,42 @@ function AccordionItemRow({
   showLine,
   iconPosition,
 }: ItemProps) {
-  const isMd = size === "md";
-  const lines = item.answer.split("\n");
+  const isMd = size === 'md';
+  const lines = (item.answer ?? '').split('\n');
 
   const parsedList = lines
     .map((line) => line.trim())
     .filter((line) => {
-      const dotIndex = line.indexOf(".");
+      const dotIndex = line.indexOf('.');
       if (dotIndex === -1) return false;
 
       const maybeNumber = line.slice(0, dotIndex);
       return !isNaN(Number(maybeNumber));
     })
     .map((line) => {
-      const dotIndex = line.indexOf(".");
+      const dotIndex = line.indexOf('.');
       return line.slice(dotIndex + 1).trim();
     });
 
-  const isNumberedList = parsedList.length > 0;
-  const iconSpacing = iconPosition === "right" ? "ml-2" : "mr-2";
+  const isNumberedList = parsedList.length > 1;
+  const iconSpacing = iconPosition === 'right' ? 'ml-2' : 'mr-2';
 
-  const basePadding = isMd ? "p-[24px]" : "p-[16px]";
+  const basePadding = isMd ? 'p-[24px]' : 'p-[16px]';
   const titleClasses = isMd
-    ? "text-[32px] font-medium text-black"
-    : "text-[14px] font-medium text-black";
+    ? 'text-[32px] font-medium text-black'
+    : 'text-[14px] font-medium text-black';
 
   const descriptionClasses = isMd
-    ? "text-[20px] font-normal text-[#212529] -mt-2"
-    : "text-[14px] font-normal text-[#212529] -mt-1.5";
+    ? 'text-[20px] font-normal text-[#212529] -mt-2'
+    : 'text-[14px] font-normal text-[#212529] -mt-1.5';
 
   const renderIcon = () => (
     <div
       className={`transform transition-transform duration-300 ${
-        isOpen ? "-rotate-180" : "rotate-0"
-      } shrink-0 ${iconSpacing} ${isMd ? "px-2" : "px-1"}`}
+        isOpen ? '-rotate-180' : 'rotate-0'
+      } shrink-0 ${iconSpacing} ${isMd ? 'px-2' : 'px-1'}`}
     >
-      <ChevronDownIcon className={isMd ? "w-4 h-4" : "w-2.5 h-2.5"} />
+      <ChevronDownIcon className={isMd ? 'w-4 h-4' : 'w-2.5 h-2.5'} />
     </div>
   );
 
@@ -142,6 +130,7 @@ function AccordionItemRow({
     <div className="bg-background-hover group has-[button:hover]:bg-neutral-700 rounded-2xl overflow-hidden transition-all duration-300">
       <div className={basePadding}>
         <button
+          id={`accordion-trigger-${item.id}`}
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
@@ -154,14 +143,14 @@ function AccordionItemRow({
           focus-visible:ring-offset-2
         "
         >
-          {iconPosition === "left" && renderIcon()}
+          {iconPosition === 'left' && renderIcon()}
           <span className={`${titleClasses} flex-1`}>{item.question}</span>
-          {iconPosition === "right" && renderIcon()}
+          {iconPosition === 'right' && renderIcon()}
         </button>
         {showLine && (
-          <div className={isMd ? "mt-[17px]" : "mt-3.5"}>
+          <div className={isMd ? 'mt-[17px]' : 'mt-3.5'}>
             <hr
-              className={`border-t border-content-secondary ${isMd ? "border-2" : "border"}`}
+              className={`border-t border-content-secondary ${isMd ? 'border-2' : 'border'}`}
             />
           </div>
         )}
@@ -170,17 +159,17 @@ function AccordionItemRow({
       <div
         id={`accordion-panel-${item.id}`}
         role="region"
+        aria-labelledby={`accordion-trigger-${item.id}`}
         aria-hidden={!isOpen}
-        hidden={!isOpen}
         className="overflow-hidden"
       >
         <div
           className={`grid transition-all duration-300 ease-in-out ${
-            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
           }`}
         >
           <div className="overflow-hidden">
-            <div className={`${isMd ? "px-6 pb-6" : "px-4 pb-4"}`}>
+            <div className={`${isMd ? 'px-6 pb-6' : 'px-4 pb-4'}`}>
               <div className={descriptionClasses}>
                 {isNumberedList ? (
                   <ol className="list-decimal pl-5 space-y-1">
