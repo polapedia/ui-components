@@ -1,7 +1,7 @@
 # 🧩 Polapedia — UI Components
 
 **Polapedia UI Components** is a modular component library built for use across Polapedia applications.
-This project uses **Next.js**, **TypeScript**, **Tailwind CSS**, and **Storybook** to document, preview, and test UI components in isolation.
+This project uses **React.js**, **TypeScript**, **Tailwind CSS**, and **Storybook** to document, preview, and test UI components in isolation.
 
 Storybook provides a dedicated environment where developers and designers can visually inspect components, test interactive states, and maintain consistency in our design system.
 
@@ -9,37 +9,52 @@ Storybook provides a dedicated environment where developers and designers can vi
 
 ## 📚 Table of Contents
 
-- [🚀 Introduction](#-introduction)
-- [⚙️ System Requirements](#️-system-requirements)
-- [💡 Getting Started](#-getting-started)
-  - [1️⃣ Clone Repository](#1️⃣-clone-repository)
-  - [2️⃣ Install Dependencies](#2️⃣-install-dependencies)
-  - [3️⃣ Run Storybook](#3️⃣-run-storybook)
-  - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
-
-- [🤖 Automated Linting (CI)](#-automated-linting-ci)
-  - [🔍 How It Works](#-how-it-works)
-  - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
-  - [📌 Local Commands](#-local-commands)
-
-- [📁 Project Structure](#-project-structure)
-
-- [🚀 Deployment](#-deployment)
+- [🧩 Polapedia — UI Components](#-polapedia--ui-components)
+  - [📚 Table of Contents](#-table-of-contents)
+  - [🚀 Introduction](#-introduction)
+    - [Overview](#overview)
+  - [⚙️ System Requirements](#️-system-requirements)
+  - [💡 Getting Started](#-getting-started)
+    - [1️⃣ Clone Repository](#1️⃣-clone-repository)
+    - [2️⃣ Install Dependencies](#2️⃣-install-dependencies)
+    - [3️⃣ Run Storybook](#3️⃣-run-storybook)
+    - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
+  - [🤖 Automated Linting (CI)](#-automated-linting-ci)
+    - [🔍 How It Works](#-how-it-works)
+    - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
+    - [📌 Local Commands](#-local-commands)
+  - [📁 Project Structure](#-project-structure)
+  - [📘 Explanation](#-explanation)
+  - [🚀 Deployment](#-deployment)
   - [🐳 Docker Deployment](#-docker-deployment)
+    - [Build the Docker image](#build-the-docker-image)
+    - [Run the container](#run-the-container)
+    - [Stop and remove the container](#stop-and-remove-the-container)
   - [📦 Using Docker Compose](#-using-docker-compose)
   - [▲ Vercel Deployment (Static Storybook)](#-vercel-deployment-static-storybook)
+    - [Prerequisites](#prerequisites)
+    - [Vercel Configuration](#vercel-configuration)
   - [🌍 Deployment Targets](#-deployment-targets)
+    - [Docker-based Platforms](#docker-based-platforms)
+    - [Non-Docker Platforms](#non-docker-platforms)
   - [🐞 Debugging Inside Docker Container](#-debugging-inside-docker-container)
-
-- [📘 Storybook Guide](#-storybook-guide)
-  - [📄 Writing Stories](#-writing-stories)
-  - [🧩 Component Structure](#-component-structure)
-  - [🎨 Icon Components](#-icon-components)
-
-- [🧪 Addons Used](#-addons-used)
-- [🤝 Contributing](#-contributing)
-- [📝 Commit Message Convention](#-commit-message-convention)
-- [✅ Notes](#-notes)
+    - [1️⃣ Check running containers](#1️⃣-check-running-containers)
+    - [2️⃣ Access the container shell](#2️⃣-access-the-container-shell)
+      - [Using `docker run`:](#using-docker-run)
+      - [Using Docker Compose:](#using-docker-compose)
+    - [3️⃣ View real-time logs](#3️⃣-view-real-time-logs)
+    - [4️⃣ Restart the container](#4️⃣-restart-the-container)
+    - [5️⃣ Rebuild the image](#5️⃣-rebuild-the-image)
+  - [ℹ️ Notes](#ℹ️-notes)
+  - [📘 Storybook Guide](#-storybook-guide)
+    - [📄 Writing Stories](#-writing-stories)
+    - [🧩 Component Structure](#-component-structure)
+    - [🎨 Icon Components](#-icon-components)
+  - [🧪 Addons Used](#-addons-used)
+  - [🤝 Contributing](#-contributing)
+  - [📝 Commit Message Convention](#-commit-message-convention)
+    - [Common Types](#common-types)
+  - [✅ Notes](#-notes)
 
 ---
 
@@ -52,7 +67,7 @@ Storybook provides a dedicated environment where developers and designers can vi
 - A unified **design system** across Polapedia products
 - Isolated component previews using **Storybook 10.2**
 - Auto-generated documentation using **Docs addon**
-- Full support for **Next.js 16**, **React 19**, and **Tailwind CSS v4**
+- Full support for **React 19**, and **Tailwind CSS v4**
 
 ---
 
@@ -199,48 +214,76 @@ npm run lint
 
 ## 📁 Project Structure
 
-The following structure is based on the repository layout:
+The following structure reflects the current **React + Vite + Storybook** setup.
 
 ```
 ui-components/
 │
-├── app/                        # Next.js App Router
-│
-├── components/                 # Main UI component directory
-│   ├── badge/
-│   │   ├── index.tsx
-│   │   ├── index.stories.tsx
-│   │   └── index.mdx
-│   ├── button/
-│   ├── chip/
-│   ├── empty-state/
-│   └── icons/                  # SVG icon components
+├── .github/
+│   └── workflows/
+│       └── lint.yml            # GitHub Actions workflow for linting
 │
 ├── .storybook/                 # Storybook configuration
 │   ├── main.ts
-│   ├── manager.ts              (optional)
+│   ├── manager.ts
 │   ├── preview.ts
-│   ├── theme.ts                (optional)
+│   ├── theme.ts
 │   └── vitest.setup.ts
 │
-├── public/
+├── public/                     # Static assets served by Vite
+│
+├── src/
+│   ├── assets/                 # Images, fonts, and other static assets
+│   │
+│   ├── components/             # Reusable UI components
+│   │   ├── badge/
+│   │   ├── button/
+│   │   ├── chip/
+│   │   ├── empty-state/
+│   │   └── icons/              # SVG icon components
+│   │
+│   ├── hooks/                  # Custom React hooks
+│   │
+│   ├── App.css
+│   ├── App.tsx                 # Root React component
+│   ├── index.css               # Global styles
+│   └── main.tsx                # Application entry point
+│
+├── dist/                       # Production build output from Vite
 ├── storybook-static/           # Static Storybook build output
 │
-├── next.config.ts
-├── package-lock.json
+├── docker-compose.yml          # Docker Compose configuration
+├── Dockerfile                  # Docker container configuration
+│
+├── eslint.config.js            # ESLint configuration
+├── .prettierrc                 # Prettier configuration
+├── .prettierignore
+├── .gitignore
+│
+├── index.html                  # Vite HTML entry file
 ├── package.json
-├── postcss.config.mjs
-├── README.md
-├── tsconfig.json
-├── vitest.config.ts
-└── vitest.shims.d.ts
+├── package-lock.json
+│
+├── tsconfig.json               # Base TypeScript configuration
+├── tsconfig.app.json           # TypeScript config for the application
+├── tsconfig.node.json          # TypeScript config for Node tools
+│
+├── vite.config.ts              # Vite configuration
+└── vitest.shims.d.ts           # Vitest type support
 ```
 
-### 📘 Explanation
+---
 
-- **components/** → Contains all reusable UI components
-- **.storybook/** → Addons, framework config, global decorators
-- **storybook-static/** → Deployment-ready Storybook build
+## 📘 Explanation
+
+- **.github/workflows/** → Contains GitHub Actions workflows for CI/CD processes (e.g., linting).
+- **src/components/** → Contains reusable UI components.
+- **.storybook/** → Storybook configuration such as addons and preview settings.
+- **public/** → Static files served directly by Vite.
+- **dist/** → Production build output generated by Vite.
+- **storybook-static/** → Static build of Storybook used for deployment or hosting documentation.
+- **vite.config.ts** → Configuration file for the Vite bundler.
+- **vitest.shims.d.ts** → TypeScript type definitions for the Vitest testing environment.
 
 ---
 
@@ -472,7 +515,7 @@ components/badge/index.stories.tsx
 ```
 
 ```tsx
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import Badge from '.';
 import PlusOne from '../icons/PlusOneIcon';
 
@@ -594,13 +637,13 @@ Icons can be styled with:
 
 Your Storybook configuration includes:
 
-| Addon                        | Purpose                                     |
-| ---------------------------- | ------------------------------------------- |
-| **@storybook/addon-docs**    | Auto documentation                          |
-| **@storybook/addon-a11y**    | Accessibility checks                        |
-| **@storybook/addon-vitest**  | Test integration                            |
-| **@storybook/nextjs-vite**   | Official Next.js + Vite Storybook framework |
-| **@chromatic-com/storybook** | Visual regression testing (optional)        |
+| Addon                        | Purpose                              |
+| ---------------------------- | ------------------------------------ |
+| **@storybook/addon-docs**    | Auto documentation                   |
+| **@storybook/addon-a11y**    | Accessibility checks                 |
+| **@storybook/addon-vitest**  | Test integration                     |
+| **@storybook/react-vite**    | React.js + Vite Storybook framework  |
+| **@chromatic-com/storybook** | Visual regression testing (optional) |
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
@@ -664,8 +707,7 @@ feat(badge): add success variant [POPE-88]
 
 ## ✅ Notes
 
-- Built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS v4**
-- Storybook supports Next.js features like `next/image` and routing
+- Built with **React 19**, **TypeScript**, and **Tailwind CSS v4**
 - Ready for static deployment using `npm run build-storybook`
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
