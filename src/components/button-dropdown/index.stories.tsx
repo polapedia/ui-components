@@ -68,7 +68,7 @@ export const Inverted: Story = {
   },
 };
 
-export const Error: Story = {
+export const ErrorState: Story = {
   args: { variant: 'error' },
 };
 

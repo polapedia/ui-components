@@ -15,17 +15,18 @@ type EmptyStateProps = {
   className?: string;
 };
 
-export default function EmptyState({
-  title = 'Title goes here maximum 2 lines but please make it short',
-  description = 'Empty state description goes here.',
-  primaryButtonLabel = 'Button Label',
-  secondaryButtonLabel = 'Button Label',
-  onPrimaryClick,
-  onSecondaryClick,
-  onClose,
-  layout = 'default',
-  className = '',
-}: EmptyStateProps) {
+export default function EmptyState(props: Readonly<EmptyStateProps>) {
+  const {
+    title = 'Title goes here maximum 2 lines but please make it short',
+    description = 'Empty state description goes here.',
+    primaryButtonLabel = 'Button Label',
+    secondaryButtonLabel = 'Button Label',
+    onPrimaryClick,
+    onSecondaryClick,
+    onClose,
+    layout = 'default',
+    className = '',
+  } = props;
   const isCard = layout === 'card';
   const isHorizontal = layout === 'horizontal';
 

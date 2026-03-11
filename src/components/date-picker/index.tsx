@@ -53,12 +53,8 @@ export interface DatePickerProps {
   className?: string;
 }
 
-export default function DatePicker({
-  label = 'Date Picker',
-  value,
-  onChange,
-  className,
-}: DatePickerProps) {
+export default function DatePicker(props: Readonly<DatePickerProps>) {
+  const { label = 'Date Picker', value, onChange, className } = props;
   const isControlled = value !== undefined;
 
   // Internal state only for uncontrolled mode
@@ -97,12 +93,12 @@ export default function DatePicker({
   };
 
   const handleMonthSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newMonth = parseInt(e.target.value);
+    const newMonth = Number.parseInt(e.target.value);
     setViewDate(new Date(viewDate.getFullYear(), newMonth, 1));
   };
 
   const handleYearSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newYear = parseInt(e.target.value);
+    const newYear = Number.parseInt(e.target.value);
     setViewDate(new Date(newYear, viewDate.getMonth(), 1));
   };
 
@@ -149,14 +145,7 @@ export default function DatePicker({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={[
-          'w-full flex items-center justify-between p-2 h-14 rounded-xl border bg-white transition-all text-left group',
-          isOpen
-            ? 'border-neutral-200 hover:border-neutral-300'
-            : 'border-neutral-200 hover:border-neutral-300',
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        className="w-full flex items-center justify-between p-2 h-14 rounded-xl border bg-white transition-all text-left group border-neutral-200 hover:border-neutral-300"
       >
         <div className="flex flex-col gap-0.5">
           <span className="text-[14px] font-medium capitalize tracking-wide text-content-primary">
@@ -174,10 +163,7 @@ export default function DatePicker({
           </span>
         </div>
         <div
-          className={[
-            'transition-colors',
-            isOpen ? 'text-slate-900' : 'text-slate-900',
-          ]
+          className={['transition-colors text-slate-900']
             .filter(Boolean)
             .join(' ')}
         >
@@ -259,7 +245,11 @@ export default function DatePicker({
             {calendarDays.map((dateItem, idx) => {
               // Render Empty Slot
               if (!dateItem) {
-                return <div key={`empty-${idx}`} />;
+                return (
+                  <div
+                    key={`empty-${viewDate.getFullYear()}-${viewDate.getMonth()}-${idx}`}
+                  />
+                );
               }
 
               const isSelected = selectedDate
@@ -267,7 +257,7 @@ export default function DatePicker({
                 : false;
 
               return (
-                <div key={idx} className="relative p-0.5">
+                <div key={dateItem?.toISOString()} className="relative p-0.5">
                   <button
                     type="button"
                     onClick={() => handleDateClick(dateItem)}

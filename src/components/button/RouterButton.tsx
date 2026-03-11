@@ -1,15 +1,27 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, MouseEvent } from 'react';
 import Button from '.';
 
-export function RouterButton(args: ComponentProps<typeof Button>) {
+type RouterButtonProps = ComponentProps<typeof Button> & {
+  href: string;
+};
+
+export function RouterButton({
+  href,
+  onClick,
+  children,
+  ...rest
+}: RouterButtonProps) {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
+
+    if (!e.defaultPrevented) {
+      globalThis.location.href = href;
+    }
+  };
+
   return (
-    <Button
-      {...args}
-      onClick={() => {
-        window.location.href = '/dashboard';
-      }}
-    >
-      Go to Dashboard
+    <Button {...rest} onClick={handleClick}>
+      {children}
     </Button>
   );
 }

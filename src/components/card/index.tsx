@@ -25,24 +25,26 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   buttonText?: string;
 }
 
-export default function Card({
-  variant = 'product',
-  title,
-  subtitle,
-  description,
-  rightIcon,
-  topIcon,
-  rating = 0,
-  imageSrc,
-  imageAlt = 'Product Image',
-  imageHeightClassName = 'h-[250px]',
-  ratingInteractive = false,
-  onRatingChange,
-  onButtonClick,
-  buttonText = 'View Product',
-  className,
-  ...rest
-}: CardProps) {
+export default function Card(props: Readonly<CardProps>) {
+  const {
+    variant = 'product',
+    title,
+    subtitle,
+    description,
+    rightIcon,
+    topIcon,
+    rating = 0,
+    imageSrc,
+    imageAlt = 'Product Image',
+    imageHeightClassName = 'h-[250px]',
+    ratingInteractive = false,
+    onRatingChange,
+    onButtonClick,
+    buttonText = 'View Product',
+    className,
+    ...rest
+  } = props;
+
   const isProduct = variant === 'product';
 
   if (!isProduct) {

@@ -27,12 +27,8 @@ type FooterContentProps = {
   onDotClick: (_index: number) => void;
 };
 
-function FooterContent({
-  variant,
-  slides,
-  current,
-  onDotClick,
-}: FooterContentProps) {
+function FooterContent(props: Readonly<FooterContentProps>) {
+  const { variant, slides, current, onDotClick } = props;
   const isInside = variant === 'inside';
 
   return (
@@ -67,13 +63,14 @@ function FooterContent({
   );
 }
 
-export default function CarouselBanner({
-  slides,
-  variant = 'outside',
-  autoPlay = false,
-  interval = 5000,
-  className = '',
-}: CarouselBannerProps) {
+export default function CarouselBanner(props: Readonly<CarouselBannerProps>) {
+  const {
+    slides,
+    variant = 'outside',
+    autoPlay = false,
+    interval = 5000,
+    className = '',
+  } = props;
   const [current, setCurrent] = useState(0);
 
   const prevSlide = useCallback(() => {

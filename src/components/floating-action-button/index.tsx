@@ -23,13 +23,11 @@ const sizeStyles: Record<Size, string> = {
   lg: 'w-14 h-14 p-4 [&_svg]:size-7',
 };
 
-export default function FloatingActionButton({
-  icon,
-  variant = 'primary',
-  size = 'lg',
-  className,
-  ...rest
-}: FloatingActionButtonProps) {
+export default function FloatingActionButton(
+  props: Readonly<FloatingActionButtonProps>
+) {
+  const { icon, variant = 'primary', size = 'lg', className, ...rest } = props;
+
   return (
     <button
       className={[

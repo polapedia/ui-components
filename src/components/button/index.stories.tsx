@@ -138,7 +138,7 @@ export const States: Story = {
       </div>
 
       <p className="text-xs text-neutral-600">
-        Use your mouse to test <strong>hover</strong> and
+        Use your mouse to test <strong>hover</strong> and{' '}
         <strong>active/pressed</strong> states. Press <kbd>Tab</kbd> to observe
         the <strong>focus</strong> state.
       </p>
@@ -183,11 +183,13 @@ export const AsLink: Story = {
   },
 };
 
-export const WithRouterNavigation: Story = {
+export const WithRouterNavigation: StoryObj<typeof RouterButton> = {
   render: (args) => <RouterButton {...args} />,
   args: {
+    href: '/dashboard',
     variant: 'primary',
     size: 'md',
     shape: 'rectangle',
+    children: 'Go to Dashboard',
   },
 };

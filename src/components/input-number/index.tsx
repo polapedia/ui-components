@@ -199,14 +199,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
         <div
           className={`relative flex-1 text-center min-w-5 ${fontSize[size]}`}
         >
-          {!isEditing ? (
-            <span
-              className={`block ${getValueColor()} ${disabled ? 'cursor-not-allowed' : 'cursor-text'}`}
-              onClick={() => !disabled && setIsEditing(true)}
-            >
-              {value}
-            </span>
-          ) : (
+          {isEditing ? (
             <input
               ref={(node) => {
                 localInputRef.current = node;
@@ -232,6 +225,15 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(
               className={`w-full bg-transparent text-center outline-none p-0 ${getValueColor()}`}
               {...rest}
             />
+          ) : (
+            <button
+              type="button"
+              disabled={disabled}
+              className={`block ${getValueColor()} ${disabled ? 'cursor-not-allowed' : 'cursor-text'}`}
+              onClick={() => !disabled && setIsEditing(true)}
+            >
+              {value}
+            </button>
           )}
         </div>
 

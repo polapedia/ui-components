@@ -46,12 +46,8 @@ type GalleryProps = {
   columns: number;
 };
 
-function IconsGallery({
-  size,
-  iconClassName,
-  showLabels,
-  columns,
-}: GalleryProps) {
+function IconsGallery(props: GalleryProps) {
+  const { size, iconClassName, showLabels, columns } = props;
   const gridTemplateColumns = `repeat(${Math.max(1, columns)}, minmax(0, 1fr))`;
 
   return (

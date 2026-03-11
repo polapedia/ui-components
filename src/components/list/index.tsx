@@ -15,16 +15,18 @@ const selectedClasses = 'bg-background-hover';
 
 const iconClasses = 'inline-flex shrink-0 [&_svg]:size-6';
 
-export function ListItem({
-  leftIcon,
-  rightIcon,
-  title,
-  description,
-  isSelected,
-  className,
-  disabled,
-  ...props
-}: ListItemProps) {
+export function ListItem(props: Readonly<ListItemProps>) {
+  const {
+    leftIcon,
+    rightIcon,
+    title,
+    description,
+    isSelected,
+    className,
+    disabled,
+    ...rest
+  } = props;
+
   const classes = [
     baseClasses,
     isSelected ? selectedClasses : '',
@@ -34,7 +36,7 @@ export function ListItem({
     .join(' ');
 
   return (
-    <button className={classes} disabled={disabled} {...props}>
+    <button className={classes} disabled={disabled} {...rest}>
       <div className="flex items-center min-w-0">
         {leftIcon && <span className={iconClasses}>{leftIcon}</span>}
 
@@ -60,7 +62,8 @@ export interface ListProps extends ComponentProps<'div'> {
   divided?: boolean;
 }
 
-export function List({ divided = true, className, ...props }: ListProps) {
+export function List(props: Readonly<ListProps>) {
+  const { divided = true, className, ...rest } = props;
   const classes = [
     'flex flex-col',
     divided ? 'divide-y divide-content-secondary/20' : '',
@@ -69,5 +72,5 @@ export function List({ divided = true, className, ...props }: ListProps) {
     .filter(Boolean)
     .join(' ');
 
-  return <div className={classes} {...props} />;
+  return <div className={classes} {...rest} />;
 }

@@ -58,7 +58,7 @@ export const Sizes: Story = {
 };
 
 // Validation States
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     state: 'error',
     helperText: 'You must agree to the terms',
@@ -83,37 +83,35 @@ export const WithHelperText: Story = {
 
 // Interactive Showcase
 export const Showcase: StoryFn<typeof Checkbox> = (args) => {
-  {
-    const [checked1, setChecked1] = useState(false);
-    const [checked2, setChecked2] = useState(true);
+  const [checked1, setChecked1] = useState(false);
+  const [checked2, setChecked2] = useState(true);
 
-    return (
-      <div className="flex flex-col gap-6 w-[300px]">
-        <h3 className="text-xl font-bold text-gray-800">Checkbox</h3>
-        <p className="text-gray-500 mb-2">
-          Intended for multiple selection, but still allow single-select.
-        </p>
+  return (
+    <div className="flex flex-col gap-6 w-[300px]">
+      <h3 className="text-xl font-bold text-gray-800">Checkbox</h3>
+      <p className="text-gray-500 mb-2">
+        Intended for multiple selection, but still allow single-select.
+      </p>
 
-        {/* Single */}
+      {/* Single */}
+      <Checkbox
+        {...args}
+        checked={checked1}
+        onChange={(e) => setChecked1(e.target.checked)}
+      />
+
+      {/* Group */}
+      <div className="flex flex-col gap-4 p-4 border border-dashed border-purple-300 rounded-lg">
+        <Checkbox {...args} label="Checkbox label 1" />
+        <Checkbox {...args} checked={true} label="Checkbox label 2" />
+        <Checkbox {...args} label="Checkbox label 3" />
         <Checkbox
           {...args}
-          checked={checked1}
-          onChange={(e) => setChecked1(e.target.checked)}
+          checked={checked2}
+          onChange={(e) => setChecked2(e.target.checked)}
+          label="Checkbox label 4"
         />
-
-        {/* Group */}
-        <div className="flex flex-col gap-4 p-4 border border-dashed border-purple-300 rounded-lg">
-          <Checkbox {...args} label="Checkbox label 1" />
-          <Checkbox {...args} checked={true} label="Checkbox label 2" />
-          <Checkbox {...args} label="Checkbox label 3" />
-          <Checkbox
-            {...args}
-            checked={checked2}
-            onChange={(e) => setChecked2(e.target.checked)}
-            label="Checkbox label 4"
-          />
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
 };

@@ -32,15 +32,18 @@ const openClasses: Record<Size, string> = {
   lg: 'w-8 h-2', // 32x8
 };
 
-export default function CarouselIndicator({
-  size = 'md',
-  total,
-  activeIndex,
-  onActiveChange,
-  disabled,
-  className,
-  ...props
-}: CarouselIndicatorProps) {
+export default function CarouselIndicator(
+  props: Readonly<CarouselIndicatorProps>
+) {
+  const {
+    size = 'md',
+    total,
+    activeIndex,
+    onActiveChange,
+    disabled,
+    className,
+    ...rest
+  } = props;
   const isInteractive = typeof onActiveChange === 'function' && !disabled;
 
   return (
@@ -50,7 +53,7 @@ export default function CarouselIndicator({
         .join(' ')}
       role={isInteractive ? 'tablist' : undefined}
       aria-label="Carousel indicators"
-      {...props}
+      {...rest}
     >
       {Array.from({ length: Math.max(0, total) }).map((_, i) => {
         const isActive = i === activeIndex;
@@ -66,7 +69,7 @@ export default function CarouselIndicator({
         if (!isInteractive) {
           return (
             <span
-              key={i}
+              key={`indicator-${i}`}
               className={[common, shape, fill].join(' ')}
               aria-hidden="true"
             />
@@ -75,7 +78,7 @@ export default function CarouselIndicator({
 
         return (
           <button
-            key={i}
+            key={`indicator-${i}`}
             type="button"
             className={[
               common,

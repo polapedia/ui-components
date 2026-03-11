@@ -8,15 +8,16 @@ interface StickyButtonProps extends ButtonProps {
   containerClassName?: string;
 }
 
-export default function StickyButton({
-  sticky = true,
-  containerClassName,
-  className,
-  variant = 'primary',
-  size = 'md',
-  shape = 'rectangle',
-  ...props
-}: StickyButtonProps) {
+export default function StickyButton(props: Readonly<StickyButtonProps>) {
+  const {
+    sticky = true,
+    containerClassName,
+    className,
+    variant = 'primary',
+    size = 'md',
+    shape = 'rectangle',
+    ...rest
+  } = props;
   const outerClasses = [
     sticky ? 'sticky bottom-0 left-0 right-0 z-30' : '',
     'px-4 pb-6 pt-3',
@@ -41,7 +42,7 @@ export default function StickyButton({
   return (
     <div className={outerClasses}>
       <Button
-        {...props}
+        {...rest}
         variant={variant}
         size={size}
         shape={resolvedShape}

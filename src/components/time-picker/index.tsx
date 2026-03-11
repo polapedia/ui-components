@@ -30,14 +30,16 @@ export interface TimePickerProps {
   placeholder?: string;
 }
 
-export default function TimePicker({
-  label = '',
-  value,
-  onChange,
-  interval = 30,
-  className,
-  placeholder = 'Select Time',
-}: TimePickerProps) {
+export default function TimePicker(props: Readonly<TimePickerProps>) {
+  const {
+    label = '',
+    value,
+    onChange,
+    interval = 30,
+    className,
+    placeholder = 'Select Time',
+  } = props;
+
   const [tempValue, setTempValue] = useState<string | undefined>(value);
 
   const [isOpen, setIsOpen] = useState(false);

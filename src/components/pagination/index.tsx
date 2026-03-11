@@ -40,15 +40,16 @@ const sizeClasses: Record<
   },
 };
 
-export default function Pagination({
-  page,
-  totalPages,
-  onChange,
-  siblingCount = 1,
-  size = 'md',
-  className,
-  ...props
-}: PaginationProps) {
+export default function Pagination(props: Readonly<PaginationProps>) {
+  const {
+    page,
+    totalPages,
+    onChange,
+    siblingCount = 1,
+    size = 'md',
+    className,
+    ...rest
+  } = props;
   const paginationRange = useMemo(() => {
     const totalPageNumbers = siblingCount + 5;
 
@@ -111,7 +112,7 @@ export default function Pagination({
     <nav
       className={`flex items-center gap-2 select-none ${className || ''}`}
       aria-label="Pagination"
-      {...props}
+      {...rest}
     >
       {/* Prev */}
       <button
@@ -124,11 +125,11 @@ export default function Pagination({
 
       {/* Pages */}
       <div className="flex items-center gap-2">
-        {paginationRange.map((pageNumber, index) => {
+        {paginationRange.map((pageNumber) => {
           if (pageNumber === '...') {
             return (
               <span
-                key={`dots-${index}`}
+                key={pageNumber}
                 className={`${sizeCfg.dots} flex items-center justify-center text-gray-400 font-medium`}
               >
                 ...

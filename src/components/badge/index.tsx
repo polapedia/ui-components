@@ -44,15 +44,15 @@ const sizeClasses: Record<Size, string> = {
   dot: 'w-[20px] h-[20px] rounded-full flex items-center justify-center p-[4px]',
 };
 
-export default function Badge({
-  className,
-  variant = 'primary',
-  size = 'md',
-  children,
-  leftIcon,
-  rightIcon,
-  ...props
-}: BadgeProps) {
+export default function Badge(props: Readonly<BadgeProps>) {
+  const {
+    className,
+    variant = 'primary',
+    size = 'md',
+    children,
+    leftIcon,
+    rightIcon,
+  } = props;
   const isDot = size === 'dot';
 
   const classes = [

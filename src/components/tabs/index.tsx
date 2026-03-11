@@ -29,15 +29,16 @@ const sizeClasses: Record<TabSize, string> = {
 const tabBaseClasses =
   'relative flex items-center justify-center font-medium transition-all whitespace-nowrap select-none focus:outline-none';
 
-export default function Tabs({
-  items,
-  value,
-  onChange,
-  variant = 'underline',
-  size = 'md',
-  iconPosition = 'left',
-  className,
-}: TabsProps) {
+export default function Tabs(props: Readonly<TabsProps>) {
+  const {
+    items,
+    value,
+    onChange,
+    variant = 'underline',
+    size = 'md',
+    iconPosition = 'left',
+    className,
+  } = props;
   const isSingle = items.length === 1;
 
   // helpers

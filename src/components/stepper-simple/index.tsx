@@ -45,14 +45,16 @@ const sizeClasses: Record<
   },
 };
 
-export default function SimpleStepper({
-  steps,
-  activeIndex,
-  size = 'md',
-  activeColorClass = 'bg-linear-to-b from-gradient-primary to-gradient-secondary',
-  className,
-  ...rest
-}: SimpleStepperProps) {
+export default function SimpleStepper(props: Readonly<SimpleStepperProps>) {
+  const {
+    steps,
+    activeIndex,
+    size = 'md',
+    activeColorClass = 'bg-linear-to-b from-gradient-primary to-gradient-secondary',
+    className,
+    ...rest
+  } = props;
+
   const safeIndex = Math.max(0, Math.min(activeIndex, steps.length - 1));
   const currentStep = steps[safeIndex];
 
@@ -86,12 +88,12 @@ export default function SimpleStepper({
 
       {/* Progress Bars */}
       <div className={`flex w-full ${sizeCfg.gap}`}>
-        {steps.map((_, index) => {
+        {steps.map((step, index) => {
           const isActive = index <= activeIndex;
 
           return (
             <div
-              key={index}
+              key={step.label}
               className={`
                 flex-1 rounded-full transition-colors duration-300
                 ${sizeCfg.barHeight}

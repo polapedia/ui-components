@@ -27,15 +27,16 @@ const sizeClasses: Record<Size, string> = {
   lg: 'text-[24px] gap-x-2 [&_svg]:w-[32px] [&_svg]:h-[32px]',
 };
 
-export default function TextLink({
-  variant = 'no-underline',
-  size = 'md',
-  children,
-  rightIcon,
-  withIcon = true,
-  className,
-  ...props
-}: TextLinkProps) {
+export default function TextLink(props: Readonly<TextLinkProps>) {
+  const {
+    variant = 'no-underline',
+    size = 'md',
+    children,
+    rightIcon,
+    withIcon = true,
+    className,
+    ...rest
+  } = props;
   const classes = [
     baseClasses,
     variantClasses[variant],
@@ -48,7 +49,7 @@ export default function TextLink({
   const iconToRender = rightIcon || <ExternalLinkIcon />;
 
   return (
-    <a className={classes} {...props}>
+    <a className={classes} {...rest}>
       <span>{children}</span>
       {withIcon && iconToRender}
     </a>

@@ -112,7 +112,7 @@ const VerificationField = forwardRef<
         const char = e.target.value;
 
         // only digits
-        if (char && !/^[0-9]$/.test(char)) {
+        if (char && !/^\d$/.test(char)) {
           e.target.value = '';
           return;
         }
@@ -165,7 +165,7 @@ const VerificationField = forwardRef<
       (index: number) => (e: ClipboardEvent<HTMLInputElement>) => {
         if (disabled) return;
         e.preventDefault();
-        const text = e.clipboardData.getData('text').replace(/\D/g, '');
+        const text = e.clipboardData.getData('text').replaceAll(/\D/g, '');
         if (!text) return;
 
         const chars = currentValue.split('');
@@ -202,7 +202,7 @@ const VerificationField = forwardRef<
         <div className="flex gap-4">
           {Array.from({ length }).map((_, index) => (
             <div
-              key={index}
+              key={`verification-${index}`}
               className={`
                 ${
                   sizeBoxClasses[size]

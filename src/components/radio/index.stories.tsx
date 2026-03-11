@@ -58,7 +58,7 @@ export const Sizes: Story = {
   ),
 };
 
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     state: 'error',
     helperText: 'Please select one option',

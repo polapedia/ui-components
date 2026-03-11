@@ -47,17 +47,17 @@ const dividerOpacity: Record<Variant, string> = {
   disabled: 'bg-white/30',
 };
 
-export default function ButtonDropdown({
-  label,
-  leftIcon,
-  rightIcon,
-  variant = 'primary',
-  size = 'md',
-  disabled = false,
-  children,
-  className,
-  ...props
-}: ButtonDropdownProps) {
+export default function ButtonDropdown(props: Readonly<ButtonDropdownProps>) {
+  const {
+    label,
+    leftIcon,
+    rightIcon,
+    variant = 'primary',
+    size = 'md',
+    disabled = false,
+    children,
+    className,
+  } = props;
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

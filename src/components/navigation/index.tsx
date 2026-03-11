@@ -7,7 +7,7 @@ import {
 import Button from '../button';
 import HamburgerIcon from '../icons/HamburgerIcon';
 import CloseIcon from '../icons/CloseIcon';
-import { usePathname } from '../../hooks/useLocation';
+import { usePathname } from '../../hooks/usePathname';
 
 export type NavItem = {
   label: string;
@@ -38,18 +38,19 @@ const DefaultLogo = () => (
   />
 );
 
-export default function Navigation({
-  items,
-  activeHref,
-  logo,
-  contactLabel = 'Contact',
-  onContactClick,
-  hideContactButton,
-  sticky,
-  variant = 'elevated',
-  className,
-  ...rest
-}: NavigationProps) {
+export default function Navigation(props: Readonly<NavigationProps>) {
+  const {
+    items,
+    activeHref,
+    logo,
+    contactLabel = 'Contact',
+    onContactClick,
+    hideContactButton,
+    sticky,
+    variant = 'elevated',
+    className,
+    ...rest
+  } = props;
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -84,12 +85,23 @@ export default function Navigation({
 
     return (
       <a
-        key={item.label}
-        href={item.disabled ? '#' : item.href}
-        onClick={
-          rest.onClick ? rest.onClick : () => isMobile && setIsMobileOpen(false)
-        }
+        key={item.href}
+        href={item.disabled ? undefined : item.href}
+        onClick={(e) => {
+          if (item.disabled) {
+            e.preventDefault();
+            return;
+          }
+
+          if (rest.onClick) {
+            rest.onClick(e);
+          } else if (isMobile) {
+            setIsMobileOpen(false);
+          }
+        }}
         aria-current={isActive ? 'page' : undefined}
+        aria-disabled={item.disabled || undefined}
+        tabIndex={item.disabled ? -1 : undefined}
         className={[
           'relative font-medium transition-colors duration-200',
           'text-[16px] tab:text-[18px]',

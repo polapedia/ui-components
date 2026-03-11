@@ -26,14 +26,8 @@ const iconBackgroundClasses: Record<Variant, string> = {
   danger: 'bg-accents-red',
 };
 
-export default function Banner({
-  variant = 'info',
-  className,
-  title,
-  description,
-  leftIcon,
-  ...props
-}: BannerProps) {
+export default function Banner(props: Readonly<BannerProps>) {
+  const { variant = 'info', className, title, description, leftIcon } = props;
   const classes = [baseClasses, variantClasses[variant], className || '']
     .filter(Boolean)
     .join(' ');

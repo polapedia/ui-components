@@ -70,7 +70,7 @@ export const Sizes: Story = {
 };
 
 // States
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     label: 'Error state',
     state: 'error',

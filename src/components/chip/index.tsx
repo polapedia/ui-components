@@ -41,7 +41,7 @@ function renderSizedIcon(icon: ReactNode, size: Size): ReactNode {
   });
 }
 
-export default function Chip(props: ChipProps) {
+export default function Chip(props: Readonly<ChipProps>) {
   const {
     className,
     size = 'sm',

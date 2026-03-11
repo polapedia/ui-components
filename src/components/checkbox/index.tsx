@@ -63,6 +63,14 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       `;
     }
 
+    let helperTextColor = 'text-gray-500';
+
+    if (isError) {
+      helperTextColor = 'text-accents-red';
+    } else if (isDisabled) {
+      helperTextColor = 'text-gray-400';
+    }
+
     return (
       <div className={`${wrapperClasses} ${className || ''}`}>
         {/* Wrapper Checkbox */}
@@ -124,13 +132,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           {helperText && (
             <p
               id={helperId}
-              className={`mt-1 text-[11px] leading-tight ${
-                isError
-                  ? 'text-accents-red'
-                  : isDisabled
-                    ? 'text-gray-400'
-                    : 'text-gray-500'
-              }`}
+              className={`mt-1 text-[11px] leading-tight ${helperTextColor}`}
             >
               {helperText}
             </p>

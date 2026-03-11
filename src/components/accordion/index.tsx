@@ -20,17 +20,19 @@ interface AccordionProps {
   iconPosition?: IconPosition;
 }
 
-export default function Accordion({
-  items,
-  className = '',
-  defaultOpenId = null,
-  allowMultipleOpen = false,
-  size = 'md',
-  showLine = false,
-  iconPosition = 'right',
-}: AccordionProps) {
+export default function Accordion(props: Readonly<AccordionProps>) {
+  const {
+    items,
+    className = '',
+    defaultOpenId = null,
+    allowMultipleOpen = false,
+    size = 'md',
+    showLine = false,
+    iconPosition = 'right',
+  } = props;
+
   const [openIds, setOpenIds] = useState<Set<AccordionItemData['id']>>(
-    defaultOpenId != null ? new Set([defaultOpenId]) : new Set()
+    defaultOpenId == null ? new Set() : new Set([defaultOpenId])
   );
 
   const toggle = (id: AccordionItemData['id']) => {
@@ -83,14 +85,9 @@ interface ItemProps {
   iconPosition: IconPosition;
 }
 
-function AccordionItemRow({
-  item,
-  isOpen,
-  onToggle,
-  size,
-  showLine,
-  iconPosition,
-}: ItemProps) {
+function AccordionItemRow(props: Readonly<ItemProps>) {
+  const { item, isOpen, onToggle, size, showLine, iconPosition } = props;
+
   const isMd = size === 'md';
   const lines = (item.answer ?? '').split('\n');
 
@@ -101,7 +98,7 @@ function AccordionItemRow({
       if (dotIndex === -1) return false;
 
       const maybeNumber = line.slice(0, dotIndex);
-      return !isNaN(Number(maybeNumber));
+      return !Number.isNaN(Number(maybeNumber));
     })
     .map((line) => {
       const dotIndex = line.indexOf('.');
@@ -160,9 +157,8 @@ function AccordionItemRow({
         )}
       </div>
 
-      <div
+      <section
         id={`accordion-panel-${item.id}`}
-        role="region"
         aria-labelledby={`accordion-trigger-${item.id}`}
         aria-hidden={!isOpen}
         className="overflow-hidden"
@@ -177,8 +173,8 @@ function AccordionItemRow({
               <div className={descriptionClasses}>
                 {isNumberedList ? (
                   <ol className="list-decimal pl-5 space-y-1">
-                    {parsedList.map((line, index) => (
-                      <li key={index}>{line}</li>
+                    {parsedList.map((line) => (
+                      <li key={line}>{line}</li>
                     ))}
                   </ol>
                 ) : (
@@ -188,7 +184,7 @@ function AccordionItemRow({
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

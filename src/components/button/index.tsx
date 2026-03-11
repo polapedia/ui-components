@@ -7,22 +7,16 @@ type Size = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
 type Shape = 'rectangle' | 'pill' | 'circle';
 
-type CompoundKey =
-  | 'rectangle-sm'
-  | 'rectangle-md'
-  | 'rectangle-lg'
-  | 'circle-sm'
-  | 'circle-md'
-  | 'circle-lg';
-
-interface ButtonProps extends ComponentProps<'button'> {
-  variant?: Variant;
-  size?: Size;
-  shape?: Shape;
-  isLoading?: boolean;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-}
+type ButtonProps = Readonly<
+  ComponentProps<'button'> & {
+    variant?: Variant;
+    size?: Size;
+    shape?: Shape;
+    isLoading?: boolean;
+    leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
+  }
+>;
 
 const baseClasses =
   'inline-flex items-center justify-center font-semibold transition-all disabled:cursor-not-allowed select-none';
@@ -79,22 +73,46 @@ const compoundClasses = {
   'circle-lg': 'w-[56px] h-[56px] px-0',
 } as const;
 
-export default function Button({
-  variant = 'primary',
-  size = 'md',
-  shape = 'rectangle',
-  isLoading,
-  className,
-  children,
-  leftIcon,
-  rightIcon,
-  disabled,
-  ...props
-}: ButtonProps) {
-  const isDisabled = disabled || isLoading;
-  const isIconOnly = shape === 'circle' || size.startsWith('icon-');
+function getSpinnerSize(size: Size) {
+  if (size === 'sm') return 'size-4';
+  if (size === 'lg') return 'size-6';
+  return 'size-5';
+}
 
-  const key = `${shape}-${size}` as CompoundKey;
+function getIconColor(variant: Variant) {
+  if (variant === 'tertiary')
+    return 'text-accents-red hover:text-primary-700 active:text-primary-900';
+
+  if (variant === 'secondary' || variant === 'outline-primary')
+    return 'text-content-secondary';
+
+  return 'text-white';
+}
+
+function getSpinnerColor(variant: Variant) {
+  if (variant === 'tertiary') return 'text-accents-red';
+
+  if (variant === 'secondary' || variant === 'outline-primary')
+    return 'text-content-secondary';
+
+  return 'text-white';
+}
+
+export default function Button(props: Readonly<ButtonProps>) {
+  const {
+    variant = 'primary',
+    size = 'md',
+    shape = 'rectangle',
+    isLoading,
+    className,
+    children,
+    leftIcon,
+    rightIcon,
+    disabled,
+  } = props;
+  const isDisabled = disabled || isLoading;
+  const isIconOnly = size.startsWith('icon-') || shape === 'circle';
+  const key = `${shape}-${size}` as keyof typeof compoundClasses;
 
   const classes = [
     baseClasses,
@@ -107,32 +125,12 @@ export default function Button({
     .filter(Boolean)
     .join(' ');
 
-  const isTertiary = variant === 'tertiary';
-  const isOutline = variant === 'outline-primary';
-
-  const iconColorClass = isTertiary
-    ? 'text-accents-red hover:text-primary-700 active:text-primary-900'
-    : variant === 'secondary' || isOutline
-      ? 'text-content-secondary'
-      : 'text-white';
-
-  const spinnerColorClass = isTertiary
-    ? 'text-accents-red'
-    : variant === 'secondary' || isOutline
-      ? 'text-content-secondary'
-      : 'text-white';
-
-  const spinnerSizeClass =
-    size === 'sm'
-      ? 'size-4'
-      : size === 'md'
-        ? 'size-5'
-        : size === 'lg'
-          ? 'size-6'
-          : 'size-5';
+  const iconColorClass = getIconColor(variant);
+  const spinnerColorClass = getSpinnerColor(variant);
+  const spinnerSizeClass = getSpinnerSize(size);
 
   return (
-    <button disabled={isDisabled} className={classes} {...props}>
+    <button type="button" disabled={isDisabled} className={classes} {...props}>
       {isLoading && (
         <SpinnerIcon
           className={['animate-spin', spinnerSizeClass, spinnerColorClass]
@@ -154,7 +152,7 @@ export default function Button({
               )}
               <span
                 className={
-                  isTertiary
+                  variant === 'tertiary'
                     ? 'bg-linear-to-b from-gradient-primary to-gradient-secondary bg-clip-text text-transparent'
                     : ''
                 }

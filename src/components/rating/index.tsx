@@ -12,15 +12,17 @@ export interface StarRatingProps extends HTMLAttributes<HTMLDivElement> {
 const COLOR_INACTIVE = '#ADB5BD';
 const COLOR_ACTIVE = '#FFCC00';
 
-export default function StarRating({
-  value,
-  max = 5,
-  interactive = false,
-  onValueChange,
-  className,
-  starSize = 24,
-  ...rest
-}: StarRatingProps) {
+export default function StarRating(props: Readonly<StarRatingProps>) {
+  const {
+    value,
+    max = 5,
+    interactive = false,
+    onValueChange,
+    className,
+    starSize = 24,
+    ...rest
+  } = props;
+
   const [hoverValue, setHoverValue] = useState<number | null>(null);
 
   const safeValue = Math.max(0, Math.min(value, max));
@@ -35,7 +37,7 @@ export default function StarRating({
 
         return (
           <button
-            key={index}
+            key={starValue}
             type="button"
             disabled={!interactive}
             onClick={() => {

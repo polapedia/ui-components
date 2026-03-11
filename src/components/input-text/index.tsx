@@ -104,11 +104,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       );
     }
 
-    const fakePlaceholderLeft = leftIcon
-      ? 'left-[48px]'
-      : size === 'sm'
-        ? 'left-4'
-        : 'left-4';
+    const fakePlaceholderLeft = leftIcon ? 'left-[48px]' : 'left-4';
+
+    let helperTextColor = 'text-content-secondary';
+
+    if (isError) {
+      helperTextColor = 'text-error-icon-color';
+    } else if (isSuccess) {
+      helperTextColor = 'text-green-600';
+    }
 
     return (
       <div className="w-full flex flex-col">
@@ -159,17 +163,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {helperText && (
-          <p
-            className={`text-[12px] ${
-              isError
-                ? 'text-error-icon-color'
-                : isSuccess
-                  ? 'text-green-600'
-                  : 'text-content-secondary'
-            }`}
-          >
-            {helperText}
-          </p>
+          <p className={`text-[12px] ${helperTextColor}`}>{helperText}</p>
         )}
       </div>
     );

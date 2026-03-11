@@ -98,7 +98,7 @@ export const Sizes: Story = {
 };
 
 // Validation States
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     state: 'error',
     value: 'This text is too long or invalid...',

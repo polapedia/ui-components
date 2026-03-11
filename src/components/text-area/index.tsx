@@ -68,7 +68,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
     const isError = currentState === 'error';
     const isSuccess = currentState === 'success';
-    const isDisabled = disabled;
+    const isDisabled = Boolean(disabled);
 
     const wrapperClasses = [
       baseWrapperClasses,
@@ -79,24 +79,43 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       .filter(Boolean)
       .join(' ');
 
-    let renderedRightIcon = rightIcon;
-    if (isError) {
-      renderedRightIcon = <AlertIcon className="text-red-500 w-5 h-5" />;
-    } else if (isSuccess) {
-      renderedRightIcon = <CheckIcon className="text-green-500 w-5 h-5" />;
+    const getLabelColor = (isDisabled: boolean, isError: boolean) => {
+      if (isDisabled) return 'text-content-secondary';
+      if (isError) return 'text-accents-red';
+      return 'text-content-secondary';
+    };
+
+    const getCounterColor = (isDisabled: boolean, isOverLimit: boolean) => {
+      if (isDisabled) return 'text-content-secondary';
+      if (isOverLimit) return 'text-accents-red font-bold';
+      return 'text-content-secondary';
+    };
+
+    const getRightIcon = (
+      isError: boolean,
+      isSuccess: boolean,
+      rightIcon?: ReactNode
+    ) => {
+      if (isError) {
+        return <AlertIcon className="text-red-500 w-5 h-5" />;
+      }
+
+      if (isSuccess) {
+        return <CheckIcon className="text-green-500 w-5 h-5" />;
+      }
+
+      return rightIcon;
+    };
+
+    function getHelperTextColor(isError: boolean, isSuccess: boolean) {
+      if (isError) return 'text-red-500';
+      if (isSuccess) return 'text-green-600';
+      return 'text-gray-500';
     }
 
-    const labelColor = isDisabled
-      ? 'text-content-secondary'
-      : isError
-        ? 'text-accents-red'
-        : 'text-content-secondary';
-
-    const counterColor = isDisabled
-      ? 'text-content-secondary'
-      : isOverLimit
-        ? 'text-accents-red font-bold'
-        : 'text-content-secondary';
+    const renderedRightIcon = getRightIcon(isError, isSuccess, rightIcon);
+    const labelColor = getLabelColor(isDisabled, isError);
+    const counterColor = getCounterColor(isDisabled, isOverLimit);
 
     const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
       if (typeof value !== 'string') {
@@ -160,13 +179,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
         {helperText && (
           <p
-            className={`text-[12px] ${
-              isError
-                ? 'text-red-500'
-                : isSuccess
-                  ? 'text-green-600'
-                  : 'text-gray-500'
-            }`}
+            className={`text-[12px] ${getHelperTextColor(isError, isSuccess)}`}
           >
             {isOverLimit ? 'Character limit exceeded' : helperText}
           </p>
