@@ -1,8 +1,5 @@
 name: Trigger Vercel Deployment
 
-permissions:
-  contents: read
-
 on:
   pull_request:
     types:
@@ -10,6 +7,8 @@ on:
 
 jobs:
   deploy-staging:
+    permissions:
+      contents: read
     if: >
       github.event.pull_request.merged == true &&
       github.event.pull_request.base.ref == 'main'
@@ -35,6 +34,8 @@ jobs:
           curl --fail --show-error --silent -X POST "$HOOK"
 
   deploy-production:
+    permissions:
+      contents: read
     if: >
       github.event.pull_request.merged == true &&
       github.event.pull_request.base.ref == 'production' &&
