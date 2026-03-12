@@ -1,0 +1,109 @@
+import { ArgTypes, Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './index.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Accordion is used to show and hide sections of related content, commonly for FAQs or collapsible information blocks.  
+It supports two sizes — **sm** and **md** — optional divider lines, single or multiple open behavior, and configurable icon position.
+
+---
+
+## Playground
+
+<Canvas of={AccordionStories.Default} />
+
+<Controls of={AccordionStories.Default} />
+
+Use the **Controls** panel to explore props such as `size`, `showLine`, `allowMultipleOpen`, and `iconPosition`.
+
+---
+
+## Variants
+
+### Default (Without Line)
+
+The default accordion without a divider line between the header and the content.
+
+<Canvas of={AccordionStories.Default} />
+
+---
+
+### With Line
+
+Adds a horizontal divider line between the question and the answer when expanded.
+
+<Canvas of={AccordionStories.WithLine} />
+
+---
+
+### Small Size
+
+Use `size="sm"` for compact layouts such as sidebars or dense content areas.
+
+<Canvas of={AccordionStories.SmallSize} />
+
+---
+
+## Multiple Open
+
+By default, only one item can be opened at a time.  
+Enable `allowMultipleOpen` to allow multiple accordion items to stay open simultaneously.
+
+<Canvas of={AccordionStories.MultipleOpen} />
+
+---
+
+## Size Comparison
+
+Visual comparison between `md` and `sm` sizes, with and without divider lines.
+
+<Canvas of={AccordionStories.Comparison} />
+
+---
+
+## Interaction & Behavior
+
+- **Single Open (default):**  
+  Only one accordion item can be open at a time.
+
+- **Multiple Open:**  
+  When `allowMultipleOpen` is enabled, multiple items can be expanded simultaneously.
+
+- **Toggle Behavior:**
+  - Clicking an open item will collapse it.
+  - Clicking a closed item will expand it.
+
+- **Icon Animation:**  
+  The chevron icon rotates 180° when the item is expanded.
+
+- **Content Animation:**  
+  Uses CSS grid transition to animate height and opacity smoothly.
+
+---
+
+## Props
+
+<ArgTypes of={AccordionStories} />
+
+---
+
+## Usage Guidelines
+
+- Use **md** size for main content areas and full-width layouts.
+- Use **sm** size for side panels, mobile views, or dense interfaces.
+- Use **With Line** variant when you need stronger visual separation between header and content.
+- Prefer **Single Open** behavior for FAQ sections to reduce cognitive load.
+- Use **Multiple Open** when users may need to compare multiple answers at once.
+- Keep questions short and scannable.
+- Avoid placing heavy interactive elements inside accordion content.
+
+---
+
+## Accessibility
+
+- Uses semantic `<button>` for the accordion trigger.
+- Supports keyboard navigation via the semantic button trigger.
+- Ensure each question text clearly describes the hidden content.
+- Icon rotation is decorative; the text remains the primary accessible label.
