@@ -1,5 +1,8 @@
 name: Trigger Vercel Deployment
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     types:
@@ -29,7 +32,7 @@ jobs:
           HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_STAGING }}
         run: |
           echo "Deploying to STAGING..."
-          curl -X POST "$HOOK"
+          curl --fail --show-error --silent -X POST "$HOOK"
 
   deploy-production:
     if: >
@@ -55,4 +58,4 @@ jobs:
           HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_PRODUCTION }}
         run: |
           echo "Deploying to PRODUCTION..."
-          curl -X POST "$HOOK"
+          curl --fail --show-error --silent -X POST "$HOOK"
