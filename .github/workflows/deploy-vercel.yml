@@ -1,0 +1,58 @@
+name: Trigger Vercel Deployment
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  deploy-staging:
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Debug Info
+        env:
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_SOURCE: ${{ github.event.pull_request.head.ref }}
+          PR_TARGET: ${{ github.event.pull_request.base.ref }}
+        run: |
+          echo "Merged: $PR_MERGED"
+          echo "Source branch: $PR_SOURCE"
+          echo "Target branch: $PR_TARGET"
+
+      - name: Trigger Vercel Staging Deployment
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_STAGING }}
+        run: |
+          echo "Deploying to STAGING..."
+          curl -X POST "$HOOK"
+
+  deploy-production:
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'production' &&
+      github.event.pull_request.head.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Debug Info
+        env:
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_SOURCE: ${{ github.event.pull_request.head.ref }}
+          PR_TARGET: ${{ github.event.pull_request.base.ref }}
+        run: |
+          echo "Merged: $PR_MERGED"
+          echo "Source branch: $PR_SOURCE"
+          echo "Target branch: $PR_TARGET"
+
+      - name: Trigger Vercel Production Deployment
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_PRODUCTION }}
+        run: |
+          echo "Deploying to PRODUCTION..."
+          curl -X POST "$HOOK"
