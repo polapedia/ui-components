@@ -13,11 +13,16 @@ const meta: Meta<typeof EmptyState> = {
     primaryButtonLabel: "Button Label",
     secondaryButtonLabel: "Button Label",
     layout: "default",
+    size: "md",
   },
   argTypes: {
     layout: {
       control: "radio",
       options: ["default", "horizontal", "card"],
+    },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
     },
     onPrimaryClick: { action: "primary clicked" },
     onSecondaryClick: { action: "secondary clicked" },

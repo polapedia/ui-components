@@ -22,6 +22,7 @@ const meta: Meta<typeof Modal> = {
     open: true,
     size: "md",
     title: "Title Goes Here",
+    label: "Label",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     checkboxLabel: "Checkbox label",
@@ -72,7 +73,13 @@ export const Default: Story = {
     return (
       <>
         {!open && (
-          <Button onClick={() => handleOpenChange(true)}>Re-open Modal</Button>
+          <Button
+            onClick={() => {
+              handleOpenChange(true);
+            }}
+          >
+            Re-open Modal
+          </Button>
         )}
 
         <Modal
@@ -93,6 +100,83 @@ export const Default: Story = {
       </>
     );
   },
+};
+
+export const WithCheckbox: StoryFn<typeof Modal> = (args) => {
+  const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState<boolean>(!!args.checked);
+
+  function handleOpenChange(v: boolean) {
+    setOpen(v);
+    action("onOpenChange")(v);
+  }
+
+  function handleCheckedChange(v: boolean) {
+    setChecked(v);
+    action("onCheckedChange")(v);
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <Button
+        onClick={() => {
+          setOpen(true);
+          action("trigger.open")("open");
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal
+        {...args}
+        open={open}
+        checked={checked}
+        onOpenChange={handleOpenChange}
+        onCheckedChange={handleCheckedChange}
+      />
+    </div>
+  );
+};
+WithCheckbox.args = {
+  checkboxLabel: "Accept Terms",
+  open: false,
+};
+
+export const WithoutCheckbox: StoryFn<typeof Modal> = (args) => {
+  const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState<boolean>(!!args.checked);
+
+  function handleOpenChange(v: boolean) {
+    setOpen(v);
+    action("onOpenChange")(v);
+  }
+
+  function handleCheckedChange(v: boolean) {
+    setChecked(v);
+    action("onCheckedChange")(v);
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <Button
+        onClick={() => {
+          setOpen(true);
+          action("trigger.open")("open");
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal
+        {...args}
+        open={open}
+        checked={checked}
+        onOpenChange={handleOpenChange}
+        onCheckedChange={handleCheckedChange}
+      />
+    </div>
+  );
+};
+WithoutCheckbox.args = {
+  checkboxLabel: "",
 };
 
 export const Interactive: StoryFn<typeof Modal> = (args) => {

@@ -4,6 +4,7 @@ import {
   Controls,
   Canvas,
   ArgTypes,
+  Source,
 } from "@storybook/addon-docs/blocks";
 
 import * as Stories from "./index.stories";
@@ -22,9 +23,8 @@ Unlike a standard tooltip, it uses a **screen mask (overlay)** to focus attentio
 Try changing **Size**, **Placement**, or click the **Overlay** to close.
 This Canvas has extra space so the tooltip doesn't get clipped or repositioned automatically.
 
-<Canvas of={Stories.Default} />
-
-<Controls of={Stories.Default} />
+<Canvas of={Stories.Primary} />
+<Controls of={Stories.Primary} />
 
 ---
 
@@ -54,6 +54,82 @@ This example demonstrates a **controlled** onboarding tooltip using the `open` p
 The open state is managed externally and can be toggled via buttons.
 
 <Canvas of={Stories.ManualImplementation} />
+
+---
+
+## Usage Examples
+
+### Basic (Uncontrolled)
+
+The simplest usage. The tooltip manages its own open state via `defaultOpen`.
+
+<Source language="tsx" code={`
+import OnboardingTooltip from "@/components/onboarding-tooltip";
+import Button from "@/components/button";
+
+export default function Example() {
+  return (
+    <OnboardingTooltip
+      title="Welcome to the dashboard!"
+      description="This is where you can monitor all your activity."
+      defaultOpen
+      footer={
+        <Button shape="pill" size="sm" className="w-full">
+          Got it!
+        </Button>
+      }
+    >
+      <Button>Open Dashboard</Button>
+    </OnboardingTooltip>
+  );
+}
+`} />
+
+---
+
+### Controlled (with external state)
+
+Use the `open` and `onOpenChange` props to manage state externally —
+useful for multi-step onboarding flows.
+
+<Source language="tsx" code={`
+import { useState } from "react";
+import OnboardingTooltip from "@/components/onboarding-tooltip";
+import Button from "@/components/button";
+
+export default function Example() {
+  const [open, setOpen] = useState(false);
+
+return (
+<OnboardingTooltip
+open={open}
+onOpenChange={setOpen}
+title="New feature available"
+description="Click the button below to learn more about this feature."
+footer={
+<div className="flex gap-2 justify-end">
+<Button
+shape="pill"
+size="sm"
+variant="tertiary"
+className="w-full"
+onClick={() => setOpen(false)} >
+Skip
+</Button>
+<Button
+shape="pill"
+size="sm"
+className="w-full"
+onClick={() => setOpen(false)} >
+Got it!
+</Button>
+</div>
+} >
+<Button onClick={() => setOpen(true)}>Show Tooltip</Button>
+</OnboardingTooltip>
+);
+}
+`} />
 
 ---
 

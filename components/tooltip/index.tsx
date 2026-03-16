@@ -78,10 +78,18 @@ export default function Tooltip({
   return (
     <span
       className={wrapperClasses}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
+      onMouseEnter={() => {
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        setOpen(false);
+      }}
+      onFocus={() => {
+        setOpen(true);
+      }}
+      onBlur={() => {
+        setOpen(false);
+      }}
       {...props}
     >
       {/* Trigger */}

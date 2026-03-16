@@ -21,11 +21,12 @@ export default function LoaderGeneral({
   const classes = ["inline-flex items-center gap-3", className || ""]
     .filter(Boolean)
     .join(" ");
+  const sizeClass = sizeClasses[size] ?? sizeClasses.md;
 
   return (
     <div className={classes} role="status" aria-live="polite" {...props}>
       <LoaderIcon
-        className={["animate-spin", sizeClasses[size], "text-accents-red"]
+        className={["animate-spin", sizeClass, "text-accents-red"]
           .filter(Boolean)
           .join(" ")}
         style={{ animationDirection: "reverse" }}

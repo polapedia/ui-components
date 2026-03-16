@@ -70,6 +70,7 @@ export default function OnboardingTooltip({
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const [actualPlacement, setActualPlacement] = useState<Placement>(placement);
   const isControlled = typeof open === "boolean";
   const isOpen = isControlled ? (open as boolean) : uncontrolledOpen;
 
@@ -84,7 +85,7 @@ export default function OnboardingTooltip({
       if (!isControlled) setUncontrolledOpen(next);
       onOpenChange?.(next);
     },
-    [isControlled, onOpenChange]
+    [isControlled, onOpenChange],
   );
 
   // ESC to close
@@ -96,7 +97,9 @@ export default function OnboardingTooltip({
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [isOpen, closeOnEsc, setOpen]);
 
   useEffect(() => {
@@ -122,20 +125,27 @@ export default function OnboardingTooltip({
       const left = clamp(
         preferredLeft,
         VIEWPORT_PADDING,
-        window.innerWidth - c.width - VIEWPORT_PADDING
+        window.innerWidth - c.width - VIEWPORT_PADDING,
       );
+
+      let resolvedPlacement = placement;
 
       let top =
         placement === "top" ? t.top - c.height - OFFSET : t.bottom + OFFSET;
 
-      if (placement === "top" && top < VIEWPORT_PADDING)
+      if (placement === "top" && top < VIEWPORT_PADDING) {
         top = t.bottom + OFFSET;
+        resolvedPlacement = "bottom";
+      }
+
       if (
         placement === "bottom" &&
         top + c.height > window.innerHeight - VIEWPORT_PADDING
       ) {
-        top = t.top - c.height - OFFSET;
+        top = t.bottom + OFFSET;
       }
+
+      setActualPlacement(resolvedPlacement);
 
       const arrowCenterX = t.left + t.width / 2;
       const arrowLeft = clamp(arrowCenterX - left, 24, c.width - 24);
@@ -160,7 +170,9 @@ export default function OnboardingTooltip({
     const card = cardRef.current;
     const ro =
       card && typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(() => schedule())
+        ? new ResizeObserver(() => {
+            schedule();
+          })
         : null;
 
     if (card && ro) ro.observe(card);
@@ -173,7 +185,9 @@ export default function OnboardingTooltip({
     };
   }, [isOpen, placement, size]);
 
-  const cardClasses = [baseCardClasses, sizeClasses[size], className || ""]
+  const sizeClass = sizeClasses[size] ?? sizeClasses.sm;
+
+  const cardClasses = [baseCardClasses, sizeClass, className]
     .filter(Boolean)
     .join(" ");
 
@@ -192,33 +206,31 @@ export default function OnboardingTooltip({
   const tooltip = (
     <div
       className="fixed inset-0 z-50 pointer-events-none"
-      aria-hidden={!isOpen}>
+      aria-hidden={!isOpen}
+    >
       <div
         ref={cardRef}
         id={tooltipId}
         role="dialog"
         aria-modal="true"
-        className={cardClasses}
-        style={{ position: "absolute", top: pos.top, left: pos.left }}>
-        <div
-          className="pointer-events-auto"
-          onClick={(e) => e.stopPropagation()}>
-          {(title || description) && (
-            <div className="flex flex-col gap-2">
-              {title && <div className={titleClasses}>{title}</div>}
-              {description && <div className={descClasses}>{description}</div>}
-            </div>
-          )}
+        className={`pointer-events-auto ${cardClasses}`}
+        style={{ position: "absolute", top: pos.top, left: pos.left }}
+      >
+        {(title || description) && (
+          <div className="flex flex-col gap-2">
+            {title && <div className={titleClasses}>{title}</div>}
+            {description && <div className={descClasses}>{description}</div>}
+          </div>
+        )}
 
-          {footer && <div className="mt-3">{footer}</div>}
-        </div>
+        {footer && <div className="mt-3">{footer}</div>}
 
         {/* Arrow */}
         <div
           className="absolute w-4 h-4 bg-white rotate-45"
           style={{
             left: pos.arrowLeft - 8,
-            ...(placement === "top" ? { bottom: -8 } : { top: -8 }),
+            ...(actualPlacement === "top" ? { bottom: -8 } : { top: -8 }),
           }}
         />
       </div>
@@ -230,7 +242,9 @@ export default function OnboardingTooltip({
       <span
         ref={triggerRef}
         className="inline-flex"
-        aria-describedby={isOpen ? tooltipId : undefined}>
+        aria-describedby={isOpen ? tooltipId : undefined}
+        aria-haspopup="dialog"
+      >
         {children}
       </span>
 
@@ -241,7 +255,7 @@ export default function OnboardingTooltip({
             {overlay}
             {tooltip}
           </>,
-          document.body
+          document.body,
         )}
     </>
   );

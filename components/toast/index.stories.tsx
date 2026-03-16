@@ -3,12 +3,12 @@ import type { Meta, StoryFn } from "@storybook/nextjs-vite";
 import Toast from ".";
 import Button from "../button";
 import CloseIcon from "../icons/CloseIcon";
-import CheckmarkIcon from "../icons/CheckmarkIcon";
+import CheckIcon from "../icons/CheckIcon";
 
 const rightIcons = {
   None: null,
   Close: <CloseIcon className="w-4 h-4" />,
-  Checkmark: <CheckmarkIcon className="w-4 h-4" />,
+  Checkmark: <CheckIcon className="w-4 h-4 text-[#323232]" />,
 };
 
 const meta: Meta<typeof Toast> = {
@@ -46,18 +46,25 @@ const meta: Meta<typeof Toast> = {
 
 export default meta;
 
-export const Default: StoryFn = () => {
+export const Default: StoryFn<typeof Toast> = (args) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <Button onClick={() => setOpen(true)}>Show Toast</Button>
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Show Toast
+      </Button>
 
       {open && (
         <Toast
-          variant="default"
-          message="Something went wrong. Please try again."
-          onClose={() => setOpen(false)}
+          {...args}
+          onClose={() => {
+            setOpen(false);
+          }}
         />
       )}
     </div>
@@ -69,14 +76,22 @@ export const TriggerErrorToast: StoryFn = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <Button onClick={() => setOpen(true)}>Show Error Toast</Button>
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Show Error Toast
+      </Button>
 
       {open && (
         <Toast
           variant="error"
           message="Something went wrong. Please try again."
           dismissible
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+          }}
         />
       )}
     </div>
@@ -88,13 +103,21 @@ export const TriggerSuccessToast: StoryFn = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <Button onClick={() => setOpen(true)}>Show Success Toast</Button>
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Show Success Toast
+      </Button>
 
       {open && (
         <Toast
           variant="success"
           message="Saved successfully!"
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+          }}
         />
       )}
     </div>

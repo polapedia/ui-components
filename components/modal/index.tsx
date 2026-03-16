@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useMemo } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import Button from "../button";
 import CheckmarkIcon from "../icons/CheckmarkIcon";
 
@@ -12,6 +12,7 @@ type Props = {
 
   title: string;
   description?: string;
+  label?: string;
 
   checkboxLabel?: string;
   checked?: boolean;
@@ -46,6 +47,7 @@ export default function Modal({
   size = "md",
   title,
   description,
+  label,
   checkboxLabel = "Checkbox label",
   checked,
   onCheckedChange,
@@ -56,8 +58,21 @@ export default function Modal({
   closeOnBackdrop = true,
 }: Props) {
   const titleId = useId();
+  const labelId = useId();
   const descId = useId();
   const checkboxId = useId();
+  const [internalChecked, setInternalChecked] = useState(false);
+
+  const isControlled = checked !== undefined;
+  const currentChecked = isControlled ? checked : internalChecked;
+  const showCheckbox = Boolean(checkboxLabel && onCheckedChange);
+  const handleCheckedChange = (value: boolean) => {
+    if (!isControlled) {
+      setInternalChecked(value);
+    }
+
+    onCheckedChange?.(value);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -65,7 +80,9 @@ export default function Modal({
       if (e.key === "Escape") onOpenChange(false);
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open, onOpenChange]);
 
   const sizeClasses = useMemo(() => {
@@ -77,21 +94,33 @@ export default function Modal({
 
     // Title typography
     const titleCls: Record<ModalSize, string> = {
-      sm: "text-[16px] font-semibold text-black tab:text-[20px] desktop:text-[20px]",
-      md: "text-[18px] font-semibold text-black tab:text-[24px] desktop:text-[24px]",
-      lg: "text-[20px] font-semibold text-black tab:text-[32px] desktop:text-[32px]",
+      sm: "text-[16px] font-semibold text-black",
+      md: "text-[18px] font-semibold text-black",
+      lg: "text-[18px] font-semibold text-black",
     };
 
     const descCls: Record<ModalSize, string> = {
-      sm: "mt-[8px] text-[14px] font-normal text-black tab:mt-[16px] tab:text-[16px] desktop:mt-[16px] desktop:text-[16px]",
-      md: "mt-[12px] text-[16px] font-normal text-black tab:mt-[16px] tab:text-[18px] desktop:mt-[16px] desktop:text-[18px]",
-      lg: "mt-[16px] text-[16px] font-normal text-black tab:mt-[16px] tab:text-[18px] desktop:mt-[16px] desktop:text-[18px]",
+      sm: "text-[14px] font-normal text-black",
+      md: "text-[16px] font-normal text-black",
+      lg: "text-[16px] font-normal text-black",
     };
 
+    const labelCls: Record<ModalSize, string> = {
+      sm: "mt-[8px] mb-[16px] text-[14px] font-normal text-black",
+      md: "mt-[8px] mb-[24px] text-[16px] font-normal text-black",
+      lg: "mt-[8px] mb-[24px] text-[16px] font-normal text-black",
+    };
+
+    const containerClass = container[size] ?? container.md;
+    const titleClass = titleCls[size] ?? titleCls.md;
+    const descClass = descCls[size] ?? descCls.md;
+    const labelClass = labelCls[size] ?? labelCls.md;
+
     return {
-      container: container[size],
-      title: titleCls[size],
-      desc: descCls[size],
+      container: containerClass,
+      title: titleClass,
+      desc: descClass,
+      label: labelClass,
     };
   }, [size]);
 
@@ -105,12 +134,18 @@ export default function Modal({
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40"
-        onClick={() => closeOnBackdrop && onOpenChange(false)}
+        aria-hidden="true"
+        onClick={() => {
+          if (closeOnBackdrop) {
+            onOpenChange(false);
+          }
+        }}
       />
 
       {/* Dialog */}
       <div
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
@@ -123,13 +158,20 @@ export default function Modal({
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
-          <h2 id={titleId} className={sizeClasses.title}>
-            {title}
-          </h2>
+          <div className="flex flex-col">
+            <h2 id={titleId} className={sizeClasses.title}>
+              {title}
+            </h2>
+            <h4 id={labelId} className={sizeClasses.label}>
+              {label}
+            </h4>
+          </div>
 
           <button
             type="button"
-            onClick={() => onOpenChange(false)}
+            onClick={() => {
+              onOpenChange(false);
+            }}
             className="shrink-0 inline-flex items-center justify-center rounded-lg p-1 hover:bg-black/5 active:bg-black/10"
             aria-label="Close modal"
           >
@@ -144,8 +186,8 @@ export default function Modal({
           </p>
         ) : null}
 
-        {(checkboxLabel !== undefined || onCheckedChange !== undefined) && (
-          <div className="group flex items-start gap-1 w-full relative my-6 select-none">
+        {showCheckbox && (
+          <div className="group flex items-start gap-x-2 w-full relative my-6 select-none">
             <div className="flex items-center justify-center shrink-0">
               <div className="relative flex items-center">
                 <div className="group grid place-items-center">
@@ -154,12 +196,12 @@ export default function Modal({
                     type="checkbox"
                     id={checkboxId}
                     className={`
-                      peer col-start-1 row-start-1 appearance-none border-2 shrink-0 
+                      peer col-start-1 row-start-1 appearance-none border-[1.5px] shrink-0 
                       transition-all text-black border-black duration-200 ease-in-out
                       h-5 w-5 rounded-md bg-white checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-0
                     `}
-                    checked={!!checked}
-                    onChange={(e) => onCheckedChange?.(e.target.checked)}
+                    checked={currentChecked}
+                    onChange={(e) => handleCheckedChange(e.target.checked)}
                   />
                   {/* SVG Icon (Checkmark) - Overlay */}
                   <CheckmarkIcon
@@ -176,7 +218,7 @@ export default function Modal({
             <div className="flex flex-col select-none pt-0">
               <label
                 htmlFor={checkboxId}
-                className="text-[16px] leading-5 font-medium text-black cursor-pointer transition-colors"
+                className="text-[16px] leading-5 font-normal text-black cursor-pointer transition-colors"
               >
                 {checkboxLabel}
               </label>
@@ -185,10 +227,12 @@ export default function Modal({
         )}
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3">
+        <div
+          className={`flex items-center justify-end gap-3 ${!showCheckbox && "mt-6 desktop:mt-8"}`}
+        >
           <Button
-            variant="tertiary"
-            size={size === "sm" ? "sm" : "md"}
+            variant="secondary"
+            size="md"
             onClick={() => {
               onCancel?.();
               onOpenChange(false);
@@ -200,7 +244,7 @@ export default function Modal({
 
           <Button
             variant="primary"
-            size={size === "sm" ? "sm" : "md"}
+            size="md"
             onClick={() => {
               onConfirm?.();
               onOpenChange(false);

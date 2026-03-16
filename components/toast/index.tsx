@@ -32,19 +32,24 @@ export default function Toast({
   className,
   ...props
 }: ToastProps) {
-  const classes = [baseClasses, variantClasses[variant], className || ""]
+  const variantClass = variantClasses[variant] ?? variantClasses.default;
+  console.log({ variant, rightIcon });
+
+  const classes = [baseClasses, variantClass, className]
     .filter(Boolean)
     .join(" ");
 
-  const showDismiss = dismissible && onClose;
+  const showDismiss = dismissible && !!onClose;
 
-  const resolvedRightIcon =
-    rightIcon ??
-    (showDismiss ? (
-      <CloseIcon className="w-4 h-4" />
-    ) : variant === "success" ? (
-      <CheckIcon className="w-4 h-4 text-[#323232]" />
-    ) : null);
+  let resolvedRightIcon: ReactNode = rightIcon;
+
+  if (!resolvedRightIcon) {
+    if (dismissible && onClose) {
+      resolvedRightIcon = <CloseIcon className="w-4 h-4" />;
+    } else if (variant === "success") {
+      resolvedRightIcon = <CheckIcon className="w-4 h-4 text-[#323232]" />;
+    }
+  }
 
   return (
     <div className={classes} {...props}>
@@ -55,7 +60,8 @@ export default function Toast({
           type="button"
           onClick={showDismiss ? onClose : undefined}
           aria-label={showDismiss ? "Close notification" : undefined}
-          className="ml-2.5 shrink-0 flex items-center">
+          className={`ml-2.5 shrink-0 flex items-center ${showDismiss && "cursor-pointer"}`}
+        >
           {resolvedRightIcon}
         </button>
       )}
