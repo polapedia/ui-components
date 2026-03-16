@@ -1,0 +1,109 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as FABStories from './index.stories';
+
+<Meta of={FABStories} />
+
+# Floating Action Button (FAB)
+
+A Floating Action Button (FAB) performs the primary, or most common, action on a screen.  
+It appears in front of all screen content, typically as a circular shape with an icon in its center.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `variant`, `size`, and `icon`.
+
+---
+
+## Variants
+
+### Primary
+
+The standard action button (Dark Red), used for the most common action on the screen (e.g., "Create", "Add").
+
+<Canvas of={FABStories.Primary} />
+
+### Danger
+
+Bright red version, used for destructive or high-priority alert actions.
+
+<Canvas of={FABStories.Danger} />
+
+---
+
+## Sizes
+
+- **sm** - compact size for dense interfaces or secondary FABs.
+- **md** - medium size.
+- **lg** - large (default), standard size for the main screen action.
+
+<Canvas>
+  <div className="flex items-end gap-6 p-4">
+    <FABStories.Primary args={{ size: 'sm' }} />
+    <FABStories.Primary args={{ size: 'md' }} />
+    <FABStories.Primary args={{ size: 'lg' }} />
+  </div>
+</Canvas>
+
+---
+
+## Placement (Sticky Bottom-Right)
+
+FAB are typically placed **sticky / fixed** in the bottom-right corner of the screen.
+
+The following example shows a FAB positioned fixed in the `bottom-right` viewport:
+
+<Canvas of={FABStories.StickyBottomRight} />
+
+**Implementation notes:**
+
+- Use utility classes like `fixed bottom-6 right-6` to stick to the bottom-right corner.
+- Set the `layout` in Storybook to `"fullscreen"` so the page can simulate the appearance of a real app.
+- Be sure to add a descriptive `aria-label` to the FAB.
+
+---
+
+## UI States
+
+The FAB component supports the following UI states (handled via CSS):
+
+- **Default** - initial visual appearance.
+- **Hover** - darker shade to indicate interactivity.
+- **Active / Pressed** - darkest shade to indicate activation.
+- **Focus** - visible ring outline when accessed via keyboard.
+
+---
+
+## Interaction & Behavior
+
+- The FAB triggers the `onClick` handler when activated.
+- It is typically fixed at the bottom-right of the screen.
+- It comes with a built-in shadow to indicate elevation above other content.
+
+---
+
+## Props
+
+<ArgTypes of={FABStories} />
+
+---
+
+## Usage Guidelines
+
+- **Placement:** Usually positioned at the bottom-right corner of the screen.
+- **Frequency:** Use **only one** FAB per screen to maintain a clear primary action.
+- **Iconography:** Use a clear, simple icon (like `+` for add or a pencil for edit).
+- **Accessibility:** Since FABs usually contain only icons, ensure the button has a descriptive `aria-label` or the icon is accessible.

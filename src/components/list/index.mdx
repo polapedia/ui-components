@@ -1,0 +1,78 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as ListStories from './index.stories';
+
+<Meta of={ListStories} />
+
+# List
+
+Several related options grouped together vertically.
+
+The List component is a vertical stack of ListItem rows.  
+ListItem supports optional `leftIcon`, optional `rightIcon`, and optional `description`.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `leftIcon`, `rightIcon`, `description`,
+and interaction states like `disabled` and `isSelected`.
+
+---
+
+## Selectable Example
+
+This example demonstrates using ListItem as an interactive option list and displaying a selected value.
+
+<Canvas of={ListStories.Selectable} />
+
+---
+
+## With Icons
+
+Examples using `leftIcon` and `rightIcon` (24px).
+
+<Canvas of={ListStories.WithIcons} />
+
+---
+
+## Interaction & Behavior
+
+- Use `<button>` semantics for clickable rows (keyboard + accessibility friendly).
+- Use `isSelected` to reflect selection state visually.
+- Use `disabled` to block interaction.
+
+---
+
+## Props
+
+<ArgTypes of={ListStories} />
+
+---
+
+## Usage Guidelines
+
+- Use List for grouping related options or navigation items.
+- Prefer short titles; long text will truncate.
+- Use `description` only when the item needs extra context.
+- Use icons sparingly to maintain scannability.
+
+---
+
+## Accessibility
+
+- ListItem uses a semantic `<button>` element.
+- Focus styles are visible via `focus-visible` ring.
+- Avoid putting nested interactive elements inside ListItem.

@@ -1,0 +1,229 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as UploaderMediaStories from './index.stories';
+
+<Meta of={UploaderMediaStories} />
+
+# Uploader Media
+
+The **Uploader Media** component is a tile-style wrapper around a native  
+`<input type="file" />`.
+
+It is visually optimized for media content (avatars, thumbnails, documents) but  
+can technically be used for any file type.
+
+It provides:
+
+- Fixed tile layout with an upload icon
+- File name display with smart truncation
+- Support for multiple file selection
+- Helper text below the field
+- Visual **error** and **disabled** states
+
+---
+
+## Playground
+
+Use the interactive playground to explore the component with different props.
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Try toggling:
+
+- `multiple` – allow selecting more than one file
+- `disabled` – prevent user interaction
+- `label` – customize the default text inside the tile
+- `helperText` – guide users or display hints/validation messages
+- `error` – visually indicate validation errors
+
+---
+
+## Stories
+
+### Default
+
+The default tile shows an active uploader with a customizable label and icon.
+
+<Canvas of={UploaderMediaStories.Default} />
+
+---
+
+### Disabled
+
+The disabled state renders the uploader muted and non-interactive, while  
+preserving layout and structure.
+
+<Canvas of={UploaderMediaStories.Disabled} />
+
+---
+
+### With Error
+
+Use the `error` and `helperText` props together to highlight validation issues,  
+such as unsupported file types or file size limits.
+
+<Canvas of={UploaderMediaStories.WithError} />
+
+---
+
+## UI States
+
+Uploader Media supports these UI states:
+
+- **Default** – tile is interactive, shows the base label.
+- **Hover** – background color subtly changes (`hover:bg-gray-50`).
+- **Active / Pressed** – opens the native file dialog.
+- **Disabled** – muted colors, “not-allowed” cursor, and no interaction.
+- **Error** – red border/background and red helper text (when provided).
+- **Focus** – focus behavior is driven by the native file input.
+
+You can observe these states using the stories above and the **Controls** panel.
+
+---
+
+## Props
+
+<ArgTypes of={UploaderMediaStories} />
+
+Key props:
+
+- `label?: string` – initial text inside the tile (default `"Choose File"`).
+- `helperText?: string` – explanatory or validation text below the tile.
+- `error?: boolean` – toggles error styling on the tile and helper text.
+- `disabled?: boolean` – disables interaction and applies muted styling.
+- `multiple?: boolean` – allows selecting more than one file.
+- All other native `<input type="file" />` props (e.g. `accept`, `name`, etc.)
+
+---
+
+## Interaction & Behavior
+
+- Internally, the component wraps a native **`<input type="file" />`** element.
+- The **entire tile** is clickable due to the label-wrapper around the input.
+- File selection logic:
+  - When a single file is selected, its name is displayed.
+  - If the name is longer than 12 characters, it is truncated with `"..."`.
+  - When `multiple` is `true` and more than one file is selected, the label shows  
+    `"{n} items"`.
+  - When no file is selected, it falls back to the `label` prop.
+- The `onChange` callback receives the native change event so you can read  
+  `event.target.files` for the `FileList`.
+- When `disabled` is `true`:
+  - The input cannot be focused or clicked.
+  - The tile uses muted colors and a `cursor-not-allowed`.
+- When `error` is `true`:
+  - The tile border and background adopt error colors.
+  - `helperText` (if provided) appears in red to emphasize the issue.
+
+---
+
+## Usage Example
+
+```tsx
+import { useState } from 'react';
+import UploaderMedia from './index';
+
+function MediaUploaderExample() {
+  const [helper, setHelper] = useState<string | undefined>(
+    'Upload document (max 5MB).'
+  );
+
+  return (
+    <div className="flex flex-col gap-2">
+      <UploaderMedia
+        multiple
+        label="Upload File"
+        helperText={helper}
+        // Example: restrict to images only
+        accept="image/*"
+        onChange={(e) => {
+          const files = e.target.files;
+          if (!files || files.length === 0) {
+            setHelper('No file selected.');
+            return;
+          }
+
+          if (files.length === 1) {
+            setHelper(`1 file selected: ${files[0].name}`);
+          } else {
+            setHelper(`${files.length} files selected.`);
+          }
+        }}
+      />
+    </div>
+  );
+}
+
+export default MediaUploaderExample;
+```
+
+---
+
+## Usage Guidelines
+
+### Recommended
+
+- Use **Uploader Media** when:
+  - You need a compact, square tile for uploading avatars, thumbnails, or
+    other media/document assets.
+  - You want a visually distinct “upload tile” that can coexist with other tiles.
+
+- Use the `label` prop to clearly describe the expected file type (e.g.
+  `"Upload photo"` or `"Upload document"`).
+- Use `helperText` to communicate:
+  - allowed file types (`"JPG or PNG only"`),
+  - size limits (`"Max 5MB"`),
+  - or count limits (`"Up to 5 files"`).
+
+- Use `error` and `helperText` together to show validation messages
+  after a failed upload attempt.
+
+### Avoid
+
+- Avoid using this tile for long form-only layouts when a standard **Uploader**
+  (full-width) is more appropriate.
+- Don’t rely solely on color to indicate errors; pair `error` with clear text.
+- Avoid extremely long labels; keep the label short and descriptive, since the
+  tile is relatively small.
+
+---
+
+## Accessibility
+
+The Uploader Media component follows accessibility best practices:
+
+- It uses a semantic `<input type="file" />`, ensuring native support for screen readers.
+- The input is wrapped by a `<label>` so the entire tile is a clickable target.
+- File selection is announced by assistive technologies as a regular file input.
+- Focus behavior is inherited from the native input; make sure global focus styles
+  remain visible.
+
+Guidelines:
+
+- Provide a clear, descriptive `label` so screen readers can identify the purpose
+  of the uploader (e.g. `"Upload profile picture"`).
+- Use `helperText` to describe file constraints (size, type, count).
+- If you rely on `error`, also provide meaningful error messages in `helperText`,
+  not just a red border.
+- Use the `accept` attribute to restrict file types where appropriate
+  (e.g. `accept="image/*"` for profile pictures).
+
+---
+
+## Responsive Behavior
+
+Uploader Media has a fixed tile size (`97px × 80px`) so that it can align cleanly
+in grids or lists. On smaller screens:
+
+- Place tiles in flexible grids that wrap to the next line.
+- Keep enough spacing around tiles to avoid accidental taps.
+- Use concise labels and helper text so they do not overflow surrounding layouts.

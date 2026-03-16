@@ -1,0 +1,178 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as SimpleStepperStories from './index.stories';
+
+<Meta of={SimpleStepperStories} />
+
+# Simple Stepper
+
+A compact, segmented progress indicator for short, linear flows.  
+Each step can display:
+
+- an optional **left icon** (emoji, SVG, custom component),
+- an optional **prefix** (e.g. `+1`, `Step 1`),
+- a **label** (main step title).
+
+The progress bar below is divided into equal segments based on the number of steps, and filled up to the current active step.
+
+---
+
+## Playground
+
+<Canvas of={SimpleStepperStories.Interactive} />
+
+<Controls of={SimpleStepperStories.Interactive} />
+
+You can directly experiment with props such as:
+
+- `steps` - array of step objects (`prefix`, `label`, `leftIcon`).
+- `activeIndex` - index of the current active step (0-based).
+- `size` - visual density (`"sm"` \| `"md"`).
+- `activeColorClass` - Tailwind class(es) for the active segments.
+
+---
+
+## Variants
+
+### Default
+
+The default stepper with basic labels and prefixes.
+
+<Canvas of={SimpleStepperStories.Default} />
+
+---
+
+### With Left Icons
+
+Use the `leftIcon` field on each step to inject custom visuals.
+
+<Canvas of={SimpleStepperStories.WithIcons} />
+
+> `leftIcon` accepts any React node - emoji, SVG icons, or custom components.
+
+---
+
+## Interactive Demo
+
+The stepper is controlled via the `activeIndex` prop, so it works well with “Next / Back / Reset” patterns.
+
+<Canvas of={SimpleStepperStories.Interactive} />
+
+```tsx
+export const Interactive: StoryFn<typeof SimpleStepper> = (args) => {
+  const steps: SimpleStepItem[] = [
+    { label: 'User Info', leftIcon: '👤', prefix: '+1' },
+    { label: 'Preferences', leftIcon: '⚙️', prefix: '+1' },
+    { label: 'Confirm', leftIcon: '👍', prefix: '+1' },
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(args.activeIndex ?? 0);
+  const currentStep = steps[activeIndex];
+
+  const handleNext = () => {
+    const nextIndex = Math.min(activeIndex + 1, steps.length - 1);
+
+    action('Next clicked')({
+      index: nextIndex,
+      step: steps[nextIndex],
+      previous: { index: activeIndex, step: currentStep },
+    });
+
+    setActiveIndex(nextIndex);
+  };
+
+  const handleReset = () => {
+    action('Reset clicked')({ index: 0, step: steps[0] });
+    setActiveIndex(0);
+  };
+
+  return (
+    <div className="flex flex-col gap-4 max-w-md p-4 border border-dashed border-slate-200 rounded-lg">
+      <SimpleStepper {...args} steps={steps} activeIndex={activeIndex} />
+
+      <div className="flex gap-3 mt-2">
+        <Button
+          onClick={handleNext}
+          disabled={activeIndex === steps.length - 1}
+          shape="pill"
+        >
+          Next
+        </Button>
+        <Button onClick={handleReset} variant="tertiary" shape="pill">
+          Reset
+        </Button>
+      </div>
+    </div>
+  );
+};
+```
+
+In this example:
+
+- `activeIndex` is managed with `useState`.
+- `currentStep` is derived from `steps[activeIndex]`.
+- `Next` updates `activeIndex` (capped at the last step).
+- `Reset` sets `activeIndex` back to `0`.
+
+> The stepper itself is presentational only — the “current step” logic lives in the parent.
+
+---
+
+## Props
+
+<ArgTypes of={SimpleStepperStories} />
+
+Key props:
+
+- `steps: SimpleStepItem[]`
+  Each item supports:
+  - `label: string` - required main text.
+  - `prefix?: string` - small text before the label (e.g. `+1`, `Step 2`).
+  - `leftIcon?: ReactNode` - optional icon or visual.
+- `activeIndex: number`
+  Index of the current step (single source of truth).
+  Use `steps[activeIndex]` in the parent to access the current step data.
+- `size?: "sm" | "md"`
+  Controls text sizing, gap, and bar height.
+- `activeColorClass?: string`
+  Tailwind class(es) applied to active segments (default is a gradient).
+- `className?: string`
+  Extends the root container with custom classes.
+- Plus all standard `HTMLAttributes<HTMLDivElement>`.
+
+---
+
+## Usage guidelines
+
+- **Flow length**
+  - Ideal for short flows (3-5 steps).
+  - For long or complex flows, consider a full Stepper with labels per step instead of just bars.
+
+- **Labels & prefixes**
+  - Keep `label` concise and action-oriented (e.g. “Shipping Details”, “Review Order”).
+  - Use `prefix` for secondary context: “Step 1”, “+1”, “01”, etc.
+  - Avoid repeating the same information in both prefix and label.
+
+- **Icons**
+  - Use `leftIcon` to reinforce meaning: cart, payment, confirmation, profile, etc.
+  - Emojis work well for quick prototyping; swap to product/system icons for production.
+
+- **Active index & progress**
+  - Ensure `activeIndex` always reflects the current wizard state.
+  - You can choose whether segments represent:
+    - **Completed + current** steps (current pattern: `index <= activeIndex` is active), or
+    - Only **completed** steps (by adjusting logic in the implementation if needed).
+  - Derive business logic (validation, analytics, button labels) from `steps[activeIndex]`, not from the stepper component itself.
+
+- **Styling**
+  - Use `activeColorClass` to align with brand gradients or solid colors.
+  - Keep inactive segments sufficiently muted (`bg-neutral-500` by default) for clear contrast.
+
+- **Responsiveness**
+  - The component is full-width (`w-full`) and stretches segments evenly.
+  - Works well in headers of forms, sidebars, or within cards.
