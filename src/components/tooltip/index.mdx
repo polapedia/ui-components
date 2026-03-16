@@ -4,9 +4,9 @@ import {
   Controls,
   Canvas,
   ArgTypes,
-} from "@storybook/addon-docs/blocks";
+} from '@storybook/addon-docs/blocks';
 
-import * as TooltipStories from "./index.stories";
+import * as TooltipStories from './index.stories';
 
 <Meta of={TooltipStories} />
 
@@ -114,8 +114,8 @@ When `multiline` is enabled, the component also applies:
 ### Basic Usage
 
 ```tsx
-import Tooltip from "@/components/tooltip";
-import Button from "@/components/button";
+import Tooltip from '@/components/tooltip';
+import Button from '@/components/button';
 
 export default function Example() {
   return (
@@ -131,8 +131,8 @@ export default function Example() {
 ### Multiline Tooltip
 
 ```tsx
-import Tooltip from "@/components/tooltip";
-import Button from "@/components/button";
+import Tooltip from '@/components/tooltip';
+import Button from '@/components/button';
 
 export default function Example() {
   return (
@@ -155,9 +155,9 @@ export default function Example() {
 Use a controlled state when tooltip visibility needs to be managed externally.
 
 ```tsx
-import { useState } from "react";
-import Tooltip from "@/components/tooltip";
-import Button from "@/components/button";
+import { useState } from 'react';
+import Tooltip from '@/components/tooltip';
+import Button from '@/components/button';
 
 export default function Example() {
   const [open, setOpen] = useState(false);

@@ -1,8 +1,8 @@
-import React, { useEffect, useId, useMemo, useState } from "react";
-import Button from "../button";
-import CheckmarkIcon from "../icons/CheckmarkIcon";
+import React, { useEffect, useId, useMemo, useState } from 'react';
+import Button from '../button';
+import CheckmarkIcon from '../icons/CheckmarkIcon';
 
-type ModalSize = "sm" | "md" | "lg";
+type ModalSize = 'sm' | 'md' | 'lg';
 
 type Props = {
   open: boolean;
@@ -28,7 +28,7 @@ type Props = {
   closeOnBackdrop?: boolean;
 };
 
-function XIcon(props: React.ComponentProps<"svg">) {
+function XIcon(props: React.ComponentProps<'svg'>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
@@ -44,15 +44,15 @@ function XIcon(props: React.ComponentProps<"svg">) {
 export default function Modal({
   open,
   onOpenChange,
-  size = "md",
+  size = 'md',
   title,
   description,
   label,
-  checkboxLabel = "Checkbox label",
+  checkboxLabel = 'Checkbox label',
   checked,
   onCheckedChange,
-  cancelText = "Cancel",
-  confirmText = "Confirm",
+  cancelText = 'Cancel',
+  confirmText = 'Confirm',
   onCancel,
   onConfirm,
   closeOnBackdrop = true,
@@ -77,38 +77,38 @@ export default function Modal({
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onOpenChange(false);
+      if (e.key === 'Escape') onOpenChange(false);
     };
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [open, onOpenChange]);
 
   const sizeClasses = useMemo(() => {
     const container: Record<ModalSize, string> = {
-      sm: "max-w-[280px] p-[24px] tab:max-w-[360px] desktop:max-w-[360px]",
-      md: "max-w-[320px] p-[24px] tab:max-w-[500px] desktop:max-w-[500px]",
-      lg: "max-w-[360px] p-[24px] tab:max-w-[720px] desktop:max-w-[720px]",
+      sm: 'max-w-[280px] p-[24px] tab:max-w-[360px] desktop:max-w-[360px]',
+      md: 'max-w-[320px] p-[24px] tab:max-w-[500px] desktop:max-w-[500px]',
+      lg: 'max-w-[360px] p-[24px] tab:max-w-[720px] desktop:max-w-[720px]',
     };
 
     // Title typography
     const titleCls: Record<ModalSize, string> = {
-      sm: "text-[16px] font-semibold text-black",
-      md: "text-[18px] font-semibold text-black",
-      lg: "text-[18px] font-semibold text-black",
+      sm: 'text-[16px] font-semibold text-black',
+      md: 'text-[18px] font-semibold text-black',
+      lg: 'text-[18px] font-semibold text-black',
     };
 
     const descCls: Record<ModalSize, string> = {
-      sm: "text-[14px] font-normal text-black",
-      md: "text-[16px] font-normal text-black",
-      lg: "text-[16px] font-normal text-black",
+      sm: 'text-[14px] font-normal text-black',
+      md: 'text-[16px] font-normal text-black',
+      lg: 'text-[16px] font-normal text-black',
     };
 
     const labelCls: Record<ModalSize, string> = {
-      sm: "mt-[8px] mb-[16px] text-[14px] font-normal text-black",
-      md: "mt-[8px] mb-[24px] text-[16px] font-normal text-black",
-      lg: "mt-[8px] mb-[24px] text-[16px] font-normal text-black",
+      sm: 'mt-[8px] mb-[16px] text-[14px] font-normal text-black',
+      md: 'mt-[8px] mb-[24px] text-[16px] font-normal text-black',
+      lg: 'mt-[8px] mb-[24px] text-[16px] font-normal text-black',
     };
 
     const containerClass = container[size] ?? container.md;
@@ -150,11 +150,11 @@ export default function Modal({
         aria-labelledby={titleId}
         aria-describedby={description ? descId : undefined}
         className={[
-          "relative w-full",
-          "bg-white rounded-xl shadow-lg",
-          "mx-4",
+          'relative w-full',
+          'bg-white rounded-xl shadow-lg',
+          'mx-4',
           sizeClasses.container,
-        ].join(" ")}
+        ].join(' ')}
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
@@ -228,7 +228,7 @@ export default function Modal({
 
         {/* Footer */}
         <div
-          className={`flex items-center justify-end gap-3 ${!showCheckbox && "mt-6 desktop:mt-8"}`}
+          className={`flex items-center justify-end gap-3 ${!showCheckbox && 'mt-6 desktop:mt-8'}`}
         >
           <Button
             variant="secondary"
