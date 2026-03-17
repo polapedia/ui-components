@@ -41,22 +41,24 @@ function XIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-export default function Modal({
-  open,
-  onOpenChange,
-  size = 'md',
-  title,
-  description,
-  label,
-  checkboxLabel = 'Checkbox label',
-  checked,
-  onCheckedChange,
-  cancelText = 'Cancel',
-  confirmText = 'Confirm',
-  onCancel,
-  onConfirm,
-  closeOnBackdrop = true,
-}: Props) {
+export default function Modal(props: Readonly<Props>) {
+  const {
+    open,
+    onOpenChange,
+    size = 'md',
+    title,
+    description,
+    label,
+    checkboxLabel = 'Checkbox label',
+    checked,
+    onCheckedChange,
+    cancelText = 'Cancel',
+    confirmText = 'Confirm',
+    onCancel,
+    onConfirm,
+    closeOnBackdrop = true,
+  } = props;
+
   const titleId = useId();
   const labelId = useId();
   const descId = useId();
@@ -79,9 +81,9 @@ export default function Modal({
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onOpenChange(false);
     };
-    window.addEventListener('keydown', onKeyDown);
+    globalThis.addEventListener('keydown', onKeyDown);
     return () => {
-      window.removeEventListener('keydown', onKeyDown);
+      globalThis.removeEventListener('keydown', onKeyDown);
     };
   }, [open, onOpenChange]);
 

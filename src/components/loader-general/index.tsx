@@ -13,18 +13,15 @@ const sizeClasses: Record<Size, string> = {
   lg: 'size-10',
 };
 
-export default function LoaderGeneral({
-  size = 'md',
-  className,
-  ...props
-}: LoaderGeneralProps) {
+export default function LoaderGeneral(props: LoaderGeneralProps) {
+  const { size = 'md', className, ...restProps } = props;
   const classes = ['inline-flex items-center gap-3', className || '']
     .filter(Boolean)
     .join(' ');
   const sizeClass = sizeClasses[size] ?? sizeClasses.md;
 
   return (
-    <div className={classes} role="status" aria-live="polite" {...props}>
+    <div className={classes} role="status" aria-live="polite" {...restProps}>
       <LoaderIcon
         className={['animate-spin', sizeClass, 'text-accents-red']
           .filter(Boolean)

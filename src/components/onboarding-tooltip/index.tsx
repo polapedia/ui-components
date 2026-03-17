@@ -46,23 +46,24 @@ function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
 
-export default function OnboardingTooltip({
-  children,
-  title,
-  description,
-  footer,
-  size = 'sm',
-  placement = 'top',
-  overlayClassName = 'bg-black/50',
-  className,
-
-  defaultOpen = false,
-  open,
-  onOpenChange,
-
-  closeOnOverlayClick = true,
-  closeOnEsc = true,
-}: OnboardingTooltipProps) {
+export default function OnboardingTooltip(
+  props: Readonly<OnboardingTooltipProps>
+) {
+  const {
+    children,
+    title,
+    description,
+    footer,
+    size = 'sm',
+    placement = 'top',
+    overlayClassName = 'bg-black/50',
+    className,
+    defaultOpen = false,
+    open,
+    onOpenChange,
+    closeOnOverlayClick = true,
+    closeOnEsc = true,
+  } = props;
   const reactId = useId();
   const tooltipId = useMemo(() => `onboarding-tooltip-${reactId}`, [reactId]);
 
@@ -72,7 +73,7 @@ export default function OnboardingTooltip({
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [actualPlacement, setActualPlacement] = useState<Placement>(placement);
   const isControlled = typeof open === 'boolean';
-  const isOpen = isControlled ? (open as boolean) : uncontrolledOpen;
+  const isOpen = isControlled ? open : uncontrolledOpen;
 
   const [pos, setPos] = useState<{
     top: number;
@@ -96,9 +97,9 @@ export default function OnboardingTooltip({
       if (e.key === 'Escape') setOpen(false);
     };
 
-    window.addEventListener('keydown', onKeyDown);
+    globalThis.addEventListener('keydown', onKeyDown);
     return () => {
-      window.removeEventListener('keydown', onKeyDown);
+      globalThis.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen, closeOnEsc, setOpen]);
 

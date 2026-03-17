@@ -23,15 +23,16 @@ const variantClasses: Record<Variant, string> = {
   success: 'bg-success-background',
 };
 
-export default function Toast({
-  variant = 'default',
-  message,
-  dismissible = false,
-  onClose,
-  rightIcon,
-  className,
-  ...props
-}: ToastProps) {
+export default function Toast(props: ToastProps) {
+  const {
+    variant = 'default',
+    message,
+    dismissible = false,
+    onClose,
+    rightIcon,
+    className,
+    ...restProps
+  } = props;
   const variantClass = variantClasses[variant] ?? variantClasses.default;
   console.log({ variant, rightIcon });
 
@@ -52,7 +53,7 @@ export default function Toast({
   }
 
   return (
-    <div className={classes} {...props}>
+    <div className={classes} {...restProps}>
       <span>{message}</span>
 
       {resolvedRightIcon && (

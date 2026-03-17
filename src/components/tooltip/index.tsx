@@ -38,18 +38,19 @@ function placementClasses(placement: Placement) {
   }
 }
 
-export default function Tooltip({
-  content,
-  children,
-  placement = 'top',
-  defaultOpen = false,
-  open,
-  onOpenChange,
-  className,
-  multiline,
-  maxWidthClassName = 'max-w-[316px]',
-  ...props
-}: TooltipProps) {
+export default function Tooltip(props: TooltipProps) {
+  const {
+    content,
+    children,
+    placement = 'top',
+    defaultOpen = false,
+    open,
+    onOpenChange,
+    className,
+    multiline,
+    maxWidthClassName = 'max-w-[316px]',
+    ...restProps
+  } = props;
   const reactId = useId();
   const tooltipId = useMemo(() => `tooltip-${reactId}`, [reactId]);
 
@@ -84,6 +85,8 @@ export default function Tooltip({
   return (
     <span
       className={wrapperClasses}
+      role="button"
+      tabIndex={0}
       onMouseEnter={() => {
         setOpen(true);
       }}
@@ -96,7 +99,7 @@ export default function Tooltip({
       onBlur={() => {
         setOpen(false);
       }}
-      {...props}
+      {...restProps}
     >
       {/* Trigger */}
       <span aria-describedby={isOpen ? tooltipId : undefined}>{children}</span>

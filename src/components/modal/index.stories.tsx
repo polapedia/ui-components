@@ -25,7 +25,7 @@ const meta: Meta<typeof Modal> = {
     label: 'Label',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    checkboxLabel: 'Checkbox label',
+    checkboxLabel: 'I confirm information and service terms',
     checked: false,
     cancelText: 'Cancel',
     confirmText: 'Confirm',
@@ -102,7 +102,7 @@ export const Default: Story = {
   },
 };
 
-export const WithCheckbox: StoryFn<typeof Modal> = (args) => {
+const ModalStory: StoryFn<typeof Modal> = (args) => {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState<boolean>(!!args.checked);
 
@@ -126,6 +126,7 @@ export const WithCheckbox: StoryFn<typeof Modal> = (args) => {
       >
         Open Modal
       </Button>
+
       <Modal
         {...args}
         open={open}
@@ -136,45 +137,14 @@ export const WithCheckbox: StoryFn<typeof Modal> = (args) => {
     </div>
   );
 };
+
+export const WithCheckbox = ModalStory;
 WithCheckbox.args = {
   checkboxLabel: 'Accept Terms',
   open: false,
 };
 
-export const WithoutCheckbox: StoryFn<typeof Modal> = (args) => {
-  const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState<boolean>(!!args.checked);
-
-  function handleOpenChange(v: boolean) {
-    setOpen(v);
-    action('onOpenChange')(v);
-  }
-
-  function handleCheckedChange(v: boolean) {
-    setChecked(v);
-    action('onCheckedChange')(v);
-  }
-
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <Button
-        onClick={() => {
-          setOpen(true);
-          action('trigger.open')('open');
-        }}
-      >
-        Open Modal
-      </Button>
-      <Modal
-        {...args}
-        open={open}
-        checked={checked}
-        onOpenChange={handleOpenChange}
-        onCheckedChange={handleCheckedChange}
-      />
-    </div>
-  );
-};
+export const WithoutCheckbox = ModalStory;
 WithoutCheckbox.args = {
   checkboxLabel: '',
 };
