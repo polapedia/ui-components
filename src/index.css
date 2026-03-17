@@ -95,6 +95,9 @@
   --color-error-dark-active: #73191b;
   --color-error-darker: #591415;
 
+  --color-loader-base: #e5e7eb;
+  --color-loader-highlight: #f3f4f6;
+
   --breakpoint-phone: 440px;
   --breakpoint-tab: 744px;
   --breakpoint-desktop: 1024px;

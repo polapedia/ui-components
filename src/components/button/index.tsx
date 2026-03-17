@@ -109,6 +109,7 @@ export default function Button(props: Readonly<ButtonProps>) {
     leftIcon,
     rightIcon,
     disabled,
+    ...restProps
   } = props;
   const isDisabled = disabled || isLoading;
   const isIconOnly = size.startsWith('icon-') || shape === 'circle';
@@ -130,7 +131,12 @@ export default function Button(props: Readonly<ButtonProps>) {
   const spinnerSizeClass = getSpinnerSize(size);
 
   return (
-    <button type="button" disabled={isDisabled} className={classes} {...props}>
+    <button
+      type="button"
+      disabled={isDisabled}
+      className={classes}
+      {...restProps}
+    >
       {isLoading && (
         <SpinnerIcon
           className={['animate-spin', spinnerSizeClass, spinnerColorClass]

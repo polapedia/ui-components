@@ -244,7 +244,6 @@ ui-components/
 │   │
 │   ├── hooks/                  # Custom React hooks
 │   │
-│   ├── App.css
 │   ├── App.tsx                 # Root React component
 │   ├── index.css               # Global styles
 │   └── main.tsx                # Application entry point

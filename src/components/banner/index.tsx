@@ -27,13 +27,20 @@ const iconBackgroundClasses: Record<Variant, string> = {
 };
 
 export default function Banner(props: Readonly<BannerProps>) {
-  const { variant = 'info', className, title, description, leftIcon } = props;
+  const {
+    variant = 'info',
+    className,
+    title,
+    description,
+    leftIcon,
+    ...restProps
+  } = props;
   const classes = [baseClasses, variantClasses[variant], className || '']
     .filter(Boolean)
     .join(' ');
 
   return (
-    <div className={classes} {...props}>
+    <div className={classes} {...restProps}>
       {leftIcon && (
         <div
           className={[

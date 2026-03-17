@@ -57,6 +57,7 @@ export default function ButtonDropdown(props: Readonly<ButtonDropdownProps>) {
     disabled = false,
     children,
     className,
+    ...restProps
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,7 +90,7 @@ export default function ButtonDropdown(props: Readonly<ButtonDropdownProps>) {
     <div
       ref={containerRef}
       className={`${containerBase} ${className || ''}`}
-      {...props}
+      {...restProps}
     >
       {/* Button Trigger */}
       <button

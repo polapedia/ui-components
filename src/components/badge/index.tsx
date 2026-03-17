@@ -52,6 +52,7 @@ export default function Badge(props: Readonly<BadgeProps>) {
     children,
     leftIcon,
     rightIcon,
+    ...restProps
   } = props;
   const isDot = size === 'dot';
 
@@ -65,7 +66,7 @@ export default function Badge(props: Readonly<BadgeProps>) {
     .join(' ');
 
   return (
-    <div className={classes} {...props}>
+    <div className={classes} {...restProps}>
       {isDot ? (
         leftIcon && <span className="inline-flex">{leftIcon}</span>
       ) : (
