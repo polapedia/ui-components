@@ -1,5 +1,5 @@
-import '@/app/globals.css';
-import type { Preview } from '@storybook/nextjs-vite';
+import '@/index.css';
+import type { Preview } from '@storybook/react-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import theme from './theme';
 
