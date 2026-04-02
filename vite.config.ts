@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => {
             },
           },
         },
-        cssFileName: 'style',
+        cssFileName: 'ui-components',
         sourcemap: true,
         emptyOutDir: true,
       },
