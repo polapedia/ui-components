@@ -38,7 +38,7 @@
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
     "test": "vitest run",
-    "prepublishOnly": "npm run build:lib"
+    "pre_publish_only": "npm run build:lib"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
