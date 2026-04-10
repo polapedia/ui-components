@@ -16,9 +16,15 @@ Storybook provides a dedicated environment where developers and designers can vi
   - [⚙️ System Requirements](#️-system-requirements)
   - [💡 Getting Started](#-getting-started)
     - [1️⃣ Clone Repository](#1️⃣-clone-repository)
-    - [2️⃣ Install Dependencies](#2️⃣-install-dependencies)
-    - [3️⃣ Run Storybook](#3️⃣-run-storybook)
-    - [4️⃣ Build Storybook Static](#4️⃣-build-storybook-static)
+    - [2️⃣ Configure .npmrc & Authentication](#2️⃣-configure-npmrc--authentication)
+    - [3️⃣ Install Dependencies](#3️⃣-install-dependencies)
+    - [4️⃣ Run Storybook](#4️⃣-run-storybook)
+    - [5️⃣ Build Storybook Static](#5️⃣-build-storybook-static)
+  - [📦 Using the Package](#-using-the-package)
+    - [Installation](#installation)
+    - [Importing Components](#importing-components)
+    - [Importing Styles](#importing-styles)
+    - [Available Components](#available-components)
   - [🤖 Automated Linting (CI)](#-automated-linting-ci)
     - [🔍 How It Works](#-how-it-works)
     - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
@@ -102,7 +108,46 @@ cd ui-components
 
 ---
 
-### 2️⃣ Install Dependencies
+### 2️⃣ Configure .npmrc & Authentication
+
+The `@polapedia/ui-components` package is distributed via **GitHub Package Registry (GPR)**.
+The `.npmrc` file already included in this repository automatically routes all `@polapedia`-scoped packages to that registry.
+
+```
+# .npmrc
+@polapedia:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+> ⚠️ GitHub Package Registry **requires authentication** even for public packages.
+
+#### Steps:
+
+**1. Create a Personal Access Token (PAT)**
+
+Sign in to your GitHub account (organization member), then generate a token with the following scope:
+
+- Go to **Settings → Developer settings → Personal access tokens → Tokens (classic)**
+- Click **Generate new token (classic)**
+- Give it a descriptive name (e.g. `polapedia-packages`)
+- Check the scope: **`read:packages`**
+- Click **Generate token**, then copy the value
+
+> 💡 For team members who only need to install packages, the `read:packages` scope is sufficient.
+
+**2. Set the `GITHUB_TOKEN` environment variable**
+
+Export the token as an environment variable in your terminal:
+
+```bash
+export GITHUB_TOKEN=your_personal_access_token_here
+```
+
+> 🔒 **Never store or commit the token directly inside `.npmrc`.** The `.npmrc` in this repository uses the `${GITHUB_TOKEN}` variable to keep credentials secure.
+
+---
+
+### 3️⃣ Install Dependencies
 
 ```bash
 npm install
@@ -110,7 +155,7 @@ npm install
 
 ---
 
-### 3️⃣ Run Storybook
+### 4️⃣ Run Storybook
 
 Storybook runs on port **6006**:
 
@@ -126,7 +171,7 @@ http://localhost:6006
 
 ---
 
-### 4️⃣ Build Storybook Static
+### 5️⃣ Build Storybook Static
 
 Generates a production-ready static Storybook build:
 
@@ -139,6 +184,109 @@ Output:
 ```
 storybook-static/
 ```
+
+<p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
+
+---
+
+## 📦 Using the Package
+
+This section covers how to consume `@polapedia/ui-components` as a dependency in another Polapedia project.
+
+### Installation
+
+Ensure your `.npmrc` is configured and `GITHUB_TOKEN` is set (see [2️⃣ Configure .npmrc & Authentication](#2️⃣-configure-npmrc--authentication)), then install the package:
+
+```bash
+npm install @polapedia/ui-components
+```
+
+---
+
+### Importing Components
+
+All components are available as named exports from the package:
+
+```tsx
+import { Button, Badge, Input } from '@polapedia/ui-components';
+
+export default function MyPage() {
+  return (
+    <div>
+      <Button variant="primary" size="md">
+        Click Me
+      </Button>
+
+      <Badge variant="primary" size="lg">
+        New
+      </Badge>
+
+      <Input placeholder="Enter text..." />
+    </div>
+  );
+}
+```
+
+---
+
+### Importing Styles
+
+The package ships with a CSS file that must be imported **once** at the entry point of your application (e.g. `main.tsx` or `_app.tsx`):
+
+```tsx
+import '@polapedia/ui-components/style.css';
+```
+
+> ⚠️ Omitting this import will result in components rendering without their intended styles.
+
+---
+
+### Available Components
+
+The following components are exported from `@polapedia/ui-components`:
+
+| Component              | Import Name            |
+| ---------------------- | ---------------------- |
+| Accordion              | `Accordion`            |
+| Badge                  | `Badge`                |
+| Banner                 | `Banner`               |
+| Button                 | `Button`               |
+| Button Dropdown        | `ButtonDropdown`       |
+| Card                   | `Card`                 |
+| Carousel Banner        | `CarouselBanner`       |
+| Carousel Indicator     | `CarouselIndicator`    |
+| Checkbox               | `Checkbox`             |
+| Chip                   | `Chip`                 |
+| Date Picker            | `DatePicker`           |
+| Empty State            | `EmptyState`           |
+| Floating Action Button | `FloatingActionButton` |
+| Input Number           | `InputNumber`          |
+| Input Text             | `Input`                |
+| Link                   | `TextLink`             |
+| Loader Custom          | `LoaderCustom`         |
+| Loader General         | `LoaderGeneral`        |
+| Loader Skeleton        | `Skeleton`             |
+| Modal                  | `Modal`                |
+| Navigation             | `Navigation`           |
+| Onboarding Tooltip     | `OnboardingTooltip`    |
+| Pagination             | `Pagination`           |
+| Radio                  | `Radio`                |
+| Star Rating            | `StarRating`           |
+| Search Bar             | `SearchBar`            |
+| Stepper                | `Stepper`              |
+| Simple Stepper         | `SimpleStepper`        |
+| Sticky Button          | `StickyButton`         |
+| Switch                 | `Switch`               |
+| Tabs                   | `Tabs`                 |
+| Text Area              | `TextArea`             |
+| Time Picker            | `TimePicker`           |
+| Toast                  | `Toast`                |
+| Tooltip                | `Tooltip`              |
+| Uploader               | `Uploader`             |
+| Uploader Media         | `UploaderMedia`        |
+| Verification Field     | `VerificationField`    |
+
+> 💡 For the full list of available props for each component, refer to the [Storybook documentation](https://polapedia.web.id/).
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
