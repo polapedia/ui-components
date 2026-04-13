@@ -112,7 +112,7 @@ cd ui-components
 
 The `@polapedia/ui-components` package is distributed via **GitHub Package Registry (GPR)**.
 CI configures registry access automatically via GitHub Actions.
-For local installation of the published package, add the GPR settings to your user-level `~/.npmrc` or create a temporary local `.npmrc` that is not committed.
+For local installation of the published package, add the GPR settings to your user-level `~/.npmrc` or create a local `.npmrc`.
 
 ```
 # ~/.npmrc
@@ -144,7 +144,7 @@ Export the token as an environment variable in your terminal:
 export GITHUB_TOKEN=your_personal_access_token_here
 ```
 
-> 🔒 **Never commit tokens or local-only `.npmrc` files.** GPR authentication for this repository is now handled in CI.
+> 🔒 **Never commit tokens.** The `.npmrc` file is ignored by Git in this repository to prevent accidental token exposure. GPR authentication for CI is handled automatically.
 
 ---
 
