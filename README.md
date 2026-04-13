@@ -111,10 +111,11 @@ cd ui-components
 ### 2️⃣ Configure .npmrc & Authentication
 
 The `@polapedia/ui-components` package is distributed via **GitHub Package Registry (GPR)**.
-The `.npmrc` file already included in this repository automatically routes all `@polapedia`-scoped packages to that registry.
+CI configures registry access automatically via GitHub Actions.
+For local installation of the published package, add the GPR settings to your user-level `~/.npmrc` or create a temporary local `.npmrc` that is not committed.
 
 ```
-# .npmrc
+# ~/.npmrc
 @polapedia:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
@@ -143,7 +144,7 @@ Export the token as an environment variable in your terminal:
 export GITHUB_TOKEN=your_personal_access_token_here
 ```
 
-> 🔒 **Never store or commit the token directly inside `.npmrc`.** The `.npmrc` in this repository uses the `${GITHUB_TOKEN}` variable to keep credentials secure.
+> 🔒 **Never commit tokens or local-only `.npmrc` files.** GPR authentication for this repository is now handled in CI.
 
 ---
 
@@ -195,7 +196,7 @@ This section covers how to consume `@polapedia/ui-components` as a dependency in
 
 ### Installation
 
-Ensure your `.npmrc` is configured and `GITHUB_TOKEN` is set (see [2️⃣ Configure .npmrc & Authentication](#2️⃣-configure-npmrc--authentication)), then install the package:
+Ensure your local `~/.npmrc` is configured and `GITHUB_TOKEN` is set (see [2️⃣ Configure .npmrc & Authentication](#2️⃣-configure-npmrc--authentication)), then install the package:
 
 ```bash
 npm install @polapedia/ui-components

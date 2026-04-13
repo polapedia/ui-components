@@ -17,10 +17,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@polapedia'
+
+      - name: Configure npm for GPR
+        run: |
+          printf '%s\n' \
+            '@polapedia:registry=https://npm.pkg.github.com' \
+            '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > ~/.npmrc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: npm ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build:lib
 
       - run: npm publish
