@@ -93,7 +93,7 @@ export default function ProductCard(props: ProductCardProps) {
           )}
         </div>
 
-        <div className="px-1">
+        <div className="px-1 flex flex-col flex-1">
           {/* Title + Wishlist */}
           <div className="flex items-center justify-between">
             <h3
@@ -136,38 +136,39 @@ export default function ProductCard(props: ProductCardProps) {
             )}
           </div>
 
-          {/* Subtitle / Footer Card */}
-          {subtitle && (
-            <div className="mt-4 flex items-end justify-between">
-              <p className="text-sm text-content-secondary leading-relaxed ">
-                {subtitle}
-              </p>
-              {!locationName && isVerified && (
-                <div className="shrink-0 ml-2">
-                  <VerifiedIcon className="w-5.5 h-5.5" />
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Location Detail */}
-          {locationName && (
-            <div className="flex mt-4 items-center justify-between">
-              <div className="flex items-center">
-                <LocationOutlineIcon className="w-6 h-6" />
-                <div>
-                  <p className="text-sm text-content-secondary">
-                    {locationName}
-                  </p>
-                </div>
+          <div className="mt-auto">
+            {/* Subtitle / Footer Card */}
+            {subtitle && (
+              <div className="mt-4 flex items-end justify-between">
+                <p className="text-sm text-content-secondary leading-relaxed ">
+                  {subtitle}
+                </p>
+                {!locationName && isVerified && (
+                  <div className="shrink-0 ml-2">
+                    <VerifiedIcon className="w-5.5 h-5.5" />
+                  </div>
+                )}
               </div>
-              {isVerified && (
-                <div className="shrink-0 ml-2">
-                  <VerifiedIcon className="w-5.5 h-5.5" />
+            )}
+            {/* Location Detail */}
+            {locationName && (
+              <div className="flex mt-4 items-center justify-between">
+                <div className="flex items-center">
+                  <LocationOutlineIcon className="w-6 h-6" />
+                  <div>
+                    <p className="text-sm text-content-secondary">
+                      {locationName}
+                    </p>
+                  </div>
                 </div>
-              )}
-            </div>
-          )}
+                {isVerified && (
+                  <div className="shrink-0 ml-2">
+                    <VerifiedIcon className="w-5.5 h-5.5" />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );

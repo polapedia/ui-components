@@ -83,6 +83,7 @@ export { default as CartIcon } from './components/icons/CartIcon';
 export { default as HeartIcon } from './components/icons/HeartIcon';
 export { default as LocationOutlineIcon } from './components/icons/LocationOutlineIcon';
 export { default as VerifiedBadgeIcon } from './components/icons/VerifiedBadgeIcon';
+export { default as StoreVerifiedIcon } from './components/icons/StoreVerifiedIcon';
 
 // Hooks
 export { usePathname } from './hooks/usePathname';

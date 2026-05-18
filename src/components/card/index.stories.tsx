@@ -41,7 +41,7 @@ const meta: Meta<typeof Card> = {
     onButtonClick: { action: 'clicked' },
   },
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
 };
 
@@ -60,7 +60,34 @@ export const ProductDefault: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full">
+      <div className="w-1/2">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const ProductMarketplace: Story = {
+  args: {
+    className: 'w-full transition-all duration-300',
+    variant: 'product',
+    layout: 'marketplace',
+    title: 'Product Title',
+    titleClassName: 'md:font-exo2',
+    price: '100000',
+    rating: 5,
+    metaText: '100 Download',
+    subtitle: 'Ready files CAD, RAB, BOQ, BOM ',
+    imagesrc: '/images/house.jpeg',
+    locationName: 'Jakarta Selatan',
+    imageHeight: 'h-[158px]',
+    topBadge: 'Desain',
+    isVerified: true,
+    isWishlisted: false,
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-1/2">
         <Story />
       </div>
     ),
@@ -76,7 +103,7 @@ export const SimpleDefault: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="h-full">
+      <div className="h-full w-1/2">
         <Story />
       </div>
     ),
