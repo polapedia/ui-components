@@ -4,22 +4,28 @@ export default function VerifiedIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="22"
+      height="21"
+      viewBox="0 0 22 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_893_1097)">
-        <path
-          d="M23 12L20.56 9.21L20.9 5.52L17.29 4.7L15.4 1.5L12 2.96L8.6 1.5L6.71 4.69L3.1 5.5L3.44 9.2L1 12L3.44 14.79L3.1 18.49L6.71 19.31L8.6 22.5L12 21.03L15.4 22.49L17.29 19.3L20.9 18.48L20.56 14.79L23 12ZM10.09 16.72L6.29 12.91L7.77 11.43L10.09 13.76L15.94 7.89L17.42 9.37L10.09 16.72Z"
-          fill="currentColor"
-        />
-      </g>
+      <path
+        d="M22 10.5L19.56 7.71L19.9 4.02L16.29 3.2L14.4 0L11 1.46L7.6 0L5.71 3.19L2.1 4L2.44 7.7L0 10.5L2.44 13.29L2.1 16.99L5.71 17.81L7.6 21L11 19.53L14.4 20.99L16.29 17.8L19.9 16.98L19.56 13.29L22 10.5ZM9.09 15.22L5.29 11.41L6.77 9.93L9.09 12.26L14.94 6.39L16.42 7.87L9.09 15.22Z"
+        fill="url(#paint0_linear_749_19)"
+      />
       <defs>
-        <clipPath id="clip0_893_1097">
-          <rect width="24" height="24" fill="white" />
-        </clipPath>
+        <linearGradient
+          id="paint0_linear_749_19"
+          x1="11"
+          y1="0"
+          x2="11"
+          y2="21"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#DF4141" />
+          <stop offset="1" stopColor="#912A2A" />
+        </linearGradient>
       </defs>
     </svg>
   );

@@ -78,6 +78,12 @@ export { default as UploadMediaIcon } from './components/icons/UploadMediaIcon';
 export { default as VerifiedIcon } from './components/icons/VerifiedIcon';
 export { default as WarningCustomIcon } from './components/icons/WarningCustomIcon';
 export { default as WarningIcon } from './components/icons/WarningIcon';
+export { default as ThumbUpOffIcon } from './components/icons/ThumbUpOffIcon';
+export { default as CartIcon } from './components/icons/CartIcon';
+export { default as HeartIcon } from './components/icons/HeartIcon';
+export { default as LocationOutlineIcon } from './components/icons/LocationOutlineIcon';
+export { default as VerifiedBadgeIcon } from './components/icons/VerifiedBadgeIcon';
+export { default as StoreVerifiedIcon } from './components/icons/StoreVerifiedIcon';
 
 // Hooks
 export { usePathname } from './hooks/usePathname';
