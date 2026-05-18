@@ -76,12 +76,12 @@ export default function MarketplaceReviewCard(
 
       {/* Stars */}
       <div className={cn('flex items-center', s.starsGap)}>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {[1, 2, 3, 4, 5].map((starId) => (
           <StarIcon
-            key={index}
+            key={starId}
             className={cn(
               s.star,
-              index < starsCount ? 'text-yellow-400' : 'text-neutral-200'
+              starId <= starsCount ? 'text-yellow-400' : 'text-neutral-200'
             )}
           />
         ))}
@@ -93,9 +93,9 @@ export default function MarketplaceReviewCard(
       {/* Review images */}
       {reviewImages.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {reviewImages.map((image, index) => (
+          {reviewImages.map((image) => (
             <div
-              key={index}
+              key={image.src}
               className={cn(
                 'shrink-0 overflow-hidden bg-neutral-100',
                 s.reviewImageBox
@@ -103,7 +103,7 @@ export default function MarketplaceReviewCard(
             >
               <img
                 src={image.src}
-                alt={image.alt || `Review image ${index + 1}`}
+                alt={image.alt || 'Review image'}
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
@@ -197,7 +197,9 @@ export default function MarketplaceReviewCard(
 
       {(helpfulCount !== undefined || onReport) && (
         <div className="flex items-center justify-between border-t border-neutral-100 pt-1">
-          {helpfulCount !== undefined ? (
+          {helpfulCount === undefined ? (
+            <div />
+          ) : (
             <button
               type="button"
               onClick={onHelpfulClick}
@@ -209,8 +211,6 @@ export default function MarketplaceReviewCard(
               {helpfulIcon || <ThumbUpOffIcon />}
               <span>{helpfulCount} orang terbantu</span>
             </button>
-          ) : (
-            <div />
           )}
 
           {onReport && (

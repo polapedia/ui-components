@@ -24,10 +24,10 @@ export default function ReviewCard(props: ReviewCardProps) {
   return (
     <div className={cn(style.container, className)} {...rest}>
       <div className={`flex ${style.starsGap}`}>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {[1, 2, 3, 4, 5].map((starId) => (
           <StarIcon
-            key={index}
-            className={`${style.star} ${index < starsCount ? '' : 'opacity-30'}`}
+            key={starId}
+            className={`${style.star} ${starId <= starsCount ? '' : 'opacity-30'}`}
           />
         ))}
       </div>

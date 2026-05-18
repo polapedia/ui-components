@@ -96,15 +96,18 @@ export default function ProductCard(props: ProductCardProps) {
         <div className="px-1 flex flex-col flex-1">
           {/* Title + Wishlist */}
           <div className="flex items-center justify-between">
-            <h3
-              className={`text-xl font-bold text-neutral-900 leading-tight cursor-pointer line-clamp-1 ${style.title} ${titleClassName || ''}`}
+            <button
+              type="button"
+              className="text-left cursor-pointer flex-1 overflow-hidden"
               onClick={onProductClick}
-              role="button"
-              tabIndex={0}
               onKeyDown={(e) => e.key === 'Enter' && onProductClick?.()}
             >
-              {title}
-            </h3>
+              <h3
+                className={`font-bold text-neutral-900 leading-tight line-clamp-1 ${style.title} ${titleClassName || ''}`}
+              >
+                {title}
+              </h3>
+            </button>
 
             <button
               type="button"
@@ -124,7 +127,10 @@ export default function ProductCard(props: ProductCardProps) {
           </div>
           {price && (
             <p className="text-sm font-medium text-black mt-1">
-              Rp {new Intl.NumberFormat('id-ID').format(parseInt(price, 10))}
+              Rp{' '}
+              {new Intl.NumberFormat('id-ID').format(
+                Number.parseInt(price, 10)
+              )}
             </p>
           )}
           {/* Rating & Meta */}
