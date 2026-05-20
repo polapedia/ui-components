@@ -19,7 +19,6 @@ const meta: Meta<typeof Breadcrumb> = {
             e.preventDefault();
           }
         }}
-        role="presentation"
       >
         <Story />
       </div>
