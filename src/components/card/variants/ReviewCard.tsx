@@ -2,7 +2,7 @@ import { cn } from '@/utils/cn';
 import UserImage from '@/assets/images/user.webp';
 import { reviewStyles } from '../styles/review';
 import type { ReviewCardProps } from '../types';
-import { StarIcon } from '@/lib';
+import StarIcon from '@/components/icons/StarIcon';
 
 export default function ReviewCard(props: ReviewCardProps) {
   const {
@@ -19,7 +19,7 @@ export default function ReviewCard(props: ReviewCardProps) {
   } = props;
 
   const style = reviewStyles[size];
-  const starsCount = Math.max(0, Math.min(5, Math.round(rating || 5)));
+  const starsCount = Math.max(0, Math.min(5, Math.round(rating)));
 
   return (
     <div className={cn(style.container, className)} {...rest}>

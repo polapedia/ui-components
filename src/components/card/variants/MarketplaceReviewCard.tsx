@@ -1,5 +1,7 @@
 import { cn } from '@/utils/cn';
-import { StarIcon, ThumbUpOffIcon, VerifiedBadgeIcon } from '@/lib';
+import StarIcon from '@/components/icons/StarIcon';
+import ThumbUpOffIcon from '@/components/icons/ThumbUpOffIcon';
+import VerifiedBadgeIcon from '@/components/icons/VerifiedBadgeIcon';
 import Button from '../../button';
 import { marketplaceReviewStyles } from '../styles/marketplace-review';
 import type { MarketplaceReviewCardProps } from '../types';
@@ -8,7 +10,7 @@ export default function MarketplaceReviewCard(
   props: MarketplaceReviewCardProps
 ) {
   const {
-    size = 'md', // default md
+    size = 'md',
     authorName,
     authorImageSrc,
     authorImageAlt = 'Author',
@@ -87,10 +89,8 @@ export default function MarketplaceReviewCard(
         ))}
       </div>
 
-      {/* Review text */}
       {reviewText && <p className={s.reviewText}>{reviewText}</p>}
 
-      {/* Review images */}
       {reviewImages.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {reviewImages.map((image) => (
@@ -112,7 +112,6 @@ export default function MarketplaceReviewCard(
         </div>
       )}
 
-      {/* Reviewed product */}
       {(productName || productPrice || productImageSrc) && (
         <div className="flex items-center justify-between gap-3 rounded-xl border border-neutral-200 px-4 py-3">
           <div className="flex items-center gap-3">
@@ -166,7 +165,6 @@ export default function MarketplaceReviewCard(
         </div>
       )}
 
-      {/* Seller response */}
       {sellerResponse && (
         <div className="flex flex-col gap-1 rounded-r-xl border-l-4 border-[#B31F26] bg-neutral-50 px-4 py-3">
           <div className="flex items-center gap-2">
@@ -214,7 +212,12 @@ export default function MarketplaceReviewCard(
           )}
 
           {onReport && (
-            <Button variant="secondary" size="md" className="cursor-pointer">
+            <Button
+              variant="secondary"
+              size="md"
+              className="cursor-pointer"
+              onClick={onReport}
+            >
               {reportLabel}
             </Button>
           )}

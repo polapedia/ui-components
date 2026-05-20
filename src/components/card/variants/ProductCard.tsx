@@ -1,12 +1,10 @@
 import { cn } from '@/utils/cn';
-import {
-  CartIcon,
-  HeartIcon,
-  LocationOutlineIcon,
-  StarRating,
-  VerifiedIcon,
-} from '@/lib';
-import Button from '../../button';
+import CartIcon from '@/components/icons/CartIcon';
+import HeartIcon from '@/components/icons/HeartIcon';
+import LocationOutlineIcon from '@/components/icons/LocationOutlineIcon';
+import StarRating from '@/components/rating';
+import VerifiedIcon from '@/components/icons/VerifiedIcon';
+import Button from '@/components/button';
 import { productStyles } from '../styles/product';
 import type { ProductCardProps } from '../types';
 
@@ -23,10 +21,10 @@ export default function ProductCard(props: ProductCardProps) {
     rating = 0,
     imageAlt = 'Product Image',
     ratingInteractive = false,
-    imagesrc,
+    imageSrc, // was: imagesrc
     onRatingChange,
     onButtonClick,
-    buttontext = 'View Product',
+    buttonText = 'View Product', // was: buttontext
     titleClassName,
     subTitleClassName,
     descriptionClassName,
@@ -41,7 +39,6 @@ export default function ProductCard(props: ProductCardProps) {
     onWishlistClick,
     locationName,
     onProductClick,
-    showActionIcon,
     actionIcon,
     onActionClick,
     ...rest
@@ -62,9 +59,9 @@ export default function ProductCard(props: ProductCardProps) {
         <div
           className={`relative w-full rounded-2xl overflow-hidden mb-4 bg-neutral-100 ${imageHeight || 'h-39.5'}`}
         >
-          {imagesrc ? (
+          {imageSrc ? (
             <img
-              src={imagesrc}
+              src={imageSrc}
               alt={imageAlt}
               className="absolute inset-0 w-full h-full object-cover transition-transform hover:scale-105 duration-500"
               loading="lazy"
@@ -73,7 +70,6 @@ export default function ProductCard(props: ProductCardProps) {
             <div className="w-full h-full bg-neutral-200 animate-pulse" />
           )}
 
-          {/* Badge */}
           {topBadge && (
             <div className="absolute top-4 left-4 z-10">
               <Button shape="pill" size="sm" variant="primary">
@@ -82,11 +78,11 @@ export default function ProductCard(props: ProductCardProps) {
             </div>
           )}
 
-          {(showActionIcon || actionIcon || onActionClick) && (
+          {onActionClick && (
             <button
               type="button"
               onClick={onActionClick}
-              className="absolute bottom-3 right-3 z-10 w-10 h-10 rounded-full bg-linear-to-b from-gradient-primary to-gradient-secondary text-white shadow-md flex items-center justify-center transition-transform cursor-pointer"
+              className="absolute bottom-3 right-3 z-10 w-10 h-10 rounded-full bg-linear-to-b from-gradient-primary to-gradient-secondary hover:from-primary-600 hover:to-primary-700 text-white shadow-md flex items-center justify-center transition-colors cursor-pointer"
             >
               {actionIcon ?? <CartIcon className="w-5 h-5" />}
             </button>
@@ -100,7 +96,6 @@ export default function ProductCard(props: ProductCardProps) {
               type="button"
               className="text-left cursor-pointer flex-1 overflow-hidden"
               onClick={onProductClick}
-              onKeyDown={(e) => e.key === 'Enter' && onProductClick?.()}
             >
               <h3
                 className={`font-bold text-neutral-900 leading-tight line-clamp-1 ${style.title} ${titleClassName || ''}`}
@@ -112,19 +107,18 @@ export default function ProductCard(props: ProductCardProps) {
             <button
               type="button"
               onClick={onWishlistClick}
-              className={`shrink-0 transition-all`}
+              className="shrink-0 transition-all"
             >
               {wishlistIcon || (
                 <HeartIcon
                   className={`w-6 h-6 cursor-pointer ${
-                    isWishlisted
-                      ? 'text-red-500 border border-none'
-                      : 'text-white'
+                    isWishlisted ? 'text-red-500' : 'text-white'
                   }`}
                 />
               )}
             </button>
           </div>
+
           {price && (
             <p className="text-sm font-medium text-black mt-1">
               Rp{' '}
@@ -133,7 +127,7 @@ export default function ProductCard(props: ProductCardProps) {
               )}
             </p>
           )}
-          {/* Rating & Meta */}
+
           <div className="mt-1 flex items-center text-sm text-content-secondary">
             <span className="text-yellow-400 text-lg">★</span>
             <span className="ml-2 mr-3">{rating.toFixed(1)}</span>
@@ -143,10 +137,9 @@ export default function ProductCard(props: ProductCardProps) {
           </div>
 
           <div className="mt-auto">
-            {/* Subtitle / Footer Card */}
             {subtitle && (
               <div className="mt-4 flex items-end justify-between">
-                <p className="text-sm text-content-secondary leading-relaxed ">
+                <p className="text-sm text-content-secondary leading-relaxed">
                   {subtitle}
                 </p>
                 {!locationName && isVerified && (
@@ -156,16 +149,13 @@ export default function ProductCard(props: ProductCardProps) {
                 )}
               </div>
             )}
-            {/* Location Detail */}
             {locationName && (
               <div className="flex mt-4 items-center justify-between">
                 <div className="flex items-center">
                   <LocationOutlineIcon className="w-6 h-6" />
-                  <div>
-                    <p className="text-sm text-content-secondary">
-                      {locationName}
-                    </p>
-                  </div>
+                  <p className="text-sm text-content-secondary">
+                    {locationName}
+                  </p>
                 </div>
                 {isVerified && (
                   <div className="shrink-0 ml-2">
@@ -195,9 +185,9 @@ export default function ProductCard(props: ProductCardProps) {
           imageHeightClassName || style.imageHeight
         }`}
       >
-        {imagesrc ? (
+        {imageSrc ? (
           <img
-            src={imagesrc}
+            src={imageSrc}
             alt={imageAlt}
             className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
             loading="lazy"
@@ -220,7 +210,6 @@ export default function ProductCard(props: ProductCardProps) {
               {title}
             </h3>
           </div>
-
           <StarRating
             value={rating}
             starSize={48}
@@ -249,7 +238,7 @@ export default function ProductCard(props: ProductCardProps) {
           size={size === 'sm' || size === 'md' || size === 'lg' ? 'md' : 'lg'}
           onClick={onButtonClick}
         >
-          {buttontext}
+          {buttonText}
         </Button>
 
         {rightIcon && (

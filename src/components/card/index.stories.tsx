@@ -3,6 +3,7 @@ import Card from '.';
 import HomeIcon from '../icons/HomeIcon';
 import PlusOneIcon from '../icons/PlusOneIcon';
 import UserImage from '@/assets/images/user.webp';
+import CartIcon from '@/components/icons/CartIcon';
 
 const icons = {
   None: null,
@@ -52,10 +53,10 @@ export const ProductDefault: Story = {
   args: {
     variant: 'product',
     topIcon: icons.Home,
-    buttontext: 'View Product',
+    buttonText: 'View Product',
     className: 'w-full',
     rightIcon: icons.PlusOne,
-    imagesrc: '/images/house.jpeg',
+    imageSrc: '/images/house.jpeg',
     isVerified: true,
   },
   decorators: [
@@ -78,7 +79,9 @@ export const ProductMarketplace: Story = {
     rating: 5,
     metaText: '100 Download',
     subtitle: 'Ready files CAD, RAB, BOQ, BOM ',
-    imagesrc: '/images/house.jpeg',
+    actionIcon: <CartIcon className="w-5 h-5" />,
+    onActionClick: () => {},
+    imageSrc: '/images/house.jpeg',
     locationName: 'Jakarta Selatan',
     imageHeight: 'h-[158px]',
     topBadge: 'Desain',

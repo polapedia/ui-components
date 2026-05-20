@@ -30,7 +30,7 @@ export type ProductCardProps = BaseProps & {
   size?: CardProductSize;
   layout?: ProductLayout;
   rating?: number;
-  imagesrc?: string;
+  imageSrc?: string;
   imageAlt?: string;
   imageHeightClassName?: string;
   titleClassName?: string;
@@ -39,7 +39,7 @@ export type ProductCardProps = BaseProps & {
   ratingInteractive?: boolean;
   onRatingChange?: (_value?: number) => void;
   onButtonClick?: () => void;
-  buttontext?: string;
+  buttonText?: string;
 
   // marketplace props
   topBadge?: string | ReactNode;
@@ -63,7 +63,6 @@ export type ReviewCardProps = BaseProps & {
   rating?: number;
   author?: string;
   role?: string;
-  starSize?: string;
   userImageSrc?: string;
   userImageAlt?: string;
 };
@@ -71,7 +70,6 @@ export type ReviewCardProps = BaseProps & {
 export type MarketplaceReviewCardProps = HTMLAttributes<HTMLDivElement> & {
   variant: 'marketplace-review';
   size?: CardMarketplaceReviewSize;
-  title?: string;
 
   // Author
   authorName: string;

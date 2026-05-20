@@ -34,11 +34,11 @@ It is fully responsive, adjusting layout and typography across mobile, tablet, a
 
 You can directly experiment with props such as:
 
-- `variant` - switch between "product", "simple", "review", and "marketplace-review".
-- `title` & `subtitle` - primary text content.
-- `imagesrc` - main image for the product variant.
-- `rating` - star rating value.
-- `topIcon` & `rightIcon` - decorative or functional icons.
+- `variant` — switch between `"product"`, `"simple"`, `"review"`, and `"marketplace-review"`.
+- `title` & `subtitle` — primary text content.
+- `imageSrc` — main image URL for the product variant.
+- `rating` — star rating value (0–5).
+- `topIcon` & `rightIcon` — decorative or functional icons.
 
 ---
 
@@ -60,7 +60,7 @@ Use this variant for:
 
 ### Product Marketplace Card
 
-A specialized layout for the product variant (`layout="marketplace"`) designed specifically for e-commerce and marketplace listings. It features a prominent wishlist button, top badge, verified icon, and location details.
+A specialized layout for the product variant (`layout="marketplace"`) designed for e-commerce and marketplace listings. It features a prominent wishlist button, top badge, verified icon, and location details.
 
 <Canvas of={CardStories.ProductMarketplace} />
 
@@ -81,7 +81,7 @@ Use this variant for:
 
 - Key features or unique selling points (USPs).
 - Categories or navigation cards.
-- Testimonials (without user avatars).
+- Testimonials without user avatars.
 
 ---
 
@@ -121,13 +121,18 @@ Use this variant for:
   Determines the visual style and layout of the card.  
   Default: `"product"`.
 
-- `title: string` **(required)** The main heading text of the card.
+- `title: string` **(required)**  
+  The main heading text of the card.
 
-- `imagesrc?: string`  
-  URL for the main image (Product variant only).
+- `imageSrc?: string`  
+  URL for the main image. Applies to the product variant only.
 
 - `rating?: number`  
-  Displays a star rating (0-5) (Product variant only).
+  Star rating value between 0 and 5. Applies to the product and review variants.
+
+- `buttonText?: string`  
+  Label for the call-to-action button. Applies to the product variant only.  
+  Default: `"View Product"`.
 
 - `onButtonClick?: () => void`  
   Callback fired when the call-to-action button is clicked.
@@ -153,20 +158,20 @@ Use this variant for:
 
 ### Visual & layout
 
-- **Responsiveness**: The component handles padding and font-size scaling automatically (Mobile -> Tablet -> Desktop).
-- **Images**: Ensure `imagesrc` images have a consistent aspect ratio for the best grid alignment, although `object-cover` is applied by default.
-- **Icons**: `topIcon` is positioned differently depending on the variant (top-left for Product, absolute top overlay for Simple).
+- **Responsiveness**: The component handles padding and font-size scaling automatically across mobile, tablet, and desktop breakpoints.
+- **Images**: Ensure `imageSrc` images have a consistent aspect ratio for the best grid alignment. `object-cover` is applied by default.
+- **Icons**: `topIcon` is positioned differently depending on the variant — top-left for Product, absolute top overlay for Simple.
 
 ### Accessibility notes
 
-- Ensure `buttontext` is descriptive (e.g., "View Property" instead of just "View").
-- The card root is a `div`. If the entire card should be clickable, wrap it in a `Link` or use an `onClick` handler on the root carefully.
+- Ensure `buttonText` is descriptive (e.g., `"View Property"` instead of `"View"`).
+- The card root is a `div`. If the entire card should be clickable, wrap it in a `Link` or apply an `onClick` handler on the root carefully.
 
 ---
 
 ## Usage examples
 
-### Product Card Setup
+### Product Card
 
 ```tsx
 import Card from '@/components/card';
@@ -177,12 +182,35 @@ import { HomeIcon, PlusOneIcon } from '@/icons';
   title="Luxury Villa"
   subtitle="South Jakarta"
   description="A beautiful villa with a private pool and garden."
-  imagesrc="/images/villa.jpg"
+  imageSrc="/images/villa.jpg"
   rating={4.8}
   topIcon={<HomeIcon />}
   rightIcon={<PlusOneIcon />}
-  buttontext="View Details"
+  buttonText="View Details"
   onButtonClick={() => router.push('/villa/123')}
+/>;
+```
+
+### Product Marketplace Card
+
+```tsx
+import Card from '@/components/card';
+
+<Card
+  variant="product"
+  layout="marketplace"
+  title="Batik Tulis Jogja"
+  subtitle="Toko Batik Nusantara"
+  imageSrc="/images/batik.jpg"
+  price="150000"
+  rating={4.5}
+  metaText="120 terjual"
+  locationName="Yogyakarta"
+  isVerified
+  topBadge="Terlaris"
+  onProductClick={() => router.push('/product/batik-tulis')}
+  onWishlistClick={() => toggleWishlist('batik-tulis')}
+  onActionClick={() => addToCart('batik-tulis')}
 />;
 ```
 
@@ -197,7 +225,48 @@ import { StarIcon } from '@/icons';
   title="Top Quality"
   description="We ensure the best quality materials for all our products."
   topIcon={<StarIcon />}
-  buttontext="Learn More"
   className="h-full"
+/>;
+```
+
+### Review Card
+
+```tsx
+import Card from '@/components/card';
+
+<Card
+  variant="review"
+  title="Produk sangat memuaskan!"
+  description="Kualitas bahan bagus, pengiriman cepat, dan penjual responsif. Sangat recommended."
+  author="Budi Santoso"
+  role="Verified Buyer"
+  userImageSrc="/images/budi.jpg"
+  rating={5}
+/>;
+```
+
+### Marketplace Review Card
+
+```tsx
+import Card from '@/components/card';
+
+<Card
+  variant="marketplace-review"
+  authorName="Siti Rahayu"
+  authorImageSrc="/images/siti.jpg"
+  isVerified
+  rating={4}
+  reviewDate="12 Mei 2025"
+  reviewText="Desainnya cantik dan file-nya rapi. Sangat membantu untuk keperluan undangan."
+  reviewImages={[{ src: '/images/review-1.jpg', alt: 'Hasil cetak undangan' }]}
+  productName="Template Undangan Pernikahan Modern"
+  productPrice="Rp 35.000"
+  productImageSrc="/images/template-undangan.jpg"
+  onViewProduct={() => router.push('/product/template-undangan')}
+  sellerResponse="Terima kasih atas ulasannya, Kak! Senang bisa membantu 😊"
+  sellerResponseDelay="Dibalas dalam 1 jam"
+  helpfulCount={8}
+  onHelpfulClick={() => markHelpful('review-123')}
+  onReport={() => reportReview('review-123')}
 />;
 ```
