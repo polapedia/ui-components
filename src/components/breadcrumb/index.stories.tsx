@@ -13,6 +13,13 @@ const meta: Meta<typeof Breadcrumb> = {
             e.preventDefault();
           }
         }}
+        onKeyDown={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('a') && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+          }
+        }}
+        role="presentation"
       >
         <Story />
       </div>
