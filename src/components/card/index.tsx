@@ -1,10 +1,4 @@
-import type {
-  CardProps,
-  SimpleCardProps,
-  ReviewCardProps,
-  MarketplaceReviewCardProps,
-  ProductCardProps,
-} from './types';
+import type { CardProps } from './types';
 import MarketplaceReviewCard from './variants/MarketplaceReviewCard';
 import ProductCard from './variants/ProductCard';
 import ReviewCard from './variants/ReviewCard';
@@ -15,15 +9,13 @@ export type * from './types';
 export default function Card(props: CardProps) {
   switch (props.variant) {
     case 'simple':
-      return <SimpleCard {...(props as SimpleCardProps)} />;
+      return <SimpleCard {...props} />;
     case 'review':
-      return <ReviewCard {...(props as ReviewCardProps)} />;
+      return <ReviewCard {...props} />;
     case 'marketplace-review':
-      return (
-        <MarketplaceReviewCard {...(props as MarketplaceReviewCardProps)} />
-      );
+      return <MarketplaceReviewCard {...props} />;
     case 'product':
     default:
-      return <ProductCard {...(props as ProductCardProps)} />;
+      return <ProductCard {...props} />;
   }
 }
