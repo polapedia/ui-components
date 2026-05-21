@@ -22,7 +22,17 @@ const meta: Meta<typeof Tabs> = {
   argTypes: {
     variant: {
       control: 'radio',
-      options: ['underline', 'underline-full', 'pills', 'contained'],
+      options: [
+        'underline',
+        'underline-full',
+        'pills',
+        'rectangle',
+        'contained',
+      ],
+    },
+    size: {
+      control: 'radio',
+      options: ['sm', 'md'],
     },
     iconPosition: {
       control: 'radio',
@@ -74,6 +84,11 @@ export const UnderlineFullWidth: Story = {
 export const Pills: Story = {
   render: createRender(),
   args: { variant: 'pills' },
+};
+
+export const Rectangle: Story = {
+  render: createRender(),
+  args: { variant: 'rectangle' },
 };
 
 export const Contained: Story = {

@@ -1,10 +1,16 @@
 import type { ReactNode } from 'react';
 
-export type TabVariant = 'underline' | 'underline-full' | 'pills' | 'contained';
+export type TabVariant =
+  | 'underline'
+  | 'underline-full'
+  | 'pills'
+  | 'rectangle'
+  | 'contained';
 export type TabIconPosition = 'left' | 'top';
+export type TabSize = 'sm' | 'md';
 
 export interface TabItem {
-  label: string; // Sesuai dokumen requirement
+  label: string;
   value: string;
   href?: string;
   icon?: ReactNode;
@@ -16,6 +22,7 @@ export interface TabsProps {
   value: string;
   onValueChange?: (_value: string) => void;
   variant?: TabVariant;
+  size?: TabSize;
   iconPosition?: TabIconPosition;
   className?: string;
 }

@@ -8,14 +8,17 @@ export default function DefaultTabs({
   onValueChange,
   className,
   variant = 'underline',
+  size = 'md',
   iconPosition = 'left',
 }: Readonly<TabsProps>) {
   return (
-    <div className={cn('w-full overflow-x-auto no-scrollbar', className)}>
-      <nav
-        aria-label="Tabs"
-        className={getTabContainerClassName({ variant, className })}
-      >
+    <div
+      className={cn(
+        'w-full overflow-x-auto overflow-y-hidden no-scrollbar',
+        className
+      )}
+    >
+      <nav aria-label="Tabs" className={getTabContainerClassName({ variant })}>
         {tabs.map((tab) => {
           const isActive = tab.value === value;
 
@@ -23,7 +26,9 @@ export default function DefaultTabs({
             isActive,
             isDisabled: tab.disabled,
             variant,
+            size,
             iconPosition,
+            className,
           });
 
           const content = (
