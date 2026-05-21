@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/utils/cn';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ButtonDropdownProps, DropdownItem } from '../types';
 import DropdownContent from './DropdownContent';
@@ -102,7 +103,10 @@ export default function ButtonDropdown({
   return (
     <div
       ref={containerRef}
-      className={`relative inline-flex font-semibold transition-all select-none z-10 ${className || ''}`}
+      className={cn(
+        'relative inline-flex font-semibold transition-all select-none z-10',
+        className
+      )}
       {...restProps}
     >
       <DropdownTrigger

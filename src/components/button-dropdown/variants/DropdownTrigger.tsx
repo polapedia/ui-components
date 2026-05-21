@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import ChevronDownIcon from '@/components/icons/ChevronDownIcon';
 import { dividerClasses, getTriggerClassName } from '../styles/trigger';
 import type { DropdownShape, DropdownSize, TriggerVariant } from '../types';
@@ -50,7 +51,10 @@ export default function DropdownTrigger({
 
       {showDivider ? (
         <div
-          className={`w-px h-1/2 self-center mx-2 ${dividerClasses[triggerVariant]}`}
+          className={cn(
+            'w-px h-1/2 self-center mx-2',
+            dividerClasses[triggerVariant]
+          )}
         />
       ) : null}
 
@@ -60,9 +64,10 @@ export default function DropdownTrigger({
         ) : (
           <span className="inline-flex items-center justify-center">
             <ChevronDownIcon
-              className={`block w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 ${
+              className={cn(
+                'block w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300',
                 isOpen ? '-rotate-180 mt-1.5' : 'rotate-0 mt-2.5'
-              }`}
+              )}
             />
           </span>
         )}

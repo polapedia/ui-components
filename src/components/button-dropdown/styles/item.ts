@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import type { ItemSize, ItemVariant } from '../types';
 
 export const itemVariantClasses: Record<ItemVariant, string> = {
@@ -28,10 +29,10 @@ export function getItemClassName({
     ? itemVariantClasses.disabled
     : itemVariantClasses[itemVariant];
 
-  return [
+  return cn(
     'w-full flex items-center gap-3 px-4 text-left transition-colors duration-200',
     itemSizeClasses[itemSize],
     variantClass,
-    isLightMenu ? 'data-[light=true]' : '',
-  ].join(' ');
+    isLightMenu && 'data-[light=true]'
+  );
 }

@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import type { DropdownShape, DropdownSize, MenuVariant } from '../types';
 
 export const menuVariantClasses: Record<MenuVariant, string> = {
@@ -27,12 +28,12 @@ export function getMenuPanelClassName({
   shape: DropdownShape;
   menuVariant: MenuVariant;
 }) {
-  return [
+  return cn(
     'overflow-hidden',
     menuWidthClasses[size],
     menuVariantClasses[menuVariant],
-    menuShapeClasses[shape],
-  ].join(' ');
+    menuShapeClasses[shape]
+  );
 }
 
 export function getContentPanelClassName({
@@ -42,9 +43,9 @@ export function getContentPanelClassName({
   shape: DropdownShape;
   menuVariant: MenuVariant;
 }) {
-  return [
+  return cn(
     'w-fit min-w-66 p-3 text-left leading-relaxed whitespace-normal wrap-break-word font-normal',
     menuVariantClasses[menuVariant],
-    menuShapeClasses[shape],
-  ].join(' ');
+    menuShapeClasses[shape]
+  );
 }

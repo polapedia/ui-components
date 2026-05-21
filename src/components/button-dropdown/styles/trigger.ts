@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import type { DropdownShape, DropdownSize, TriggerVariant } from '../types';
 
 export const triggerBaseClasses =
@@ -64,11 +65,11 @@ export function getTriggerClassName({
   triggerVariant: TriggerVariant;
   disabled: boolean;
 }) {
-  return [
+  return cn(
     triggerBaseClasses,
     triggerSizeClasses[size],
     triggerShapeClasses[shape][size],
     triggerVariantClasses[triggerVariant],
-    disabled ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer',
-  ].join(' ');
+    disabled ? 'opacity-50 cursor-not-allowed grayscale' : 'cursor-pointer'
+  );
 }
