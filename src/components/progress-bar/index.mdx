@@ -1,0 +1,70 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as ProgressBarStories from './index.stories';
+
+<Meta of={ProgressBarStories} />
+
+# Progress Bar
+
+Progress Bar is a visual indicator of a task's progress or a specific value within a known range.
+It provides feedback to the user about the status of an ongoing process.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `value`, `max`, and `size`.
+
+---
+
+## Sizes
+
+The Progress Bar supports three vertical sizes:
+
+- **sm** - 16px height
+- **md** - 18px height (default)
+- **lg** - 20px height
+
+<Canvas of={ProgressBarStories.Sizes} />
+
+---
+
+## Custom Color
+
+You can customize the fill color of the progress bar using the `fill` prop. It accepts any CSS color value, including gradients.
+
+<Canvas of={ProgressBarStories.CustomColor} />
+
+---
+
+## States
+
+Examples of different progress states from 0% to 100%.
+
+<Canvas of={ProgressBarStories.States} />
+
+---
+
+## Props
+
+<ArgTypes of={ProgressBarStories} />
+
+---
+
+## Usage Guidelines
+
+- **Real-time Feedback**: Use the Progress Bar to provide feedback for actions that take time to complete, like file uploads or data processing.
+- **Clear Range**: Ensure the `max` value is clearly defined so the progress is meaningful to the user.
+- **Accessibility**: Use appropriate labels or text alongside the progress bar to communicate the status to screen reader users.
