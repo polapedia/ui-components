@@ -103,6 +103,8 @@ export const SimpleDefault: Story = {
     topIcon: icons.Home,
     description: 'Lorem ipsum dolor sit amet consectetur.',
     subtitle: undefined,
+    // className: 'py-14',
+    size: 'sm',
   },
   decorators: [
     (Story) => (
