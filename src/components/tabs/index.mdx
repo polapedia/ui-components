@@ -3,6 +3,7 @@ import {
   Primary,
   Controls,
   Canvas,
+  Story,
   ArgTypes,
 } from '@storybook/addon-docs/blocks';
 import * as TabsStories from './index.stories';
@@ -12,8 +13,7 @@ import * as TabsStories from './index.stories';
 # Tabs
 
 Tabs organize content into multiple sections and allow users to switch between views without leaving the page.
-
-They support two visual variants (**Underline** and **Solid**), two sizes, and flexible icon placement (left or top).
+Built for reusability and consistency, following the Polapedia design system.
 
 ---
 
@@ -25,7 +25,7 @@ They support two visual variants (**Underline** and **Solid**), two sizes, and f
 
 <Controls />
 
-Use the **Controls** panel to explore props such as `variant`, `size`, `iconPosition`, `items`, and different interaction states like disabled tabs.
+Use the **Controls** panel to explore props such as `variant`, `iconPosition`, and `tabs`.
 
 ---
 
@@ -33,127 +33,105 @@ Use the **Controls** panel to explore props such as `variant`, `size`, `iconPosi
 
 ### Underline
 
-Default variant where the active tab is highlighted with a primary underline.
+The standard navigational tab with an underline indicator.
 
-- For **multiple tabs**, the underline is a continuous gray line with the active tab overriding it with a primary 2px line.
-- For a **single tab**, the underline is only as wide as the tab content.
+- **Underline (Default)**: Individual underline per item.
+- **Underline Full**: Continuous baseline across all tabs.
 
-#### Single Underline
+<Canvas of={TabsStories.Underline} />
+<Canvas of={TabsStories.UnderlineFull} />
 
-<Canvas of={TabsStories.SingleUnderline} />
+#### Underline Full Width
 
-#### Multiple Underline
+By default, `underline-full` spans only the width of the tabs. You can make it span the full width of its container by adding `className="w-full"`.
 
-<Canvas of={TabsStories.Default} />
+<Canvas of={TabsStories.UnderlineFullWidth} />
 
----
+### Pills
 
-### Solid
+A segmented control style with a filled background for the active tab. Useful for filters or secondary navigation.
 
-Solid variant uses a filled background to emphasize the active tab.
+<Canvas of={TabsStories.Pills} />
 
-#### Single Solid
+### Contained
 
-<Canvas of={TabsStories.SingleSolid} />
+A modern "contained" look where the active tab is elevated within a background-filled container.
 
-#### Multiple Solid
-
-<Canvas of={TabsStories.SolidBackground} />
+<Canvas of={TabsStories.Contained} />
 
 ---
 
 ## Icon Placement
 
-Tabs can display optional icons, positioned either on the **left** of the label or on **top**.
+Support for flexible icon placement to aid recognition and visual hierarchy.
 
-### Icons - Left
+### Icons - Left (Default)
 
-Best for horizontal navigation with limited vertical space.
-
-<Canvas of={TabsStories.WithIconsLeft} />
-
-<Canvas of={TabsStories.SolidWithIconsLeft} />
+<Canvas of={TabsStories.WithIcons} />
 
 ### Icons - Top
 
-Useful when tabs need stronger visual hierarchy or when used in more “card-like” layouts.
-
-<Canvas of={TabsStories.WithIconsTop} />
-
-<Canvas of={TabsStories.SolidWithIconsTop} />
+<Canvas of={TabsStories.IconPositionTop} />
 
 ---
 
-## Sizes
+## Interaction Modes
 
-- **sm** - compact tabs for dense or constrained layouts.
-- **md** - default size for most navigation patterns.
+The `Tabs` component supports two distinct interaction modes depending on your application's architecture.
 
-<Canvas of={TabsStories.Sizes} />
+### 1. Link Navigation (`href`)
 
----
+Use this mode when tabs act as a main navigation bar that redirects users to different pages or URLs.
 
-## Single vs Multiple Tabs
+- **How to use**: Provide an `href` in the `tabs` objects and **omit** the `onValueChange` prop.
+- **Behavior**: Each tab renders as an `<a>` tag.
+- **Best for**: Multi-page applications or external links.
 
-The component behaves slightly differently depending on the number of items:
+<Canvas of={TabsStories.AsLinks} />
 
-- **Single tab**
-  - Underline is only as wide as the tab's content.
-  - Ideal for small headers where the entire content is a single view.
-- **Multiple tabs**
-  - Underline variant shows a continuous gray line across all tabs, with the active tab's primary underline overriding it.
-  - Solid variant keeps all tabs on the same baseline, with only the active tab filled.
+```tsx
+const navTabs = [
+  { label: 'Home', value: 'home', href: '/home' },
+  { label: 'Explore', value: 'explore', href: '/explore' },
+];
 
-Use these stories to compare behavior:
+// Re-renders as <a> tags automatically
+<Tabs tabs={navTabs} value="home" />;
+```
 
-- Single: `<Canvas of={TabsStories.SingleUnderline} />`, `<Canvas of={TabsStories.SingleSolid} />`
-- Multiple: `<Canvas of={TabsStories.Default} />`, `<Canvas of={TabsStories.SolidBackground} />`
+### 2. Content Switching (`onValueChange`)
 
----
+Use this mode when tabs are used to toggle visibility of content on the current page without a full reload.
 
-## UI States
+- **How to use**: Provide the `onValueChange` callback prop.
+- **Behavior**: Each tab renders as a `<button>`.
+- **Best for**: Dashboards, settings panels, or single-page application (SPA) views.
 
-The Tabs component supports the following UI states for each tab item:
+<Canvas of={TabsStories.Primary} />
 
-- **Default** - unselected tab with standard text and underline (if applicable).
-- **Hover** - subtle background and/or color change to indicate interactivity.
-- **Active / Selected** - highlighted tab:
-  - Underline: primary-colored 2px underline.
-  - Solid: filled primary background with white text.
-- **Disabled** - non-interactive, muted text; click is ignored.
-- **Focus** - accessible focus outline when navigated via keyboard.
+```tsx
+const [activeTab, setActiveTab] = useState('profile');
 
-These states can be explored on:
+<Tabs
+  tabs={myTabs}
+  value={activeTab}
+  onValueChange={(val) => setActiveTab(val)}
+/>;
 
-- Underline variant: <Canvas of={TabsStories.Default} />
-- Solid variant: <Canvas of={TabsStories.SolidBackground} />
-
-(Use the **Interactions** / **Actions** panel and keyboard navigation to inspect focus and pressed behavior.)
-
----
-
-## Interaction & Behavior
-
-- Tabs are **controlled** via the `value` prop.
-- When a tab is clicked:
-  - The component calls `onChange(newValue)`.
-  - Parent stories in Storybook update the `value` via `useArgs`, so you can observe the change.
-- Disabled tabs ignore click events and do not fire `onChange`.
-- Only one tab is considered active at a time (based on `value`).
-- In the **Underline** variant with multiple tabs, the active tab visually “sits” on a continuous baseline.
+// Display content based on activeTab
+{
+  activeTab === 'profile' && <ProfileView />;
+}
+```
 
 ---
 
-## Responsive Preview
+## Responsive Behavior
 
-Tabs can be horizontally scrollable when their container is constrained.
+...
 
-<Canvas of={TabsStories.ResponsiveScroll} />
-
-Guidelines:
-
-- Use horizontal scroll for navigation bars with many tabs, especially on mobile.
-- Ensure labels remain readable and avoid truncating important information.
+- **Desktop**: Tabs are displayed in a horizontal list.
+- **Mobile**: The container becomes horizontally scrollable (`no-scrollbar`), allowing users to swipe through tabs while maintaining the visual layout.
 
 ---
 
@@ -161,40 +139,10 @@ Guidelines:
 
 <ArgTypes of={TabsStories} />
 
-Key props:
-
-- `items: TabItem[]` - list of tab definitions `{ label, value, icon?, disabled? }`.
-- `value: string` - currently active tab value.
-- `onChange: (value: string) => void` - callback when a tab is selected.
-- `variant: "underline" | "solid"` - visual style.
-- `size: "sm" | "md"` - tab size.
-- `iconPosition: "left" | "top"` - relative position of the optional icon.
-- `className?: string` - optional container styling.
-
 ---
 
 ## Usage Guidelines
 
-- Use **Underline** tabs for standard page-level navigation, especially in content-heavy interfaces.
-- Use **Solid** tabs when:
-  - You need stronger emphasis on the active view.
-  - Tabs behave more like segmented buttons or filters.
-- Prefer short, clear labels; avoid wrapping text across multiple lines.
-- Use icons to:
-  - Aid quick recognition.
-  - Differentiate primary areas (e.g., Dashboard, Settings).
-- Place icons:
-  - On the **left** for traditional nav bars.
-  - On the **top** when tabs are part of a card or when vertical space is available.
-- Avoid too many tabs on a single row; use scroll or group content when necessary.
-- Disable tabs only when a destination is temporarily unavailable or gated; otherwise, consider hiding them.
-
----
-
-## Accessibility
-
-- Tabs are rendered as `<button role="tab">` within a container `role="tablist"`.
-- `aria-selected` is applied to the active tab for screen readers.
-- Ensure tab labels clearly describe the content of their respective panels.
-- Keep focus outlines visible so keyboard users can easily navigate between tabs.
-- When integrating with tab panels, link them with `aria-controls` and `id` on the respective content containers for full WAI-ARIA tab semantics.
+- **Labeling**: Use clear, concise labels (e.g., "Overview", "Settings").
+- **Consistency**: Stick to one variant per feature/page to maintain UI harmony.
+- **Data-Driven**: Use the `tabs` array configuration for easy integration.
