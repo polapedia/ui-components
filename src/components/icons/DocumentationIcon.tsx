@@ -1,6 +1,5 @@
 import type { SVGProps } from 'react';
 
-
 export default function DocumentationIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
