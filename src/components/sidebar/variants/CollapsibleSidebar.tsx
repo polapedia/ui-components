@@ -4,25 +4,29 @@ import PanelLeftIcon from '@/components/icons/PanelLeftIcon';
 import { collapsibleSizes, sidebarItemClasses } from '../styles';
 import { cn } from '@/utils/cn';
 
-export default function CollapsibleSidebar({
-  groups,
-  bottomItems = [],
-  activeHref,
-  open: controlledOpen,
-  onOpenChange,
-  logo,
-  collapsedLogo,
-  size = 'md',
-  defaultOpen = true,
-  className = '',
-  panelClassName = '',
-}: Omit<CollapsibleSidebarProps, 'variant'>) {
+export default function CollapsibleSidebar(
+  props: Readonly<Omit<CollapsibleSidebarProps, 'variant'>>
+) {
+  const {
+    groups,
+    bottomItems = [],
+    activeHref,
+    open: controlledOpen,
+    onOpenChange,
+    logo,
+    collapsedLogo,
+    size = 'md',
+    defaultOpen = true,
+    className = '',
+    panelClassName = '',
+  } = props;
+
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
-  const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const isOpen = controlledOpen ?? internalOpen;
 
   function toggle() {
-    const next = !isOpen;
+    const next = isOpen ? false : true;
     setInternalOpen(next);
     onOpenChange?.(next);
   }
@@ -39,7 +43,7 @@ export default function CollapsibleSidebar({
     const active = isActive(href, isActiveProp);
     return cn(
       sidebarItemClasses.base,
-      !isOpenProp && 'justify-center px-0',
+      isOpenProp ? '' : 'justify-center px-0',
       active ? sidebarItemClasses.active : sidebarItemClasses.inactive
     );
   }
@@ -71,7 +75,7 @@ export default function CollapsibleSidebar({
         <div
           className={cn(
             'flex items-center gap-2 overflow-hidden transition-opacity duration-200',
-            !isOpen && 'group-hover/header:opacity-0'
+            isOpen ? '' : 'group-hover/header:opacity-0'
           )}
         >
           {isOpen
@@ -96,9 +100,9 @@ export default function CollapsibleSidebar({
           aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           className={cn(
             'inline-flex items-center justify-center w-8 h-8 rounded-lg text-content-secondary hover:bg-background-hover hover:text-content-primary transition-all duration-200 shrink-0',
-            !isOpen
-              ? 'absolute inset-0 m-auto opacity-0 group-hover/header:opacity-100'
-              : ''
+            isOpen
+              ? ''
+              : 'absolute inset-0 m-auto opacity-0 group-hover/header:opacity-100'
           )}
         >
           <PanelLeftIcon className="w-4.5 h-4.5" />
@@ -111,7 +115,7 @@ export default function CollapsibleSidebar({
         className="flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-2 py-2"
       >
         {groups.map((group, gi) => (
-          <div key={gi} className="mb-4">
+          <div key={group.heading ?? gi} className="mb-4">
             {/* Group heading */}
             {group.heading && isOpen && (
               <p className="px-3 mb-1 text-[0.88em] font-bold uppercase tracking-wider text-content-secondary">
@@ -121,11 +125,11 @@ export default function CollapsibleSidebar({
 
             <ul className="flex flex-col gap-0.5">
               {group.items.map((item, ii) => (
-                <li key={ii}>
+                <li key={item.id ?? item.href ?? item.label ?? ii}>
                   <a
                     href={item.href}
                     onClick={item.onClick}
-                    title={!isOpen ? item.label : undefined}
+                    title={isOpen ? undefined : item.label}
                     className={getItemClasses(
                       item.href ?? '#',
                       item.isActive,
@@ -152,10 +156,10 @@ export default function CollapsibleSidebar({
         <div className="px-2 py-3 border-t border-gray-100 flex flex-col gap-0.5">
           {bottomItems.map((item, index) => (
             <a
-              key={index}
+              key={item.id ?? item.href ?? item.label ?? index}
               href={item.href}
               onClick={item.onClick}
-              title={!isOpen ? item.label : undefined}
+              title={isOpen ? undefined : item.label}
               className={getItemClasses(
                 item.href ?? '#',
                 item.isActive,

@@ -21,17 +21,21 @@ function getInitialExpandedId(
   return defaultExpandedIds.find((id) => validIds.has(id)) ?? null;
 }
 
-export default function OverlaySidebar({
-  items,
-  bottomItems = [],
-  trigger,
-  title,
-  className,
-  panelClassName,
-  size = 'md',
-  defaultOpen = false,
-  defaultExpandedIds,
-}: Omit<OverlaySidebarProps, 'variant'>) {
+export default function OverlaySidebar(
+  props: Readonly<Omit<OverlaySidebarProps, 'variant'>>
+) {
+  const {
+    items,
+    bottomItems = [],
+    trigger,
+    title,
+    className,
+    panelClassName,
+    size = 'md',
+    defaultOpen = false,
+    defaultExpandedIds,
+  } = props;
+
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [expandedId, setExpandedId] = useState<string | null>(() =>
     getInitialExpandedId([...items, ...bottomItems], defaultExpandedIds)
@@ -157,7 +161,7 @@ export default function OverlaySidebar({
           className={cn(
             'flex flex-col h-full overflow-hidden',
             overlaySizes[size],
-            !title ? 'pt-4' : 'pt-0'
+            title ? 'pt-0' : 'pt-4'
           )}
         >
           {title && (

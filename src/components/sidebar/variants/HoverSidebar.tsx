@@ -2,14 +2,18 @@ import type { HoverSidebarProps } from '../types';
 import { hoverSizes, sidebarItemClasses } from '../styles';
 import { cn } from '@/utils/cn';
 
-export default function HoverSidebar({
-  items,
-  bottomItems = [],
-  activeHref,
-  size = 'md',
-  className = '',
-  panelClassName = '',
-}: Omit<HoverSidebarProps, 'variant'>) {
+export default function HoverSidebar(
+  props: Readonly<Omit<HoverSidebarProps, 'variant'>>
+) {
+  const {
+    items,
+    bottomItems = [],
+    activeHref,
+    size = 'md',
+    className = '',
+    panelClassName = '',
+  } = props;
+
   const asideClasses = cn(
     'hidden md:block shrink-0',
     'h-[calc(100vh-140px)] sticky top-[120px]',
@@ -49,7 +53,7 @@ export default function HoverSidebar({
         <nav aria-label="Dashboard navigation" className="flex flex-col">
           {items.map((item, index) => (
             <a
-              key={index}
+              key={item.id ?? item.href ?? item.label ?? index}
               href={item.href}
               onClick={item.onClick}
               className={getItemClasses(item.href ?? '#', item.isActive)}
@@ -69,7 +73,7 @@ export default function HoverSidebar({
           <div className="mt-auto">
             {bottomItems.map((item, index) => (
               <a
-                key={index}
+                key={item.id ?? item.href ?? item.label ?? index}
                 href={item.href}
                 onClick={item.onClick}
                 className={getItemClasses(item.href ?? '#', item.isActive)}
