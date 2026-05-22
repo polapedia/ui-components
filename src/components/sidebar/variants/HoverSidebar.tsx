@@ -38,7 +38,7 @@ export default function HoverSidebar({
           'group absolute top-0 left-0 h-full',
           hoverSizes[size].collapsed,
           hoverSizes[size].expanded,
-          'bg-white rounded-[40px] py-8',
+          'bg-white rounded-[40px] py-6',
           'flex flex-col shadow-sm',
           'transition-all duration-300 overflow-hidden',
           'text-[18px]',
