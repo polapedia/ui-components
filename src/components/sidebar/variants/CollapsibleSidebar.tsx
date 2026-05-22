@@ -26,7 +26,7 @@ export default function CollapsibleSidebar(
   const isOpen = controlledOpen ?? internalOpen;
 
   function toggle() {
-    const next = isOpen ? false : true;
+    const next = !isOpen;
     setInternalOpen(next);
     onOpenChange?.(next);
   }
