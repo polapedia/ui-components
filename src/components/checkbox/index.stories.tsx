@@ -18,7 +18,7 @@ const meta: Meta<typeof Checkbox> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md'],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Checkbox and label size',
     },
     state: {
@@ -53,6 +53,8 @@ export const Sizes: Story = {
     <div className="flex flex-col gap-4">
       <Checkbox {...args} size="sm" label="Small Checkbox (sm)" />
       <Checkbox {...args} size="md" label="Medium Checkbox (md)" />
+      <Checkbox {...args} size="lg" label="Large Checkbox (lg)" />
+      <Checkbox {...args} size="xl" label="Extra Large Checkbox (xl)" />
     </div>
   ),
 };
@@ -79,6 +81,71 @@ export const WithHelperText: Story = {
   args: {
     helperText: 'This helps user understand the context.',
   },
+};
+
+// Indeterminate State
+export const Indeterminate: Story = {
+  args: {
+    indeterminate: true,
+    label: 'Indeterminate Checkbox',
+  },
+};
+
+// Variants
+export const Variants: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <Checkbox {...args} variant="primary" label="Primary (Gradient)" />
+      <Checkbox {...args} variant="secondary" label="Secondary (Solid)" />
+    </div>
+  ),
+};
+
+// All States
+export const AllStates: Story = {
+  render: (args) => (
+    <div className="grid grid-cols-2 gap-8">
+      <div className="flex flex-col gap-4">
+        <h4 className="font-bold">Primary Variant</h4>
+        <Checkbox {...args} label="Unchecked" />
+        <Checkbox {...args} checked label="Checked" />
+        <Checkbox {...args} indeterminate label="Indeterminate" />
+        <Checkbox {...args} disabled label="Disabled Unchecked" />
+        <Checkbox {...args} disabled checked label="Disabled Checked" />
+        <Checkbox {...args} state="error" label="Error State" />
+      </div>
+      <div className="flex flex-col gap-4">
+        <h4 className="font-bold">Secondary Variant</h4>
+        <Checkbox {...args} variant="secondary" label="Unchecked" />
+        <Checkbox {...args} variant="secondary" checked label="Checked" />
+        <Checkbox
+          {...args}
+          variant="secondary"
+          indeterminate
+          label="Indeterminate"
+        />
+        <Checkbox
+          {...args}
+          variant="secondary"
+          disabled
+          label="Disabled Unchecked"
+        />
+        <Checkbox
+          {...args}
+          variant="secondary"
+          disabled
+          checked
+          label="Disabled Checked"
+        />
+        <Checkbox
+          {...args}
+          variant="secondary"
+          state="error"
+          label="Error State"
+        />
+      </div>
+    </div>
+  ),
 };
 
 // Interactive Showcase
