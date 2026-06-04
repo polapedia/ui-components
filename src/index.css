@@ -110,3 +110,18 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+progress::-webkit-progress-bar {
+  background: var(--progress-track);
+  border-radius: 9999px;
+}
+
+progress::-webkit-progress-value {
+  background: var(--progress-fill);
+  border-radius: 9999px;
+}
+
+progress::-moz-progress-bar {
+  background: var(--progress-fill);
+  border-radius: 9999px;
+}
