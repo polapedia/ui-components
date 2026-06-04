@@ -4,7 +4,7 @@ import PlusOne from '../icons/PlusOneIcon';
 
 const icons = {
   None: null,
-  PlusOne: <PlusOne className="w-2.5 h-2.5 font-bold text-black" />,
+  PlusOne: <PlusOne className="w-2.5 h-2.5" />,
 };
 
 const meta: Meta<typeof Badge> = {
@@ -14,26 +14,23 @@ const meta: Meta<typeof Badge> = {
     layout: 'centered',
   },
   args: {
-    children: 'Badge',
+    children: 'Polapedia choice',
     variant: 'primary',
-    size: 'lg',
+    size: 'm',
+    color: 'red',
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: [
-        'primary',
-        'secondary',
-        'destructive',
-        'blue',
-        'green',
-        'brown',
-        'red',
-      ],
+      options: ['primary', 'secondary', 'tertiary'],
+    },
+    color: {
+      control: 'select',
+      options: ['red', 'neutral', 'danger', 'warning', 'success', 'info'],
     },
     size: {
       control: 'radio',
-      options: ['lg', 'md', 'dot'],
+      options: ['m', 'l'],
     },
     leftIcon: {
       control: 'select',
@@ -52,111 +49,47 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Variant Stories
-export const Primary: Story = {
-  args: { variant: 'primary', children: 'Badge' },
-};
+export const Default: Story = {};
 
-export const Secondary: Story = {
-  args: { variant: 'secondary', children: 'Badge' },
-};
-
-export const Destructive: Story = {
-  args: { variant: 'destructive', children: 'New', size: 'md' },
-};
-
-export const Blue: Story = {
-  args: { variant: 'blue', children: 'Info', size: 'md' },
-};
-
-export const Green: Story = {
-  args: { variant: 'green', children: 'Success', size: 'md' },
-};
-
-export const Red: Story = {
-  args: { variant: 'red', children: 'Error', size: 'md' },
-};
-
-export const Brown: Story = {
-  args: { variant: 'brown', children: 'Warning', size: 'md' },
-};
-
-// Variants Showcase (grouped)
-export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Primary</span>
-        <Badge variant="primary" size="lg">
-          Polapedia Choice
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Secondary</span>
-        <Badge variant="secondary" size="lg">
-          Polapedia Choice
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Destructive</span>
-        <Badge variant="destructive" size="md">
-          New
-        </Badge>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Semantic</span>
-        <div className="flex gap-2">
-          <Badge variant="blue" size="md">
-            Info
+export const Colors: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      {(
+        ['red', 'neutral', 'danger', 'warning', 'success', 'info'] as const
+      ).map((color) => (
+        <div key={color} className="flex gap-2 items-center">
+          <span className="w-20 text-xs font-mono">{color}</span>
+          <Badge {...args} color={color} variant="primary">
+            Primary
           </Badge>
-          <Badge variant="green" size="md">
-            Success
+          <Badge {...args} color={color} variant="secondary">
+            Secondary
           </Badge>
-          <Badge variant="red" size="md">
-            Error
-          </Badge>
-          <Badge variant="brown" size="md">
-            Warning
+          <Badge {...args} color={color} variant="tertiary">
+            Tertiary
           </Badge>
         </div>
-      </div>
+      ))}
     </div>
   ),
 };
 
-// Sizes Showcase
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Large</span>
-        <Badge variant="primary" size="lg">
-          Large
-        </Badge>
-      </div>
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Medium</span>
-        <Badge variant="primary" size="md">
-          9+
-        </Badge>
-      </div>
-      <div className="flex items-center gap-4">
-        <span className="w-24 text-sm text-neutral-600">Dot</span>
-        <Badge variant="green" size="dot" leftIcon={<span />} />
-      </div>
+  render: (args) => (
+    <div className="flex gap-4 items-center">
+      <Badge {...args} size="m">
+        Size m
+      </Badge>
+      <Badge {...args} size="l">
+        Size l
+      </Badge>
     </div>
   ),
 };
 
-// Badge with Icons
 export const WithIcons: Story = {
   args: {
-    variant: 'primary',
-    size: 'lg',
-    children: 'With Icon',
     leftIcon: icons.PlusOne,
+    rightIcon: icons.PlusOne,
   },
 };
