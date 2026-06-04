@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useEffect } from 'react';
+import { forwardRef, useRef, useEffect, useCallback } from 'react';
 import type { CheckboxProps } from './types';
 import { useFormControl } from '../form-control/useFormControl';
 import { FormLabel, FormHelperText } from '../form-control';
@@ -33,14 +33,24 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     });
 
     const internalRef = useRef<HTMLInputElement>(null);
-    const resolvedRef =
-      (ref as React.RefObject<HTMLInputElement>) ?? internalRef;
+    const setRefs = useCallback(
+      (node: HTMLInputElement | null) => {
+        internalRef.current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          (ref as React.MutableRefObject<HTMLInputElement | null>).current =
+            node;
+        }
+      },
+      [ref]
+    );
 
     useEffect(() => {
-      if (resolvedRef.current) {
-        resolvedRef.current.indeterminate = indeterminate;
+      if (internalRef.current) {
+        internalRef.current.indeterminate = indeterminate;
       }
-    }, [indeterminate, resolvedRef]);
+    }, [indeterminate]);
 
     const isActive =
       !!(props.checked ?? props.defaultChecked ?? false) || indeterminate;
@@ -52,7 +62,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       isActive,
       indeterminate,
       inputProps: props,
-      inputRef: resolvedRef,
+      inputRef: setRefs,
       inputId,
       helperId,
       required,

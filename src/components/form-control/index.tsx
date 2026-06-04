@@ -40,8 +40,8 @@ export function FormLabel({
         'transition-colors cursor-pointer',
         sizeClass,
         isDisabled && 'cursor-not-allowed',
-        labelTextColor,
-        className
+        className,
+        labelTextColor
       )}
     >
       {label}

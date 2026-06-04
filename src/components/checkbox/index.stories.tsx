@@ -154,7 +154,7 @@ export const Showcase: StoryFn<typeof Checkbox> = (args) => {
   const [checked2, setChecked2] = useState(true);
 
   return (
-    <div className="flex flex-col gap-6 w-[300px]">
+    <div className="flex flex-col gap-6 w-75">
       <h3 className="text-xl font-bold text-gray-800">Checkbox</h3>
       <p className="text-gray-500 mb-2">
         Intended for multiple selection, but still allow single-select.
