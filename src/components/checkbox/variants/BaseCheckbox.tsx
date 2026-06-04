@@ -41,7 +41,7 @@ export function BaseCheckbox({
   required,
   focusRingColor,
   children,
-}: BaseCheckboxProps) {
+}: Readonly<BaseCheckboxProps>) {
   return (
     <div className="grid place-items-center group/cb">
       <input

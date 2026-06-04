@@ -26,7 +26,7 @@ export function PrimaryRadioInput({
   inputId,
   helperId,
   required,
-}: PrimaryRadioInputProps) {
+}: Readonly<PrimaryRadioInputProps>) {
   const getCircleColors = () => {
     if (isDisabled) return 'border-gray-300 bg-white';
 
@@ -80,7 +80,6 @@ export function PrimaryRadioInput({
           id={inputId}
           disabled={isDisabled}
           required={required}
-          aria-invalid={isError}
           aria-describedby={helperId}
           className="peer absolute inset-0 opacity-0 z-20 cursor-pointer disabled:cursor-not-allowed"
           {...inputProps}

@@ -23,7 +23,7 @@ export function FormLabel({
   sizeClass,
   className,
   variant = 'checkbox',
-}: FormLabelProps) {
+}: Readonly<FormLabelProps>) {
   if (!label) return null;
 
   const labelTextColor = getLabelTextColor(
@@ -66,7 +66,7 @@ export function FormHelperText({
   isError,
   isSuccess,
   className,
-}: FormHelperTextProps) {
+}: Readonly<FormHelperTextProps>) {
   if (!text) return null;
 
   const helperTextColor = getHelperTextColor(
