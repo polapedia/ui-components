@@ -1,3 +1,4 @@
+// lib.ts
 import './index.css';
 // UI Components
 export { default as Accordion } from './components/accordion';
@@ -26,6 +27,7 @@ export { default as Pagination } from './components/pagination';
 export { default as Radio } from './components/radio';
 export { default as StarRating } from './components/rating';
 export { default as SearchBar } from './components/search-bar';
+export { default as Sidebar } from './components/sidebar';
 export { default as Stepper } from './components/stepper';
 export { default as SimpleStepper } from './components/stepper-simple';
 export { default as StickyButton } from './components/sticky-button';
