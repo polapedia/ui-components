@@ -14,7 +14,7 @@ WORKDIR /app
 
 RUN npm install -g serve
 
-COPY --from=builder --chown=node:node /app/storybook-static ./storybook-static
+COPY --from=builder --chown=root:root --chmod=755 /app/storybook-static ./storybook-static
 
 EXPOSE 6006
 
