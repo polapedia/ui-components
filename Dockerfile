@@ -14,11 +14,10 @@ WORKDIR /app
 
 RUN npm install -g serve
 
-COPY --from=builder /app/storybook-static ./storybook-static
+COPY --from=builder --chown=node:node /app/storybook-static ./storybook-static
 
 EXPOSE 6006
 
-RUN chown -R node:node /app
 USER node
 
 CMD ["serve", "storybook-static", "-l", "6006"]
