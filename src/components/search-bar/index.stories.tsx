@@ -55,8 +55,12 @@ export const Default: Story = {};
 
 export const WithIcon: Story = {
   args: {
-    leftIcon: <SearchIcon />,
-    rightIcon: <PlusOneIcon />,
+    leftIcon: {
+      icon: <SearchIcon />,
+    },
+    rightIcon: {
+      icon: <PlusOneIcon />,
+    },
   },
 };
 
@@ -67,20 +71,35 @@ export const Sizes: Story = {
       <SearchBar
         size="sm"
         placeholder="Search here"
-        leftIcon={<SearchIcon />}
-        rightIcon={<CloseIcon />}
+        leftIcon={{
+          icon: <SearchIcon />,
+        }}
+        rightIcon={{
+          icon: <CloseIcon />,
+          className: 'text-black border border-black',
+        }}
       />
       <SearchBar
         size="md"
         placeholder="Search here"
-        leftIcon={<SearchIcon />}
-        rightIcon={<CloseIcon />}
+        leftIcon={{
+          icon: <SearchIcon />,
+        }}
+        rightIcon={{
+          icon: <CloseIcon />,
+          className: 'text-black border border-black',
+        }}
       />
       <SearchBar
         size="lg"
         placeholder="Search here"
-        leftIcon={<SearchIcon />}
-        rightIcon={<CloseIcon />}
+        leftIcon={{
+          icon: <SearchIcon />,
+        }}
+        rightIcon={{
+          icon: <CloseIcon />,
+          className: 'text-black border border-black',
+        }}
       />
     </div>
   ),
@@ -105,8 +124,13 @@ export const InteractiveControlled: StoryFn<typeof SearchBar> = (args) => {
 };
 InteractiveControlled.args = {
   value: '',
-  leftIcon: <SearchIcon />,
-  rightIcon: <CloseIcon />,
+  leftIcon: {
+    icon: <SearchIcon />,
+  },
+  rightIcon: {
+    icon: <CloseIcon />,
+    className: 'text-black border border-black',
+  },
 };
 
 // Interactive - local state (example usage in app)
@@ -126,6 +150,11 @@ export const InteractiveLocalState: StoryFn<typeof SearchBar> = (args) => {
 InteractiveLocalState.args = {
   size: 'md',
   placeholder: 'Search here',
-  leftIcon: <SearchIcon />,
-  rightIcon: <CloseIcon />,
+  leftIcon: {
+    icon: <SearchIcon />,
+  },
+  rightIcon: {
+    icon: <CloseIcon />,
+    className: 'text-black border border-black',
+  },
 };

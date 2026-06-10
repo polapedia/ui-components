@@ -1,135 +1,188 @@
-import {
-  Meta,
-  Canvas,
-  Story,
-  Primary,
-  Controls,
-  ArgTypes,
-  Source,
-} from '@storybook/addon-docs/blocks';
+import { ArgTypes, Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 import * as NavigationStories from './index.stories';
-import Navigation from '.';
 
 <Meta of={NavigationStories} />
 
 # Navigation
 
-The **Navigation** component is used as the global header of Polapedia.  
-It includes the logo, the main navigation links, and a primary **Contact** action button.
+Global navigation component for Polapedia. Supports two variants selected via the `variant` prop.
 
----
+**Variant: `default`**
 
-## Playground
+- Use case: Landing page / company profile
+- Contents: Logo · nav links · Contact button
 
-<Canvas>
-  <Primary />
-</Canvas>
+**Variant: `marketplace`**
 
-<Controls />
+- Use case: Marketplace app
+- Contents: Sidebar · logo · icons · search bar · creator link
 
-Use the **Controls** panel to adjust `items`, `activeHref`, `variant`, `sticky`, and other properties interactively.
+## Default variant
 
----
+### Playground
 
-## Responsive Behavior
+<Canvas of={NavigationStories.Playground} />
 
-The Navigation component is fully **responsive**:
+<Controls of={NavigationStories.Playground} />
 
-### Desktop / Tablet
+### Visual variants
 
-- Links are displayed horizontally.
-- The **Contact** button appears on the right.
+`visualVariant` controls the container style.
 
-### Mobile
+- **`elevated`** (default) — Drop shadow + subtle border. Best for colored or textured backgrounds.
+- **`flat`** — Border only, no shadow. Best for clean white backgrounds.
 
-- Links are hidden behind a hamburger menu.
-- Tapping the hamburger toggles a vertical drawer with links.
+> Regardless of `visualVariant`, scrolling past 20 px always activates the elevated shadow automatically.
 
----
+<Canvas of={NavigationStories.FlatVisualVariant} />
 
-## UI States
+### Sticky
 
-Navigation supports the following UI states:
+<Canvas of={NavigationStories.Sticky} />
 
-- **Default** - standard appearance.
-- **Hover** - link text color intensifies on hover.
-- **Active Route** - link matching `activeHref` appears highlighted.
-- **Active / Pressed** - clickable feedback.
-- **Disabled** - link appears dimmed and cannot be interacted with.
-- **Focus** - visible focus outline for keyboard users.
+### Item states
+
+#### Active
+
+`activeHref` matching an item's `href` highlights the current page with a gradient and sets `aria-current="page"`.
+
+<Canvas of={NavigationStories.WithActiveItem} />
+
+#### Disabled
+
+`disabled: true` dims the item, prevents interaction, and removes it from the tab order.
+
+<Canvas of={NavigationStories.WithDisabledItem} />
+
+#### All states
 
 <Canvas of={NavigationStories.StatesShowcase} />
 
-> Use the mouse to test hover and pressed states.  
-> Press `Tab` to explore focus states.
+> Hover and click links to test **hover** and **pressed** states.  
+> Press `Tab` to cycle through **focus** styles.
 
----
+### Hidden Contact button
 
-## Interaction & Behavior
+<Canvas of={NavigationStories.HiddenContactButton} />
 
-- Clicking a navigation link routes to its corresponding `href`.
-- `activeHref` is used to visually indicate the current active page.
-- The active link includes `aria-current="page"` for accessibility.
-- **`onContactClick` is fired when the Contact button is pressed.**  
-  In Storybook this event appears in the **Actions** panel.
-- On mobile, the hamburger button toggles the drawer and updates `aria-expanded`.
+### Responsive
 
----
+<Canvas of={NavigationStories.DefaultMobile} />
+<Canvas of={NavigationStories.DefaultTablet} />
+<Canvas of={NavigationStories.DefaultDesktop} />
 
-## Example: Handling `onContactClick`
-
-Below is an example illustrating how to navigate to `/contact`.
-
-### Rendered Example
+### Usage
 
 ```tsx
-export const NavWithContactRouting = () => {
-  return (
-    <Navigation
-      {...NavigationStories.Playground.args}
-      onContactClick={() => {
-        window.location.href = '/contact';
-      }}
-    />
-  );
-};
-```
-
-```tsx
-<Canvas>
-  <NavWithContactRouting />
-</Canvas>
-```
-
-### Source Code
-
-```tsx
-<Source
-  language="tsx"
-  code={`
-import Navigation, { NavItem } from "@/components/navigation";
+import Navigation, { type NavItem } from '@/components/ds/navigation';
 
 const items: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Polo AI", href: "/polo-ai" },
-  { label: "Marketplace", href: "/marketplace" },
-  { label: "Terms Of Service", href: "/tos" },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Polo AI', href: '/polo-ai' },
+  { label: 'Marketplace', href: '/marketplace' },
+  { label: 'Terms Of Service', href: '/tos' },
 ];
 
-export default function Page() {
-  const navigate = useNavigate();
-
+export default function LandingPage() {
   return (
     <Navigation
       items={items}
       activeHref="/"
       contactLabel="Contact"
-      onContactClick={() => navigate("/contact")}
+      onContactClick={() => router.push('/contact')}
     />
   );
-}`}
+}
+```
+
+---
+
+## Marketplace variant
+
+### Playground
+
+<Canvas of={NavigationStories.MarketplacePlayground} />
+
+### Search bar
+
+Supports **uncontrolled** (default) and **controlled** modes.
+
+**Uncontrolled** — component manages its own input state. Use `onSearchSubmit` to react when the user presses Enter.
+
+```tsx
+<Navigation
+  variant="marketplace"
+  onSearchSubmit={(q) => router.push(`/search?q=${encodeURIComponent(q)}`)}
 />
+```
+
+**Controlled** — pass `searchQuery` + `onSearchChange` to drive the value from the parent. Useful for debouncing or syncing state elsewhere.
+
+<Canvas of={NavigationStories.MarketplaceControlledSearch} />
+
+**Dropdown** — pass `searchDropdown` to render custom search suggestions inside the search container. Use `onSearchFocus` and `onSearchClickOutside` to control visibility from the parent.
+
+<Canvas of={NavigationStories.MarketplaceSearchDropdown} />
+
+### Category dropdown
+
+The category label exposes `onCategoryMouseEnter` and `onCategoryMouseLeave`. Render custom dropdown content via `children` so it stays positioned below the marketplace header.
+
+<Canvas of={NavigationStories.MarketplaceCategoryDropdown} />
+
+```tsx
+export default function MarketplaceLayout({ children }) {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  return (
+    <>
+      <Navigation
+        variant="marketplace"
+        onCategoryMouseEnter={() => setIsCategoryOpen(true)}
+        onCategoryMouseLeave={() => setIsCategoryOpen(false)}
+      >
+        {isCategoryOpen && <CategoryDropdown />}
+      </Navigation>
+      {children}
+    </>
+  );
+}
+```
+
+### Non-sticky
+
+<Canvas of={NavigationStories.MarketplaceNonSticky} />
+
+### Responsive
+
+<Canvas of={NavigationStories.MarketplaceMobile} />
+<Canvas of={NavigationStories.MarketplaceTablet} />
+<Canvas of={NavigationStories.MarketplaceDesktop} />
+
+### Usage
+
+```tsx
+import Navigation from '@/components/ds/navigation';
+
+export default function MarketplaceLayout({ children }) {
+  return (
+    <>
+      <Navigation
+        variant="marketplace"
+        sticky
+        onSearchSubmit={(q) =>
+          router.push(`/search?q=${encodeURIComponent(q)}`)
+        }
+        onCameraClick={handleCameraAccess}
+        onCartClick={() => router.push('/cart')}
+        onMessageClick={() => router.push('/messages')}
+        onNotificationClick={() => router.push('/notifications')}
+      />
+      {children}
+    </>
+  );
+}
 ```
 
 ---
@@ -140,24 +193,11 @@ export default function Page() {
 
 ---
 
-## Usage Guidelines
-
-- Use this component as the **global header** across main Polapedia pages.
-- Ensure that only one link is marked as active using `activeHref`.
-- Use `disabled: true` for links pointing to unreleased pages.
-- Hide the Contact button using `hideContactButton` on pages where CTA is unnecessary (e.g., Contact page itself).
-- Pick a variant based on context:
-  - **Elevated** for backgrounds with color or texture.
-  - **Flat** for clean, content-heavy white backgrounds.
-
----
-
 ## Accessibility
 
-- Uses semantic `<nav>` and `<a>` elements.
-- Active link includes `aria-current="page"`.
-- Hamburger uses `<button>` with proper `aria-label` and `aria-expanded`.
-- Focus styles are visible for keyboard navigation.
-- Text labels are required to ensure compatibility with screen readers.
-
----
+- Semantic `<nav>` and `<a>` elements throughout.
+- Active link carries `aria-current="page"`.
+- Disabled links are removed from the tab order via `tabIndex={-1}`.
+- Hamburger button uses `aria-label` and `aria-expanded`.
+- Icon buttons in the marketplace variant carry descriptive `aria-label` attributes.
+- All interactive elements have visible focus outlines for keyboard users.
