@@ -227,7 +227,8 @@ const meta: Meta<typeof Navigation> = {
       },
     },
     onSearchFocus: {
-      description: '`marketplace` — Fired when the search input receives focus.',
+      description:
+        '`marketplace` — Fired when the search input receives focus.',
       table: {
         category: 'Events',
         type: { summary: '() => void' },
@@ -481,7 +482,9 @@ export const MarketplaceSearchDropdown: Story = {
     searchQuery: 'batik',
     searchDropdown: (
       <div className="absolute left-0 right-0 top-full z-40 mt-2 rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg">
-        <p className="mb-2 text-sm font-semibold text-neutral-900">Suggestions</p>
+        <p className="mb-2 text-sm font-semibold text-neutral-900">
+          Suggestions
+        </p>
         <ul className="space-y-2 text-sm text-neutral-600">
           <li>Batik tulis premium</li>
           <li>Batik cap Pekalongan</li>

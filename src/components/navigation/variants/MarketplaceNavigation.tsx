@@ -44,7 +44,7 @@ function TopNavbar({
   onMessageClick,
   onNotificationClick,
   onCartClick,
-}: TopNavbarProps) {
+}: Readonly<TopNavbarProps>) {
   return (
     <section id="navbar" className={topNavbarStyles}>
       <Sidebar
@@ -128,7 +128,7 @@ function Header({
   creatorHref = '#',
   onCategoryMouseEnter,
   onCategoryMouseLeave,
-}: HeaderProps) {
+}: Readonly<HeaderProps>) {
   const [internalQuery, setInternalQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -136,10 +136,9 @@ function Header({
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (!(e.target instanceof Node)) return;
+
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
         onSearchClickOutside?.();
       }
     }
