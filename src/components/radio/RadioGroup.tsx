@@ -1,7 +1,8 @@
-import { useId } from 'react';
 import Radio from '.';
+import { FormHelperText } from '../form-control';
+import { useFormControl } from '../form-control/useFormControl';
 
-type Size = 'sm' | 'md';
+type Size = 'sm' | 'md' | 'lg';
 type State = 'default' | 'error';
 
 export interface RadioOption {
@@ -42,19 +43,24 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   onChange,
   className,
 }) => {
-  const generatedId = useId();
-  const groupName = name || generatedId;
+  const {
+    inputId: groupName,
+    helperId,
+    isError,
+    isDisabled,
+  } = useFormControl({
+    id: name,
+    disabled,
+    state,
+    helperText: helperText || errorText,
+  });
+
   const groupLabelId = `${groupName}-label`;
-  const helperId = helperText ? `${groupName}-helper` : undefined;
-  const errorId =
-    state === 'error' && errorText ? `${groupName}-error` : undefined;
+  const errorId = isError && errorText ? `${groupName}-error` : undefined;
 
   const describedBy =
     [helperId, errorId].filter(Boolean).join(' ') || undefined;
 
-  const isError = state === 'error';
-
-  // if controlled, use value from props. if uncontrolled, use defaultValue
   const isControlled = value !== undefined;
 
   return (
@@ -75,7 +81,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
       <div className="flex flex-col gap-2">
         {options.map((option) => {
-          const isOptionDisabled = disabled || option.disabled;
+          const isOptionDisabled = isDisabled || option.disabled;
 
           const checked = isControlled
             ? value === option.value
@@ -101,23 +107,13 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         })}
       </div>
 
-      {/* Helper & error at group level */}
-      {helperText && !isError && (
-        <p
-          id={helperId}
-          className="mt-1 text-[11px] leading-tight text-gray-500"
-        >
-          {helperText}
-        </p>
-      )}
-      {isError && errorText && (
-        <p
-          id={errorId}
-          className="mt-1 text-[11px] leading-tight text-accents-red"
-        >
-          {errorText}
-        </p>
-      )}
+      <FormHelperText
+        id={isError ? errorId : helperId}
+        text={isError ? errorText : helperText}
+        isDisabled={isDisabled}
+        isError={isError}
+        className="mt-1"
+      />
     </fieldset>
   );
 };

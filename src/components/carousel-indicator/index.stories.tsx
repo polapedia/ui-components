@@ -1,6 +1,23 @@
-import type { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import CarouselIndicator from '.';
+import type { CarouselIndicatorProps } from './types';
+
+function InteractiveCarouselIndicator(props: Readonly<CarouselIndicatorProps>) {
+  const { activeIndex = 0, onActiveChange, ...rest } = props;
+  const [active, setActive] = useState(activeIndex);
+
+  return (
+    <CarouselIndicator
+      {...rest}
+      activeIndex={active}
+      onActiveChange={(nextIndex) => {
+        setActive(nextIndex);
+        onActiveChange?.(nextIndex);
+      }}
+    />
+  );
+}
 
 const meta: Meta<typeof CarouselIndicator> = {
   title: 'Design System/Display/Carousel Indicator',
@@ -24,48 +41,47 @@ const meta: Meta<typeof CarouselIndicator> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  render: (args) => <InteractiveCarouselIndicator {...args} />,
+};
 
 export const Sizes: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4 items-start">
       <div className="flex items-center gap-3">
         <span className="w-10 text-xs text-content-secondary">sm</span>
-        <CarouselIndicator {...args} size="sm" total={8} activeIndex={0} />
+        <InteractiveCarouselIndicator
+          {...args}
+          size="sm"
+          total={8}
+          activeIndex={0}
+        />
       </div>
 
       <div className="flex items-center gap-3">
         <span className="w-10 text-xs text-content-secondary">md</span>
-        <CarouselIndicator {...args} size="md" total={7} activeIndex={2} />
+        <InteractiveCarouselIndicator
+          {...args}
+          size="md"
+          total={7}
+          activeIndex={2}
+        />
       </div>
 
       <div className="flex items-center gap-3">
         <span className="w-10 text-xs text-content-secondary">lg</span>
-        <CarouselIndicator {...args} size="lg" total={6} activeIndex={4} />
+        <InteractiveCarouselIndicator
+          {...args}
+          size="lg"
+          total={6}
+          activeIndex={4}
+        />
       </div>
     </div>
   ),
 };
 
-export const Interactive: StoryFn<typeof CarouselIndicator> = (args) => {
-  const [active, setActive] = useState(0);
-
-  return (
-    <div className="flex flex-col gap-3 items-start">
-      <CarouselIndicator
-        {...args}
-        activeIndex={active}
-        onActiveChange={(i) => setActive(i)}
-      />
-
-      <div className="text-[14px] text-content-secondary">
-        Active index: <span className="text-black">{active}</span>
-      </div>
-    </div>
-  );
-};
-Interactive.args = { size: 'md', total: 6 };
-
 export const Disabled: Story = {
   args: { disabled: true },
+  render: (args) => <InteractiveCarouselIndicator {...args} />,
 };
