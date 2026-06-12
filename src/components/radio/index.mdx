@@ -60,6 +60,7 @@ Helper text provides extra context or guidance under the label.
 
 - **sm** - compact radio for dense layouts
 - **md** - default size for standard forms
+- **lg** - large radio for prominence
 
 <Canvas of={RadioStories.Sizes} />
 
@@ -135,10 +136,10 @@ A group example with "Favorite Pet" options.
 - Only **one radio** in the same `name` group can be selected at a time.
 - `onChange` receives the native change event from the underlying `<input type="radio" />`.
 - In `RadioGroup`, the `onChange` callback is invoked with the selected `value` string.
-- The visual dot fill color:
-  - uses **accents-blue** for selected radios,
-  - uses **neutral** gray when disabled,
-  - uses **accents-red** when in the `error` state.
+- **Focus States**: To ensure clarity, the focus ring appears with a 4px offset from the radio border.
+  - When **unchecked**, the focus ring is **black**.
+  - When **checked**, the focus ring uses the **primary gradient**.
+  - If in an **error state**, the focus ring is **red**.
 
 ---
 
@@ -164,8 +165,9 @@ A group example with "Favorite Pet" options.
 ## Accessibility
 
 - `Radio` is built on a semantic `<input type="radio" />` for screen reader support.
+- **Semantic Linking**: Uses `aria-describedby` to programmatically link the radio input with its `helperText`.
+- **Validation State**: Uses `aria-invalid` to communicate error states to assistive technologies.
 - `RadioGroup` uses `<fieldset>` and `<legend>` to group related options and label the group.
-- Validation is applied at the **group level**; when `state="error"`, the `fieldset` receives `aria-invalid`.
 - Each radio is focusable and keyboard-accessible:
   - Use **Tab** to move into the group.
   - Use **Arrow keys** to move between options.

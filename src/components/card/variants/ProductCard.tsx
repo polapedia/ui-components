@@ -111,8 +111,11 @@ export default function ProductCard(props: ProductCardProps) {
             >
               {wishlistIcon || (
                 <HeartIcon
+                  filled={isWishlisted}
                   className={`w-6 h-6 cursor-pointer ${
-                    isWishlisted ? 'text-red-500' : 'text-white'
+                    isWishlisted
+                      ? 'text-transparent [&>path]:fill-gradient-primary border-none'
+                      : 'text-white'
                   }`}
                 />
               )}

@@ -13,7 +13,7 @@ import * as ButtonDropdownStories from './index.stories';
 # Button Dropdown
 
 Button Dropdown displays a list of additional related options or actions when triggered.
-It combines a standard button style with a toggleable overlay, useful for grouping secondary actions or displaying contextual information.
+It combines a standard button style with a toggleable overlay, supporting both structured menu items and custom content.
 
 ---
 
@@ -25,73 +25,81 @@ It combines a standard button style with a toggleable overlay, useful for groupi
 
 <Controls />
 
-Use the **Controls** panel to explore props such as `variant`, `size`, and `disabled`.
+Use the **Controls** panel to explore props such as `triggerVariant`, `menuVariant`, `size`, and `shape`.
 
 ---
 
-## Variants
+## Trigger Variants
 
 ### Primary
 
-The default style, using the brand gradient. Used for main actions that require sub-options.
+The default style, using the brand gradient.
 
 <Canvas of={ButtonDropdownStories.Primary} />
 
+### Outline & Ghost
+
+Lighter variants for secondary actions.
+
+<div className="flex gap-4">
+  <Story of={ButtonDropdownStories.Outline} />
+  <Story of={ButtonDropdownStories.Ghost} />
+</div>
+
 ### Inverted
 
-A dark theme variant, suitable for light backgrounds where a strong contrast is needed or for specific UI themes.
+A dark theme variant, suitable for light backgrounds.
 
 <Canvas of={ButtonDropdownStories.Inverted} />
 
 ### Error
 
-Indicates a destructive action or an error state that requires user attention.
+Indicates a destructive action or an error state.
 
 <Canvas of={ButtonDropdownStories.ErrorState} />
 
-### Disabled
+---
 
-<Canvas of={ButtonDropdownStories.Disabled} />
+## Menu Variants
+
+The dropdown menu itself can have different themes: `default`, `dark`, and `light`.
+
+<div className="flex gap-4">
+  <Story of={ButtonDropdownStories.DarkMenu} />
+  <Story of={ButtonDropdownStories.LightMenu} />
+</div>
 
 ---
 
-## Sizes
+## Content Modes
 
-Button Dropdown comes in three sizes with specific height requirements to ensure touch targets are accessible:
+### Structured Items
 
-- **sm** - height 40px
-- **md** - height 56px
-- **lg** - height 70px
+Using the `items` prop allows for a consistent menu experience with automatic selection handling and label updates.
 
-<Canvas of={ButtonDropdownStories.Sizes} />
+<Canvas of={ButtonDropdownStories.StructuredItems} />
 
----
+### Custom Content
 
-## Content Customization
-
-The dropdown content (`children`) is flexible. While it defaults to a tooltip-like text, you can pass custom JSX such as a list of links or a small form.
+If `items` is empty, you can pass any JSX to `children` for full control over the dropdown content.
 
 <Canvas of={ButtonDropdownStories.CustomContent} />
 
 ---
 
-## UI States
+## Sizes & Shapes
 
-The component supports standard states:
+Button Dropdown supports multiple sizes and shapes (`pill`, `rounded`, `square`).
 
-- **Default** - Initial appearance.
-- **Active / Open** - When clicked, the chevron rotates and the dropdown appears.
-- **Disabled** - Opacity is reduced, and interaction is blocked.
-
-<Canvas of={ButtonDropdownStories.States} />
+<Canvas of={ButtonDropdownStories.Sizes} />
 
 ---
 
-## Interaction & Behavior
+## UI States
 
-- **Trigger:** The dropdown is triggered by a **click** event on the entire button area.
-- **Dismissal:** Clicking outside the component (`useOnClickOutside`) triggers the dropdown to close.
-- **Positioning:** The dropdown appears absolutely positioned below the button.
+The component supports standard states such as **Disabled** and can toggle the visibility of the **Divider**.
+
+<Canvas of={ButtonDropdownStories.States} />
 
 ---
 
@@ -103,5 +111,6 @@ The component supports standard states:
 
 ## Usage Guidelines
 
-- **Grouping:** Use Button Dropdown to declutter the UI by hiding secondary actions behind a single trigger.
-- **Labeling:** Ensure the `label` clearly indicates the category of actions inside (e.g., "Export", "Settings").
+- **Items vs Children:** Prefer using the `items` prop for standard selection menus. Use `children` only when you need custom layouts (e.g., forms, complex information).
+- **Labeling:** Use `updateLabelOnSelect` to automatically show the selected item's label on the trigger button.
+- **Accessibility:** Ensure that icons used in menu items have appropriate alternative text if they convey meaning.

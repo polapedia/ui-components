@@ -21,7 +21,7 @@ const meta: Meta<typeof Radio> = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'md'],
+      options: ['sm', 'md', 'lg'],
       description: 'Radio size and label',
     },
     state: {
@@ -54,6 +54,7 @@ export const Sizes: Story = {
     <div className="flex flex-col gap-4">
       <Radio {...args} size="sm" label="Small Radio (sm)" />
       <Radio {...args} size="md" label="Medium Radio (md)" />
+      <Radio {...args} size="lg" label="Large Radio (lg)" />
     </div>
   ),
 };
