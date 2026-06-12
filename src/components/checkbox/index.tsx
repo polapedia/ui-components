@@ -1,33 +1,20 @@
-import { type ComponentProps, forwardRef, useId } from 'react';
-import CheckmarkIcon from '../icons/CheckmarkIcon';
-
-type Size = 'sm' | 'md';
-type State = 'default' | 'error';
-
-interface CheckboxProps extends Omit<ComponentProps<'input'>, 'size'> {
-  size?: Size;
-  state?: State;
-  label?: string;
-  helperText?: string;
-}
-
-const wrapperClasses = 'group flex items-start gap-[4px] w-full relative';
-
-const inputSizeClasses: Record<Size, string> = {
-  sm: 'h-4 w-4 rounded',
-  md: 'h-5 w-5 rounded-md',
-};
-
-const labelSizeClasses: Record<Size, string> = {
-  sm: 'text-[14px] leading-4',
-  md: 'text-[16px] leading-5',
-};
+import { forwardRef, useRef, useEffect, useCallback } from 'react';
+import type { CheckboxProps } from './types';
+import { useFormControl } from '../form-control/useFormControl';
+import { FormLabel, FormHelperText } from '../form-control';
+import { cn } from '../../utils/cn';
+import { FORM_CONTROL_WRAPPER_CLASSES } from '../form-control/utils';
+import { PrimaryCheckboxInput } from './variants/PrimaryCheckbox';
+import { SecondaryCheckboxInput } from './variants/SecondaryCheckbox';
+import { labelSizeClasses } from './styles/checkbox';
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       size = 'md',
       state = 'default',
+      variant = 'primary',
+      indeterminate = false,
       className,
       disabled,
       required,
@@ -38,105 +25,78 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref
   ) => {
-    const generatedId = useId();
-    const inputId = id || generatedId;
-    const helperId = helperText ? `${inputId}-helper` : undefined;
+    const { inputId, helperId, isError, isDisabled } = useFormControl({
+      id,
+      disabled,
+      state,
+      helperText,
+    });
 
-    const isError = state === 'error';
-    const isDisabled = disabled;
+    const internalRef = useRef<HTMLInputElement>(null);
+    const setRefs = useCallback(
+      (node: HTMLInputElement | null) => {
+        internalRef.current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          (ref as React.MutableRefObject<HTMLInputElement | null>).current =
+            node;
+        }
+      },
+      [ref]
+    );
 
-    let inputStateClasses = '';
+    useEffect(() => {
+      if (internalRef.current) {
+        internalRef.current.indeterminate = indeterminate;
+      }
+    }, [indeterminate]);
 
-    if (isDisabled) {
-      inputStateClasses =
-        'bg-neutral-200 border-gray-300 cursor-not-allowed checked:bg-neutral-400 checked:border-neutral-400';
-    } else if (isError) {
-      inputStateClasses = `
-        bg-white border-accents-red text-white
-        checked:bg-accents-red checked:border-accents-red
-        focus:ring-accents-red
-      `;
-    } else {
-      inputStateClasses = `
-        bg-white border-black border-[2px] text-white
-        checked:bg-linear-to-b checked:from-gradient-primary checked:to-gradient-secondary checked:border-0
-      `;
-    }
+    const isActive =
+      !!(props.checked ?? props.defaultChecked ?? false) || indeterminate;
 
-    let helperTextColor = 'text-gray-500';
-
-    if (isError) {
-      helperTextColor = 'text-accents-red';
-    } else if (isDisabled) {
-      helperTextColor = 'text-gray-400';
-    }
+    const sharedInputProps = {
+      size,
+      isDisabled,
+      isError,
+      isActive,
+      indeterminate,
+      inputProps: props,
+      inputRef: setRefs,
+      inputId,
+      helperId,
+      required,
+    };
 
     return (
-      <div className={`${wrapperClasses} ${className || ''}`}>
-        {/* Wrapper Checkbox */}
-        <div className={`flex items-center justify-center shrink-0`}>
+      <div className={cn(FORM_CONTROL_WRAPPER_CLASSES, className)}>
+        <div className="flex items-center justify-center shrink-0">
           <div className="relative flex items-center">
-            <div className="group grid place-items-center">
-              {/* Input Checkbox */}
-              <input
-                ref={ref}
-                type="checkbox"
-                id={inputId}
-                disabled={isDisabled}
-                required={required}
-                aria-invalid={isError}
-                aria-describedby={helperId}
-                className={`
-                  peer col-start-1 row-start-1 appearance-none border-2 shrink-0 
-                  transition-all text-black border-black duration-200 ease-in-out
-                  ${inputSizeClasses[size]}
-                  ${inputStateClasses}
-                `}
-                {...props}
-              />
-
-              {/* SVG Icon (Checkmark) */}
-              <CheckmarkIcon
-                className={`
-                    pointer-events-none col-start-1 row-start-1 
-                    ${size === 'sm' ? 'w-2.5 h-2.5' : 'w-3.5 h-3.5'} 
-                    self-center justify-self-center stroke-white 
-                    group-has-disabled:stroke-gray-500
-                `}
-              />
-            </div>
+            {variant === 'primary' ? (
+              <PrimaryCheckboxInput {...sharedInputProps} />
+            ) : (
+              <SecondaryCheckboxInput {...sharedInputProps} />
+            )}
           </div>
         </div>
 
-        {/* Label Section */}
         <div className="flex flex-col select-none pt-0">
-          {label && (
-            <label
-              htmlFor={inputId}
-              className={`
-                transition-colors
-                ${labelSizeClasses[size]}
-                ${
-                  isDisabled
-                    ? 'text-neutral-500 cursor-not-allowed'
-                    : 'text-black cursor-pointer'
-                }
-                ${isError ? 'text-accents-red' : ''}
-              `}
-            >
-              {label}
-              {required && <span className="text-accents-red ml-0.5">*</span>}
-            </label>
-          )}
+          <FormLabel
+            htmlFor={inputId}
+            label={label}
+            required={required}
+            isDisabled={isDisabled}
+            isError={isError}
+            sizeClass={labelSizeClasses[size]}
+          />
 
-          {helperText && (
-            <p
-              id={helperId}
-              className={`mt-1 text-[11px] leading-tight ${helperTextColor}`}
-            >
-              {helperText}
-            </p>
-          )}
+          <FormHelperText
+            id={helperId}
+            text={helperText}
+            isDisabled={isDisabled}
+            isError={isError}
+            className="mt-1"
+          />
         </div>
       </div>
     );

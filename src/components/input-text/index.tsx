@@ -1,7 +1,10 @@
-import { type ComponentProps, type ReactNode, forwardRef, useId } from 'react';
+import { type ComponentProps, type ReactNode, forwardRef } from 'react';
 import AlertIcon from '../icons/AlertIcon';
 import CheckIcon from '../icons/CheckIcon';
 import CloseIcon from '../icons/CloseIcon';
+import { useFormControl } from '../form-control/useFormControl';
+import { FormLabel, FormHelperText } from '../form-control';
+import { cn } from '../../utils/cn';
 
 type Size = 'sm' | 'md';
 
@@ -63,24 +66,26 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       helperText,
       value,
       label,
+      id,
       ...props
     },
     ref
   ) => {
-    const isError = state === 'error';
-    const isSuccess = state === 'success';
-    const isDisabled = disabled;
-    const id = useId();
+    const { inputId, helperId, isError, isSuccess, isDisabled } =
+      useFormControl({
+        id,
+        disabled,
+        state,
+        helperText,
+      });
 
-    const wrapperClasses = [
+    const wrapperClasses = cn(
       baseWrapperClasses,
       sizeClasses[size],
       variantClasses[variant],
       isDisabled ? disabledClasses : stateClasses[state],
-      className || '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+      className
+    );
 
     let renderedRightIcon = rightIcon;
 
@@ -106,49 +111,51 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const fakePlaceholderLeft = leftIcon ? 'left-[48px]' : 'left-4';
 
-    let helperTextColor = 'text-content-secondary';
-
-    if (isError) {
-      helperTextColor = 'text-error-icon-color';
-    } else if (isSuccess) {
-      helperTextColor = 'text-green-600';
-    }
-
     return (
       <div className="w-full flex flex-col">
-        {label && (
-          <label htmlFor={id} className="text-[14px] text-content-primary">
-            {label}
-            {required && <span className="text-accents-red ml-0.5">*</span>}
-          </label>
-        )}
+        <FormLabel
+          htmlFor={inputId}
+          label={label}
+          required={required}
+          isDisabled={isDisabled}
+          isError={isError}
+          isSuccess={isSuccess}
+          variant="input"
+          className="text-[14px] text-content-primary mb-1"
+        />
 
         <div className={wrapperClasses}>
           {leftIcon && (
             <span
-              className={`inline-flex w-6 h-6 mr-2 my-auto ${
+              className={cn(
+                'inline-flex w-6 h-6 mr-2 my-auto',
                 isDisabled ? 'text-gray-400' : 'text-content-secondary'
-              }`}
+              )}
             >
               {leftIcon}
             </span>
           )}
 
           <input
-            id={id}
+            id={inputId}
             ref={ref}
             disabled={isDisabled}
             required={required}
             value={value}
             placeholder=" "
             aria-label={label || placeholder || 'input'}
+            aria-describedby={helperId}
+            aria-invalid={isError}
             className="peer w-full h-full bg-transparent border-none outline-none p-0 placeholder:text-[14px] placeholder:text-content-secondary disabled:cursor-not-allowed text-[14px] text-black"
             {...props}
           />
 
           {placeholder && (
             <span
-              className={`pointer-events-none absolute ${fakePlaceholderLeft} top-1/2 -translate-y-1/2 text-[14px] text-content-secondary peer-focus:hidden peer-not-placeholder-shown:hidden`}
+              className={cn(
+                'pointer-events-none absolute top-1/2 -translate-y-1/2 text-[14px] text-content-secondary peer-focus:hidden peer-not-placeholder-shown:hidden',
+                fakePlaceholderLeft
+              )}
             >
               {placeholder}
               {required && <span className="text-accents-red ml-px">*</span>}
@@ -162,9 +169,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        {helperText && (
-          <p className={`text-[12px] ${helperTextColor}`}>{helperText}</p>
-        )}
+        <FormHelperText
+          id={helperId}
+          text={helperText}
+          isDisabled={isDisabled}
+          isError={isError}
+          isSuccess={isSuccess}
+          className="text-[12px] mt-1"
+        />
       </div>
     );
   }
