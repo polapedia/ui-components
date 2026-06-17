@@ -1,0 +1,157 @@
+import {
+  Meta,
+  Canvas,
+  Primary,
+  Controls,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as BreadcrumbStories from './index.stories';
+
+<Meta of={BreadcrumbStories} />
+
+# Breadcrumb
+
+A navigation component that helps users understand their current location within the site hierarchy and navigate back to parent pages.
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+You can directly experiment with props such as:
+
+- `size` - switch between `"sm"`, `"md"`, and `"lg"`.
+- `separator` - replace the default chevron with a custom element.
+- `items` - array of breadcrumb items with `label` and optional `href`.
+
+---
+
+## Variants
+
+### Default
+
+The standard breadcrumb with medium size and chevron separator. The last item is styled with a gradient to indicate the current page.
+
+<Canvas of={BreadcrumbStories.Default} />
+
+---
+
+### Single Item
+
+When there is only one item, no separator is rendered.
+
+<Canvas of={BreadcrumbStories.SingleItem} />
+
+---
+
+### Two Items
+
+Minimal breadcrumb with a parent and current page.
+
+<Canvas of={BreadcrumbStories.TwoItems} />
+
+---
+
+### Long Path
+
+Handles deep navigation hierarchies gracefully.
+
+<Canvas of={BreadcrumbStories.LongPath} />
+
+---
+
+### Small Size
+
+<Canvas of={BreadcrumbStories.SmallSize} />
+
+---
+
+### Large Size
+
+<Canvas of={BreadcrumbStories.LargeSize} />
+
+---
+
+### Custom Separator
+
+Replace the default `ChevronRightIcon` with any `ReactNode`.
+
+<Canvas of={BreadcrumbStories.CustomSeparator} />
+
+---
+
+## Props
+
+<ArgTypes of={BreadcrumbStories} />
+
+### Key props
+
+- `items: BreadcrumbItem[]` **(required)**  
+  Array of breadcrumb items. Each item has a `label` (string) and an optional `href` (string). The last item is always treated as the current page and rendered without a link.
+
+- `size?: "sm" | "md" | "lg"`  
+  Controls font size and separator icon size.  
+  Default: `"md"`.
+
+- `separator?: ReactNode`  
+  Custom separator element rendered between items.  
+  Default: `<ChevronRightIcon />`.
+
+- `className?: string`  
+  Extends the root `<nav>` with custom Tailwind classes.
+
+---
+
+## Usage guidelines
+
+### When to use
+
+- Use **Breadcrumb** on pages that are nested more than one level deep.
+- Always include a link back to **Home** as the first item.
+- The **last item** should never have an `href` — it represents the current page.
+
+### Accessibility notes
+
+- The root element is a `<nav>` with `aria-label="Breadcrumb"` for screen reader context.
+- The current page item has `aria-current="page"`.
+- Separator icons are wrapped with `aria-hidden="true"` so screen readers skip them.
+- Links are native `<a>` tags, ensuring full keyboard navigability.
+
+---
+
+## Usage examples
+
+### Basic usage
+
+```tsx
+import Breadcrumb from '@/components/breadcrumb';
+
+<Breadcrumb
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Marketplace', href: '/marketplace' },
+    { label: 'Desain Rumah' },
+  ]}
+/>;
+```
+
+### With custom separator
+
+```tsx
+import Breadcrumb from '@/components/breadcrumb';
+
+<Breadcrumb
+  size="sm"
+  separator="/"
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Category', href: '/category' },
+    { label: 'Current Page' },
+  ]}
+/>;
+```
