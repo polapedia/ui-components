@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Card from '.';
 import HomeIcon from '../icons/HomeIcon';
 import PlusOneIcon from '../icons/PlusOneIcon';
+import UserImage from '@/assets/images/user.webp';
+import CartIcon from '@/components/icons/CartIcon';
 
 const icons = {
   None: null,
@@ -21,7 +23,7 @@ const meta: Meta<typeof Card> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['product', 'simple'],
+      options: ['product', 'simple', 'review', 'marketplace-review'],
       description: 'Card display variations',
     },
     topIcon: {
@@ -40,7 +42,7 @@ const meta: Meta<typeof Card> = {
     onButtonClick: { action: 'clicked' },
   },
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
 };
 
@@ -52,10 +54,47 @@ export const ProductDefault: Story = {
     variant: 'product',
     topIcon: icons.Home,
     buttonText: 'View Product',
+    className: 'w-full',
     rightIcon: icons.PlusOne,
     imageSrc: '/images/house.jpeg',
+    isVerified: true,
   },
-  decorators: [(Story) => <Story />],
+  decorators: [
+    (Story) => (
+      <div className="w-1/2">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const ProductMarketplace: Story = {
+  args: {
+    className: 'w-full transition-all duration-300',
+    variant: 'product',
+    layout: 'marketplace',
+    title: 'Product Title',
+    titleClassName: 'md:font-exo2',
+    price: '100000',
+    rating: 5,
+    metaText: '100 Download',
+    subtitle: 'Ready files CAD, RAB, BOQ, BOM ',
+    actionIcon: <CartIcon className="w-5 h-5" />,
+    onActionClick: () => {},
+    imageSrc: '/images/house.jpeg',
+    locationName: 'Jakarta Selatan',
+    imageHeight: 'h-[158px]',
+    topBadge: 'Desain',
+    isVerified: true,
+    isWishlisted: false,
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-1/2">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const SimpleDefault: Story = {
@@ -64,8 +103,62 @@ export const SimpleDefault: Story = {
     topIcon: icons.Home,
     description: 'Lorem ipsum dolor sit amet consectetur.',
     subtitle: undefined,
-    rating: undefined,
-    buttonText: undefined,
+    // className: 'py-14',
+    size: 'sm',
   },
-  decorators: [(Story) => <Story className="h-full" />],
+  decorators: [
+    (Story) => (
+      <div className="h-full w-1/2">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const ReviewDefault: Story = {
+  args: {
+    variant: 'review',
+    title: 'POLO AI menyelamatkan waktuku',
+    description: 'POLO AI telah sepenuhnya mengubah alur kerja saya.',
+    rating: 5,
+    author: 'John Doe',
+    role: 'Drafter',
+    userImageSrc: UserImage,
+  },
+  decorators: [
+    (Story) => (
+      <div className="max-w-md">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const MarketplaceReviewDefault: Story = {
+  args: {
+    variant: 'marketplace-review',
+    authorName: 'John Doe',
+    authorImageSrc: UserImage,
+    isVerified: true,
+    rating: 4.5,
+    reviewDate: '5 Februari 2026',
+    reviewText: 'This property exceeded my expectations. Highly recommended!',
+    productName: 'Luxury Villa',
+    productPrice: 'Rp 1.000.000',
+    productImageSrc: '/images/house.jpeg',
+    sellerResponse: 'Thank you for your feedback!',
+    sellerResponseDelay: '3 hari kemudian',
+    sellerResponseLabel: 'Respon penjual',
+    viewProductLabel: 'Lihat Desain',
+    helpfulCount: 12,
+    reportLabel: 'Laporkan Ulasan',
+    onReport: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <div className="max-w-xl">
+        <Story />
+      </div>
+    ),
+  ],
 };

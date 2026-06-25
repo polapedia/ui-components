@@ -1,0 +1,122 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as SidebarStories from './index.stories';
+
+<Meta of={SidebarStories} />
+
+# Sidebar
+
+The **Sidebar** component is a versatile navigation element that provides access to different sections of an application. It supports three distinct variants, each optimized for specific use cases and screen sizes.
+
+---
+
+## Playground
+
+<Canvas>
+  <Story of={SidebarStories.OverlayVariant} />
+</Canvas>
+
+<Controls />
+
+---
+
+## Variants
+
+### Overlay
+
+The **Overlay** variant is ideal for mobile or secondary navigation. It remains hidden by default and slides in from the left when triggered, accompanied by a backdrop overlay.
+
+- **Use case**: Mobile menus, supplemental navigation.
+- **Key feature**: Supports nested menus (submenus) with smooth transitions.
+
+<Canvas of={SidebarStories.OverlayVariant} />
+
+### Hover
+
+The **Hover** variant provides a persistent but non-intrusive navigation bar. It remains collapsed by default, showing only icons, and expands to show labels when the user hovers over it.
+
+- **Use case**: User dashboards, analytics pages.
+- **Key feature**: Maximizes screen space while keeping navigation accessible.
+
+<Canvas of={SidebarStories.HoverVariant} />
+
+### Collapsible
+
+The **Collapsible** variant is a traditional sidebar with a manual toggle button. It allows users to explicitly control the width of the navigation panel.
+
+- **Use case**: Admin panels, seller dashboards, complex management systems.
+- **Key feature**: Supports grouped navigation with section headings.
+- **Logo Behavior**: When expanded, it shows the `logo`. When collapsed, it shows the `collapsedLogo` (or falls back to `logo`). In the collapsed state, the toggle button appears on hover over the logo area.
+
+<Canvas of={SidebarStories.CollapsibleVariant} />
+
+---
+
+## Logo Customization
+
+You can customize the logo for the `Collapsible` variant using the `logo` and `collapsedLogo` props.
+
+```tsx
+<Sidebar
+  variant="collapsible"
+  logo={<MyFullLogo />}
+  collapsedLogo={<MyIconOnlyLogo />}
+  groups={groups}
+/>
+```
+
+If `collapsedLogo` is not provided, the component will attempt to use the `logo` prop even in the collapsed state.
+
+<Canvas of={SidebarStories.CollapsibleWithCustomLogo} />
+
+---
+
+## Features
+
+### Sizing Support
+
+All variants support a `size` prop (`sm`, `md`, `lg`) to adjust the width of the navigation panel according to your layout requirements.
+
+<Canvas of={SidebarStories.OverlaySizes} />
+
+### Custom Styling with `cn`
+
+The component integrates the `cn` utility, allowing you to easily override or extend default styles (e.g., width, font size, colors) using the `className` or `panelClassName` props.
+
+```tsx
+<Sidebar
+  variant="hover"
+  className="w-[100px] hover:w-[350px]"
+  panelClassName="bg-gray-100"
+/>
+```
+
+---
+
+## Props
+
+<ArgTypes of={SidebarStories} />
+
+---
+
+## Usage Guidelines
+
+- Choose the **Overlay** variant for mobile responsiveness.
+- Use the **Hover** variant when you want to minimize visual clutter on content-heavy pages.
+- Opt for the **Collapsible** variant when users need to frequently navigate between many different sections.
+- Ensure icons are recognizable and provide clear labels for accessibility.
+
+---
+
+## Accessibility
+
+- Uses semantic `<aside>` and `<nav>` elements for better screen reader support.
+- Toggle buttons include `aria-label` and `aria-expanded` attributes.
+- Keyboard accessible navigation and focus states.
+- Overlay variant correctly manages focus and backdrop interaction.
