@@ -16,7 +16,8 @@ Storybook provides a dedicated environment where developers and designers can vi
   - [⚙️ System Requirements](#️-system-requirements)
   - [💡 Getting Started](#-getting-started)
     - [1️⃣ Clone Repository](#1️⃣-clone-repository)
-    - [2️⃣ Configure .npmrc & Authentication](#2️⃣-configure-npmrc--authentication)
+    - [2️⃣ Configure .npmrc \& Authentication](#2️⃣-configure-npmrc--authentication)
+      - [Steps:](#steps)
     - [3️⃣ Install Dependencies](#3️⃣-install-dependencies)
     - [4️⃣ Run Storybook](#4️⃣-run-storybook)
     - [5️⃣ Build Storybook Static](#5️⃣-build-storybook-static)
@@ -25,10 +26,14 @@ Storybook provides a dedicated environment where developers and designers can vi
     - [Importing Components](#importing-components)
     - [Importing Styles](#importing-styles)
     - [Available Components](#available-components)
-  - [🤖 Automated Linting (CI)](#-automated-linting-ci)
-    - [🔍 How It Works](#-how-it-works)
+  - [🤖 CI/CD Pipelines](#-cicd-pipelines)
+    - [Workflows](#workflows)
+      - [🔍 Lint Workflow](#-lint-workflow)
+      - [📦 Publish Workflow](#-publish-workflow)
+      - [▲ Deploy Workflow](#-deploy-workflow)
     - [🛠 Fixing Linting Issues](#-fixing-linting-issues)
     - [📌 Local Commands](#-local-commands)
+    - [🚀 Node.js 24 Runtime Migration](#-nodejs-24-runtime-migration)
   - [📁 Project Structure](#-project-structure)
   - [📘 Explanation](#-explanation)
   - [🚀 Deployment](#-deployment)
@@ -81,7 +86,7 @@ Storybook provides a dedicated environment where developers and designers can vi
 
 | Requirement | Minimum Version              | Description            |
 | ----------- | ---------------------------- | ---------------------- |
-| **Node.js** | ≥ 20.x (Recommended: ≥ 22.x) | Runtime environment    |
+| **Node.js** | ≥ 22.x (Recommended: ≥ 24.x) | Runtime environment    |
 | **npm**     | ≥ 9.x (Recommended: ≥ 11.x)  | Package manager        |
 | **Git**     | Latest                       | Version control system |
 
@@ -293,28 +298,41 @@ The following components are exported from `@polapedia/ui-components`:
 
 ---
 
-## 🤖 Automated Linting (CI)
+## 🤖 CI/CD Pipelines
 
-This repository includes a **GitHub Actions CI workflow** that automatically runs ESLint on every:
+This project uses **GitHub Actions** for continuous integration and deployment. All workflows are configured under `.github/workflows/`.
 
-- `push` event to `main`
-- `pull_request` targeting `main`
+### Workflows
 
-This ensures the codebase remains consistent, clean, and aligned with project linting rules.
+| Workflow    | File                                    | Trigger                                   | Purpose                                    |
+| ----------- | --------------------------------------- | ----------------------------------------- | ------------------------------------------ |
+| **Lint**    | `.github/workflows/lint.yml`            | `push` / `pull_request` to `main`         | Run ESLint and Prettier                    |
+| **Publish** | `.github/workflows/publish-package.yml` | `release` published / `workflow_dispatch` | Publish package to GitHub Package Registry |
+| **Deploy**  | `.github/workflows/deploy-vercel.yml`   | `pull_request` closed (merged)            | Trigger Vercel deployment                  |
 
-### 🔍 How It Works
+#### 🔍 Lint Workflow
 
-1. Developer pushes commit or opens a Pull Request.
-2. GitHub Actions workflow (`.github/workflows/lint.yml`) runs automatically.
-3. ESLint checks the entire project using:
+Runs automatically on every push or PR targeting `main`:
 
-```bash
-npm run lint
-```
+1. Checkout repo → Setup Node.js 24 with npm cache → Install dependencies
+2. Run `npm run lint` — ESLint check
+3. Run `npm run format` — Prettier format check
+4. If any check fails, the pipeline blocks merging to `main`
 
-4. If linting issues are found, the pipeline will **fail** and block merging to `main`.
+#### 📦 Publish Workflow
 
----
+Triggered when a GitHub Release is published (or manually via `workflow_dispatch`):
+
+1. Checkout repo → Setup Node.js 24 → Configure `.npmrc` for GPR
+2. Install dependencies → Build library (`npm run build:lib`)
+3. Publish to GitHub Package Registry
+
+#### ▲ Deploy Workflow
+
+Triggered when a PR is merged (closed + merged):
+
+- **Staging**: PR merged to `main` → triggers Vercel deploy hook for staging
+- **Production**: PR from `main` merged to `production` → triggers Vercel deploy hook for production
 
 ### 🛠 Fixing Linting Issues
 
@@ -329,7 +347,7 @@ npm run lint:fix
 2. Format code:
 
    ```bash
-   npm run format
+   npm run format:fix
    ```
 
 3. Commit your changes and push again:
@@ -346,8 +364,6 @@ If errors still persist, check the exact rule message in the GitHub Actions logs
 npm run lint
 ```
 
----
-
 ### 📌 Local Commands
 
 | Command              | Description                           |
@@ -357,6 +373,27 @@ npm run lint
 | `npm run format`     | Validate formatting without modifying |
 | `npm run format:fix` | Format codebase using Prettier        |
 | `npm run test`       | Run unit tests                        |
+
+### 🚀 Node.js 24 Runtime Migration
+
+GitHub Actions is migrating its runner runtime from Node.js 20 → Node.js 24 (June 2026). All workflows in this project have been updated:
+
+| Action               | Before | After  |
+| -------------------- | ------ | ------ |
+| `actions/checkout`   | `v4`   | `v6`   |
+| `actions/setup-node` | `v4`   | `v6`   |
+| `node-version`       | `'20'` | `'24'` |
+
+**Compatibility flag** — all workflows set:
+
+```yaml
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+```
+
+This forces all JavaScript-based actions to use the Node.js 24 runtime, ensuring forward compatibility before GitHub removes Node.js 20 from runners in September 2026.
+
+**Action version policy**: Always pin to the latest major version of official GitHub actions (`@v6`) to stay compatible with the current Actions runtime.
 
 <p align="right">(<a href="#-table-of-contents">back to top</a>)</p>
 
@@ -371,7 +408,9 @@ ui-components/
 │
 ├── .github/
 │   └── workflows/
-│       └── lint.yml            # GitHub Actions workflow for linting
+│       ├── lint.yml               # GitHub Actions: ESLint & Prettier
+│       ├── publish-package.yml    # GitHub Actions: Publish to GPR
+│       └── deploy-vercel.yml      # GitHub Actions: Trigger Vercel deploy
 │
 ├── .storybook/                 # Storybook configuration
 │   ├── main.ts
