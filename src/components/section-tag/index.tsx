@@ -12,9 +12,9 @@ export function SectionTag({
     return (
       <span
         className={cn(
+          className,
           'inline-flex shrink-0 rounded-full p-[1.5px]',
-          'bg-linear-to-b from-gradient-primary to-gradient-secondary',
-          className
+          'bg-linear-to-b from-gradient-primary to-gradient-secondary'
         )}
       >
         <span
