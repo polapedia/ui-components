@@ -5,6 +5,9 @@ on:
     types:
       - closed
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy-staging:
     permissions:
@@ -14,7 +17,7 @@ jobs:
       github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Debug Info
         env:
@@ -42,7 +45,7 @@ jobs:
       github.event.pull_request.head.ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Debug Info
         env:
