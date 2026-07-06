@@ -1,0 +1,94 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  ArgTypes,
+} from '@storybook/addon-docs/blocks';
+import * as SectionTagStories from './index.stories';
+
+<Meta of={SectionTagStories} />
+
+# Section Tag
+
+A **Section Tag** is a small UI element in the form of a pill label, used to provide
+brief context or category before a main heading is displayed.
+
+It supports **3 sizes** and **2 variants** (accent and brand).
+
+---
+
+## Playground
+
+<Canvas>
+  <Primary />
+</Canvas>
+
+<Controls />
+
+Use the **Controls** panel to explore props such as `size` and `variant`.
+
+---
+
+## Variants
+
+### Accent
+
+The default variant — monochrome border with `content-secondary` text on a white background.
+
+<Canvas of={SectionTagStories.Variants} />
+
+### Brand
+
+Uses a gradient border and gradient text matching the brand identity.
+The gradient border is achieved via a `p-[1.5px]` wrapper with a gradient background,
+combined with an inner white pill — this is required because CSS `border-image` and `border-radius`
+cannot be combined natively.
+
+---
+
+## Sizes
+
+Three sizes are available, scaling both height and typography:
+
+- **lg** — `h-[58px]`, `text-[24px]`
+- **md** — `h-[48px]`, `text-[18px]` (default)
+- **sm** — `h-[40px]`, `text-[14px]`
+
+<Canvas of={SectionTagStories.Sizes} />
+
+---
+
+## All Sizes & Variants
+
+A full matrix of all sizes across both variants.
+
+<Canvas of={SectionTagStories.AllSizesAndVariants} />
+
+---
+
+## Showcase
+
+<Canvas of={SectionTagStories.Showcase} />
+
+---
+
+## Props
+
+<ArgTypes of={SectionTagStories} />
+
+---
+
+## Usage Guidelines
+
+- Place **Section Tag** above a section heading to provide quick categorical context.
+- Use **accent** variant for neutral/secondary sections.
+- Use **brand** variant for featured or primary sections where brand identity should be prominent.
+- Prefer concise, single-word or short-phrase content (e.g., "Kategori", "New", "Featured").
+
+---
+
+## Accessibility
+
+- Rendered as a `<span>` — purely decorative/visual; no interactive semantics required.
+- Ensure surrounding context provides adequate description for screen reader users (e.g., the heading that follows).
